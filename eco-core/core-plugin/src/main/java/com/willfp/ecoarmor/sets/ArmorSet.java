@@ -1,12 +1,14 @@
 package com.willfp.ecoarmor.sets;
 
 import com.willfp.eco.common.recipes.lookup.RecipePartUtils;
+import com.willfp.eco.util.ProxyUtils;
 import com.willfp.eco.util.StringUtils;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.recipe.EcoShapedRecipe;
 import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
+import com.willfp.ecoarmor.proxy.proxies.SkullProxy;
 import lombok.Getter;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -16,6 +18,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
@@ -124,6 +127,12 @@ public class ArmorSet {
         ItemMeta meta = itemStack.getItemMeta();
 
         assert meta != null;
+
+        if (material == Material.PLAYER_HEAD) {
+            String base64 = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".skull-texture");
+
+            ProxyUtils.getProxy(SkullProxy.class).setTalismanTexture((SkullMeta) meta, base64);
+        }
 
         if (material.toString().toLowerCase().contains("leather")) {
             String colorString = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".leather-color");
