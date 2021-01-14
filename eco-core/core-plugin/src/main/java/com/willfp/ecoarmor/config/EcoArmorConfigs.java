@@ -6,6 +6,9 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class EcoArmorConfigs {
+    /**
+     * sets.yml.
+     */
     public static final Sets SETS = new Sets();
 
     /**

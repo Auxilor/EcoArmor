@@ -74,6 +74,13 @@ public class ArmorUtils {
         return null;
     }
 
+    /**
+     * Get the strength of an effect on a player's set.
+     *
+     * @param player The player to test.
+     * @param effect The effect to test.
+     * @return The strength, or 0 if not found.
+     */
     public double getEffectStrength(@NotNull final Player player,
                                     @NotNull final Effect effect) {
         ArmorSet set = getSetOnPlayer(player);
@@ -88,6 +95,13 @@ public class ArmorUtils {
         return 0;
     }
 
+    /**
+     * If a player has an active effect.
+     *
+     * @param player The player to test.
+     * @param effect The effect to test.
+     * @return If a player has an active effect.
+     */
     public boolean hasEffect(@NotNull final Player player,
                              @NotNull final Effect effect) {
         return getEffectStrength(player, effect) != 0;

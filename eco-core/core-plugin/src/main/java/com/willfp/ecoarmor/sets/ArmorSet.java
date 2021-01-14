@@ -39,21 +39,39 @@ public class ArmorSet {
     @Getter
     private final String name;
 
+    /**
+     * Effects and their strengths.
+     */
     @Getter
     private final Map<Effect, Double> effects = new HashMap<>();
 
+    /**
+     * Potion effects to be applied on equip.
+     */
     @Getter
     private final Map<PotionEffectType, Integer> potionEffects = new HashMap<>();
 
+    /**
+     * Helmet ItemStack.
+     */
     @Getter
     private final ItemStack helmet;
 
+    /**
+     * Chestplate ItemStack.
+     */
     @Getter
     private final ItemStack chestplate;
 
+    /**
+     * Leggings ItemStack.
+     */
     @Getter
     private final ItemStack leggings;
 
+    /**
+     * Boots ItemStack.
+     */
     @Getter
     private final ItemStack boots;
 

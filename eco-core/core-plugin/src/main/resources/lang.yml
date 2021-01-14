@@ -7,6 +7,6 @@ messages:
   invalid-player: "&cInvalid player!"
   needs-set: "&cYou must specify a set"
   invalid-set: "&cInvalid set!"
-  give-success: "Gave &a%set%&r to &a%recipient%"
+  give-success: "Gave &a%set% Set&r to &a%recipient%"
 
 description-color: "&8"

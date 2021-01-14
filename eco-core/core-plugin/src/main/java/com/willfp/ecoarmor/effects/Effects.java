@@ -3,7 +3,17 @@ package com.willfp.ecoarmor.effects;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
-import com.willfp.ecoarmor.effects.effects.*;
+import com.willfp.ecoarmor.effects.effects.BonusHearts;
+import com.willfp.ecoarmor.effects.effects.BowDamageMultiplier;
+import com.willfp.ecoarmor.effects.effects.DamageMultiplier;
+import com.willfp.ecoarmor.effects.effects.DamageTakenMultiplier;
+import com.willfp.ecoarmor.effects.effects.EvadeChance;
+import com.willfp.ecoarmor.effects.effects.ExperienceMultiplier;
+import com.willfp.ecoarmor.effects.effects.FallDamageMultiplier;
+import com.willfp.ecoarmor.effects.effects.MeleeDamageMultiplier;
+import com.willfp.ecoarmor.effects.effects.RegenerationMultiplier;
+import com.willfp.ecoarmor.effects.effects.SpeedMutiplier;
+import com.willfp.ecoarmor.effects.effects.TridentDamageMultiplier;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,6 +21,9 @@ import java.util.List;
 
 @UtilityClass
 public class Effects {
+    /**
+     * All registered effects.
+     */
     private static final BiMap<String, Effect> BY_NAME = HashBiMap.create();
 
     public static final Effect BOW_DAMAGE_MULTIPLIER = new BowDamageMultiplier();
@@ -25,10 +38,21 @@ public class Effects {
     public static final Effect EXPERIENCE_MULTIPLIER = new ExperienceMultiplier();
     public static final Effect REGENERATION_MULTIPLIER = new RegenerationMultiplier();
 
+    /**
+     * Get effect matching name.
+     *
+     * @param name The name to query.
+     * @return The matching effect, or null if not found.
+     */
     public static Effect getByName(@NotNull final String name) {
         return BY_NAME.get(name);
     }
 
+    /**
+     * List of all registered effects.
+     *
+     * @return The effects.
+     */
     public static List<Effect> values() {
         return ImmutableList.copyOf(BY_NAME.values());
     }

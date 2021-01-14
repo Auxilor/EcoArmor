@@ -5,5 +5,10 @@
         "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
+    <!-- Effects don't need javadoc. -->
+    <suppress files="[\\/]effects[\\/]effects[\\/]" checks="MissingJavadocMethod"/>
+    <suppress files="[\\/]effects[\\/]effects[\\/]" checks="JavadocVariable"/>
 
+    <!-- Fields don't need javadoc -->
+    <suppress files="Effects.java" checks="JavadocVariable"/>
 </suppressions>

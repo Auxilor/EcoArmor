@@ -13,6 +13,9 @@ public abstract class Effect implements Listener {
     @Getter(AccessLevel.PROTECTED)
     private final AbstractEcoPlugin plugin = AbstractEcoPlugin.getInstance();
 
+    /**
+     * The name of the effect.
+     */
     @Getter
     private final String name;
 

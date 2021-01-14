@@ -13,6 +13,9 @@ import java.util.List;
 
 @UtilityClass
 public class ArmorSets {
+    /**
+     * Registered armor sets.
+     */
     private static final BiMap<String, ArmorSet> BY_NAME = HashBiMap.create();
 
     /**
