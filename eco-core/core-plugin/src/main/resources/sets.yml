@@ -204,3 +204,110 @@ Emerald:
       - emerald_block
       - air
       - emerald_block
+Golem:
+  set-bonus:
+    damage-taken-multiplier: 0.6
+    speed-multiplier: 0.75
+  helmet:
+    enchants:
+      protection: 4
+      unbreaking: 3
+    material: leather_helmet
+    leather-color: "#C0C0C0"
+    name: "&fGolem Helmet"
+    lore:
+      - "&fBuilt like a tank"
+      - ""
+      - "&f&lGOLEM SET BONUS"
+      - "&8» &fTake 40% less damage"
+      - "&8» &fMove 25% slower"
+      - "&8&oRequires full set to be worn"
+    recipe:
+      - emerald_block
+      - emerald_block
+      - emerald_block
+
+      - emerald_block
+      - air
+      - emerald_block
+
+      - air
+      - air
+      - air
+  chestplate:
+    enchants:
+      protection: 4
+      unbreaking: 3
+    material: leather_chestplate
+    leather-color: "#C0C0C0"
+    name: "&fGolem Chestplate"
+    lore:
+      - "&fBuilt like a tank"
+      - ""
+      - "&f&lGOLEM SET BONUS"
+      - "&8» &fTake 40% less damage"
+      - "&8» &fMove 25% slower"
+      - "&8&oRequires full set to be worn"
+    recipe:
+      - emerald_block
+      - air
+      - emerald_block
+
+      - emerald_block
+      - emerald_block
+      - emerald_block
+
+      - emerald_block
+      - emerald_block
+      - emerald_block
+  leggings:
+    enchants:
+      protection: 4
+      unbreaking: 3
+    material: leather_leggings
+    name: "&fGolem Leggings"
+    lore:
+      - "&fBuilt like a tank"
+      - ""
+      - "&f&lGOLEM SET BONUS"
+      - "&8» &fTake 40% less damage"
+      - "&8» &fMove 25% slower"
+      - "&8&oRequires full set to be worn"
+    recipe:
+      - emerald_block
+      - emerald_block
+      - emerald_block
+
+      - emerald_block
+      - air
+      - emerald_block
+
+      - emerald_block
+      - air
+      - emerald_block
+  boots:
+    enchants:
+      protection: 4
+      unbreaking: 3
+    material: leather_boots
+    leather-color: "#C0C0C0"
+    name: "&fGolem Boots"
+    lore:
+      - "&fBuilt like a tank"
+      - ""
+      - "&f&lGOLEM SET BONUS"
+      - "&8» &fTake 40% less damage"
+      - "&8» &fMove 25% slower"
+      - "&8&oRequires full set to be worn"
+    recipe:
+      - air
+      - air
+      - air
+
+      - emerald_block
+      - emerald_block
+      - emerald_block
+
+      - emerald_block
+      - air
+      - emerald_block
