@@ -3,16 +3,7 @@ package com.willfp.ecoarmor.effects;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
-import com.willfp.ecoarmor.effects.effects.BonusHearts;
-import com.willfp.ecoarmor.effects.effects.BowDamageMultiplier;
-import com.willfp.ecoarmor.effects.effects.DamageMultiplier;
-import com.willfp.ecoarmor.effects.effects.DamageTakenMultiplier;
-import com.willfp.ecoarmor.effects.effects.EvadeChance;
-import com.willfp.ecoarmor.effects.effects.ExperienceMultiplier;
-import com.willfp.ecoarmor.effects.effects.FallDamageMultiplier;
-import com.willfp.ecoarmor.effects.effects.MeleeDamageMultiplier;
-import com.willfp.ecoarmor.effects.effects.SpeedMutiplier;
-import com.willfp.ecoarmor.effects.effects.TridentDamageMultiplier;
+import com.willfp.ecoarmor.effects.effects.*;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,6 +23,7 @@ public class Effects {
     public static final Effect BONUS_HEARTS = new BonusHearts();
     public static final Effect SPEED_MULTIPLIER = new SpeedMutiplier();
     public static final Effect EXPERIENCE_MULTIPLIER = new ExperienceMultiplier();
+    public static final Effect REGENERATION_MULTIPLIER = new RegenerationMultiplier();
 
     public static Effect getByName(@NotNull final String name) {
         return BY_NAME.get(name);
