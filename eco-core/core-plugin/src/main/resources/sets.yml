@@ -7,7 +7,7 @@ Reaper:
       unbreaking: 3
     material: leather_helmet
     leather-color: "#303030"
-    name: "&fReaper Helmet"
+    name: "&cReaper Helmet"
     lore:
       - "&cThe soul of the grim reaper"
       - ""
@@ -32,7 +32,7 @@ Reaper:
       unbreaking: 3
     material: leather_chestplate
     leather-color: "#303030"
-    name: "&fReaper Chestplate"
+    name: "&cReaper Chestplate"
     lore:
       - "&cThe soul of the grim reaper"
       - ""
@@ -57,7 +57,7 @@ Reaper:
       unbreaking: 3
     material: leather_leggings
     leather-color: "#303030"
-    name: "&fReaper Leggings"
+    name: "&cReaper Leggings"
     lore:
       - "&cThe soul of the grim reaper"
       - ""
@@ -82,7 +82,7 @@ Reaper:
       unbreaking: 3
     material: leather_boots
     leather-color: "#303030"
-    name: "&fReaper Boots"
+    name: "&cReaper Boots"
     lore:
       - "&cThe soul of the grim reaper"
       - ""
@@ -110,7 +110,7 @@ Emerald:
       unbreaking: 3
     material: leather_helmet
     leather-color: "#00ff33"
-    name: "&fEmerald Helmet"
+    name: "&aEmerald Helmet"
     lore:
       - "&aThe essence of wisdom"
       - ""
@@ -135,7 +135,7 @@ Emerald:
       unbreaking: 3
     material: leather_chestplate
     leather-color: "#00ff33"
-    name: "&fEmerald Helmet"
+    name: "&aEmerald Chestplate"
     lore:
       - "&aThe essence of wisdom"
       - ""
@@ -160,7 +160,7 @@ Emerald:
       unbreaking: 3
     material: leather_leggings
     leather-color: "#00ff33"
-    name: "&fEmerald Helmet"
+    name: "&aEmerald Leggings"
     lore:
       - "&aThe essence of wisdom"
       - ""
@@ -185,7 +185,7 @@ Emerald:
       unbreaking: 3
     material: leather_boots
     leather-color: "#00ff33"
-    name: "&fEmerald Helmet"
+    name: "&aEmerald Boots"
     lore:
       - "&aThe essence of wisdom"
       - ""
