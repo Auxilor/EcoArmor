@@ -1,0 +1,206 @@
+Reaper:
+  set-bonus:
+    damage-multiplier: 1.25
+  helmet:
+    enchants:
+      protection: 4
+      unbreaking: 3
+    material: leather_helmet
+    leather-color: "#303030"
+    name: "&fReaper Helmet"
+    lore:
+      - "&cThe soul of the grim reaper"
+      - ""
+      - "&c&lREAPER SET BONUS"
+      - "&8» &cDeal 25% more damage"
+      - "&8&oRequires full set to be worn"
+    recipe:
+      - air
+      - nether_star
+      - air
+
+      - nether_star
+      - diamond_helmet
+      - nether_star
+
+      - air
+      - nether_star
+      - air
+  chestplate:
+    enchants:
+      protection: 4
+      unbreaking: 3
+    material: leather_chestplate
+    leather-color: "#303030"
+    name: "&fReaper Chestplate"
+    lore:
+      - "&cThe soul of the grim reaper"
+      - ""
+      - "&c&lREAPER SET BONUS"
+      - "&8» &cDeal 25% more damage"
+      - "&8&oRequires full set to be worn"
+    recipe:
+      - air
+      - nether_star
+      - air
+
+      - nether_star
+      - diamond_chestplate
+      - nether_star
+
+      - air
+      - nether_star
+      - air
+  leggings:
+    enchants:
+      protection: 4
+      unbreaking: 3
+    material: leather_leggings
+    leather-color: "#303030"
+    name: "&fReaper Leggings"
+    lore:
+      - "&cThe soul of the grim reaper"
+      - ""
+      - "&c&lREAPER SET BONUS"
+      - "&8» &cDeal 25% more damage"
+      - "&8&oRequires full set to be worn"
+    recipe:
+      - air
+      - nether_star
+      - air
+
+      - nether_star
+      - diamond_leggings
+      - nether_star
+
+      - air
+      - nether_star
+      - air
+  boots:
+    enchants:
+      protection: 4
+      unbreaking: 3
+    material: leather_boots
+    leather-color: "#303030"
+    name: "&fReaper Boots"
+    lore:
+      - "&cThe soul of the grim reaper"
+      - ""
+      - "&c&lREAPER SET BONUS"
+      - "&8» &cDeal 25% more damage"
+      - "&8&oRequires full set to be worn"
+    recipe:
+      - air
+      - nether_star
+      - air
+
+      - nether_star
+      - diamond_boots
+      - nether_star
+
+      - air
+      - nether_star
+      - air
+Emerald:
+  set-bonus:
+    experience-multiplier: 2.5
+  helmet:
+    enchants:
+      protection: 4
+      unbreaking: 3
+    material: leather_helmet
+    leather-color: "#00ff33"
+    name: "&fEmerald Helmet"
+    lore:
+      - "&aThe essence of wisdom"
+      - ""
+      - "&a&lEMERALD SET BONUS"
+      - "&8» &aGain 2.5x more experience"
+      - "&8&oRequires full set to be worn"
+    recipe:
+      - emerald_block
+      - emerald_block
+      - emerald_block
+
+      - emerald_block
+      - air
+      - emerald_block
+
+      - air
+      - air
+      - air
+  chestplate:
+    enchants:
+      protection: 4
+      unbreaking: 3
+    material: leather_chestplate
+    leather-color: "#00ff33"
+    name: "&fEmerald Helmet"
+    lore:
+      - "&aThe essence of wisdom"
+      - ""
+      - "&a&lEMERALD SET BONUS"
+      - "&8» &aGain 2.5x more experience"
+      - "&8&oRequires full set to be worn"
+    recipe:
+      - emerald_block
+      - air
+      - emerald_block
+
+      - emerald_block
+      - emerald_block
+      - emerald_block
+
+      - emerald_block
+      - emerald_block
+      - emerald_block
+  leggings:
+    enchants:
+      protection: 4
+      unbreaking: 3
+    material: leather_leggings
+    leather-color: "#00ff33"
+    name: "&fEmerald Helmet"
+    lore:
+      - "&aThe essence of wisdom"
+      - ""
+      - "&a&lEMERALD SET BONUS"
+      - "&8» &aGain 2.5x more experience"
+      - "&8&oRequires full set to be worn"
+    recipe:
+      - emerald_block
+      - emerald_block
+      - emerald_block
+
+      - emerald_block
+      - air
+      - emerald_block
+
+      - emerald_block
+      - air
+      - emerald_block
+  boots:
+    enchants:
+      protection: 4
+      unbreaking: 3
+    material: leather_boots
+    leather-color: "#00ff33"
+    name: "&fEmerald Helmet"
+    lore:
+      - "&aThe essence of wisdom"
+      - ""
+      - "&a&lEMERALD SET BONUS"
+      - "&8» &aGain 2.5x more experience"
+      - "&8&oRequires full set to be worn"
+    recipe:
+      - air
+      - air
+      - air
+
+      - emerald_block
+      - emerald_block
+      - emerald_block
+
+      - emerald_block
+      - air
+      - emerald_block
