@@ -14,6 +14,7 @@ import com.willfp.ecoarmor.effects.effects.MeleeDamageMultiplier;
 import com.willfp.ecoarmor.effects.effects.RegenerationMultiplier;
 import com.willfp.ecoarmor.effects.effects.SpeedMutiplier;
 import com.willfp.ecoarmor.effects.effects.TridentDamageMultiplier;
+import com.willfp.ecoarmor.effects.effects.WarpChance;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,6 +38,7 @@ public class Effects {
     public static final Effect SPEED_MULTIPLIER = new SpeedMutiplier();
     public static final Effect EXPERIENCE_MULTIPLIER = new ExperienceMultiplier();
     public static final Effect REGENERATION_MULTIPLIER = new RegenerationMultiplier();
+    public static final Effect WARP_CHANCE = new WarpChance();
 
     /**
      * Get effect matching name.
