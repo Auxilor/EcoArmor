@@ -213,7 +213,7 @@ Golem:
       protection: 4
       unbreaking: 3
     material: leather_helmet
-    leather-color: "#C0C0C0"
+    leather-color: "#c0c0c0"
     name: "&fGolem Helmet"
     lore:
       - "&fBuilt like a tank"
@@ -239,7 +239,7 @@ Golem:
       protection: 4
       unbreaking: 3
     material: leather_chestplate
-    leather-color: "#C0C0C0"
+    leather-color: "#c0c0c0"
     name: "&fGolem Chestplate"
     lore:
       - "&fBuilt like a tank"
@@ -265,6 +265,7 @@ Golem:
       protection: 4
       unbreaking: 3
     material: leather_leggings
+    leather-color: "#c0c0c0"
     name: "&fGolem Leggings"
     lore:
       - "&fBuilt like a tank"
@@ -290,7 +291,7 @@ Golem:
       protection: 4
       unbreaking: 3
     material: leather_boots
-    leather-color: "#C0C0C0"
+    leather-color: "#c0c0c0"
     name: "&fGolem Boots"
     lore:
       - "&fBuilt like a tank"
@@ -305,7 +306,7 @@ Golem:
       - air
 
       - emerald_block
-      - emerald_block
+      - air
       - emerald_block
 
       - emerald_block

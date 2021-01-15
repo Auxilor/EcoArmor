@@ -92,12 +92,6 @@ public class ArmorSet {
             effects.put(effect, value);
         }
 
-        for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".potions").getKeys(false)) {
-            PotionEffectType effect = PotionEffectType.getByName(effectName.toUpperCase());
-            int level = EcoArmorConfigs.SETS.getInt(name + ".potions." + effectName);
-            potionEffects.put(effect, level);
-        }
-
         helmet = construct("helmet");
         chestplate = construct("chestplate");
         leggings = construct("leggings");

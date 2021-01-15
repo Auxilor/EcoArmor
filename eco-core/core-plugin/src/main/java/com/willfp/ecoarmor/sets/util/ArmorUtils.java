@@ -55,7 +55,7 @@ public class ArmorUtils {
             found.add(set);
         }
 
-        if (found.isEmpty()) {
+        if (found.size() < 4) {
             return null;
         }
 

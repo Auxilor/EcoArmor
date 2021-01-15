@@ -31,7 +31,10 @@ public class SpeedMutiplier extends Effect {
             if (multiplier == 0) {
                 movementSpeed.removeModifier(new AttributeModifier(MODIFIER_UUID, "speed-multiplier", 0, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
             } else {
-                movementSpeed.addModifier(new AttributeModifier(MODIFIER_UUID, "speed-multiplier", multiplier - 1, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
+                AttributeModifier modifier = new AttributeModifier(MODIFIER_UUID, "speed-multiplier", multiplier - 1, AttributeModifier.Operation.MULTIPLY_SCALAR_1);
+                if (!movementSpeed.getModifiers().contains(modifier)) {
+                    movementSpeed.addModifier(modifier);
+                }
             }
         }, 1);
     }
