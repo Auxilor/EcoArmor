@@ -9,6 +9,7 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Attr;
 
 import java.util.UUID;
 
@@ -31,7 +32,10 @@ public class BonusHearts extends Effect {
             if (multiplier == 0) {
                 maxHealth.removeModifier(new AttributeModifier(MODIFIER_UUID, "bonus-hearts", 0, AttributeModifier.Operation.ADD_NUMBER));
             } else {
-                maxHealth.addModifier(new AttributeModifier(MODIFIER_UUID, "bonus-hearts", multiplier * 2, AttributeModifier.Operation.ADD_NUMBER));
+                AttributeModifier modifier = new AttributeModifier(MODIFIER_UUID, "bonus-hearts", multiplier * 2, AttributeModifier.Operation.ADD_NUMBER);
+                if (!maxHealth.getModifiers().contains(modifier)) {
+                    maxHealth.addModifier(modifier);
+                }
             }
         }, 1);
     }
