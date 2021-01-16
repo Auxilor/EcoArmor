@@ -27,6 +27,11 @@ import java.util.Objects;
 
 public class UpgradeCrystal {
     /**
+     * Registered crystals.
+     */
+    private static final BiMap<String, UpgradeCrystal> BY_NAME = HashBiMap.create();
+
+    /**
      * Iron crystal.
      */
     public static final UpgradeCrystal IRON = new UpgradeCrystal("iron");
@@ -40,11 +45,6 @@ public class UpgradeCrystal {
      * Netherite crystal.
      */
     public static final UpgradeCrystal NETHERITE = new UpgradeCrystal("netherite");
-
-    /**
-     * Registered crystals.
-     */
-    private static final BiMap<String, UpgradeCrystal> BY_NAME = HashBiMap.create();
 
     /**
      * Instance of ItemStats to create keys for.
