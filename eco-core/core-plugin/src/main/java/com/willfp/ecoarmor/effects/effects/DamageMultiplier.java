@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class DamageMultiplier extends Effect {
     public DamageMultiplier() {
-        super("damage-multiplier");
+        super("damage-multiplier", ValueType.DOUBLE);
     }
 
     @EventHandler

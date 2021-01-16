@@ -10,7 +10,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.projectiles.ProjectileSource;
 import org.jetbrains.annotations.NotNull;
 
-public class TridentDamageMultiplier extends Effect {
+public class TridentDamageMultiplier extends Effect<Double> {
     public TridentDamageMultiplier() {
         super("trident-damage-multiplier");
     }
@@ -37,7 +37,12 @@ public class TridentDamageMultiplier extends Effect {
             return;
         }
 
-        double multiplier = ArmorUtils.getEffectStrength(attacker, this);
+        Double multiplier = ArmorUtils.getEffectStrength(attacker, this);
+
+        if (multiplier == null) {
+            return;
+        }
+
         if (multiplier == 0) {
             return;
         }

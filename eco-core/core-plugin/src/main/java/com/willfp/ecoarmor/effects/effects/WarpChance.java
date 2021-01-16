@@ -3,7 +3,6 @@ package com.willfp.ecoarmor.effects.effects;
 import com.willfp.eco.util.NumberUtils;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
@@ -13,7 +12,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-public class WarpChance extends Effect {
+public class WarpChance extends Effect<Double> {
     public WarpChance() {
         super("warp-chance");
     }
@@ -35,7 +34,15 @@ public class WarpChance extends Effect {
         Player player = (Player) event.getDamager();
         LivingEntity victim = (LivingEntity) event.getEntity();
 
-        double chance = ArmorUtils.getEffectStrength(player, this);
+        if (!ArmorUtils.hasEffect(player, this)) {
+            return;
+        }
+
+        Double chance = ArmorUtils.getEffectStrength(player, this);
+
+        if (chance == null) {
+            return;
+        }
 
         if (NumberUtils.randFloat(0, 100) > chance) {
             return;

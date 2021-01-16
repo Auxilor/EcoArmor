@@ -99,20 +99,18 @@ public class ArmorUtils {
      *
      * @param player The player to test.
      * @param effect The effect to test.
-     * @return The strength, or 0 if not found.
+     * @param <T>    Effect type.
+     * @return The strength, or null if not found.
      */
-    public double getEffectStrength(@NotNull final Player player,
-                                    @NotNull final Effect effect) {
+    @Nullable
+    public <T> T getEffectStrength(@NotNull final Player player,
+                                   @NotNull final Effect<T> effect) {
         ArmorSet set = getSetOnPlayer(player);
         if (set == null) {
-            return 0;
+            return null;
         }
 
-        if (set.getEffects().containsKey(effect)) {
-            return set.getEffects().get(effect);
-        }
-
-        return 0;
+        return set.getEffectStrength(effect);
     }
 
     /**
@@ -123,8 +121,8 @@ public class ArmorUtils {
      * @return If a player has an active effect.
      */
     public boolean hasEffect(@NotNull final Player player,
-                             @NotNull final Effect effect) {
-        return getEffectStrength(player, effect) != 0;
+                             @NotNull final Effect<?> effect) {
+        return getEffectStrength(player, effect) != null;
     }
 
     /**

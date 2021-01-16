@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+@SuppressWarnings("unchecked")
 public class ArmorSet {
     /**
      * Instance of EcoArmor.
@@ -48,7 +49,7 @@ public class ArmorSet {
      * Effects and their strengths.
      */
     @Getter
-    private final Map<Effect, Double> effects = new HashMap<>();
+    private final Map<Effect<?>, Object> effects = new HashMap<>();
 
     /**
      * Potion effects to be applied on equip.
@@ -70,8 +71,8 @@ public class ArmorSet {
         this.name = name;
 
         for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".set-bonus").getKeys(false)) {
-            Effect effect = Effects.getByName(effectName);
-            double value = EcoArmorConfigs.SETS.getDouble(name + ".set-bonus." + effectName);
+            Effect<?> effect = Effects.getByName(effectName);
+            Object value = EcoArmorConfigs.SETS.getConfig().get(name + ".set-bonus." + effectName);
             effects.put(effect, value);
         }
 
@@ -158,6 +159,17 @@ public class ArmorSet {
      */
     public ItemStack getItemStack(@NotNull final ArmorSlot slot) {
         return items.get(slot);
+    }
+
+    /**
+     * Get effect strength of effect.
+     *
+     * @param effect The effect to query.
+     * @param <T>    The type of the effect value.
+     * @return The strength.
+     */
+    public <T> T getEffectStrength(@NotNull final Effect<T> effect) {
+        return (T) effects.get(effect);
     }
 
     @Override

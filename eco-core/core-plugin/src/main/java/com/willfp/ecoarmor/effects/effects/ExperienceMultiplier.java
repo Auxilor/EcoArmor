@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.jetbrains.annotations.NotNull;
 
-public class ExperienceMultiplier extends Effect {
+public class ExperienceMultiplier extends Effect<Double> {
     public ExperienceMultiplier() {
         super("experience-multiplier");
     }
@@ -20,9 +20,9 @@ public class ExperienceMultiplier extends Effect {
             return;
         }
 
-        double multiplier = ArmorUtils.getEffectStrength(player, this);
+        Double multiplier = ArmorUtils.getEffectStrength(player, this);
 
-        if (multiplier == 0) {
+        if (multiplier == null) {
             return;
         }
 

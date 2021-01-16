@@ -6,7 +6,7 @@ import lombok.Getter;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class Effect implements Listener {
+public abstract class Effect<T> implements Listener {
     /**
      * Instance of EcoArmor.
      */
@@ -19,6 +19,11 @@ public abstract class Effect implements Listener {
     @Getter
     private final String name;
 
+    /**
+     * Create a new effect.
+     *
+     * @param name The effect name.
+     */
     protected Effect(@NotNull final String name) {
         this.name = name;
 

@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class EvadeChance extends Effect {
+public class EvadeChance extends Effect<Double> {
     public EvadeChance() {
         super("evade-chance");
     }
@@ -25,7 +25,11 @@ public class EvadeChance extends Effect {
 
         Player player = (Player) event.getEntity();
 
-        double chance = ArmorUtils.getEffectStrength(player, this);
+        Double chance = ArmorUtils.getEffectStrength(player, this);
+
+        if (chance == null) {
+            return;
+        }
 
         if (NumberUtils.randFloat(0, 100) < chance) {
             event.setCancelled(true);

@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class DurabilityMultiplier extends Effect {
+public class DurabilityMultiplier extends Effect<Double> {
     public DurabilityMultiplier() {
         super("durability-multiplier");
     }

@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class MeleeDamageMultiplier extends Effect {
+public class MeleeDamageMultiplier extends Effect<Double> {
     public MeleeDamageMultiplier() {
         super("melee-damage-multiplier");
     }
@@ -24,8 +24,8 @@ public class MeleeDamageMultiplier extends Effect {
 
         Player attacker = (Player) event.getDamager();
 
-        double multiplier = ArmorUtils.getEffectStrength(attacker, this);
-        if (multiplier == 0) {
+        Double multiplier = ArmorUtils.getEffectStrength(attacker, this);
+        if (multiplier == null) {
             return;
         }
 

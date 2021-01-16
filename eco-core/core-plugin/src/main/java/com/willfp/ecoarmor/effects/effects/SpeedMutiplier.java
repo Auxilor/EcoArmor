@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class SpeedMutiplier extends Effect {
+public class SpeedMutiplier extends Effect<Double> {
     private static final UUID MODIFIER_UUID = UUID.nameUUIDFromBytes("speed-multiplier".getBytes());
 
     public SpeedMutiplier() {
@@ -27,8 +27,8 @@ public class SpeedMutiplier extends Effect {
         assert movementSpeed != null;
 
         this.getPlugin().getScheduler().runLater(() -> {
-            double multiplier = ArmorUtils.getEffectStrength(player, this);
-            if (multiplier == 0) {
+            Double multiplier = ArmorUtils.getEffectStrength(player, this);
+            if (multiplier == null) {
                 movementSpeed.removeModifier(new AttributeModifier(MODIFIER_UUID, "speed-multiplier", 0, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
             } else {
                 AttributeModifier modifier = new AttributeModifier(MODIFIER_UUID, "speed-multiplier", multiplier - 1, AttributeModifier.Operation.MULTIPLY_SCALAR_1);

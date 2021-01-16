@@ -9,7 +9,6 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Attr;
 
 import java.util.UUID;
 
@@ -17,7 +16,7 @@ public class BonusHearts extends Effect {
     private static final UUID MODIFIER_UUID = UUID.nameUUIDFromBytes("bonus-hearts".getBytes());
 
     public BonusHearts() {
-        super("bonus-hearts");
+        super("bonus-hearts", ValueType.INT);
     }
 
     @EventHandler

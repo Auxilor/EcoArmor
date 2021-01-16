@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class RegenerationMultiplier extends Effect {
+public class RegenerationMultiplier extends Effect<Double> {
     public RegenerationMultiplier() {
         super("regeneration-multiplier");
     }
@@ -24,9 +24,9 @@ public class RegenerationMultiplier extends Effect {
 
         Player player = (Player) event.getEntity();
 
-        double multiplier = ArmorUtils.getEffectStrength(player, this);
+        Double multiplier = ArmorUtils.getEffectStrength(player, this);
 
-        if (multiplier == 0) {
+        if (multiplier == null) {
             return;
         }
 
