@@ -6,6 +6,8 @@ import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import lombok.experimental.UtilityClass;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -16,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @UtilityClass
 public class ArmorUtils {
@@ -189,6 +192,58 @@ public class ArmorUtils {
 
         if (slot == null) {
             return;
+        }
+
+        int armor = 0;
+        int toughness = 0;
+        int knockback = 0;
+
+        if (tier.equals("iron")) {
+            if (slot == ArmorSlot.HELMET) {
+                armor = 2;
+            } else if (slot == ArmorSlot.CHESTPLATE) {
+                armor = 6;
+            } else if (slot == ArmorSlot.LEGGINGS) {
+                armor = 5;
+            } else if (slot == ArmorSlot.BOOTS) {
+                armor = 2;
+            }
+        } else if (tier.equals("diamond")) {
+            toughness = 2;
+            if (slot == ArmorSlot.HELMET) {
+                armor = 3;
+            } else if (slot == ArmorSlot.CHESTPLATE) {
+                armor = 8;
+            } else if (slot == ArmorSlot.LEGGINGS) {
+                armor = 6;
+            } else if (slot == ArmorSlot.BOOTS) {
+                armor = 3;
+            }
+        } else if (tier.equals("netherite")) {
+            toughness = 3;
+            knockback = 1;
+            if (slot == ArmorSlot.HELMET) {
+                armor = 3;
+            } else if (slot == ArmorSlot.CHESTPLATE) {
+                armor = 8;
+            } else if (slot == ArmorSlot.LEGGINGS) {
+                armor = 6;
+            } else if (slot == ArmorSlot.BOOTS) {
+                armor = 3;
+            }
+        }
+
+        if (armor > 0) {
+            meta.removeAttributeModifier(Attribute.GENERIC_ARMOR);
+            meta.addAttributeModifier(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "ecoarmor-armor", armor, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot()));
+        }
+        if (toughness > 0) {
+            meta.removeAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS);
+            meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "ecoarmor-toughness", toughness, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot()));
+        }
+        if (knockback > 0) {
+            meta.removeAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
+            meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "ecoarmor-knockback", (double) knockback / 10, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot()));
         }
 
         itemStack.setItemMeta(meta);

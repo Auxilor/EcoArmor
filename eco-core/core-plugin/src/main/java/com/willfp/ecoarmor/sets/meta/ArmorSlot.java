@@ -1,6 +1,8 @@
 package com.willfp.ecoarmor.sets.meta;
 
+import lombok.Getter;
 import org.bukkit.Material;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -9,27 +11,37 @@ public enum ArmorSlot {
     /**
      * Helmet.
      */
-    HELMET,
+    HELMET(EquipmentSlot.HEAD),
 
     /**
      * Chestplate.
      */
-    CHESTPLATE,
+    CHESTPLATE(EquipmentSlot.CHEST),
 
     /**
      * Elytra.
      */
-    ELYTRA,
+    ELYTRA(EquipmentSlot.CHEST),
 
     /**
      * Leggings.
      */
-    LEGGINGS,
+    LEGGINGS(EquipmentSlot.LEGS),
 
     /**
      * Boots.
      */
-    BOOTS;
+    BOOTS(EquipmentSlot.FEET);
+
+    /**
+     * The equipment slot.
+     */
+    @Getter
+    private final EquipmentSlot slot;
+
+    ArmorSlot(@NotNull final EquipmentSlot slot) {
+        this.slot = slot;
+    }
 
     /**
      * Get ArmorSlot from item.
