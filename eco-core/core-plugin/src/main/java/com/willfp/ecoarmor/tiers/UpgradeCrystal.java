@@ -6,6 +6,7 @@ import com.willfp.eco.common.recipes.lookup.RecipePartUtils;
 import com.willfp.eco.common.recipes.parts.ComplexRecipePart;
 import com.willfp.eco.util.StringUtils;
 import com.willfp.eco.util.config.Configs;
+import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.recipe.EcoShapedRecipe;
 import com.willfp.ecoarmor.display.ArmorDisplay;
@@ -82,6 +83,7 @@ public class UpgradeCrystal {
      */
     public UpgradeCrystal(@NotNull final String tier) {
         this.tier = tier;
+        BY_NAME.put(tier, this);
         this.update();
     }
 
@@ -134,5 +136,13 @@ public class UpgradeCrystal {
      */
     public static UpgradeCrystal getByName(@Nullable final String name) {
         return BY_NAME.get(name);
+    }
+
+    /**
+     * Update.
+     */
+    @ConfigUpdater
+    public static void reload() {
+        BY_NAME.values().forEach(UpgradeCrystal::update);
     }
 }

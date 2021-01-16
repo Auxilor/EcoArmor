@@ -15,6 +15,7 @@ import com.willfp.ecoarmor.display.packets.PacketWindowItems;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.tiers.CrystalListener;
+import com.willfp.ecoarmor.tiers.UpgradeCrystal;
 import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
@@ -126,7 +127,8 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
         return Arrays.asList(
                 EcoArmorConfigs.class,
                 ArmorSets.class,
-                TabcompleterEagive.class
+                TabcompleterEagive.class,
+                UpgradeCrystal.class
         );
     }
 }
