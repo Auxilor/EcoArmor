@@ -1,10 +1,11 @@
 package com.willfp.ecoarmor.display;
 
+import com.willfp.eco.util.config.Configs;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
+import com.willfp.ecoarmor.tiers.UpgradeCrystal;
 import lombok.experimental.UtilityClass;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -60,12 +61,11 @@ public class ArmorDisplay {
      * @return The itemStack, updated.
      */
     public static ItemStack display(@Nullable final ItemStack itemStack) {
-        if (itemStack == null || itemStack.getItemMeta() == null || itemStack.getType() != Material.PLAYER_HEAD) {
+        if (itemStack == null || itemStack.getItemMeta() == null) {
             return itemStack;
         }
 
         ArmorSlot slot = ArmorSlot.getSlot(itemStack);
-
         if (slot == null) {
             return itemStack;
         }
@@ -80,6 +80,15 @@ public class ArmorDisplay {
         ArmorSet set = ArmorUtils.getSetOnItem(itemStack);
 
         if (set == null) {
+            String crystalTier = ArmorUtils.getCrystalTier(itemStack);
+            UpgradeCrystal crystal = UpgradeCrystal.getByName(crystalTier);
+
+            if (crystalTier == null || crystal == null) {
+                return itemStack;
+            }
+
+            meta.setLore(UpgradeCrystal.getByName(crystalTier).getItemStack().getItemMeta().getLore());
+            itemStack.setItemMeta(meta);
             return itemStack;
         }
 
@@ -87,7 +96,15 @@ public class ArmorDisplay {
         ItemMeta slotMeta = slotStack.getItemMeta();
         assert slotMeta != null;
 
-        meta.setLore(slotMeta.getLore());
+        String tier = ArmorUtils.getTier(itemStack);
+
+        List<String> lore = new ArrayList<>();
+
+        for (String s : slotMeta.getLore()) {
+            lore.add(s.replace("%tier%", Configs.CONFIG.getString("tier." + tier + ".display")));
+        }
+
+        meta.setLore(lore);
         meta.setDisplayName(slotMeta.getDisplayName());
 
         if (meta instanceof SkullMeta && slotMeta instanceof SkullMeta) {
@@ -99,6 +116,7 @@ public class ArmorDisplay {
         }
 
         itemStack.setItemMeta(meta);
+
         return itemStack;
     }
 }

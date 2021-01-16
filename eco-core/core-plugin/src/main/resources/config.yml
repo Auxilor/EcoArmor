@@ -2,3 +2,65 @@
 # EcoArmor
 # by Auxilor
 #
+
+tier:
+  default:
+    display: "&8&lDEFAULT"
+    # No crystal for default
+
+  iron:
+    display: "&7&lIRON"
+    crystal-name: "&7Iron Upgrade Crystal"
+    crystal-recipe:
+      - air
+      - iron_block
+      - air
+
+      - iron_block
+      - leather_chestplate
+      - iron_block
+
+      - air
+      - iron_block
+      - air
+    crystal-lore:
+      - "&8Drop this onto an item to set its tier to"
+      - "&7&lIRON"
+
+  diamond:
+    display: "&b&lDIAMOND"
+    crystal-name: "&bDiamond Upgrade Crystal"
+    crystal-recipe:
+      - air
+      - diamond_block
+      - air
+
+      - diamond_block
+      - ecoarmor:upgrade_crystal_iron
+      - diamond_block
+
+      - air
+      - diamond_block
+      - air
+    crystal-lore:
+      - "&8Drop this onto an item to set its tier to"
+      - "&b&lDIAMOND"
+
+  netherite:
+    display: "&c&lNETHERITE"
+    crystal-name: "&cNetherite Upgrade Crystal"
+    crystal-recipe:
+      - air
+      - netherite_block
+      - air
+
+      - netherite_block
+      - ecoarmor:upgrade_crystal_diamond
+      - netherite_block
+
+      - air
+      - netherite_block
+      - air
+    crystal-lore:
+      - "&8Drop this onto an item to set its tier to"
+      - "&c&lNETHERITE"

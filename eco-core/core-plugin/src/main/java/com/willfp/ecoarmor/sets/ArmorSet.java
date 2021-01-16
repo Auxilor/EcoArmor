@@ -11,7 +11,6 @@ import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.proxy.proxies.SkullProxy;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
-import com.willfp.ecoarmor.sets.meta.ArmorTier;
 import lombok.Getter;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -129,7 +128,7 @@ public class ArmorSet {
         enchants.forEach((enchantment, integer) -> meta.addEnchant(enchantment, integer, true));
         PersistentDataContainer container = meta.getPersistentDataContainer();
         container.set(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING, name);
-        container.set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, ArmorTier.DEFAULT);
+        container.set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, "default");
         itemStack.setItemMeta(meta);
 
         constructRecipe(slot, itemStack);

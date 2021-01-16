@@ -16,7 +16,7 @@ Reaper:
       - "&8&oRequires full set to be worn"
       - ""
       - "&fTier: %tier%"
-      - "&8&oUpgrade with a Tier Upgrader"
+      - "&8&oUpgrade with an Upgrade Crystal"
     recipe:
       - air
       - nether_star
@@ -44,7 +44,7 @@ Reaper:
       - "&8&oRequires full set to be worn"
       - ""
       - "&fTier: %tier%"
-      - "&8&oUpgrade with a Tier Upgrader"
+      - "&8&oUpgrade with a Upgrade Crystal"
     recipe:
       - air
       - nether_star
@@ -71,7 +71,7 @@ Reaper:
       - "&8&oRequires full set to be worn"
       - ""
       - "&fTier: %tier%"
-      - "&8&oUpgrade with a Tier Upgrader"
+      - "&8&oUpgrade with a Upgrade Crystal"
     recipe:
       - air
       - nether_star
@@ -99,7 +99,7 @@ Reaper:
       - "&8&oRequires full set to be worn"
       - ""
       - "&fTier: %tier%"
-      - "&8&oUpgrade with a Tier Upgrader"
+      - "&8&oUpgrade with a Upgrade Crystal"
     recipe:
       - air
       - nether_star
@@ -127,7 +127,7 @@ Reaper:
       - "&8&oRequires full set to be worn"
       - ""
       - "&fTier: %tier%"
-      - "&8&oUpgrade with a Tier Upgrader"
+      - "&8&oUpgrade with a Upgrade Crystal"
     recipe:
       - air
       - nether_star

@@ -14,6 +14,7 @@ import com.willfp.ecoarmor.display.packets.PacketSetSlot;
 import com.willfp.ecoarmor.display.packets.PacketWindowItems;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.ArmorSets;
+import com.willfp.ecoarmor.tiers.CrystalListener;
 import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
@@ -116,7 +117,7 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
     @Override
     public List<Listener> getListeners() {
         return Arrays.asList(
-
+                new CrystalListener(this)
         );
     }
 

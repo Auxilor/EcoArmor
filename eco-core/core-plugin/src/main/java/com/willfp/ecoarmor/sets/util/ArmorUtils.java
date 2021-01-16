@@ -4,6 +4,7 @@ import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
+import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -121,5 +122,75 @@ public class ArmorUtils {
     public boolean hasEffect(@NotNull final Player player,
                              @NotNull final Effect effect) {
         return getEffectStrength(player, effect) != 0;
+    }
+
+    /**
+     * Get tier on upgrade crystal.
+     *
+     * @param itemStack The item to check.
+     * @return The found tier, or null.
+     */
+    @Nullable
+    public static String getCrystalTier(@NotNull final ItemStack itemStack) {
+        ItemMeta meta = itemStack.getItemMeta();
+
+        if (meta == null) {
+            return null;
+        }
+
+        if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING)) {
+            return meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get tier on item.
+     *
+     * @param itemStack The item to check.
+     * @return The found tier.
+     */
+    public static String getTier(@NotNull final ItemStack itemStack) {
+        ItemMeta meta = itemStack.getItemMeta();
+
+        if (meta == null) {
+            return "default";
+        }
+
+        if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING)) {
+            return meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING);
+        }
+
+        return "default";
+    }
+
+    /**
+     * Get tier on item.
+     *
+     * @param itemStack The item to check.
+     * @param tier      The tier to set.
+     */
+    public static void setTier(@NotNull final ItemStack itemStack,
+                               @NotNull final String tier) {
+        ItemMeta meta = itemStack.getItemMeta();
+
+        if (meta == null) {
+            return;
+        }
+
+        if (getSetOnItem(itemStack) == null) {
+            return;
+        }
+
+        meta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, tier);
+
+        ArmorSlot slot = ArmorSlot.getSlot(itemStack);
+
+        if (slot == null) {
+            return;
+        }
+
+        itemStack.setItemMeta(meta);
     }
 }
