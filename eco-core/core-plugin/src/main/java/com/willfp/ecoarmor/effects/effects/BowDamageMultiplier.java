@@ -10,9 +10,9 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.projectiles.ProjectileSource;
 import org.jetbrains.annotations.NotNull;
 
-public class BowDamageMultiplier extends Effect {
+public class BowDamageMultiplier extends Effect<Double> {
     public BowDamageMultiplier() {
-        super("bow-damage-multiplier", ValueType.DOUBLE);
+        super("bow-damage-multiplier");
     }
 
     @EventHandler
@@ -37,8 +37,8 @@ public class BowDamageMultiplier extends Effect {
             return;
         }
 
-        double multiplier = ArmorUtils.getEffectStrength(attacker, this);
-        if (multiplier == 0) {
+        Double multiplier = ArmorUtils.getEffectStrength(attacker, this);
+        if (multiplier == null) {
             return;
         }
 

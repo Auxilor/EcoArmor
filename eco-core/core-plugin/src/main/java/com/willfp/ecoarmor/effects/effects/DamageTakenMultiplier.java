@@ -7,9 +7,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class DamageTakenMultiplier extends Effect {
+public class DamageTakenMultiplier extends Effect<Double> {
     public DamageTakenMultiplier() {
-        super("damage-taken-multiplier", ValueType.DOUBLE);
+        super("damage-taken-multiplier");
     }
 
     @EventHandler
@@ -24,8 +24,8 @@ public class DamageTakenMultiplier extends Effect {
 
         Player player = (Player) event.getEntity();
 
-        double multiplier = ArmorUtils.getEffectStrength(player, this);
-        if (multiplier == 0) {
+        Double multiplier = ArmorUtils.getEffectStrength(player, this);
+        if (multiplier == null) {
             return;
         }
 
