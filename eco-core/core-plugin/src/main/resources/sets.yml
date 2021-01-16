@@ -1,4 +1,5 @@
 Reaper:
+  craftable: true
   set-bonus:
     damage-multiplier: 1.25
   helmet:

@@ -46,6 +46,12 @@ public class ArmorSet {
     private final String name;
 
     /**
+     * If the set is craftable.
+     */
+    @Getter
+    private final boolean craftable;
+
+    /**
      * Effects and their strengths.
      */
     @Getter
@@ -69,6 +75,7 @@ public class ArmorSet {
      */
     public ArmorSet(@NotNull final String name) {
         this.name = name;
+        this.craftable = EcoArmorConfigs.SETS.getBool(name + ".craftable");
 
         for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".set-bonus").getKeys(false)) {
             Effect<?> effect = Effects.getByName(effectName);
@@ -132,7 +139,9 @@ public class ArmorSet {
         container.set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, "default");
         itemStack.setItemMeta(meta);
 
-        constructRecipe(slot, itemStack);
+        if (this.isCraftable()) {
+            constructRecipe(slot, itemStack);
+        }
 
         return itemStack;
     }
