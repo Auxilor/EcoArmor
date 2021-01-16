@@ -10,6 +10,7 @@ tier:
 
   iron:
     display: "&7&lIRON"
+    crystal-craftable: true
     crystal-name: "&7Iron Upgrade Crystal"
     crystal-recipe:
       - air
@@ -24,11 +25,13 @@ tier:
       - iron_block
       - air
     crystal-lore:
-      - "&8Drop this onto an item to set its tier to"
+      - "&8Drop this onto an armor piece"
+      - "&8to set its tier to:"
       - "&7&lIRON"
 
   diamond:
     display: "&b&lDIAMOND"
+    crystal-craftable: true
     crystal-name: "&bDiamond Upgrade Crystal"
     crystal-recipe:
       - air
@@ -43,11 +46,13 @@ tier:
       - diamond_block
       - air
     crystal-lore:
-      - "&8Drop this onto an item to set its tier to"
+      - "&8Drop this onto an armor piece"
+      - "&8to set its tier to:"
       - "&b&lDIAMOND"
 
   netherite:
     display: "&c&lNETHERITE"
+    crystal-craftable: true
     crystal-name: "&cNetherite Upgrade Crystal"
     crystal-recipe:
       - air
@@ -62,5 +67,6 @@ tier:
       - netherite_block
       - air
     crystal-lore:
-      - "&8Drop this onto an item to set its tier to"
+      - "&8Drop this onto an armor piece"
+      - "&8to set its tier to:"
       - "&c&lNETHERITE"

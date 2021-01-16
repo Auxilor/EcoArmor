@@ -9,8 +9,6 @@ Reaper:
     leather-color: "#303030"
     name: "&cReaper Helmet"
     lore:
-      - "&cThe soul of the grim reaper"
-      - ""
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
       - "&8&oRequires full set to be worn"
@@ -37,8 +35,6 @@ Reaper:
     leather-color: "#303030"
     name: "&cReaper Chestplate"
     lore:
-      - "&cThe soul of the grim reaper"
-      - ""
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
       - "&8&oRequires full set to be worn"
@@ -64,8 +60,6 @@ Reaper:
     material: elytra
     name: "&cReaper Elytra"
     lore:
-      - "&cThe soul of the grim reaper"
-      - ""
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
       - "&8&oRequires full set to be worn"
@@ -92,8 +86,6 @@ Reaper:
     leather-color: "#303030"
     name: "&cReaper Leggings"
     lore:
-      - "&cThe soul of the grim reaper"
-      - ""
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
       - "&8&oRequires full set to be worn"
@@ -120,8 +112,6 @@ Reaper:
     leather-color: "#303030"
     name: "&cReaper Boots"
     lore:
-      - "&cThe soul of the grim reaper"
-      - ""
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
       - "&8&oRequires full set to be worn"

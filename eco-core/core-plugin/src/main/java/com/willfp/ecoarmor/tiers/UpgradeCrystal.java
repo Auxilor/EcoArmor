@@ -58,6 +58,12 @@ public class UpgradeCrystal {
     private final String tier;
 
     /**
+     * If the crafting recipe is enabled.
+     */
+    @Getter
+    private boolean enabled;
+
+    /**
      * The ItemStack of the crystal.
      */
     @Getter
@@ -83,6 +89,7 @@ public class UpgradeCrystal {
      * Update the tracker's crafting recipe.
      */
     public void update() {
+        this.enabled = Configs.CONFIG.getBool("tier." + tier + ".crystal-craftable");
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal");
 
         ItemStack out = new ItemStack(Material.END_CRYSTAL);
@@ -102,19 +109,21 @@ public class UpgradeCrystal {
         out.setItemMeta(outMeta);
         this.itemStack = out;
 
-        EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(this.getPlugin(), "upgrade_crystal_" + tier)
-                .setOutput(out);
+        if (this.isEnabled()) {
+            EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(this.getPlugin(), "upgrade_crystal_" + tier)
+                    .setOutput(out);
 
-        List<String> recipeStrings = Configs.CONFIG.getStrings("tier." + tier + ".crystal-recipe");
+            List<String> recipeStrings = Configs.CONFIG.getStrings("tier." + tier + ".crystal-recipe");
 
-        RecipePartUtils.registerLookup("ecoarmor:upgrade_crystal_" + tier, s -> new ComplexRecipePart(test -> Objects.equals(tier, ArmorUtils.getCrystalTier(test)), out));
+            RecipePartUtils.registerLookup("ecoarmor:upgrade_crystal_" + tier, s -> new ComplexRecipePart(test -> Objects.equals(tier, ArmorUtils.getCrystalTier(test)), out));
 
-        for (int i = 0; i < 9; i++) {
-            builder.setRecipePart(i, RecipePartUtils.lookup(recipeStrings.get(i)));
+            for (int i = 0; i < 9; i++) {
+                builder.setRecipePart(i, RecipePartUtils.lookup(recipeStrings.get(i)));
+            }
+
+            this.recipe = builder.build();
+            this.recipe.register();
         }
-
-        this.recipe = builder.build();
-        this.recipe.register();
     }
 
     /**
