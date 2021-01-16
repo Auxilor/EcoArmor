@@ -8,6 +8,10 @@ import com.willfp.ecoarmor.commands.CommandEagive;
 import com.willfp.ecoarmor.commands.CommandEareload;
 import com.willfp.ecoarmor.commands.TabcompleterEagive;
 import com.willfp.ecoarmor.config.EcoArmorConfigs;
+import com.willfp.ecoarmor.display.packets.PacketChat;
+import com.willfp.ecoarmor.display.packets.PacketSetCreativeSlot;
+import com.willfp.ecoarmor.display.packets.PacketSetSlot;
+import com.willfp.ecoarmor.display.packets.PacketWindowItems;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import org.bukkit.event.Listener;
@@ -96,7 +100,12 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
      */
     @Override
     public List<AbstractPacketAdapter> getPacketAdapters() {
-        return new ArrayList<>();
+        return Arrays.asList(
+                new PacketChat(this),
+                new PacketSetSlot(this),
+                new PacketSetCreativeSlot(this),
+                new PacketWindowItems(this)
+        );
     }
 
     /**

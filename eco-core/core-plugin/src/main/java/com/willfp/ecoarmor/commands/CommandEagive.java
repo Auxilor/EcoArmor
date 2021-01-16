@@ -6,6 +6,7 @@ import com.willfp.eco.util.config.Configs;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
+import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -60,9 +61,8 @@ public class CommandEagive extends AbstractCommand {
         String message = Configs.LANG.getMessage("give-success");
         message = message.replace("%set%", set.getName()).replace("%recipient%", reciever.getName());
         sender.sendMessage(message);
-        reciever.getInventory().addItem(set.getHelmet());
-        reciever.getInventory().addItem(set.getChestplate());
-        reciever.getInventory().addItem(set.getLeggings());
-        reciever.getInventory().addItem(set.getBoots());
+        for (ArmorSlot slot : ArmorSlot.values()) {
+            reciever.getInventory().addItem(set.getItemStack(slot));
+        }
     }
 }

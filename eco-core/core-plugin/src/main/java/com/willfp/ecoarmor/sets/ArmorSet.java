@@ -6,9 +6,12 @@ import com.willfp.eco.util.StringUtils;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.recipe.EcoShapedRecipe;
 import com.willfp.ecoarmor.config.EcoArmorConfigs;
+import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.proxy.proxies.SkullProxy;
+import com.willfp.ecoarmor.sets.meta.ArmorSlot;
+import com.willfp.ecoarmor.sets.meta.ArmorTier;
 import lombok.Getter;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -55,28 +58,9 @@ public class ArmorSet {
     private final Map<PotionEffectType, Integer> potionEffects = new HashMap<>();
 
     /**
-     * Helmet ItemStack.
+     * Items in set.
      */
-    @Getter
-    private final ItemStack helmet;
-
-    /**
-     * Chestplate ItemStack.
-     */
-    @Getter
-    private final ItemStack chestplate;
-
-    /**
-     * Leggings ItemStack.
-     */
-    @Getter
-    private final ItemStack leggings;
-
-    /**
-     * Boots ItemStack.
-     */
-    @Getter
-    private final ItemStack boots;
+    private final Map<ArmorSlot, ItemStack> items = new HashMap<>();
 
     /**
      * Create a new Armor Set.
@@ -92,10 +76,10 @@ public class ArmorSet {
             effects.put(effect, value);
         }
 
-        helmet = construct("helmet");
-        chestplate = construct("chestplate");
-        leggings = construct("leggings");
-        boots = construct("boots");
+        for (ArmorSlot slot : ArmorSlot.values()) {
+            ItemStack item = construct(slot.name().toLowerCase());
+            items.put(slot, item);
+        }
 
         ArmorSets.addNewSet(this);
     }
@@ -104,17 +88,12 @@ public class ArmorSet {
         String pieceName = slot.toLowerCase();
 
         Material material = Material.getMaterial(EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".material").toUpperCase());
-        String displayName = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".name");
         Map<Enchantment, Integer> enchants = new HashMap<>();
+
         for (String enchantKey : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + "." + pieceName + ".enchants").getKeys(false)) {
             int level = EcoArmorConfigs.SETS.getInt(name + "." + pieceName + ".enchants." + enchantKey);
             Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(enchantKey));
             enchants.put(enchantment, level);
-        }
-
-        List<String> lore = new ArrayList<>();
-        for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + "." + pieceName + ".lore")) {
-            lore.add(StringUtils.translate(loreLine));
         }
 
         ItemStack itemStack = new ItemStack(material);
@@ -122,26 +101,35 @@ public class ArmorSet {
 
         assert meta != null;
 
-        if (material == Material.PLAYER_HEAD) {
-            String base64 = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".skull-texture");
+        String displayName = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".name");
 
-            ProxyUtils.getProxy(SkullProxy.class).setTalismanTexture((SkullMeta) meta, base64);
+        List<String> lore = new ArrayList<>();
+        for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + "." + pieceName + ".lore")) {
+            lore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
         }
 
-        if (material.toString().toLowerCase().contains("leather")) {
+        if (meta instanceof SkullMeta) {
+            String base64 = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".skull-texture");
+            ProxyUtils.getProxy(SkullProxy.class).setTexture((SkullMeta) meta, base64);
+        }
+
+        if (meta instanceof LeatherArmorMeta) {
             String colorString = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".leather-color");
-
             java.awt.Color awtColor = java.awt.Color.decode(colorString);
+            Color color = Color.fromRGB(awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue());
+            ((LeatherArmorMeta) meta).setColor(color);
 
-            ((LeatherArmorMeta) meta).setColor(Color.fromRGB(awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue()));
             meta.addItemFlags(ItemFlag.HIDE_DYE);
         }
 
         meta.setDisplayName(displayName);
-        enchants.forEach((enchantment, integer) -> meta.addEnchant(enchantment, integer, true));
+
         meta.setLore(lore);
+
+        enchants.forEach((enchantment, integer) -> meta.addEnchant(enchantment, integer, true));
         PersistentDataContainer container = meta.getPersistentDataContainer();
         container.set(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING, name);
+        container.set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, ArmorTier.DEFAULT);
         itemStack.setItemMeta(meta);
 
         constructRecipe(slot, itemStack);
@@ -161,6 +149,16 @@ public class ArmorSet {
 
         EcoShapedRecipe recipe = builder.build();
         recipe.register();
+    }
+
+    /**
+     * Get item stack from slot.
+     *
+     * @param slot The slot.
+     * @return The item.
+     */
+    public ItemStack getItemStack(@NotNull final ArmorSlot slot) {
+        return items.get(slot);
     }
 
     @Override

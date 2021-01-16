@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @UtilityClass
+@SuppressWarnings("unused")
 public class Effects {
     /**
      * All registered effects.

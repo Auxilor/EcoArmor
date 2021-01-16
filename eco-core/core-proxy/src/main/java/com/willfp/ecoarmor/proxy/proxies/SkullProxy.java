@@ -11,6 +11,6 @@ public interface SkullProxy extends AbstractProxy {
      * @param meta   The meta to modify.
      * @param base64 The base64 texture.
      */
-    void setTalismanTexture(@NotNull SkullMeta meta,
-                            @NotNull String base64);
+    void setTexture(@NotNull SkullMeta meta,
+                    @NotNull String base64);
 }

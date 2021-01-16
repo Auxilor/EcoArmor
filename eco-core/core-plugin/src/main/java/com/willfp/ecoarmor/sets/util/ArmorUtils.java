@@ -24,6 +24,30 @@ public class ArmorUtils {
     private static final AbstractEcoPlugin PLUGIN = AbstractEcoPlugin.getInstance();
 
     /**
+     * Get armor set on an item.
+     *
+     * @param itemStack The itemStack to check.
+     * @return The set, or null if no set is found.
+     */
+    @Nullable
+    public ArmorSet getSetOnItem(@NotNull final ItemStack itemStack) {
+        ItemMeta meta = itemStack.getItemMeta();
+
+        if (meta == null) {
+            return null;
+        }
+
+        PersistentDataContainer container = meta.getPersistentDataContainer();
+        String setName = container.get(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING);
+
+        if (setName == null) {
+            return null;
+        }
+
+        return ArmorSets.getByName(setName);
+    }
+
+    /**
      * Get armor set that player is wearing.
      *
      * @param player The player to check.
@@ -38,20 +62,12 @@ public class ArmorUtils {
                 continue;
             }
 
-            ItemMeta meta = itemStack.getItemMeta();
+            ArmorSet set = getSetOnItem(itemStack);
 
-            if (meta == null) {
+            if (set == null) {
                 continue;
             }
 
-            PersistentDataContainer container = meta.getPersistentDataContainer();
-            String setName = container.get(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING);
-
-            if (setName == null) {
-                continue;
-            }
-
-            ArmorSet set = ArmorSets.getByName(setName);
             found.add(set);
         }
 

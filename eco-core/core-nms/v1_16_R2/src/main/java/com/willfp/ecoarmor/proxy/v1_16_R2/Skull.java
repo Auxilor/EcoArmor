@@ -17,8 +17,8 @@ public class Skull implements SkullProxy {
     private Method setProfile = null;
 
     @Override
-    public void setTalismanTexture(@NotNull final SkullMeta meta,
-                                   @NotNull final String base64) {
+    public void setTexture(@NotNull final SkullMeta meta,
+                           @NotNull final String base64) {
         try {
             if (setProfile == null) {
                 setProfile = meta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
