@@ -26,7 +26,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class EcoArmorPlugin extends AbstractEcoPlugin {
     /**
-     * Instance of EcoArmor
+     * Instance of EcoArmor.
      */
     @Getter
     private static EcoArmorPlugin instance;
