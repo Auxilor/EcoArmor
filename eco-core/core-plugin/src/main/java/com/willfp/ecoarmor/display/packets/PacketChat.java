@@ -4,10 +4,10 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
-import com.willfp.eco.util.ProxyUtils;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.protocollib.AbstractPacketAdapter;
 import com.willfp.ecoarmor.proxy.proxies.ChatComponentProxy;
+import com.willfp.ecoarmor.util.ProxyUtils;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 

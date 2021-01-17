@@ -16,6 +16,7 @@ import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.tiers.CrystalListener;
 import com.willfp.ecoarmor.tiers.UpgradeCrystal;
+import lombok.Getter;
 import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
@@ -25,10 +26,17 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class EcoArmorPlugin extends AbstractEcoPlugin {
     /**
+     * Instance of EcoArmor
+     */
+    @Getter
+    private static EcoArmorPlugin instance;
+
+    /**
      * Internal constructor called by bukkit on plugin load.
      */
     public EcoArmorPlugin() {
-        super("EcoArmor", 0, 10002, "com.willfp.ecoarmor.proxy", "&5");
+        super("EcoArmor", 0, 10002, "com.willfp.ecoarmor.proxy", "&c");
+        instance = this;
     }
 
     /**

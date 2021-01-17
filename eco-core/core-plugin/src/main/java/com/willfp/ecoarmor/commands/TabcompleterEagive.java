@@ -3,8 +3,8 @@ package com.willfp.ecoarmor.commands;
 import com.willfp.eco.util.command.AbstractCommand;
 import com.willfp.eco.util.command.AbstractTabCompleter;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
-import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
+import com.willfp.ecoarmor.tiers.UpgradeCrystal;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,13 +21,14 @@ public class TabcompleterEagive extends AbstractTabCompleter {
     /**
      * The cached enchantment names.
      */
-    private static final List<String> SET_NAMES = ArmorSets.values().stream().map(ArmorSet::getName).collect(Collectors.toList());
+    private static final List<String> SET_NAMES = new ArrayList<>();
 
     /**
      * Instantiate a new tab-completer for /eagive.
      */
     public TabcompleterEagive() {
         super((AbstractCommand) Objects.requireNonNull(Bukkit.getPluginCommand("eagive")).getExecutor());
+        reload();
     }
 
     /**
@@ -36,7 +37,8 @@ public class TabcompleterEagive extends AbstractTabCompleter {
     @ConfigUpdater
     public static void reload() {
         SET_NAMES.clear();
-        SET_NAMES.addAll(ArmorSets.values().stream().map(ArmorSet::getName).collect(Collectors.toList()));
+        SET_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "set:" + armorSet.getName()).collect(Collectors.toList()));
+        SET_NAMES.addAll(UpgradeCrystal.values().stream().map(crystal -> "crystal:" + crystal.getTier()).collect(Collectors.toList()));
     }
 
     /**

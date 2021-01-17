@@ -1,6 +1,6 @@
 package com.willfp.ecoarmor.sets.util;
 
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
@@ -25,7 +25,7 @@ public class ArmorUtils {
     /**
      * Instance of EcoArmor.
      */
-    private static final AbstractEcoPlugin PLUGIN = AbstractEcoPlugin.getInstance();
+    private static final EcoArmorPlugin PLUGIN = EcoArmorPlugin.getInstance();
 
     /**
      * Get armor set on an item.

@@ -1,6 +1,6 @@
 package com.willfp.ecoarmor.display;
 
-import com.willfp.eco.util.config.Configs;
+import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
@@ -101,7 +101,7 @@ public class ArmorDisplay {
         List<String> lore = new ArrayList<>();
 
         for (String s : slotMeta.getLore()) {
-            lore.add(s.replace("%tier%", Configs.CONFIG.getString("tier." + tier + ".display")));
+            lore.add(s.replace("%tier%", EcoArmorPlugin.getInstance().getLangYml().getString("tier." + tier + ".display")));
         }
 
         meta.setLore(lore);

@@ -1,16 +1,16 @@
 package com.willfp.ecoarmor.sets;
 
-import com.willfp.eco.common.recipes.lookup.RecipePartUtils;
-import com.willfp.eco.util.ProxyUtils;
 import com.willfp.eco.util.StringUtils;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.recipe.EcoShapedRecipe;
+import com.willfp.eco.util.recipe.lookup.RecipePartUtils;
+import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.proxy.proxies.SkullProxy;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
+import com.willfp.ecoarmor.util.ProxyUtils;
 import lombok.Getter;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -37,7 +37,7 @@ public class ArmorSet {
     /**
      * Instance of EcoArmor.
      */
-    private static final AbstractEcoPlugin PLUGIN = AbstractEcoPlugin.getInstance();
+    private static final EcoArmorPlugin PLUGIN = EcoArmorPlugin.getInstance();
 
     /**
      * The name of the set.

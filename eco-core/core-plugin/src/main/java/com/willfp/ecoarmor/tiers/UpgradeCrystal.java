@@ -2,13 +2,13 @@ package com.willfp.ecoarmor.tiers;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.willfp.eco.common.recipes.lookup.RecipePartUtils;
-import com.willfp.eco.common.recipes.parts.ComplexRecipePart;
+import com.google.common.collect.ImmutableList;
 import com.willfp.eco.util.StringUtils;
-import com.willfp.eco.util.config.Configs;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.recipe.EcoShapedRecipe;
+import com.willfp.eco.util.recipe.lookup.RecipePartUtils;
+import com.willfp.eco.util.recipe.parts.ComplexRecipePart;
+import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import lombok.Getter;
@@ -47,10 +47,10 @@ public class UpgradeCrystal {
     public static final UpgradeCrystal NETHERITE = new UpgradeCrystal("netherite");
 
     /**
-     * Instance of ItemStats to create keys for.
+     * Instance of EcoArmor to create keys for.
      */
     @Getter
-    private final AbstractEcoPlugin plugin = AbstractEcoPlugin.getInstance();
+    private final EcoArmorPlugin plugin = EcoArmorPlugin.getInstance();
 
     /**
      * The tier of the crystal.
@@ -91,7 +91,7 @@ public class UpgradeCrystal {
      * Update the tracker's crafting recipe.
      */
     public void update() {
-        this.enabled = Configs.CONFIG.getBool("tier." + tier + ".crystal-craftable");
+        this.enabled = plugin.getConfigYml().getBool("tier." + tier + ".crystal-craftable");
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal");
 
         ItemStack out = new ItemStack(Material.END_CRYSTAL);
@@ -100,10 +100,10 @@ public class UpgradeCrystal {
         PersistentDataContainer container = outMeta.getPersistentDataContainer();
         container.set(key, PersistentDataType.STRING, tier);
 
-        outMeta.setDisplayName(Configs.CONFIG.getString("tier." + tier + ".crystal-name"));
+        outMeta.setDisplayName(plugin.getConfigYml().getString("tier." + tier + ".crystal-name"));
 
         List<String> lore = new ArrayList<>();
-        for (String loreLine : Configs.CONFIG.getStrings("tier." + tier + ".crystal-lore")) {
+        for (String loreLine : plugin.getConfigYml().getStrings("tier." + tier + ".crystal-lore")) {
             lore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
         }
         outMeta.setLore(lore);
@@ -115,7 +115,7 @@ public class UpgradeCrystal {
             EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(this.getPlugin(), "upgrade_crystal_" + tier)
                     .setOutput(out);
 
-            List<String> recipeStrings = Configs.CONFIG.getStrings("tier." + tier + ".crystal-recipe");
+            List<String> recipeStrings = plugin.getConfigYml().getStrings("tier." + tier + ".crystal-recipe");
 
             RecipePartUtils.registerLookup("ecoarmor:upgrade_crystal_" + tier, s -> new ComplexRecipePart(test -> Objects.equals(tier, ArmorUtils.getCrystalTier(test)), out));
 
@@ -136,6 +136,15 @@ public class UpgradeCrystal {
      */
     public static UpgradeCrystal getByName(@Nullable final String name) {
         return BY_NAME.get(name);
+    }
+
+    /**
+     * Get all registered {@link UpgradeCrystal}s.
+     *
+     * @return A list of all {@link UpgradeCrystal}s.
+     */
+    public static List<UpgradeCrystal> values() {
+        return ImmutableList.copyOf(BY_NAME.values());
     }
 
     /**

@@ -1,12 +1,12 @@
 messages:
-  prefix: "&5&lEcoArmor&r &8» &r"
+  prefix: "&c&lEcoArmor&r &8» &r"
   no-permission: "&cYou don't have permission to do this!"
   not-player: "&cThis command must be run by a player"
   reloaded: "Reloaded! (Restart if you're removed armor sets!)"
   needs-player: "&cYou must specify a player"
   invalid-player: "&cInvalid player!"
-  needs-set: "&cYou must specify a set"
-  invalid-set: "&cInvalid set!"
-  give-success: "Gave &a%set% Set&r to &a%recipient%"
+  needs-item: "&cYou must specify an item!"
+  invalid-item: "&cInvalid item!"
+  give-success: "Gave &a%item%&r to &a%recipient%"
 
 description-color: "&8"
