@@ -83,7 +83,6 @@ Reaper:
       - air
   elytra:
     enchants:
-      protection: 4
       unbreaking: 3
     material: elytra
     name: "&cReaper Elytra"
