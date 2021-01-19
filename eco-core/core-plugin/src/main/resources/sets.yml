@@ -33,6 +33,7 @@ Reaper:
     leather-color: "#303030"
     name: "&cReaper Helmet"
     advanced-name: "<\$#f12711>Advanced<\$#f5af19>&c Reaper Helmet"
+    effective-durability: 2048
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
@@ -60,6 +61,7 @@ Reaper:
     leather-color: "#303030"
     name: "&cReaper Chestplate"
     advanced-name: "<\$#f12711>Advanced<\$#f5af19>&c Reaper Chestplate"
+    effective-durability: 2048
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
@@ -86,6 +88,7 @@ Reaper:
     material: elytra
     name: "&cReaper Elytra"
     advanced-name: "<\$#f12711>Advanced<\$#f5af19>&c Reaper Elytra"
+    effective-durability: 2048
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
@@ -113,6 +116,7 @@ Reaper:
     leather-color: "#303030"
     name: "&cReaper Leggings"
     advanced-name: "<\$#f12711>Advanced<\$#f5af19>&c Reaper Leggings"
+    effective-durability: 2048
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
@@ -140,6 +144,7 @@ Reaper:
     leather-color: "#303030"
     name: "&cReaper Boots"
     advanced-name: "<\$#f12711>Advanced<\$#f5af19>&c Reaper Boots"
+    effective-durability: 2048
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"

@@ -207,6 +207,7 @@ public class ArmorSet {
         PersistentDataContainer container = meta.getPersistentDataContainer();
         container.set(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING, name);
         container.set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, "default");
+        container.set(PLUGIN.getNamespacedKeyFactory().create("effective-durability"), PersistentDataType.INTEGER, EcoArmorConfigs.SETS.getInt(name + "." + pieceName + ".effective-durability"));
         if (advanced) {
             container.set(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER, 1);
         }

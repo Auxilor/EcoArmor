@@ -7,6 +7,7 @@ import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -68,5 +69,22 @@ public class CrystalListener extends PluginDependent implements Listener {
         event.getWhoClicked().setItemOnCursor(null);
 
         event.setCancelled(true);
+    }
+
+    /**
+     * Prevents placing upgrade crystals.
+     *
+     * @param event The event to listen for.
+     */
+    @EventHandler
+    public void onPlaceCrystal(@NotNull final BlockPlaceEvent event) {
+        ItemStack item = event.getItemInHand();
+        if (item.getType() != Material.END_CRYSTAL) {
+            return;
+        }
+
+        if (ArmorUtils.getCrystalTier(item) != null) {
+            event.setCancelled(true);
+        }
     }
 }

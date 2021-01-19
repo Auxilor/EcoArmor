@@ -100,15 +100,15 @@ netherite:
   crystal-name: "&cNetherite Upgrade Crystal"
   crystal-recipe:
     - air
-    - netherite_block
+    - netherite_ingot
     - air
 
-    - netherite_block
+    - netherite_ingot
     - ecoarmor:upgrade_crystal_diamond
-    - netherite_block
+    - netherite_ingot
 
     - air
-    - netherite_block
+    - netherite_ingot
     - air
   crystal-lore:
     - "&8Drop this onto an armor piece"

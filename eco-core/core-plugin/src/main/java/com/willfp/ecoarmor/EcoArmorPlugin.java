@@ -14,6 +14,7 @@ import com.willfp.ecoarmor.display.packets.PacketSetSlot;
 import com.willfp.ecoarmor.display.packets.PacketWindowItems;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.ArmorSets;
+import com.willfp.ecoarmor.sets.util.EffectiveDurabilityListener;
 import com.willfp.ecoarmor.upgrades.advanced.AdvancementShardListener;
 import com.willfp.ecoarmor.upgrades.crystal.CrystalListener;
 import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
@@ -128,7 +129,8 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
     public List<Listener> getListeners() {
         return Arrays.asList(
                 new CrystalListener(this),
-                new AdvancementShardListener(this)
+                new AdvancementShardListener(this),
+                new EffectiveDurabilityListener(this)
         );
     }
 
