@@ -285,4 +285,27 @@ public class ArmorUtils {
 
         itemStack.setItemMeta(meta);
     }
+
+    /**
+     * Get if item is advanced.
+     *
+     * @param itemStack The item to check.
+     * @return If advanced.
+     */
+    @Nullable
+    public static ArmorSet getShardSet(@NotNull final ItemStack itemStack) {
+        ItemMeta meta = itemStack.getItemMeta();
+
+        if (meta == null) {
+            return null;
+        }
+
+        String shardSet = meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING);
+
+        if (shardSet == null) {
+            return null;
+        }
+
+        return ArmorSets.getByName(shardSet);
+    }
 }

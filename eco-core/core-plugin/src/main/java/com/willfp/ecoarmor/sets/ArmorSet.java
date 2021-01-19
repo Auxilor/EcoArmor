@@ -3,6 +3,7 @@ package com.willfp.ecoarmor.sets;
 import com.willfp.eco.util.StringUtils;
 import com.willfp.eco.util.recipe.EcoShapedRecipe;
 import com.willfp.eco.util.recipe.lookup.RecipePartUtils;
+import com.willfp.eco.util.recipe.parts.ComplexRecipePart;
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.display.ArmorDisplay;
@@ -10,6 +11,7 @@ import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.proxy.proxies.SkullProxy;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
+import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import com.willfp.ecoarmor.util.ProxyUtils;
 import lombok.Getter;
 import org.bukkit.Color;
@@ -107,22 +109,44 @@ public class ArmorSet {
             advancedItems.put(slot, advancedItem);
         }
 
+        this.advancementShardItem = constructShard();
+
+        ArmorSets.addNewSet(this);
+    }
+
+    private ItemStack constructShard() {
         ItemStack shardItem = new ItemStack(Material.PRISMARINE_SHARD);
         ItemMeta shardMeta = shardItem.getItemMeta();
         assert shardMeta != null;
         shardMeta.setDisplayName(EcoArmorConfigs.SETS.getString(name + ".advancement-shard-name"));
 
+        shardMeta.addEnchant(Enchantment.DURABILITY, 3, true);
+        shardMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
         List<String> shardLore = new ArrayList<>();
         for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + ".advancement-shard-lore")) {
             shardLore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
         }
+
         shardMeta.setLore(shardLore);
         shardMeta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING, name);
-        shardItem.setItemMeta(shardMeta);
-        this.advancementShardItem = shardItem;
 
-        ArmorSets.addNewSet(this);
+        shardItem.setItemMeta(shardMeta);
+
+        if (EcoArmorConfigs.SETS.getBool(name + ".shard-craftable")) {
+            EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(PLUGIN, this.getName() + "_shard").setOutput(shardItem);
+
+            List<String> recipeStrings = EcoArmorConfigs.SETS.getStrings(name + ".shard-recipe");
+
+            for (int i = 0; i < 9; i++) {
+                builder.setRecipePart(i, RecipePartUtils.lookup(recipeStrings.get(i)));
+            }
+
+            EcoShapedRecipe recipe = builder.build();
+            recipe.register();
+        }
+
+        return shardItem;
     }
 
     private ItemStack construct(@NotNull final String slot,
@@ -188,6 +212,15 @@ public class ArmorSet {
         }
         itemStack.setItemMeta(meta);
 
+
+        RecipePartUtils.registerLookup("ecoarmor:set_" + name.toLowerCase() + "_" + pieceName, s -> new ComplexRecipePart(test -> {
+            if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
+                return false;
+            }
+            return Objects.equals(this, ArmorUtils.getSetOnItem(test));
+        }, itemStack));
+
+
         constructRecipe(slot, itemStack);
 
         return itemStack;
@@ -215,6 +248,16 @@ public class ArmorSet {
      */
     public ItemStack getItemStack(@NotNull final ArmorSlot slot) {
         return items.get(slot);
+    }
+
+    /**
+     * Get item stack from slot.
+     *
+     * @param slot The slot.
+     * @return The item.
+     */
+    public ItemStack getAdvancedItemStack(@NotNull final ArmorSlot slot) {
+        return advancedItems.get(slot);
     }
 
     /**

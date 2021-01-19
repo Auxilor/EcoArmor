@@ -48,12 +48,6 @@ public class AdvancementShardListener extends PluginDependent implements Listene
             return;
         }
 
-        boolean isAdvancementShard = cursorMeta.getPersistentDataContainer().has(this.getPlugin().getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING);
-
-        if (!isAdvancementShard) {
-            return;
-        }
-
         String shardSet = cursorMeta.getPersistentDataContainer().get(this.getPlugin().getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING);
 
         if (shardSet == null) {

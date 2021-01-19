@@ -12,6 +12,19 @@ Reaper:
   advancement-shard-lore:
     - "&8Drop this onto &cReaper Armor"
     - "&8to make it &6Advanced&8."
+  shard-craftable: true
+  shard-recipe:
+    - prismarine_shard
+    - ecoarmor:set_reaper_helmet
+    - prismarine_shard
+
+    - ecoarmor:set_reaper_chestplate
+    - ecoarmor:upgrade_crystal_manyullyn
+    - ecoarmor:set_reaper_leggings
+
+    - prismarine_shard
+    - ecoarmor:set_reaper_boots
+    - prismarine_shard
   helmet:
     enchants:
       protection: 4

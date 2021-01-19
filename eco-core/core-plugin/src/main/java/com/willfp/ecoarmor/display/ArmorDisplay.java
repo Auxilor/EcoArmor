@@ -84,12 +84,17 @@ public class ArmorDisplay {
             String crystalTier = ArmorUtils.getCrystalTier(itemStack);
             UpgradeCrystal crystal = UpgradeCrystal.getByName(crystalTier);
 
-            if (crystalTier == null || crystal == null) {
-                return itemStack;
+            if (crystalTier != null && crystal != null) {
+                meta.setLore(UpgradeCrystal.getByName(crystalTier).getItemStack().getItemMeta().getLore());
+                itemStack.setItemMeta(meta);
             }
 
-            meta.setLore(UpgradeCrystal.getByName(crystalTier).getItemStack().getItemMeta().getLore());
-            itemStack.setItemMeta(meta);
+            ArmorSet shardSet = ArmorUtils.getShardSet(itemStack);
+
+            if (shardSet != null) {
+                itemStack.setItemMeta(shardSet.getAdvancementShardItem().getItemMeta());
+            }
+
             return itemStack;
         }
 
@@ -98,7 +103,13 @@ public class ArmorDisplay {
             return itemStack;
         }
 
-        ItemStack slotStack = set.getItemStack(slot);
+        ItemStack slotStack;
+
+        if (ArmorUtils.isAdvanced(itemStack)) {
+            slotStack = set.getAdvancedItemStack(slot);
+        } else {
+            slotStack = set.getItemStack(slot);
+        }
         ItemMeta slotMeta = slotStack.getItemMeta();
         assert slotMeta != null;
 
