@@ -111,7 +111,13 @@ public class ArmorUtils {
             return null;
         }
 
-        return set.getEffectStrength(effect);
+        T strength = set.getEffectStrength(effect);
+
+        if (isAdvanced(player)) {
+            strength = set.getAdvancedEffectStrength(effect);
+        }
+
+        return strength;
     }
 
     /**
@@ -209,6 +215,73 @@ public class ArmorUtils {
             meta.removeAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
             meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "ecoarmor-knockback", (double) knockback / 10, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot()));
         }
+
+        itemStack.setItemMeta(meta);
+    }
+
+    /**
+     * Get if player is wearing advanced set.
+     *
+     * @param player The player to check.
+     * @return If advanced.
+     */
+    public static boolean isAdvanced(@NotNull final Player player) {
+        if (getSetOnPlayer(player) == null) {
+            return false;
+        }
+
+        for (ItemStack itemStack : player.getInventory().getArmorContents()) {
+            if (itemStack == null) {
+                return false;
+            }
+
+            if (!isAdvanced(itemStack)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Get if item is advanced.
+     *
+     * @param itemStack The item to check.
+     * @return If advanced.
+     */
+    public static boolean isAdvanced(@NotNull final ItemStack itemStack) {
+        ItemMeta meta = itemStack.getItemMeta();
+
+        if (meta == null) {
+            return false;
+        }
+
+        if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER)) {
+            return meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER) == 1;
+        }
+
+        return false;
+    }
+
+    /**
+     * Set if item is advanced.
+     *
+     * @param itemStack The item to set.
+     * @param advanced  If the item should be advanced.
+     */
+    public static void setAdvanced(@NotNull final ItemStack itemStack,
+                                   final boolean advanced) {
+        ItemMeta meta = itemStack.getItemMeta();
+
+        if (meta == null) {
+            return;
+        }
+
+        if (getSetOnItem(itemStack) == null) {
+            return;
+        }
+
+        meta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER, advanced ? 1 : 0);
 
         itemStack.setItemMeta(meta);
     }

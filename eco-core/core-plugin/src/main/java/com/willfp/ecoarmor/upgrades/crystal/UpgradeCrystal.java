@@ -1,4 +1,4 @@
-package com.willfp.ecoarmor.tiers;
+package com.willfp.ecoarmor.upgrades.crystal;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;

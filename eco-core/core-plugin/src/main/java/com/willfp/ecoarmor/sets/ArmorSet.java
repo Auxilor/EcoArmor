@@ -52,6 +52,12 @@ public class ArmorSet {
     private final Map<Effect<?>, Object> effects = new HashMap<>();
 
     /**
+     * Effects and their strengths on advanced armor.
+     */
+    @Getter
+    private final Map<Effect<?>, Object> advancedEffects = new HashMap<>();
+
+    /**
      * Potion effects to be applied on equip.
      */
     @Getter
@@ -61,6 +67,17 @@ public class ArmorSet {
      * Items in set.
      */
     private final Map<ArmorSlot, ItemStack> items = new HashMap<>();
+
+    /**
+     * Items in advanced set.
+     */
+    private final Map<ArmorSlot, ItemStack> advancedItems = new HashMap<>();
+
+    /**
+     * Advancement shard item.
+     */
+    @Getter
+    private final ItemStack advancementShardItem;
 
     /**
      * Create a new Armor Set.
@@ -76,15 +93,40 @@ public class ArmorSet {
             effects.put(effect, value);
         }
 
-        for (ArmorSlot slot : ArmorSlot.values()) {
-            ItemStack item = construct(slot.name().toLowerCase());
-            items.put(slot, item);
+        for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".advanced-set-bonus").getKeys(false)) {
+            Effect<?> effect = Effects.getByName(effectName);
+            Object value = EcoArmorConfigs.SETS.getConfig().get(name + ".advanced-set-bonus." + effectName);
+            advancedEffects.put(effect, value);
         }
+
+        for (ArmorSlot slot : ArmorSlot.values()) {
+            ItemStack item = construct(slot.name().toLowerCase(), false);
+            items.put(slot, item);
+
+            ItemStack advancedItem = construct(slot.name().toLowerCase(), true);
+            advancedItems.put(slot, advancedItem);
+        }
+
+        ItemStack shardItem = new ItemStack(Material.PRISMARINE_SHARD);
+        ItemMeta shardMeta = shardItem.getItemMeta();
+        assert shardMeta != null;
+        shardMeta.setDisplayName(EcoArmorConfigs.SETS.getString(name + ".advancement-shard-name"));
+
+
+        List<String> shardLore = new ArrayList<>();
+        for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + ".advancement-shard-lore")) {
+            shardLore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
+        }
+        shardMeta.setLore(shardLore);
+        shardMeta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING, name);
+        shardItem.setItemMeta(shardMeta);
+        this.advancementShardItem = shardItem;
 
         ArmorSets.addNewSet(this);
     }
 
-    private ItemStack construct(@NotNull final String slot) {
+    private ItemStack construct(@NotNull final String slot,
+                                final boolean advanced) {
         String pieceName = slot.toLowerCase();
 
         Material material = Material.getMaterial(EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".material").toUpperCase());
@@ -101,11 +143,22 @@ public class ArmorSet {
 
         assert meta != null;
 
-        String displayName = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".name");
+        String displayName;
+        if (advanced) {
+            displayName = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".advanced-name");
+        } else {
+            displayName = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".name");
+        }
 
         List<String> lore = new ArrayList<>();
         for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + "." + pieceName + ".lore")) {
             lore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
+        }
+
+        if (advanced) {
+            for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + ".advanced-lore")) {
+                lore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
+            }
         }
 
         if (meta instanceof SkullMeta) {
@@ -130,6 +183,9 @@ public class ArmorSet {
         PersistentDataContainer container = meta.getPersistentDataContainer();
         container.set(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING, name);
         container.set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, "default");
+        if (advanced) {
+            container.set(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER, 1);
+        }
         itemStack.setItemMeta(meta);
 
         constructRecipe(slot, itemStack);
@@ -170,6 +226,17 @@ public class ArmorSet {
      */
     public <T> T getEffectStrength(@NotNull final Effect<T> effect) {
         return (T) effects.get(effect);
+    }
+
+    /**
+     * Get effect strength of effect on advanced armor.
+     *
+     * @param effect The effect to query.
+     * @param <T>    The type of the effect value.
+     * @return The strength.
+     */
+    public <T> T getAdvancedEffectStrength(@NotNull final Effect<T> effect) {
+        return (T) advancedEffects.get(effect);
     }
 
     @Override

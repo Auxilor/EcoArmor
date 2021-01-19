@@ -6,7 +6,7 @@ import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
-import com.willfp.ecoarmor.tiers.UpgradeCrystal;
+import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -85,6 +85,21 @@ public class CommandEagive extends AbstractCommand {
             message = message.replace("%item%", crystal.getItemStack().getItemMeta().getDisplayName()).replace("%recipient%", reciever.getName());
             sender.sendMessage(message);
             reciever.getInventory().addItem(crystal.getItemStack());
+
+            return;
+        }
+
+        if (itemName.split(":")[0].equals("shard")) {
+            ArmorSet set = ArmorSets.getByName(itemName.split(":")[1]);
+            if (set == null) {
+                sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
+                return;
+            }
+
+            String message = this.getPlugin().getLangYml().getMessage("give-success");
+            message = message.replace("%item%", set.getAdvancementShardItem().getItemMeta().getDisplayName()).replace("%recipient%", reciever.getName());
+            sender.sendMessage(message);
+            reciever.getInventory().addItem(set.getAdvancementShardItem());
 
             return;
         }

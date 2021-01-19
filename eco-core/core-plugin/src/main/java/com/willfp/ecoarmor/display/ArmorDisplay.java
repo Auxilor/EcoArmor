@@ -5,7 +5,7 @@ import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
-import com.willfp.ecoarmor.tiers.UpgradeCrystal;
+import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
 import lombok.experimental.UtilityClass;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

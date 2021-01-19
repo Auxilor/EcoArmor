@@ -1,7 +1,8 @@
-package com.willfp.ecoarmor.tiers;
+package com.willfp.ecoarmor.upgrades.crystal;
 
 import com.willfp.eco.util.internal.PluginDependent;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -45,6 +46,20 @@ public class CrystalListener extends PluginDependent implements Listener {
         }
 
         if (current.getType() == Material.AIR) {
+            return;
+        }
+
+        String previousTier = ArmorUtils.getTier(current);
+
+        String prereq = EcoArmorConfigs.TIERS.getString(tier + ".requires-tier");
+        boolean allowed = false;
+        if (prereq.equals("none")) {
+            allowed = true;
+        } else if (prereq.equals(previousTier)) {
+            allowed = true;
+        }
+
+        if (!allowed) {
             return;
         }
 

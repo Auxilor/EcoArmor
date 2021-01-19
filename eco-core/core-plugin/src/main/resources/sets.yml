@@ -1,6 +1,17 @@
 Reaper:
   set-bonus:
     damage-multiplier: 1.25
+  advanced-set-bonus:
+    damage-taken-multiplier: 0.9
+  advanced-lore:
+    - ""
+    - "&6&lADVANCED BONUS"
+    - "&8» &6Take 10% less damage"
+    - "&8&oRequires full set to be worn"
+  advancement-shard-name: "&6Advancement Shard: &cReaper"
+  advancement-shard-lore:
+    - "&8Drop this onto &cReaper Armor"
+    - "&8to make it &6Advanced&8."
   helmet:
     enchants:
       protection: 4
@@ -8,6 +19,7 @@ Reaper:
     material: leather_helmet
     leather-color: "#303030"
     name: "&cReaper Helmet"
+    advanced-name: "&cAdvanced Reaper Helmet"
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
@@ -34,6 +46,7 @@ Reaper:
     material: leather_chestplate
     leather-color: "#303030"
     name: "&cReaper Chestplate"
+    advanced-name: "&cAdvanced Reaper Chestplate"
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
@@ -59,6 +72,7 @@ Reaper:
       unbreaking: 3
     material: elytra
     name: "&cReaper Elytra"
+    advanced-name: "&cAdvanced Reaper Elytra"
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
@@ -85,6 +99,7 @@ Reaper:
     material: leather_leggings
     leather-color: "#303030"
     name: "&cReaper Leggings"
+    advanced-name: "&cAdvanced Reaper Leggings"
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
@@ -111,6 +126,7 @@ Reaper:
     material: leather_boots
     leather-color: "#303030"
     name: "&cReaper Boots"
+    advanced-name: "&cAdvanced Reaper Boots"
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"

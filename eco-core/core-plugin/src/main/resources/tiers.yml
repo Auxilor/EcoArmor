@@ -9,6 +9,7 @@ default:
 
 iron:
   display: "&7&lIRON"
+  requires-tier: default # Set to 'none' to always allow application
   crystal-craftable: true
   crystal-name: "&7Iron Upgrade Crystal"
   crystal-recipe:
@@ -47,6 +48,7 @@ iron:
 
 diamond:
   display: "&b&lDIAMOND"
+  requires-tier: iron # Set to 'none' to always allow application
   crystal-craftable: true
   crystal-name: "&bDiamond Upgrade Crystal"
   crystal-recipe:
@@ -85,6 +87,7 @@ diamond:
 
 netherite:
   display: "&c&lNETHERITE"
+  requires-tier: diamond # Set to 'none' to always allow application
   crystal-craftable: true
   crystal-name: "&cNetherite Upgrade Crystal"
   crystal-recipe:
@@ -123,6 +126,7 @@ netherite:
 
 manyullyn:
   display: "&5&k!!&r &d&lMANYULLYN&r &5&k!!&r"
+  requires-tier: netherite # Set to 'none' to always allow application
   crystal-craftable: true
   crystal-name: "&dManyullyn Upgrade Crystal"
   crystal-recipe:

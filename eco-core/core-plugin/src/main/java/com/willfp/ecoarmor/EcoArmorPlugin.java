@@ -14,8 +14,9 @@ import com.willfp.ecoarmor.display.packets.PacketSetSlot;
 import com.willfp.ecoarmor.display.packets.PacketWindowItems;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.ArmorSets;
-import com.willfp.ecoarmor.tiers.CrystalListener;
-import com.willfp.ecoarmor.tiers.UpgradeCrystal;
+import com.willfp.ecoarmor.upgrades.advanced.AdvancementShardListener;
+import com.willfp.ecoarmor.upgrades.crystal.CrystalListener;
+import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
 import lombok.Getter;
 import org.bukkit.event.Listener;
 
@@ -126,7 +127,8 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
     @Override
     public List<Listener> getListeners() {
         return Arrays.asList(
-                new CrystalListener(this)
+                new CrystalListener(this),
+                new AdvancementShardListener(this)
         );
     }
 

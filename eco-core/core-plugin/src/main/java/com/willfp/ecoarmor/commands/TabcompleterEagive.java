@@ -4,7 +4,7 @@ import com.willfp.eco.util.command.AbstractCommand;
 import com.willfp.eco.util.command.AbstractTabCompleter;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
 import com.willfp.ecoarmor.sets.ArmorSets;
-import com.willfp.ecoarmor.tiers.UpgradeCrystal;
+import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -38,6 +38,7 @@ public class TabcompleterEagive extends AbstractTabCompleter {
     public static void reload() {
         SET_NAMES.clear();
         SET_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "set:" + armorSet.getName()).collect(Collectors.toList()));
+        SET_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "shard:" + armorSet.getName()).collect(Collectors.toList()));
         SET_NAMES.addAll(UpgradeCrystal.values().stream().map(crystal -> "crystal:" + crystal.getTier()).collect(Collectors.toList()));
     }
 
