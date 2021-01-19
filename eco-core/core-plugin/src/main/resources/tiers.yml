@@ -37,6 +37,10 @@ iron:
       armor: 6
       toughness: 0
       knockback-resistance: 0
+    elytra:
+      armor: 2
+      toughness: 0
+      knockback-resistance: 0
     leggings:
       armor: 5
       toughness: 0
@@ -75,6 +79,10 @@ diamond:
     chestplate:
       armor: 8
       toughness: 2
+      knockback-resistance: 0
+    elytra:
+      armor: 3
+      toughness: 0
       knockback-resistance: 0
     leggings:
       armor: 6
@@ -115,6 +123,10 @@ netherite:
       armor: 8
       toughness: 3
       knockback-resistance: 1
+    elytra:
+      armor: 3
+      toughness: 0
+      knockback-resistance: 1
     leggings:
       armor: 6
       toughness: 3
@@ -125,10 +137,10 @@ netherite:
       knockback-resistance: 1
 
 manyullyn:
-  display: "&5&k!!&r &d&lMANYULLYN&r &5&k!!&r"
+  display: "&d&k!!&r <\$#f953c6>&lMANYULLYN<\$#b91d73>&r &d&k!!&r"
   requires-tier: netherite # Set to 'none' to always allow application
   crystal-craftable: true
-  crystal-name: "&dManyullyn Upgrade Crystal"
+  crystal-name: "<\$#f953c6>Manyullyn Upgrade Crystal<\$#b91d73>"
   crystal-recipe:
     - ecoarmor:upgrade_crystal_netherite
     - enchanted_golden_apple
@@ -144,7 +156,7 @@ manyullyn:
   crystal-lore:
     - "&8Drop this onto an armor piece"
     - "&8to set its tier to:"
-    - "&5&k!!&r &d&lMANYULLYN&r &5&k!!&r"
+    - "&d&k!!&r <\$#f953c6>&lMANYULLYN<\$#b91d73>&r &d&k!!&r"
   properties:
     helmet:
       armor: 3
@@ -153,6 +165,10 @@ manyullyn:
     chestplate:
       armor: 8
       toughness: 5
+      knockback-resistance: 2
+    elytra:
+      armor: 3
+      toughness: 0
       knockback-resistance: 2
     leggings:
       armor: 6

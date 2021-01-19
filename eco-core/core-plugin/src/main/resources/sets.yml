@@ -5,13 +5,13 @@ Reaper:
     damage-taken-multiplier: 0.9
   advanced-lore:
     - ""
-    - "&6&lADVANCED BONUS"
+    - "<\$#f12711>&lADVANCED BONUS<\$#f5af19>"
     - "&8» &6Take 10% less damage"
     - "&8&oRequires full set to be worn"
-  advancement-shard-name: "&6Advancement Shard: &cReaper"
+  advancement-shard-name: "<\$#f12711>Advancement Shard:<\$#f5af19> &cReaper"
   advancement-shard-lore:
     - "&8Drop this onto &cReaper Armor"
-    - "&8to make it &6Advanced&8."
+    - "&8to make it <\$#f12711>Advanced<\$#f5af19>."
   shard-craftable: true
   shard-recipe:
     - prismarine_shard
@@ -32,7 +32,7 @@ Reaper:
     material: leather_helmet
     leather-color: "#303030"
     name: "&cReaper Helmet"
-    advanced-name: "&cAdvanced Reaper Helmet"
+    advanced-name: "<\$#f12711>Advanced<\$#f5af19>&c Reaper Helmet"
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
@@ -59,7 +59,7 @@ Reaper:
     material: leather_chestplate
     leather-color: "#303030"
     name: "&cReaper Chestplate"
-    advanced-name: "&cAdvanced Reaper Chestplate"
+    advanced-name: "<\$#f12711>Advanced<\$#f5af19>&c Reaper Chestplate"
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
@@ -85,7 +85,7 @@ Reaper:
       unbreaking: 3
     material: elytra
     name: "&cReaper Elytra"
-    advanced-name: "&cAdvanced Reaper Elytra"
+    advanced-name: "<\$#f12711>Advanced<\$#f5af19>&c Reaper Elytra"
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
@@ -112,7 +112,7 @@ Reaper:
     material: leather_leggings
     leather-color: "#303030"
     name: "&cReaper Leggings"
-    advanced-name: "&cAdvanced Reaper Leggings"
+    advanced-name: "<\$#f12711>Advanced<\$#f5af19>&c Reaper Leggings"
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
@@ -139,7 +139,7 @@ Reaper:
     material: leather_boots
     leather-color: "#303030"
     name: "&cReaper Boots"
-    advanced-name: "&cAdvanced Reaper Boots"
+    advanced-name: "<\$#f12711>Advanced<\$#f5af19>&c Reaper Boots"
     lore:
       - "&c&lREAPER SET BONUS"
       - "&8» &cDeal 25% more damage"
