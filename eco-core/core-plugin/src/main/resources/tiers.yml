@@ -120,3 +120,41 @@ netherite:
       armor: 3
       toughness: 3
       knockback-resistance: 1
+
+manyullyn:
+  display: "&5&k!!&r &d&lMANYULLYN&r &5&k!!&r"
+  crystal-craftable: true
+  crystal-name: "&dManyullyn Upgrade Crystal"
+  crystal-recipe:
+    - ecoarmor:upgrade_crystal_netherite
+    - enchanted_golden_apple
+    - ecoarmor:upgrade_crystal_netherite
+
+    - enchanted_golden_apple
+    - ecoarmor:upgrade_crystal_netherite
+    - enchanted_golden_apple
+
+    - ecoarmor:upgrade_crystal_netherite
+    - enchanted_golden_apple
+    - ecoarmor:upgrade_crystal_netherite
+  crystal-lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&5&k!!&r &d&lMANYULLYN&r &5&k!!&r"
+  properties:
+    helmet:
+      armor: 3
+      toughness: 5
+      knockback-resistance: 2
+    chestplate:
+      armor: 8
+      toughness: 5
+      knockback-resistance: 2
+    leggings:
+      armor: 6
+      toughness: 5
+      knockback-resistance: 2
+    boots:
+      armor: 3
+      toughness: 5
+      knockback-resistance: 2

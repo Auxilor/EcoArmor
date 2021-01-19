@@ -3,6 +3,7 @@ package com.willfp.ecoarmor.effects;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
+import com.willfp.ecoarmor.effects.effects.AttackSpeedMultiplier;
 import com.willfp.ecoarmor.effects.effects.BonusHearts;
 import com.willfp.ecoarmor.effects.effects.BowDamageMultiplier;
 import com.willfp.ecoarmor.effects.effects.DamageMultiplier;
@@ -26,20 +27,21 @@ public class Effects {
     /**
      * All registered effects.
      */
-    private static final BiMap<String, Effect> BY_NAME = HashBiMap.create();
+    private static final BiMap<String, Effect<?>> BY_NAME = HashBiMap.create();
 
-    public static final Effect BOW_DAMAGE_MULTIPLIER = new BowDamageMultiplier();
-    public static final Effect DAMAGE_MULTIPLIER = new DamageMultiplier();
-    public static final Effect DAMAGE_TAKEN_MULTIPLIER = new DamageTakenMultiplier();
-    public static final Effect EVADE_CHANCE = new EvadeChance();
-    public static final Effect FALL_DAMAGE_MULTIPLIER = new FallDamageMultiplier();
-    public static final Effect MELEE_DAMAGE_MULTIPLIER = new MeleeDamageMultiplier();
-    public static final Effect TRIDENT_DAMAGE_MULTIPLIER = new TridentDamageMultiplier();
-    public static final Effect BONUS_HEARTS = new BonusHearts();
-    public static final Effect SPEED_MULTIPLIER = new SpeedMutiplier();
-    public static final Effect EXPERIENCE_MULTIPLIER = new ExperienceMultiplier();
-    public static final Effect REGENERATION_MULTIPLIER = new RegenerationMultiplier();
-    public static final Effect WARP_CHANCE = new WarpChance();
+    public static final Effect<?> BOW_DAMAGE_MULTIPLIER = new BowDamageMultiplier();
+    public static final Effect<?> DAMAGE_MULTIPLIER = new DamageMultiplier();
+    public static final Effect<?> DAMAGE_TAKEN_MULTIPLIER = new DamageTakenMultiplier();
+    public static final Effect<?> EVADE_CHANCE = new EvadeChance();
+    public static final Effect<?> FALL_DAMAGE_MULTIPLIER = new FallDamageMultiplier();
+    public static final Effect<?> MELEE_DAMAGE_MULTIPLIER = new MeleeDamageMultiplier();
+    public static final Effect<?> TRIDENT_DAMAGE_MULTIPLIER = new TridentDamageMultiplier();
+    public static final Effect<?> BONUS_HEARTS = new BonusHearts();
+    public static final Effect<?> SPEED_MULTIPLIER = new SpeedMutiplier();
+    public static final Effect<?> EXPERIENCE_MULTIPLIER = new ExperienceMultiplier();
+    public static final Effect<?> REGENERATION_MULTIPLIER = new RegenerationMultiplier();
+    public static final Effect<?> WARP_CHANCE = new WarpChance();
+    public static final Effect<?> ATTACK_SPEED_MULTIPLIER = new AttackSpeedMultiplier();
 
     /**
      * Get effect matching name.
@@ -47,7 +49,7 @@ public class Effects {
      * @param name The name to query.
      * @return The matching effect, or null if not found.
      */
-    public static Effect getByName(@NotNull final String name) {
+    public static Effect<?> getByName(@NotNull final String name) {
         return BY_NAME.get(name);
     }
 
@@ -56,7 +58,7 @@ public class Effects {
      *
      * @return The effects.
      */
-    public static List<Effect> values() {
+    public static List<Effect<?>> values() {
         return ImmutableList.copyOf(BY_NAME.values());
     }
 
@@ -65,7 +67,7 @@ public class Effects {
      *
      * @param effect The effect to add.
      */
-    public static void addNewEffect(@NotNull final Effect effect) {
+    public static void addNewEffect(@NotNull final Effect<?> effect) {
         BY_NAME.remove(effect.getName());
         BY_NAME.put(effect.getName(), effect);
     }
