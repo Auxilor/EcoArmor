@@ -76,4 +76,35 @@ public enum ArmorSlot {
 
         return null;
     }
+
+    /**
+     * Get ArmorSlot from name.
+     *
+     * @param name The name.
+     * @return The slot, or null.
+     */
+    @Nullable
+    public static ArmorSlot getSlot(@NotNull final String name) {
+        if (name.equalsIgnoreCase("helmet")) {
+            return HELMET;
+        }
+
+        if (name.equalsIgnoreCase("chestplate")) {
+            return CHESTPLATE;
+        }
+
+        if (name.equalsIgnoreCase("elytra")) {
+            return ELYTRA;
+        }
+
+        if (name.equalsIgnoreCase("leggings")) {
+            return LEGGINGS;
+        }
+
+        if (name.equalsIgnoreCase("boots")) {
+            return BOOTS;
+        }
+
+        return null;
+    }
 }

@@ -4,6 +4,7 @@ import com.willfp.eco.util.command.AbstractCommand;
 import com.willfp.eco.util.command.AbstractTabCompleter;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
 import com.willfp.ecoarmor.sets.ArmorSets;
+import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -12,6 +13,7 @@ import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -66,6 +68,20 @@ public class TabcompleterEagive extends AbstractTabCompleter {
 
         if (args.size() == 2) {
             StringUtil.copyPartialMatches(args.get(1), SET_NAMES, completions);
+
+            Collections.sort(completions);
+            return completions;
+        }
+
+        if (args.size() == 3) {
+            StringUtil.copyPartialMatches(args.get(2), Arrays.stream(ArmorSlot.values()).map(slot -> slot.name().toLowerCase()).collect(Collectors.toList()), completions);
+
+            Collections.sort(completions);
+            return completions;
+        }
+
+        if (args.size() == 4) {
+            StringUtil.copyPartialMatches(args.get(3), Arrays.asList("true", "false"), completions);
 
             Collections.sort(completions);
             return completions;

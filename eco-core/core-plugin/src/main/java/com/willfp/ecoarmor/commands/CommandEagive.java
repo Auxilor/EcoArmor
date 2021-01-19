@@ -67,8 +67,33 @@ public class CommandEagive extends AbstractCommand {
             String message = this.getPlugin().getLangYml().getMessage("give-success");
             message = message.replace("%item%", set.getName() + " Set").replace("%recipient%", reciever.getName());
             sender.sendMessage(message);
+
+            boolean advanced = false;
+            if (args.size() >= 4) {
+                advanced = Boolean.parseBoolean(args.get(3));
+            }
+
+            if (args.size() >= 3) {
+                ArmorSlot slot = ArmorSlot.getSlot(args.get(2));
+
+                if (slot == null) {
+                    sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
+                    return;
+                }
+
+                if (advanced) {
+                    reciever.getInventory().addItem(set.getAdvancedItemStack(slot));
+                } else {
+                    reciever.getInventory().addItem(set.getItemStack(slot));
+                }
+            }
+
             for (ArmorSlot slot : ArmorSlot.values()) {
-                reciever.getInventory().addItem(set.getItemStack(slot));
+                if (advanced) {
+                    reciever.getInventory().addItem(set.getAdvancedItemStack(slot));
+                } else {
+                    reciever.getInventory().addItem(set.getItemStack(slot));
+                }
             }
 
             return;
