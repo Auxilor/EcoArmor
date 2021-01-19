@@ -46,7 +46,7 @@ Reaper:
       - air
 
       - nether_star
-      - diamond_helmet
+      - netherite_helmet
       - nether_star
 
       - air
@@ -66,14 +66,14 @@ Reaper:
       - "&8&oRequires full set to be worn"
       - ""
       - "&fTier: %tier%"
-      - "&8&oUpgrade with a Upgrade Crystal"
+      - "&8&oUpgrade with an Upgrade Crystal"
     recipe:
       - air
       - nether_star
       - air
 
       - nether_star
-      - diamond_chestplate
+      - netherite_chestplate
       - nether_star
 
       - air
@@ -92,7 +92,7 @@ Reaper:
       - "&8&oRequires full set to be worn"
       - ""
       - "&fTier: %tier%"
-      - "&8&oUpgrade with a Upgrade Crystal"
+      - "&8&oUpgrade with an Upgrade Crystal"
     recipe:
       - air
       - nether_star
@@ -119,14 +119,14 @@ Reaper:
       - "&8&oRequires full set to be worn"
       - ""
       - "&fTier: %tier%"
-      - "&8&oUpgrade with a Upgrade Crystal"
+      - "&8&oUpgrade with an Upgrade Crystal"
     recipe:
       - air
       - nether_star
       - air
 
       - nether_star
-      - diamond_leggings
+      - netherite_leggings
       - nether_star
 
       - air
@@ -146,14 +146,14 @@ Reaper:
       - "&8&oRequires full set to be worn"
       - ""
       - "&fTier: %tier%"
-      - "&8&oUpgrade with a Upgrade Crystal"
+      - "&8&oUpgrade with an Upgrade Crystal"
     recipe:
       - air
       - nether_star
       - air
 
       - nether_star
-      - diamond_boots
+      - netherite_boots
       - nether_star
 
       - air
