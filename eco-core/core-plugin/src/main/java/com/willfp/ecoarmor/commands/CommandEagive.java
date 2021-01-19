@@ -86,6 +86,8 @@ public class CommandEagive extends AbstractCommand {
                 } else {
                     reciever.getInventory().addItem(set.getItemStack(slot));
                 }
+
+                return;
             }
 
             for (ArmorSlot slot : ArmorSlot.values()) {
