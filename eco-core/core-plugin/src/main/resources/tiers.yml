@@ -34,15 +34,15 @@ iron:
       knockback-resistance: 0
     chestplate:
       armor: 6
-      toughenss: 0
+      toughness: 0
       knockback-resistance: 0
     leggings:
       armor: 5
-      toughenss: 0
+      toughness: 0
       knockback-resistance: 0
     boots:
       armor: 2
-      toughenss: 0
+      toughness: 0
       knockback-resistance: 0
 
 diamond:
@@ -72,15 +72,15 @@ diamond:
       knockback-resistance: 0
     chestplate:
       armor: 8
-      toughenss: 2
+      toughness: 2
       knockback-resistance: 0
     leggings:
       armor: 6
-      toughenss: 2
+      toughness: 2
       knockback-resistance: 0
     boots:
       armor: 3
-      toughenss: 2
+      toughness: 2
       knockback-resistance: 0
 
 netherite:
@@ -110,13 +110,13 @@ netherite:
       knockback-resistance: 1
     chestplate:
       armor: 8
-      toughenss: 3
+      toughness: 3
       knockback-resistance: 1
     leggings:
       armor: 6
-      toughenss: 3
+      toughness: 3
       knockback-resistance: 1
     boots:
       armor: 3
-      toughenss: 3
+      toughness: 3
       knockback-resistance: 1

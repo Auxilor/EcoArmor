@@ -71,11 +71,6 @@ public class ArmorDisplay {
             return itemStack;
         }
 
-        ArmorSlot slot = ArmorSlot.getSlot(itemStack);
-        if (slot == null) {
-            return itemStack;
-        }
-
         revertDisplay(itemStack);
 
         ItemMeta meta = itemStack.getItemMeta();
@@ -98,6 +93,11 @@ public class ArmorDisplay {
             return itemStack;
         }
 
+        ArmorSlot slot = ArmorSlot.getSlot(itemStack);
+        if (slot == null) {
+            return itemStack;
+        }
+
         ItemStack slotStack = set.getItemStack(slot);
         ItemMeta slotMeta = slotStack.getItemMeta();
         assert slotMeta != null;
@@ -107,7 +107,7 @@ public class ArmorDisplay {
         List<String> lore = new ArrayList<>();
 
         for (String s : slotMeta.getLore()) {
-            lore.add(s.replace("%tier%", EcoArmorConfigs.SETS.getString(tier + ".display")));
+            lore.add(s.replace("%tier%", EcoArmorConfigs.TIERS.getString(tier + ".display")));
         }
 
         meta.setLore(lore);

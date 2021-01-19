@@ -77,7 +77,7 @@ public class UpgradeCrystal {
      * Update the tracker's crafting recipe.
      */
     public void update() {
-        this.enabled = EcoArmorConfigs.SETS.getBool(tier + ".crystal-craftable");
+        this.enabled = EcoArmorConfigs.TIERS.getBool(tier + ".crystal-craftable");
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal");
 
         ItemStack out = new ItemStack(Material.END_CRYSTAL);
@@ -86,10 +86,10 @@ public class UpgradeCrystal {
         PersistentDataContainer container = outMeta.getPersistentDataContainer();
         container.set(key, PersistentDataType.STRING, tier);
 
-        outMeta.setDisplayName(EcoArmorConfigs.SETS.getString(tier + ".crystal-name"));
+        outMeta.setDisplayName(EcoArmorConfigs.TIERS.getString(tier + ".crystal-name"));
 
         List<String> lore = new ArrayList<>();
-        for (String loreLine : EcoArmorConfigs.SETS.getStrings(tier + ".crystal-lore")) {
+        for (String loreLine : EcoArmorConfigs.TIERS.getStrings(tier + ".crystal-lore")) {
             lore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
         }
         outMeta.setLore(lore);
@@ -101,7 +101,7 @@ public class UpgradeCrystal {
             EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(this.getPlugin(), "upgrade_crystal_" + tier)
                     .setOutput(out);
 
-            List<String> recipeStrings = EcoArmorConfigs.SETS.getStrings(tier + ".crystal-recipe");
+            List<String> recipeStrings = EcoArmorConfigs.TIERS.getStrings(tier + ".crystal-recipe");
 
             RecipePartUtils.registerLookup("ecoarmor:upgrade_crystal_" + tier, s -> new ComplexRecipePart(test -> Objects.equals(tier, ArmorUtils.getCrystalTier(test)), out));
 
