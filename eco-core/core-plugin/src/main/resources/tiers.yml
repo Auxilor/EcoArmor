@@ -1,0 +1,122 @@
+#
+# You can make any tiers you want, but you **cannot** remove default
+#
+
+
+default:
+  display: "&8&lDEFAULT"
+  # No crystal for default
+
+iron:
+  display: "&7&lIRON"
+  crystal-craftable: true
+  crystal-name: "&7Iron Upgrade Crystal"
+  crystal-recipe:
+    - air
+    - iron_block
+    - air
+
+    - iron_block
+    - leather_chestplate
+    - iron_block
+
+    - air
+    - iron_block
+    - air
+  crystal-lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&7&lIRON"
+  properties:
+    helmet:
+      armor: 2
+      toughness: 0
+      knockback-resistance: 0
+    chestplate:
+      armor: 6
+      toughenss: 0
+      knockback-resistance: 0
+    leggings:
+      armor: 5
+      toughenss: 0
+      knockback-resistance: 0
+    boots:
+      armor: 2
+      toughenss: 0
+      knockback-resistance: 0
+
+diamond:
+  display: "&b&lDIAMOND"
+  crystal-craftable: true
+  crystal-name: "&bDiamond Upgrade Crystal"
+  crystal-recipe:
+    - air
+    - diamond_block
+    - air
+
+    - diamond_block
+    - ecoarmor:upgrade_crystal_iron
+    - diamond_block
+
+    - air
+    - diamond_block
+    - air
+  crystal-lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&b&lDIAMOND"
+  properties:
+    helmet:
+      armor: 3
+      toughness: 2
+      knockback-resistance: 0
+    chestplate:
+      armor: 8
+      toughenss: 2
+      knockback-resistance: 0
+    leggings:
+      armor: 6
+      toughenss: 2
+      knockback-resistance: 0
+    boots:
+      armor: 3
+      toughenss: 2
+      knockback-resistance: 0
+
+netherite:
+  display: "&c&lNETHERITE"
+  crystal-craftable: true
+  crystal-name: "&cNetherite Upgrade Crystal"
+  crystal-recipe:
+    - air
+    - netherite_block
+    - air
+
+    - netherite_block
+    - ecoarmor:upgrade_crystal_diamond
+    - netherite_block
+
+    - air
+    - netherite_block
+    - air
+  crystal-lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&c&lNETHERITE"
+  properties:
+    helmet:
+      armor: 3
+      toughness: 3
+      knockback-resistance: 1
+    chestplate:
+      armor: 8
+      toughenss: 3
+      knockback-resistance: 1
+    leggings:
+      armor: 6
+      toughenss: 3
+      knockback-resistance: 1
+    boots:
+      armor: 3
+      toughenss: 3
+      knockback-resistance: 1

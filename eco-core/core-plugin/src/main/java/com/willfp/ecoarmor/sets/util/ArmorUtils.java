@@ -1,6 +1,7 @@
 package com.willfp.ecoarmor.sets.util;
 
 import com.willfp.ecoarmor.EcoArmorPlugin;
+import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
@@ -192,44 +193,9 @@ public class ArmorUtils {
             return;
         }
 
-        int armor = 0;
-        int toughness = 0;
-        int knockback = 0;
-
-        if (tier.equals("iron")) {
-            if (slot == ArmorSlot.HELMET) {
-                armor = 2;
-            } else if (slot == ArmorSlot.CHESTPLATE) {
-                armor = 6;
-            } else if (slot == ArmorSlot.LEGGINGS) {
-                armor = 5;
-            } else if (slot == ArmorSlot.BOOTS) {
-                armor = 2;
-            }
-        } else if (tier.equals("diamond")) {
-            toughness = 2;
-            if (slot == ArmorSlot.HELMET) {
-                armor = 3;
-            } else if (slot == ArmorSlot.CHESTPLATE) {
-                armor = 8;
-            } else if (slot == ArmorSlot.LEGGINGS) {
-                armor = 6;
-            } else if (slot == ArmorSlot.BOOTS) {
-                armor = 3;
-            }
-        } else if (tier.equals("netherite")) {
-            toughness = 3;
-            knockback = 1;
-            if (slot == ArmorSlot.HELMET) {
-                armor = 3;
-            } else if (slot == ArmorSlot.CHESTPLATE) {
-                armor = 8;
-            } else if (slot == ArmorSlot.LEGGINGS) {
-                armor = 6;
-            } else if (slot == ArmorSlot.BOOTS) {
-                armor = 3;
-            }
-        }
+        int armor = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".armor");
+        int toughness = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".toughness");
+        int knockback = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".knockback-resistance");
 
         if (armor > 0) {
             meta.removeAttributeModifier(Attribute.GENERIC_ARMOR);

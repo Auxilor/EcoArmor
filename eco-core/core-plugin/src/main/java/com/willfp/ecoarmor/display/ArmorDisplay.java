@@ -1,6 +1,7 @@
 package com.willfp.ecoarmor.display;
 
 import com.willfp.ecoarmor.EcoArmorPlugin;
+import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
@@ -17,6 +18,11 @@ import java.util.List;
 
 @UtilityClass
 public class ArmorDisplay {
+    /**
+     * Instance of EcoArmor.
+     */
+    private static final EcoArmorPlugin PLUGIN = EcoArmorPlugin.getInstance();
+
     /**
      * The prefix for all EcoArmor lines to have in lore.
      */
@@ -101,7 +107,7 @@ public class ArmorDisplay {
         List<String> lore = new ArrayList<>();
 
         for (String s : slotMeta.getLore()) {
-            lore.add(s.replace("%tier%", EcoArmorPlugin.getInstance().getLangYml().getString("tier." + tier + ".display")));
+            lore.add(s.replace("%tier%", EcoArmorConfigs.SETS.getString(tier + ".display")));
         }
 
         meta.setLore(lore);
