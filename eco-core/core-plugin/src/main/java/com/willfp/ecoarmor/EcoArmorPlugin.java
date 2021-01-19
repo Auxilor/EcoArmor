@@ -1,6 +1,8 @@
 package com.willfp.ecoarmor;
 
 import com.willfp.eco.util.command.AbstractCommand;
+import com.willfp.eco.util.display.Display;
+import com.willfp.eco.util.display.DisplayModule;
 import com.willfp.eco.util.integrations.IntegrationLoader;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.protocollib.AbstractPacketAdapter;
@@ -8,10 +10,7 @@ import com.willfp.ecoarmor.commands.CommandEagive;
 import com.willfp.ecoarmor.commands.CommandEareload;
 import com.willfp.ecoarmor.commands.TabcompleterEagive;
 import com.willfp.ecoarmor.config.EcoArmorConfigs;
-import com.willfp.ecoarmor.display.packets.PacketChat;
-import com.willfp.ecoarmor.display.packets.PacketSetCreativeSlot;
-import com.willfp.ecoarmor.display.packets.PacketSetSlot;
-import com.willfp.ecoarmor.display.packets.PacketWindowItems;
+import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.util.EffectiveDurabilityListener;
@@ -46,6 +45,8 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
      */
     @Override
     public void enable() {
+        Display.registerDisplayModule(new DisplayModule(ArmorDisplay::display, 1, this.getPluginName()));
+        Display.registerRevertModule(ArmorDisplay::revertDisplay);
         Effects.values().forEach(effect -> this.getEventManager().registerListener(effect));
         this.onReload();
     }
@@ -112,12 +113,7 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
      */
     @Override
     public List<AbstractPacketAdapter> getPacketAdapters() {
-        return Arrays.asList(
-                new PacketChat(this),
-                new PacketSetSlot(this),
-                new PacketSetCreativeSlot(this),
-                new PacketWindowItems(this)
-        );
+        return new ArrayList<>();
     }
 
     /**
