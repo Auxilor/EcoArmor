@@ -20,7 +20,7 @@ public class SpeedMutiplier extends Effect<Double> {
     }
 
     @EventHandler
-    public void onArmorEquip(@NotNull final ArmorEquipEvent event) {
+    public void listener(@NotNull final ArmorEquipEvent event) {
         Player player = event.getPlayer();
 
         AttributeInstance movementSpeed = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);

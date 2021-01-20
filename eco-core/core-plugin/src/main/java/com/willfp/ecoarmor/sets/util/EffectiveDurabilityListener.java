@@ -28,7 +28,7 @@ public class EffectiveDurabilityListener extends PluginDependent implements List
      * @param event The event to listen for.
      */
     @EventHandler
-    public void onDamage(@NotNull final PlayerItemDamageEvent event) {
+    public void listener(@NotNull final PlayerItemDamageEvent event) {
         ItemStack itemStack = event.getItem();
         ItemMeta meta = itemStack.getItemMeta();
 

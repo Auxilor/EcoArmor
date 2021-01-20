@@ -14,7 +14,7 @@ public class DurabilityMultiplier extends Effect<Double> {
     }
 
     @EventHandler
-    public void onDamage(@NotNull final PlayerItemDamageEvent event) {
+    public void listener(@NotNull final PlayerItemDamageEvent event) {
         if (event.isCancelled()) {
             return;
         }

@@ -11,6 +11,7 @@ import com.willfp.ecoarmor.commands.CommandEareload;
 import com.willfp.ecoarmor.commands.TabcompleterEagive;
 import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.display.ArmorDisplay;
+import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.util.EffectiveDurabilityListener;
@@ -47,7 +48,8 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
     public void enable() {
         Display.registerDisplayModule(new DisplayModule(ArmorDisplay::display, 1, this.getPluginName()));
         Display.registerRevertModule(ArmorDisplay::revertDisplay);
-        Effects.values().forEach(effect -> this.getEventManager().registerListener(effect));
+        Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
+        ArmorSets.update();
         this.onReload();
     }
 
@@ -72,6 +74,8 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
      */
     @Override
     public void onReload() {
+        Effects.values().forEach(effect -> this.getEventManager().unregisterListener(effect));
+        Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
         this.getLog().info(ArmorSets.values().size() + " Sets Loaded");
     }
 

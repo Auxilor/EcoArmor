@@ -13,7 +13,7 @@ public class FallDamageMultiplier extends Effect<Double> {
     }
 
     @EventHandler
-    public void onDamage(@NotNull final EntityDamageEvent event) {
+    public void listener(@NotNull final EntityDamageEvent event) {
         if (event.isCancelled()) {
             return;
         }

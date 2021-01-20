@@ -18,7 +18,7 @@ public class WarpChance extends Effect<Double> {
     }
 
     @EventHandler
-    public void onDamage(@NotNull final EntityDamageByEntityEvent event) {
+    public void listener(@NotNull final EntityDamageByEntityEvent event) {
         if (event.isCancelled()) {
             return;
         }

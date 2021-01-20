@@ -2,3 +2,55 @@
 # EcoArmor
 # by Auxilor
 #
+
+
+# Effects are passive abilities that happen when wearing a full set with the effect present.
+effects:
+  attack-speed-multiplier:
+    # Changes attack speed by some multiplier
+    enabled: true
+  bonus-hearts:
+    # Extra hearts given to a player
+    enabled: true
+  bow-damage-multipier:
+    # Changes bow damage by some multiplier
+    enabled: true
+  damage-multipier:
+    # Changes damage from any form by some multiplier
+    enabled: true
+  damage-taken-multipier:
+    # Changes incoming damage by some multiplier
+    enabled: true
+  durability-multiplier:
+    # Changes durability for **all items in inventory** by some multiplier
+    enabled: true
+  evade-chance:
+    # Chance of avoiding attack, as a percentage
+    enabled: true
+  experience-multiplier:
+    # Changes experience gained by some multiplier
+    enabled: true
+  fall-damage-multiplier:
+    # Changes fall damage by some multiplier
+    enabled: true
+  flight:
+    # Allows flight
+    enabled: true
+  melee-damage-multiplier:
+    # Changes melee damage by some multiplier
+    enabled: true
+  regeneration-multiplier:
+    # Changes regeneration by some multiplier
+    enabled: true
+  speed-multiplier:
+    # Changes movement speed by some multiplier
+    enabled: true
+  trident-damage-multiplier:
+    # Changes trident damage by some multiplier
+    enabled: true
+  warp-chance:
+    # Chance to warp behind your opponent after damaging them, as a percentage
+    enabled: true
+  hunger-loss-multiplier:
+    # Modify hunger loss by some multiplier
+    enabled: true

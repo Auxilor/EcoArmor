@@ -11,6 +11,8 @@ import com.willfp.ecoarmor.effects.effects.DamageTakenMultiplier;
 import com.willfp.ecoarmor.effects.effects.EvadeChance;
 import com.willfp.ecoarmor.effects.effects.ExperienceMultiplier;
 import com.willfp.ecoarmor.effects.effects.FallDamageMultiplier;
+import com.willfp.ecoarmor.effects.effects.Flight;
+import com.willfp.ecoarmor.effects.effects.HungerLossMultiplier;
 import com.willfp.ecoarmor.effects.effects.MeleeDamageMultiplier;
 import com.willfp.ecoarmor.effects.effects.RegenerationMultiplier;
 import com.willfp.ecoarmor.effects.effects.SpeedMutiplier;
@@ -42,6 +44,8 @@ public class Effects {
     public static final Effect<?> REGENERATION_MULTIPLIER = new RegenerationMultiplier();
     public static final Effect<?> WARP_CHANCE = new WarpChance();
     public static final Effect<?> ATTACK_SPEED_MULTIPLIER = new AttackSpeedMultiplier();
+    public static final Effect<?> FLIGHT = new Flight();
+    public static final Effect<?> HUNGER_LOSS_MULTIPLIER = new HungerLossMultiplier();
 
     /**
      * Get effect matching name.
