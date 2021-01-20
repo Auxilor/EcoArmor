@@ -235,17 +235,17 @@ public class ArmorSet {
         }
         itemStack.setItemMeta(meta);
 
+        RecipePartUtils.registerLookup("ecoarmor:set_" + name.toLowerCase() + "_" + pieceName, s -> new ComplexRecipePart(test -> {
+            if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
+                return false;
+            }
+            return Objects.equals(this, ArmorUtils.getSetOnItem(test));
+        }, itemStack));
+
+
         if (!advanced) {
-            RecipePartUtils.registerLookup("ecoarmor:set_" + name.toLowerCase() + "_" + pieceName, s -> new ComplexRecipePart(test -> {
-                if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
-                    return false;
-                }
-                return Objects.equals(this, ArmorUtils.getSetOnItem(test));
-            }, itemStack));
+            constructRecipe(slot, itemStack);
         }
-
-
-        constructRecipe(slot, itemStack);
 
         return itemStack;
     }
