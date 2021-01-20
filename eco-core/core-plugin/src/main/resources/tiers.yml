@@ -262,10 +262,10 @@ manyullyn:
 
 
 obsidian:
-  display: "&0&lOBSIDIAN"
+  display: "&#a9a9a9&lOBSIDIAN"
   requires-tier: iron # Set to 'none' to always allow application
   crystal-craftable: true
-  crystal-name: "&0Obsidian Upgrade Crystal"
+  crystal-name: "&#a9a9a9Obsidian Upgrade Crystal"
   crystal-recipe:
     - air
     - obsidian
@@ -281,7 +281,7 @@ obsidian:
   crystal-lore:
     - "&8Drop this onto an armor piece"
     - "&8to set its tier to:"
-    - "&0&lOBSIDIAN"
+    - "&#a9a9a9&lOBSIDIAN"
   properties:
     helmet:
       armor: 3
@@ -289,7 +289,7 @@ obsidian:
       knockback-resistance: 1
       speed-percentage: -10
       attack-speed-percentage: -10
-      attack-damage-percentage: 5
+      attack-damage-percentage: 0
       attack-knockback-percentage: 10
     chestplate:
       armor: 8
@@ -297,7 +297,7 @@ obsidian:
       knockback-resistance: 1
       speed-percentage: -10
       attack-speed-percentage: -10
-      attack-damage-percentage: 5
+      attack-damage-percentage: 0
       attack-knockback-percentage: 10
     elytra:
       armor: 6
@@ -305,15 +305,15 @@ obsidian:
       knockback-resistance: 1
       speed-percentage: -10
       attack-speed-percentage: -10
-      attack-damage-percentage: 5
+      attack-damage-percentage: 0
       attack-knockback-percentage: 10
     leggings:
       armor: 6
       toughness: 4
       knockback-resistance: 1
       speed-percentage: -10
-      attack-speed-percentage: -10
-      attack-damage-percentage: 5
+      attack-speed-percentage: -1
+      attack-damage-percentage: 0
       attack-knockback-percentage: 10
     boots:
       armor: 3
@@ -321,7 +321,7 @@ obsidian:
       knockback-resistance: 1
       speed-percentage: -10
       attack-speed-percentage: -10
-      attack-damage-percentage: 5
+      attack-damage-percentage: 0
       attack-knockback-percentage: 10
 
 osmium:
@@ -350,41 +350,41 @@ osmium:
       armor: 3
       toughness: 6
       knockback-resistance: 3
-      speed-percentage: -25
+      speed-percentage: -15
       attack-speed-percentage: -15
-      attack-damage-percentage: 10
+      attack-damage-percentage: 5
       attack-knockback-percentage: 25
     chestplate:
       armor: 8
       toughness: 6
       knockback-resistance: 3
-      speed-percentage: -25
+      speed-percentage: -15
       attack-speed-percentage: -15
-      attack-damage-percentage: 10
+      attack-damage-percentage: 5
       attack-knockback-percentage: 25
     elytra:
       armor: 8
       toughness: 6
       knockback-resistance: 3
-      speed-percentage: -25
+      speed-percentage: -15
       attack-speed-percentage: -15
-      attack-damage-percentage: 10
+      attack-damage-percentage: 5
       attack-knockback-percentage: 25
     leggings:
       armor: 6
       toughness: 6
       knockback-resistance: 3
-      speed-percentage: -25
+      speed-percentage: -15
       attack-speed-percentage: -15
-      attack-damage-percentage: 10
+      attack-damage-percentage: 5
       attack-knockback-percentage: 25
     boots:
       armor: 3
       toughness: 6
       knockback-resistance: 3
-      speed-percentage: -25
+      speed-percentage: -15
       attack-speed-percentage: -15
-      attack-damage-percentage: 10
+      attack-damage-percentage: 5
       attack-knockback-percentage: 25
 
 
@@ -393,7 +393,7 @@ exotic:
   display: "&6&k!!&r <\$#f79d00>&lEXOTIC<\$#64f38c>&r &6&k!!&r"
   requires-tier: netherite # Set to 'none' to always allow application
   crystal-craftable: true
-  crystal-name: "<\$#f79d00>Exotic Upgrade Crystal<\$#f79d00>"
+  crystal-name: "<\$#f79d00>Exotic Upgrade Crystal<\$#64f38c>"
   crystal-recipe:
     - ecoarmor:upgrade_crystal_netherite
     - turtle_egg
@@ -413,41 +413,41 @@ exotic:
   properties:
     helmet:
       armor: 3
-      toughness: 3
+      toughness: 2
       knockback-resistance: 0
-      speed-percentage: 10
-      attack-speed-percentage: 5
-      attack-damage-percentage: 0
-      attack-knockback-percentage: -25
+      speed-percentage: 5
+      attack-speed-percentage: 10
+      attack-damage-percentage: -5
+      attack-knockback-percentage: -20
     chestplate:
       armor: 8
-      toughness: 3
+      toughness: 2
       knockback-resistance: 0
-      speed-percentage: 10
-      attack-speed-percentage: 5
-      attack-damage-percentage: 0
-      attack-knockback-percentage: -25
+      speed-percentage: 5
+      attack-speed-percentage: 10
+      attack-damage-percentage: -5
+      attack-knockback-percentage: -20
     elytra:
       armor: 3
       toughness: 0
       knockback-resistance: 0
-      speed-percentage: 10
-      attack-speed-percentage: 5
-      attack-damage-percentage: 0
-      attack-knockback-percentage: -25
+      speed-percentage: 5
+      attack-speed-percentage: 10
+      attack-damage-percentage: -5
+      attack-knockback-percentage: -20
     leggings:
       armor: 6
-      toughness: 3
+      toughness: 2
       knockback-resistance: 0
-      speed-percentage: 10
-      attack-speed-percentage: 5
-      attack-damage-percentage: 0
-      attack-knockback-percentage: -25
+      speed-percentage: 5
+      attack-speed-percentage: 10
+      attack-damage-percentage: -5
+      attack-knockback-percentage: -20
     boots:
       armor: 3
-      toughness: 3
+      toughness: 2
       knockback-resistance: 0
-      speed-percentage: 10
-      attack-speed-percentage: 5
-      attack-damage-percentage: 0
-      attack-knockback-percentage: -25
+      speed-percentage: 5
+      attack-speed-percentage: 10
+      attack-damage-percentage: -5
+      attack-knockback-percentage: -20
