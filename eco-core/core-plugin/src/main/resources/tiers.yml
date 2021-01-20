@@ -326,7 +326,7 @@ cobalt:
 
 osmium:
   display: "&b&k!!&r <\$#c7f1ff>&lOSMIUM<\$#5c92ff>&r &b&k!!"
-  requires-tier: obsidian # Set to 'none' to always allow application
+  requires-tier: cobalt # Set to 'none' to always allow application
   crystal-craftable: true
   crystal-name: "<\$#c7f1ff>Osmium upgrade crystal<\$#5c92ff>"
   crystal-recipe:
