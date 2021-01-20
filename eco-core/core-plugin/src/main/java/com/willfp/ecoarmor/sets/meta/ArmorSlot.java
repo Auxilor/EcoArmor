@@ -50,7 +50,11 @@ public enum ArmorSlot {
      * @return The slot, or null.
      */
     @Nullable
-    public static ArmorSlot getSlot(@NotNull final ItemStack itemStack) {
+    public static ArmorSlot getSlot(@Nullable final ItemStack itemStack) {
+        if (itemStack == null) {
+            return null;
+        }
+
         Material material = itemStack.getType();
         String name = material.name().toLowerCase();
 

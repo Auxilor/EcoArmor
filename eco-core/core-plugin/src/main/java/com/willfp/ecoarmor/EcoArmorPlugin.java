@@ -19,6 +19,7 @@ import com.willfp.ecoarmor.sets.util.PotionEffectListener;
 import com.willfp.ecoarmor.upgrades.advanced.AdvancementShardListener;
 import com.willfp.ecoarmor.upgrades.crystal.CrystalListener;
 import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
+import com.willfp.ecoarmor.util.DiscoverRecipeListener;
 import lombok.Getter;
 import org.bukkit.event.Listener;
 
@@ -132,7 +133,8 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
                 new CrystalListener(this),
                 new AdvancementShardListener(this),
                 new PotionEffectListener(this),
-                new EffectiveDurabilityListener(this)
+                new EffectiveDurabilityListener(this),
+                new DiscoverRecipeListener(this)
         );
     }
 
