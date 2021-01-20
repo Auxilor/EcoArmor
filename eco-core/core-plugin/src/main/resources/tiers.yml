@@ -197,10 +197,10 @@ netherite:
       attack-knockback-percentage: 0
 
 manyullyn:
-  display: "&d&k!!&r <\$#f953c6>&lMANYULLYN<\$#b91d73>&r &d&k!!&r"
+  display: "&d&k!!&r <GRADIENT:f953c6>&lMANYULLYN</GRADIENT:b91d73>&r &d&k!!&r"
   requires-tier: netherite # Set to 'none' to always allow application
   crystal-craftable: true
-  crystal-name: "<\$#f953c6>Manyullyn Upgrade Crystal<\$#b91d73>"
+  crystal-name: "<GRADIENT:f953c6>Manyullyn Upgrade Crystal</GRADIENT:b91d73>"
   crystal-recipe:
     - ecoarmor:upgrade_crystal_netherite
     - enchanted_golden_apple
@@ -216,7 +216,7 @@ manyullyn:
   crystal-lore:
     - "&8Drop this onto an armor piece"
     - "&8to set its tier to:"
-    - "&d&k!!&r <\$#f953c6>&lMANYULLYN<\$#b91d73>&r &d&k!!&r"
+    - "&d&k!!&r <GRADIENT:f953c6>&lMANYULLYN</GRADIENT:b91d73>&r &d&k!!&r"
   properties:
     helmet:
       armor: 3
@@ -325,10 +325,10 @@ cobalt:
       attack-knockback-percentage: 10
 
 osmium:
-  display: "&b&k!!&r <\$#c7f1ff>&lOSMIUM<\$#5c92ff>&r &b&k!!"
+  display: "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!"
   requires-tier: cobalt # Set to 'none' to always allow application
   crystal-craftable: true
-  crystal-name: "<\$#c7f1ff>Osmium upgrade crystal<\$#5c92ff>"
+  crystal-name: "<GRADIENT:c7f1ff>Osmium upgrade crystal</GRADIENT:5c92ff>"
   crystal-recipe:
     - air
     - netherite_block
@@ -344,7 +344,7 @@ osmium:
   crystal-lore:
     - "&8Drop this onto an armor piece"
     - "&8to set its tier to:"
-    - "&b&k!!&r <\$#c7f1ff>&lOSMIUM<\$#5c92ff>&r &b&k!!"
+    - "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!"
   properties:
     helmet:
       armor: 3
@@ -390,10 +390,10 @@ osmium:
 
 
 exotic:
-  display: "&6&k!!&r <\$#f79d00>&lEXOTIC<\$#64f38c>&r &6&k!!&r"
+  display: "&6&k!!&r <GRADIENT:f79d00>&lEXOTIC</GRADIENT:64f38c>&r &6&k!!&r"
   requires-tier: netherite # Set to 'none' to always allow application
   crystal-craftable: true
-  crystal-name: "<\$#f79d00>Exotic Upgrade Crystal<\$#64f38c>"
+  crystal-name: "<GRADIENT:f79d00>Exotic Upgrade Crystal</GRADIENT:64f38c>"
   crystal-recipe:
     - ecoarmor:upgrade_crystal_netherite
     - turtle_egg
@@ -409,7 +409,7 @@ exotic:
   crystal-lore:
     - "&8Drop this onto an armor piece"
     - "&8to set its tier to:"
-    - "&6&k!!&r <\$#f79d00>&lEXOTIC<\$#64f38c>&r &6&k!!&r"
+    - "&6&k!!&r <GRADIENT:f79d00>&lEXOTIC</GRADIENT:64f38c>&r &6&k!!&r"
   properties:
     helmet:
       armor: 3
