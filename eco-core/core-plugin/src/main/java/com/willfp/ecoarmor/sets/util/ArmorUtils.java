@@ -207,6 +207,10 @@ public class ArmorUtils {
         int armor = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".armor");
         int toughness = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".toughness");
         int knockback = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".knockback-resistance");
+        int speed = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".speed-percentage");
+        int attackSpeed = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".attack-speed-percentage");
+        int attackDamage = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".attack-damage-percentage");
+        int attackKnockback = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".attack-knockback-percentage");
 
         if (armor > 0) {
             meta.removeAttributeModifier(Attribute.GENERIC_ARMOR);
@@ -219,6 +223,22 @@ public class ArmorUtils {
         if (knockback > 0) {
             meta.removeAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
             meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "ecoarmor-knockback", (double) knockback / 10, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot()));
+        }
+        if (speed != 0) {
+            meta.removeAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED);
+            meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier(UUID.randomUUID(), "ecoarmor-speed", (double) speed / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot()));
+        }
+        if (attackSpeed != 0) {
+            meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
+            meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackspeed", (double) attackSpeed / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot()));
+        }
+        if (attackDamage != 0) {
+            meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
+            meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackdamage", (double) attackDamage / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot()));
+        }
+        if (attackKnockback != 0) {
+            meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_KNOCKBACK);
+            meta.addAttributeModifier(Attribute.GENERIC_ATTACK_KNOCKBACK, new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackknockback", (double) attackKnockback / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot()));
         }
 
         itemStack.setItemMeta(meta);
