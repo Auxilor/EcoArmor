@@ -261,11 +261,11 @@ manyullyn:
 
 
 
-obsidian:
-  display: "&#a9a9a9&lOBSIDIAN"
+cobalt:
+  display: "&#2a285c&lCOBALT"
   requires-tier: iron # Set to 'none' to always allow application
   crystal-craftable: true
-  crystal-name: "&#a9a9a9Obsidian Upgrade Crystal"
+  crystal-name: "&#2a285cCobalt Upgrade Crystal"
   crystal-recipe:
     - air
     - obsidian
@@ -281,7 +281,7 @@ obsidian:
   crystal-lore:
     - "&8Drop this onto an armor piece"
     - "&8to set its tier to:"
-    - "&#a9a9a9&lOBSIDIAN"
+    - "&#2a285c&lOBSIDIAN"
   properties:
     helmet:
       armor: 3
@@ -335,7 +335,7 @@ osmium:
     - air
 
     - netherite_block
-    - ecoarmor:upgrade_crystal_obsidian
+    - ecoarmor:upgrade_crystal_cobalt
     - netherite_block
 
     - air
@@ -400,7 +400,7 @@ exotic:
     - ecoarmor:upgrade_crystal_netherite
 
     - turtle_egg
-    - ecoarmor:upgrade_crystal_obsidian
+    - ecoarmor:upgrade_crystal_cobalt
     - turtle_egg
 
     - ecoarmor:upgrade_crystal_netherite
