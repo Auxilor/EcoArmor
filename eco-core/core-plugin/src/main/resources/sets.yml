@@ -375,7 +375,7 @@ young:
     enchants:
       protection: 2
       unbreaking: 3
-    material: player_skull
+    material: player_head
     skull-texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWM0ODZhZjNiODgyNzY2ZTgyYTBiYzE2NjVmZjAyZWI2ZTg3M2I2ZTBkNzcxZjNhZGFiYzc1OWI3MjAyMjZhIn19fQ==
     name: "&bYoung Helmet"
     advanced-name: "<\$#f12711>Advanced<\$#f5af19>&b Young Helmet"

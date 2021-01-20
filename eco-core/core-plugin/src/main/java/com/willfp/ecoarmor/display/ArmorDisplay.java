@@ -2,10 +2,12 @@ package com.willfp.ecoarmor.display;
 
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.config.EcoArmorConfigs;
+import com.willfp.ecoarmor.proxy.proxies.SkullProxy;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
+import com.willfp.ecoarmor.util.ProxyUtils;
 import lombok.experimental.UtilityClass;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -125,7 +127,8 @@ public class ArmorDisplay {
         meta.setDisplayName(slotMeta.getDisplayName());
 
         if (meta instanceof SkullMeta && slotMeta instanceof SkullMeta) {
-            ((SkullMeta) meta).setOwningPlayer(((SkullMeta) slotMeta).getOwningPlayer());
+            String base64 = EcoArmorConfigs.SETS.getString(set.getName() + "." + slot.name().toLowerCase() + ".skull-texture");
+            ProxyUtils.getProxy(SkullProxy.class).setTexture((SkullMeta) meta, base64);
         }
 
         if (meta instanceof LeatherArmorMeta && slotMeta instanceof LeatherArmorMeta) {
