@@ -65,7 +65,7 @@ iron:
       armor: 2
       toughness: 0
       knockback-resistance: 0
-      speed-percentage: 10
+      speed-percentage: 0
       attack-speed-percentage: 0
       attack-damage-percentage: 0
       attack-knockback-percentage: 0
