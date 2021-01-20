@@ -4,9 +4,9 @@ miner:
   advanced-set-bonus:
     hunger-loss-multiplier: 0.5
   potion-effects:
-    haste: 2
+    fast_digging: 2
   advanced-potion-effects:
-    haste: 3
+    fast_digging: 3
   advanced-lore:
     - ""
     - "<\$#f12711>&lADVANCED BONUS<\$#f5af19>"
