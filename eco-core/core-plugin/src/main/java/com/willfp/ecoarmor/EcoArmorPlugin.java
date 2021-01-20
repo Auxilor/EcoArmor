@@ -15,6 +15,7 @@ import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.util.EffectiveDurabilityListener;
+import com.willfp.ecoarmor.sets.util.PotionEffectListener;
 import com.willfp.ecoarmor.upgrades.advanced.AdvancementShardListener;
 import com.willfp.ecoarmor.upgrades.crystal.CrystalListener;
 import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
@@ -130,6 +131,7 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
         return Arrays.asList(
                 new CrystalListener(this),
                 new AdvancementShardListener(this),
+                new PotionEffectListener(this),
                 new EffectiveDurabilityListener(this)
         );
     }

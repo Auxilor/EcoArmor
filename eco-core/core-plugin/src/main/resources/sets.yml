@@ -1,4 +1,180 @@
-Reaper:
+miner:
+  set-bonus:
+    experience-multiplier: 1.25
+  advanced-set-bonus:
+    hunger-loss-multiplier: 0.5
+  potion-effects:
+    haste: 2
+  advanced-potion-effects:
+    haste: 3
+  advanced-lore:
+    - ""
+    - "<\$#f12711>&lADVANCED BONUS<\$#f5af19>"
+    - "&8» &6Lose 50% less hunger"
+    - "&8» &6Permanent Haste III"
+    - "&8&oRequires full set to be worn"
+  advancement-shard-name: "<\$#f12711>Advancement Shard:<\$#f5af19> &9Miner"
+  advancement-shard-lore:
+    - "&8Drop this onto &9Miner Armor"
+    - "&8to make it <\$#f12711>Advanced<\$#f5af19>."
+  shard-craftable: true
+  shard-recipe:
+    - prismarine_shard
+    - ecoarmor:set_miner_helmet
+    - prismarine_shard
+
+    - ecoarmor:set_miner_chestplate
+    - nether_star
+    - ecoarmor:set_miner_leggings
+
+    - prismarine_shard
+    - ecoarmor:set_miner_boots
+    - prismarine_shard
+  helmet:
+    enchants:
+      fire_protection: 4
+      unbreaking: 1
+    material: leather_helmet
+    leather-color: "#6699cc"
+    name: "&9Miner Helmet"
+    advanced-name: "<\$#f12711>Advanced<\$#f5af19>&9 Miner Helmet"
+    effective-durability: 1024
+    lore:
+      - "&9&lMINER SET BONUS"
+      - "&8» &9Gain 50% more experience"
+      - "&8» &9Permanent Haste II"
+      - "&8&oRequires full set to be worn"
+      - ""
+      - "&fTier: %tier%"
+      - "&8&oUpgrade with an Upgrade Crystal"
+    recipe:
+      - air
+      - diamond_pickaxe
+      - air
+
+      - diamond_pickaxe
+      - diamond_helmet
+      - diamond_pickaxe
+
+      - air
+      - diamond_pickaxe
+      - air
+  chestplate:
+    enchants:
+      fire_protection: 4
+      unbreaking: 1
+    material: leather_chestplate
+    leather-color: "#6699cc"
+    name: "&9Miner Chestplate"
+    advanced-name: "<\$#f12711>Advanced<\$#f5af19>&9 Miner Chestplate"
+    effective-durability: 1024
+    lore:
+      - "&9&lMINER SET BONUS"
+      - "&8» &9Gain 50% more experience"
+      - "&8» &9Permanent Haste II"
+      - "&8&oRequires full set to be worn"
+      - ""
+      - "&fTier: %tier%"
+      - "&8&oUpgrade with an Upgrade Crystal"
+    recipe:
+      - air
+      - diamond_pickaxe
+      - air
+
+      - diamond_pickaxe
+      - diamond_chestplate
+      - diamond_pickaxe
+
+      - air
+      - diamond_pickaxe
+      - air
+  elytra:
+    enchants:
+      unbreaking: 1
+    material: elytra
+    name: "&9Miner Elytra"
+    advanced-name: "<\$#f12711>Advanced<\$#f5af19>&9 Miner Elytra"
+    effective-durability: 1024
+    lore:
+      - "&9&lMINER SET BONUS"
+      - "&8» &9Gain 50% more experience"
+      - "&8» &9Permanent Haste II"
+      - "&8&oRequires full set to be worn"
+      - ""
+      - "&fTier: %tier%"
+      - "&8&oUpgrade with an Upgrade Crystal"
+    recipe:
+      - air
+      - diamond_pickaxe
+      - air
+
+      - diamond_pickaxe
+      - elytra
+      - diamond_pickaxe
+
+      - air
+      - diamond_pickaxe
+      - air
+  leggings:
+    enchants:
+      fire_protection: 4
+      unbreaking: 1
+    material: leather_leggings
+    leather-color: "#6699cc"
+    name: "&9Miner Leggings"
+    advanced-name: "<\$#f12711>Advanced<\$#f5af19>&9 Miner Leggings"
+    effective-durability: 1024
+    lore:
+      - "&9&lMINER SET BONUS"
+      - "&8» &9Gain 50% more experience"
+      - "&8» &9Permanent Haste II"
+      - "&8&oRequires full set to be worn"
+      - ""
+      - "&fTier: %tier%"
+      - "&8&oUpgrade with an Upgrade Crystal"
+    recipe:
+      - air
+      - diamond_pickaxe
+      - air
+
+      - diamond_pickaxe
+      - diamond_leggings
+      - diamond_pickaxe
+
+      - air
+      - diamond_pickaxe
+      - air
+  boots:
+    enchants:
+      fire_protection: 4
+      unbreaking: 1
+    material: leather_boots
+    leather-color: "#6699cc"
+    name: "&9Miner Boots"
+    advanced-name: "<\$#f12711>Advanced<\$#f5af19>&9 Miner Boots"
+    effective-durability: 1024
+    lore:
+      - "&9&lMINER SET BONUS"
+      - "&8» &9Gain 50% more experience"
+      - "&8» &9Permanent Haste II"
+      - "&8&oRequires full set to be worn"
+      - ""
+      - "&fTier: %tier%"
+      - "&8&oUpgrade with an Upgrade Crystal"
+    recipe:
+      - air
+      - diamond_pickaxe
+      - air
+
+      - diamond_pickaxe
+      - diamond_boots
+      - diamond_pickaxe
+
+      - air
+      - diamond_pickaxe
+      - air
+
+reaper:
   set-bonus:
     damage-multiplier: 1.25
   advanced-set-bonus:

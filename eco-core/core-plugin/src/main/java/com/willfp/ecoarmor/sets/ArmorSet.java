@@ -66,6 +66,12 @@ public class ArmorSet {
     private final Map<PotionEffectType, Integer> potionEffects = new HashMap<>();
 
     /**
+     * Potion effects to be applied on equipping advanced.
+     */
+    @Getter
+    private final Map<PotionEffectType, Integer> advancedPotionEffects = new HashMap<>();
+
+    /**
      * Items in set.
      */
     private final Map<ArmorSlot, ItemStack> items = new HashMap<>();
@@ -99,6 +105,22 @@ public class ArmorSet {
             Effect<?> effect = Effects.getByName(effectName);
             Object value = EcoArmorConfigs.SETS.getConfig().get(name + ".advanced-set-bonus." + effectName);
             advancedEffects.put(effect, value);
+        }
+
+        if (EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".potion-effects") != null) {
+            for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".potion-effects").getKeys(false)) {
+                PotionEffectType type = PotionEffectType.getByName(effectName.toUpperCase());
+                int strength = EcoArmorConfigs.SETS.getInt(name + ".potion-effects." + effectName);
+                potionEffects.put(type, strength);
+            }
+        }
+
+        if (EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".advanced-potion-effects") != null) {
+            for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".advanced-potion-effects").getKeys(false)) {
+                PotionEffectType type = PotionEffectType.getByName(effectName.toUpperCase());
+                int strength = EcoArmorConfigs.SETS.getInt(name + ".advanced-potion-effects." + effectName);
+                advancedPotionEffects.put(type, strength);
+            }
         }
 
         for (ArmorSlot slot : ArmorSlot.values()) {
