@@ -140,6 +140,10 @@ public class ArmorUtils {
      */
     @Nullable
     public static String getCrystalTier(@NotNull final ItemStack itemStack) {
+        if (itemStack == null) {
+            return null;
+        }
+
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta == null) {
@@ -287,10 +291,10 @@ public class ArmorUtils {
     }
 
     /**
-     * Get if item is advanced.
+     * Get the set from a shard.
      *
      * @param itemStack The item to check.
-     * @return If advanced.
+     * @return The set, or null if not a shard.
      */
     @Nullable
     public static ArmorSet getShardSet(@NotNull final ItemStack itemStack) {

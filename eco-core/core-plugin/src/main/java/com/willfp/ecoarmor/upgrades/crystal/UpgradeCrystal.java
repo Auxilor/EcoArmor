@@ -103,7 +103,12 @@ public class UpgradeCrystal {
 
             List<String> recipeStrings = EcoArmorConfigs.TIERS.getStrings(tier + ".crystal-recipe");
 
-            RecipePartUtils.registerLookup("ecoarmor:upgrade_crystal_" + tier, s -> new ComplexRecipePart(test -> Objects.equals(tier, ArmorUtils.getCrystalTier(test)), out));
+            RecipePartUtils.registerLookup("ecoarmor:upgrade_crystal_" + tier, s -> new ComplexRecipePart(test -> {
+                if (ArmorUtils.getCrystalTier(test) == null) {
+                    return false;
+                }
+                return Objects.equals(tier, ArmorUtils.getCrystalTier(test));
+            }, out));
 
             for (int i = 0; i < 9; i++) {
                 builder.setRecipePart(i, RecipePartUtils.lookup(recipeStrings.get(i)));
