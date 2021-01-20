@@ -140,6 +140,7 @@ public class ArmorUtils {
      */
     @Nullable
     public static String getCrystalTier(@NotNull final ItemStack itemStack) {
+        // I have no idea when null gets passed but it broke crystal crafting so this check goes here.
         if (itemStack == null) {
             return null;
         }
