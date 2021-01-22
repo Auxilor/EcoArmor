@@ -10,9 +10,11 @@ import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandEagive extends AbstractCommand {
@@ -51,14 +53,25 @@ public class CommandEagive extends AbstractCommand {
             return;
         }
 
-        String itemName = args.get(1);
-        if (!itemName.contains(":")) {
+        String fullItemKey = args.get(1);
+
+        if (!fullItemKey.contains(":")) {
             sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
             return;
         }
+        String[] fullItemSplit = fullItemKey.split(":");
+        if (fullItemSplit.length == 1) {
+            sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
+            return;
+        }
+        String itemNamespace = fullItemSplit[0];
+        String itemKey = fullItemSplit[1];
 
-        if (itemName.split(":")[0].equals("set")) {
-            ArmorSet set = ArmorSets.getByName(itemName.split(":")[1]);
+        List<ItemStack> items = new ArrayList<>();
+        int amount = 1;
+
+        if (itemKey.equalsIgnoreCase("set")) {
+            ArmorSet set = ArmorSets.getByName(itemKey);
             if (set == null) {
                 sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
                 return;
@@ -73,36 +86,53 @@ public class CommandEagive extends AbstractCommand {
                 advanced = Boolean.parseBoolean(args.get(3));
             }
 
+            if (args.size() >= 5) {
+                try {
+                    amount = Integer.parseInt(args.get(4));
+                } catch (NumberFormatException e) {
+                    amount = 1;
+                }
+            }
+
             if (args.size() >= 3) {
                 ArmorSlot slot = ArmorSlot.getSlot(args.get(2));
 
-                if (slot == null) {
+                if (slot == null && !args.get(2).equalsIgnoreCase("full")) {
                     sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
                     return;
                 }
 
                 if (advanced) {
-                    reciever.getInventory().addItem(set.getAdvancedItemStack(slot));
+                    if (slot != null) {
+                        items.add(set.getAdvancedItemStack(slot));
+                    } else {
+                        for (ArmorSlot slot2 : ArmorSlot.values()) {
+                            items.add(set.getAdvancedItemStack(slot2));
+                        }
+                    }
                 } else {
-                    reciever.getInventory().addItem(set.getItemStack(slot));
+                    if (slot != null) {
+                        items.add(set.getItemStack(slot));
+                    } else {
+                        for (ArmorSlot slot2 : ArmorSlot.values()) {
+                            items.add(set.getItemStack(slot2));
+                        }
+                    }
+                }
+            } else {
+                for (ArmorSlot slot : ArmorSlot.values()) {
+                    if (advanced) {
+                        items.add(set.getAdvancedItemStack(slot));
+                    } else {
+                        items.add(set.getItemStack(slot));
+                    }
                 }
 
-                return;
             }
-
-            for (ArmorSlot slot : ArmorSlot.values()) {
-                if (advanced) {
-                    reciever.getInventory().addItem(set.getAdvancedItemStack(slot));
-                } else {
-                    reciever.getInventory().addItem(set.getItemStack(slot));
-                }
-            }
-
-            return;
         }
 
-        if (itemName.split(":")[0].equals("crystal")) {
-            UpgradeCrystal crystal = UpgradeCrystal.getByName(itemName.split(":")[1]);
+        if (itemNamespace.equalsIgnoreCase("crystal")) {
+            UpgradeCrystal crystal = UpgradeCrystal.getByName(itemKey);
             if (crystal == null) {
                 sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
                 return;
@@ -111,13 +141,19 @@ public class CommandEagive extends AbstractCommand {
             String message = this.getPlugin().getLangYml().getMessage("give-success");
             message = message.replace("%item%", crystal.getItemStack().getItemMeta().getDisplayName()).replace("%recipient%", reciever.getName());
             sender.sendMessage(message);
-            reciever.getInventory().addItem(crystal.getItemStack());
+            items.add(crystal.getItemStack());
 
-            return;
+            if (args.size() >= 3) {
+                try {
+                    amount = Integer.parseInt(args.get(2));
+                } catch (NumberFormatException e) {
+                    amount = 1;
+                }
+            }
         }
 
-        if (itemName.split(":")[0].equals("shard")) {
-            ArmorSet set = ArmorSets.getByName(itemName.split(":")[1]);
+        if (itemNamespace.equalsIgnoreCase("shard")) {
+            ArmorSet set = ArmorSets.getByName(itemKey);
             if (set == null) {
                 sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
                 return;
@@ -126,9 +162,21 @@ public class CommandEagive extends AbstractCommand {
             String message = this.getPlugin().getLangYml().getMessage("give-success");
             message = message.replace("%item%", set.getAdvancementShardItem().getItemMeta().getDisplayName()).replace("%recipient%", reciever.getName());
             sender.sendMessage(message);
-            reciever.getInventory().addItem(set.getAdvancementShardItem());
+            items.add(set.getAdvancementShardItem());
 
-            return;
+            if (args.size() >= 3) {
+                try {
+                    amount = Integer.parseInt(args.get(2));
+                } catch (NumberFormatException e) {
+                    amount = 1;
+                }
+            }
+        }
+
+        for (ItemStack item : items) {
+            for (int i = 0; i < amount; i++) {
+                reciever.getInventory().addItem(item);
+            }
         }
 
         sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));

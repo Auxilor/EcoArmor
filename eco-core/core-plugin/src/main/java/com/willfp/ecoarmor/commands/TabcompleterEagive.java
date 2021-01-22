@@ -21,9 +21,28 @@ import java.util.stream.Collectors;
 
 public class TabcompleterEagive extends AbstractTabCompleter {
     /**
-     * The cached enchantment names.
+     * The cached names.
      */
     private static final List<String> SET_NAMES = new ArrayList<>();
+
+    /**
+     * The cached slots.
+     */
+    private static final List<String> SLOTS = new ArrayList<>();
+
+    /**
+     * The cached numbers.
+     */
+    private static final List<String> NUMBERS = Arrays.asList(
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "10",
+            "32",
+            "64"
+    );
 
     /**
      * Instantiate a new tab-completer for /eagive.
@@ -42,6 +61,8 @@ public class TabcompleterEagive extends AbstractTabCompleter {
         SET_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "set:" + armorSet.getName()).collect(Collectors.toList()));
         SET_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "shard:" + armorSet.getName()).collect(Collectors.toList()));
         SET_NAMES.addAll(UpgradeCrystal.values().stream().map(crystal -> "crystal:" + crystal.getTier()).collect(Collectors.toList()));
+        SLOTS.addAll(Arrays.stream(ArmorSlot.values()).map(slot -> slot.name().toLowerCase()).collect(Collectors.toList()));
+        SLOTS.add("full");
     }
 
     /**
@@ -73,18 +94,34 @@ public class TabcompleterEagive extends AbstractTabCompleter {
             return completions;
         }
 
-        if (args.size() == 3) {
-            StringUtil.copyPartialMatches(args.get(2), Arrays.stream(ArmorSlot.values()).map(slot -> slot.name().toLowerCase()).collect(Collectors.toList()), completions);
+        if (args.get(1).startsWith("set:")) {
+            if (args.size() == 3) {
+                StringUtil.copyPartialMatches(args.get(2), SLOTS, completions);
 
-            Collections.sort(completions);
-            return completions;
-        }
+                Collections.sort(completions);
+                return completions;
+            }
 
-        if (args.size() == 4) {
-            StringUtil.copyPartialMatches(args.get(3), Arrays.asList("true", "false"), completions);
+            if (args.size() == 4) {
+                StringUtil.copyPartialMatches(args.get(3), Arrays.asList("true", "false"), completions);
 
-            Collections.sort(completions);
-            return completions;
+                Collections.sort(completions);
+                return completions;
+            }
+
+            if (args.size() == 5) {
+                StringUtil.copyPartialMatches(args.get(4), NUMBERS, completions);
+
+                Collections.sort(completions);
+                return completions;
+            }
+        } else {
+            if (args.size() == 3) {
+                StringUtil.copyPartialMatches(args.get(2), NUMBERS, completions);
+
+                Collections.sort(completions);
+                return completions;
+            }
         }
 
         return new ArrayList<>(0);
