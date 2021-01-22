@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CommandEagive extends AbstractCommand {
@@ -70,7 +71,7 @@ public class CommandEagive extends AbstractCommand {
         List<ItemStack> items = new ArrayList<>();
         int amount = 1;
 
-        if (itemKey.equalsIgnoreCase("set")) {
+        if (itemNamespace.equalsIgnoreCase("set")) {
             ArmorSet set = ArmorSets.getByName(itemKey);
             if (set == null) {
                 sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
@@ -82,6 +83,28 @@ public class CommandEagive extends AbstractCommand {
             sender.sendMessage(message);
 
             boolean advanced = false;
+
+            List<ArmorSlot> slots = new ArrayList<>();
+
+            if (args.size() >= 3) {
+                ArmorSlot slot = ArmorSlot.getSlot(args.get(2));
+
+                if (slot == null) {
+                    if (!args.get(2).equalsIgnoreCase("full")) {
+                        sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
+                        return;
+                    }
+                }
+
+                if (slot == null) {
+                    slots.addAll(Arrays.asList(ArmorSlot.values()));
+                } else {
+                    slots.add(slot);
+                }
+            } else {
+                slots.addAll(Arrays.asList(ArmorSlot.values()));
+            }
+
             if (args.size() >= 4) {
                 advanced = Boolean.parseBoolean(args.get(3));
             }
@@ -89,45 +112,13 @@ public class CommandEagive extends AbstractCommand {
             if (args.size() >= 5) {
                 try {
                     amount = Integer.parseInt(args.get(4));
-                } catch (NumberFormatException e) {
-                    amount = 1;
+                } catch (NumberFormatException ignored) {
+                    // do nothing
                 }
             }
 
-            if (args.size() >= 3) {
-                ArmorSlot slot = ArmorSlot.getSlot(args.get(2));
-
-                if (slot == null && !args.get(2).equalsIgnoreCase("full")) {
-                    sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
-                    return;
-                }
-
-                if (advanced) {
-                    if (slot != null) {
-                        items.add(set.getAdvancedItemStack(slot));
-                    } else {
-                        for (ArmorSlot slot2 : ArmorSlot.values()) {
-                            items.add(set.getAdvancedItemStack(slot2));
-                        }
-                    }
-                } else {
-                    if (slot != null) {
-                        items.add(set.getItemStack(slot));
-                    } else {
-                        for (ArmorSlot slot2 : ArmorSlot.values()) {
-                            items.add(set.getItemStack(slot2));
-                        }
-                    }
-                }
-            } else {
-                for (ArmorSlot slot : ArmorSlot.values()) {
-                    if (advanced) {
-                        items.add(set.getAdvancedItemStack(slot));
-                    } else {
-                        items.add(set.getItemStack(slot));
-                    }
-                }
-
+            for (ArmorSlot slot : slots) {
+                items.add(advanced ? set.getAdvancedItemStack(slot) : set.getItemStack(slot));
             }
         }
 
@@ -146,8 +137,8 @@ public class CommandEagive extends AbstractCommand {
             if (args.size() >= 3) {
                 try {
                     amount = Integer.parseInt(args.get(2));
-                } catch (NumberFormatException e) {
-                    amount = 1;
+                } catch (NumberFormatException ignored) {
+                    // do nothing
                 }
             }
         }
@@ -167,18 +158,20 @@ public class CommandEagive extends AbstractCommand {
             if (args.size() >= 3) {
                 try {
                     amount = Integer.parseInt(args.get(2));
-                } catch (NumberFormatException e) {
-                    amount = 1;
+                } catch (NumberFormatException ignored) {
+                    // do nothing
                 }
             }
         }
 
-        for (ItemStack item : items) {
-            for (int i = 0; i < amount; i++) {
-                reciever.getInventory().addItem(item);
-            }
+        if (items.isEmpty()) {
+            sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
+            return;
         }
 
-        sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
+        for (ItemStack item : items) {
+            item.setAmount(amount);
+            reciever.getInventory().addItem(item);
+        }
     }
 }

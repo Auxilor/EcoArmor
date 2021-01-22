@@ -112,14 +112,12 @@ public class TabcompleterEagive extends AbstractTabCompleter {
             if (args.size() == 5) {
                 StringUtil.copyPartialMatches(args.get(4), NUMBERS, completions);
 
-                Collections.sort(completions);
                 return completions;
             }
         } else {
             if (args.size() == 3) {
                 StringUtil.copyPartialMatches(args.get(2), NUMBERS, completions);
 
-                Collections.sort(completions);
                 return completions;
             }
         }
