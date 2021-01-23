@@ -89,26 +89,19 @@ public enum ArmorSlot {
      */
     @Nullable
     public static ArmorSlot getSlot(@NotNull final String name) {
-        if (name.equalsIgnoreCase("helmet")) {
-            return HELMET;
+        switch (name.toLowerCase()) {
+            case "helmet":
+                return HELMET;
+            case "chestplate":
+                return CHESTPLATE;
+            case "elytra":
+                return ELYTRA;
+            case "leggings":
+                return LEGGINGS;
+            case "boots":
+                return BOOTS;
+            default:
+                return null;
         }
-
-        if (name.equalsIgnoreCase("chestplate")) {
-            return CHESTPLATE;
-        }
-
-        if (name.equalsIgnoreCase("elytra")) {
-            return ELYTRA;
-        }
-
-        if (name.equalsIgnoreCase("leggings")) {
-            return LEGGINGS;
-        }
-
-        if (name.equalsIgnoreCase("boots")) {
-            return BOOTS;
-        }
-
-        return null;
     }
 }
