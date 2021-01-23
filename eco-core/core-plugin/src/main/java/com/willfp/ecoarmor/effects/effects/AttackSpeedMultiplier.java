@@ -16,7 +16,7 @@ public class AttackSpeedMultiplier extends Effect<Double> {
     private static final UUID MODIFIER_UUID = UUID.nameUUIDFromBytes("attack-speed-multiplier".getBytes());
 
     public AttackSpeedMultiplier() {
-        super("attack-speed-multiplier");
+        super("attack-speed-multiplier", Double.class);
     }
 
     @EventHandler

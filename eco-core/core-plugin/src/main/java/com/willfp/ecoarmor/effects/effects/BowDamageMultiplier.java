@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class BowDamageMultiplier extends Effect<Double> {
     public BowDamageMultiplier() {
-        super("bow-damage-multiplier");
+        super("bow-damage-multiplier", Double.class);
     }
 
     @EventHandler

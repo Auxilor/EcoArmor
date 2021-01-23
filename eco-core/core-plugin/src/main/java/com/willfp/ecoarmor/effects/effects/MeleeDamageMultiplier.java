@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MeleeDamageMultiplier extends Effect<Double> {
     public MeleeDamageMultiplier() {
-        super("melee-damage-multiplier");
+        super("melee-damage-multiplier", Double.class);
     }
 
     @EventHandler

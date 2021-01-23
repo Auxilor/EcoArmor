@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class EvadeChance extends Effect<Double> {
     public EvadeChance() {
-        super("evade-chance");
+        super("evade-chance", Double.class);
     }
 
     @EventHandler

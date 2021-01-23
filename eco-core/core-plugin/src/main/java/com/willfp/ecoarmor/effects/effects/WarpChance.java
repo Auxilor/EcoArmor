@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class WarpChance extends Effect<Double> {
     public WarpChance() {
-        super("warp-chance");
+        super("warp-chance", Double.class);
     }
 
     @EventHandler

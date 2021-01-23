@@ -26,12 +26,21 @@ public abstract class Effect<T> implements Listener {
     private boolean enabled;
 
     /**
+     * The class of the config getter type.
+     */
+    @Getter
+    private final Class<T> typeClass;
+
+    /**
      * Create a new effect.
      *
-     * @param name The effect name.
+     * @param name      The effect name.
+     * @param typeClass The class of the config type.
      */
-    protected Effect(@NotNull final String name) {
+    protected Effect(@NotNull final String name,
+                     @NotNull final Class<T> typeClass) {
         this.name = name;
+        this.typeClass = typeClass;
 
         update();
         Effects.addNewEffect(this);

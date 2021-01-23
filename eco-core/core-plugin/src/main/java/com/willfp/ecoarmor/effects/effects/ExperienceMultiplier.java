@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ExperienceMultiplier extends Effect<Double> {
     public ExperienceMultiplier() {
-        super("experience-multiplier");
+        super("experience-multiplier", Double.class);
     }
 
     @EventHandler

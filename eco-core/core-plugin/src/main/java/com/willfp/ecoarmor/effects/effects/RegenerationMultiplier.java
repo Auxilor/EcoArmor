@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class RegenerationMultiplier extends Effect<Double> {
     public RegenerationMultiplier() {
-        super("regeneration-multiplier");
+        super("regeneration-multiplier", Double.class);
     }
 
     @EventHandler

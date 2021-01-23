@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class DurabilityMultiplier extends Effect<Double> {
     public DurabilityMultiplier() {
-        super("durability-multiplier");
+        super("durability-multiplier", Double.class);
     }
 
     @EventHandler

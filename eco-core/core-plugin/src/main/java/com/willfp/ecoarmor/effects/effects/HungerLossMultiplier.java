@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class HungerLossMultiplier extends Effect<Double> {
     public HungerLossMultiplier() {
-        super("hunger-loss-multiplier");
+        super("hunger-loss-multiplier", Double.class);
     }
 
     @EventHandler

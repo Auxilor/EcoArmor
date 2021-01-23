@@ -16,7 +16,7 @@ public class BonusHearts extends Effect<Integer> {
     private static final UUID MODIFIER_UUID = UUID.nameUUIDFromBytes("bonus-hearts".getBytes());
 
     public BonusHearts() {
-        super("bonus-hearts");
+        super("bonus-hearts", Integer.class);
     }
 
     @EventHandler

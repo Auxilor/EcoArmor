@@ -27,6 +27,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -291,8 +292,16 @@ public class ArmorSet {
      * @param <T>    The type of the effect value.
      * @return The strength.
      */
+    @Nullable
     public <T> T getEffectStrength(@NotNull final Effect<T> effect) {
-        return (T) effects.get(effect);
+        Object strength = effects.get(effect);
+        if (strength instanceof Integer) {
+            if (effect.getTypeClass().equals(Double.class)) {
+                strength = (double) (int) strength;
+            }
+        }
+
+        return (T) strength;
     }
 
     /**
@@ -302,8 +311,16 @@ public class ArmorSet {
      * @param <T>    The type of the effect value.
      * @return The strength.
      */
+    @Nullable
     public <T> T getAdvancedEffectStrength(@NotNull final Effect<T> effect) {
-        return (T) advancedEffects.get(effect);
+        Object strength = advancedEffects.get(effect);
+        if (strength instanceof Integer) {
+            if (effect.getTypeClass().equals(Double.class)) {
+                strength = (double) (int) strength;
+            }
+        }
+
+        return (T) strength;
     }
 
     @Override

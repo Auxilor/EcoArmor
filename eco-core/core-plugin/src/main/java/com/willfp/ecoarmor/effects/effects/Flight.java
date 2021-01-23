@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class Flight extends Effect<Boolean> {
     public Flight() {
-        super("flight");
+        super("flight", Boolean.class);
     }
 
     @EventHandler

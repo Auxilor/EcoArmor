@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class TridentDamageMultiplier extends Effect<Double> {
     public TridentDamageMultiplier() {
-        super("trident-damage-multiplier");
+        super("trident-damage-multiplier", Double.class);
     }
 
     @EventHandler
