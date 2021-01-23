@@ -50,7 +50,11 @@ public enum ArmorSlot {
      * @return The slot, or null.
      */
     @Nullable
-    public static ArmorSlot getSlot(@NotNull final ItemStack itemStack) {
+    public static ArmorSlot getSlot(@Nullable final ItemStack itemStack) {
+        if (itemStack == null) {
+            return null;
+        }
+
         Material material = itemStack.getType();
         String name = material.name().toLowerCase();
 
@@ -71,6 +75,37 @@ public enum ArmorSlot {
         }
 
         if (name.endsWith("boots")) {
+            return BOOTS;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get ArmorSlot from name.
+     *
+     * @param name The name.
+     * @return The slot, or null.
+     */
+    @Nullable
+    public static ArmorSlot getSlot(@NotNull final String name) {
+        if (name.equalsIgnoreCase("helmet")) {
+            return HELMET;
+        }
+
+        if (name.equalsIgnoreCase("chestplate")) {
+            return CHESTPLATE;
+        }
+
+        if (name.equalsIgnoreCase("elytra")) {
+            return ELYTRA;
+        }
+
+        if (name.equalsIgnoreCase("leggings")) {
+            return LEGGINGS;
+        }
+
+        if (name.equalsIgnoreCase("boots")) {
             return BOOTS;
         }
 

@@ -3,70 +3,55 @@
 # by Auxilor
 #
 
-tier:
-  default:
-    display: "&8&lDEFAULT"
-    # No crystal for default
+discover-recipes: true # If all recipes should be automatically discovered.
 
-  iron:
-    display: "&7&lIRON"
-    crystal-craftable: true
-    crystal-name: "&7Iron Upgrade Crystal"
-    crystal-recipe:
-      - air
-      - iron_block
-      - air
-
-      - iron_block
-      - leather_chestplate
-      - iron_block
-
-      - air
-      - iron_block
-      - air
-    crystal-lore:
-      - "&8Drop this onto an armor piece"
-      - "&8to set its tier to:"
-      - "&7&lIRON"
-
-  diamond:
-    display: "&b&lDIAMOND"
-    crystal-craftable: true
-    crystal-name: "&bDiamond Upgrade Crystal"
-    crystal-recipe:
-      - air
-      - diamond_block
-      - air
-
-      - diamond_block
-      - ecoarmor:upgrade_crystal_iron
-      - diamond_block
-
-      - air
-      - diamond_block
-      - air
-    crystal-lore:
-      - "&8Drop this onto an armor piece"
-      - "&8to set its tier to:"
-      - "&b&lDIAMOND"
-
-  netherite:
-    display: "&c&lNETHERITE"
-    crystal-craftable: true
-    crystal-name: "&cNetherite Upgrade Crystal"
-    crystal-recipe:
-      - air
-      - netherite_block
-      - air
-
-      - netherite_block
-      - ecoarmor:upgrade_crystal_diamond
-      - netherite_block
-
-      - air
-      - netherite_block
-      - air
-    crystal-lore:
-      - "&8Drop this onto an armor piece"
-      - "&8to set its tier to:"
-      - "&c&lNETHERITE"
+# Effects are passive abilities that happen when wearing a full set with the effect present.
+effects:
+  attack-speed-multiplier:
+    # Changes attack speed by some multiplier
+    enabled: true
+  bonus-hearts:
+    # Extra hearts given to a player
+    enabled: true
+  bow-damage-multipier:
+    # Changes bow damage by some multiplier
+    enabled: true
+  damage-multipier:
+    # Changes damage from any form by some multiplier
+    enabled: true
+  damage-taken-multipier:
+    # Changes incoming damage by some multiplier
+    enabled: true
+  durability-multiplier:
+    # Changes durability for **all items in inventory** by some multiplier
+    enabled: true
+  evade-chance:
+    # Chance of avoiding attack, as a percentage
+    enabled: true
+  experience-multiplier:
+    # Changes experience gained by some multiplier
+    enabled: true
+  fall-damage-multiplier:
+    # Changes fall damage by some multiplier
+    enabled: true
+  flight:
+    # Allows flight
+    enabled: true
+  melee-damage-multiplier:
+    # Changes melee damage by some multiplier
+    enabled: true
+  regeneration-multiplier:
+    # Changes regeneration by some multiplier
+    enabled: true
+  speed-multiplier:
+    # Changes movement speed by some multiplier
+    enabled: true
+  trident-damage-multiplier:
+    # Changes trident damage by some multiplier
+    enabled: true
+  warp-chance:
+    # Chance to warp behind your opponent after damaging them, as a percentage
+    enabled: true
+  hunger-loss-multiplier:
+    # Modify hunger loss by some multiplier
+    enabled: true

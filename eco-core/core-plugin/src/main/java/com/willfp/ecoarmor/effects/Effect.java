@@ -1,6 +1,6 @@
 package com.willfp.ecoarmor.effects;
 
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.ecoarmor.EcoArmorPlugin;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.event.Listener;
@@ -11,13 +11,19 @@ public abstract class Effect<T> implements Listener {
      * Instance of EcoArmor.
      */
     @Getter(AccessLevel.PROTECTED)
-    private final AbstractEcoPlugin plugin = AbstractEcoPlugin.getInstance();
+    private final EcoArmorPlugin plugin = EcoArmorPlugin.getInstance();
 
     /**
      * The name of the effect.
      */
     @Getter
     private final String name;
+
+    /**
+     * If the effect is enabled.
+     */
+    @Getter
+    private boolean enabled;
 
     /**
      * Create a new effect.
@@ -27,6 +33,14 @@ public abstract class Effect<T> implements Listener {
     protected Effect(@NotNull final String name) {
         this.name = name;
 
+        update();
         Effects.addNewEffect(this);
+    }
+
+    /**
+     * Update if the effect is enabled.
+     */
+    public void update() {
+        enabled = this.getPlugin().getConfigYml().getBool("effects." + name + ".enabled");
     }
 }

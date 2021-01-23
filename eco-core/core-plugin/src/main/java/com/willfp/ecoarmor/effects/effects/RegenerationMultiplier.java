@@ -13,7 +13,7 @@ public class RegenerationMultiplier extends Effect<Double> {
     }
 
     @EventHandler
-    public void onDamage(@NotNull final EntityRegainHealthEvent event) {
+    public void listener(@NotNull final EntityRegainHealthEvent event) {
         if (event.isCancelled()) {
             return;
         }

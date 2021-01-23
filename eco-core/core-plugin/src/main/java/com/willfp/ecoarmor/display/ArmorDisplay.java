@@ -1,10 +1,13 @@
 package com.willfp.ecoarmor.display;
 
-import com.willfp.eco.util.config.Configs;
+import com.willfp.ecoarmor.EcoArmorPlugin;
+import com.willfp.ecoarmor.config.EcoArmorConfigs;
+import com.willfp.ecoarmor.proxy.proxies.SkullProxy;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
-import com.willfp.ecoarmor.tiers.UpgradeCrystal;
+import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
+import com.willfp.ecoarmor.util.ProxyUtils;
 import lombok.experimental.UtilityClass;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -17,6 +20,11 @@ import java.util.List;
 
 @UtilityClass
 public class ArmorDisplay {
+    /**
+     * Instance of EcoArmor.
+     */
+    private static final EcoArmorPlugin PLUGIN = EcoArmorPlugin.getInstance();
+
     /**
      * The prefix for all EcoArmor lines to have in lore.
      */
@@ -65,11 +73,6 @@ public class ArmorDisplay {
             return itemStack;
         }
 
-        ArmorSlot slot = ArmorSlot.getSlot(itemStack);
-        if (slot == null) {
-            return itemStack;
-        }
-
         revertDisplay(itemStack);
 
         ItemMeta meta = itemStack.getItemMeta();
@@ -83,16 +86,32 @@ public class ArmorDisplay {
             String crystalTier = ArmorUtils.getCrystalTier(itemStack);
             UpgradeCrystal crystal = UpgradeCrystal.getByName(crystalTier);
 
-            if (crystalTier == null || crystal == null) {
-                return itemStack;
+            if (crystalTier != null && crystal != null) {
+                meta.setLore(UpgradeCrystal.getByName(crystalTier).getItemStack().getItemMeta().getLore());
+                itemStack.setItemMeta(meta);
             }
 
-            meta.setLore(UpgradeCrystal.getByName(crystalTier).getItemStack().getItemMeta().getLore());
-            itemStack.setItemMeta(meta);
+            ArmorSet shardSet = ArmorUtils.getShardSet(itemStack);
+
+            if (shardSet != null) {
+                itemStack.setItemMeta(shardSet.getAdvancementShardItem().getItemMeta());
+            }
+
             return itemStack;
         }
 
-        ItemStack slotStack = set.getItemStack(slot);
+        ArmorSlot slot = ArmorSlot.getSlot(itemStack);
+        if (slot == null) {
+            return itemStack;
+        }
+
+        ItemStack slotStack;
+
+        if (ArmorUtils.isAdvanced(itemStack)) {
+            slotStack = set.getAdvancedItemStack(slot);
+        } else {
+            slotStack = set.getItemStack(slot);
+        }
         ItemMeta slotMeta = slotStack.getItemMeta();
         assert slotMeta != null;
 
@@ -101,14 +120,15 @@ public class ArmorDisplay {
         List<String> lore = new ArrayList<>();
 
         for (String s : slotMeta.getLore()) {
-            lore.add(s.replace("%tier%", Configs.CONFIG.getString("tier." + tier + ".display")));
+            lore.add(s.replace("%tier%", EcoArmorConfigs.TIERS.getString(tier + ".display")));
         }
 
         meta.setLore(lore);
         meta.setDisplayName(slotMeta.getDisplayName());
 
         if (meta instanceof SkullMeta && slotMeta instanceof SkullMeta) {
-            ((SkullMeta) meta).setOwningPlayer(((SkullMeta) slotMeta).getOwningPlayer());
+            String base64 = EcoArmorConfigs.SETS.getString(set.getName() + "." + slot.name().toLowerCase() + ".skull-texture");
+            ProxyUtils.getProxy(SkullProxy.class).setTexture((SkullMeta) meta, base64);
         }
 
         if (meta instanceof LeatherArmorMeta && slotMeta instanceof LeatherArmorMeta) {

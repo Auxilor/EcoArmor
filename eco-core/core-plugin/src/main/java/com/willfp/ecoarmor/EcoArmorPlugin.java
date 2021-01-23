@@ -1,21 +1,25 @@
 package com.willfp.ecoarmor;
 
 import com.willfp.eco.util.command.AbstractCommand;
+import com.willfp.eco.util.display.Display;
+import com.willfp.eco.util.display.DisplayModule;
 import com.willfp.eco.util.integrations.IntegrationLoader;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.protocollib.AbstractPacketAdapter;
 import com.willfp.ecoarmor.commands.CommandEagive;
 import com.willfp.ecoarmor.commands.CommandEareload;
 import com.willfp.ecoarmor.commands.TabcompleterEagive;
-import com.willfp.ecoarmor.config.EcoArmorConfigs;
-import com.willfp.ecoarmor.display.packets.PacketChat;
-import com.willfp.ecoarmor.display.packets.PacketSetCreativeSlot;
-import com.willfp.ecoarmor.display.packets.PacketSetSlot;
-import com.willfp.ecoarmor.display.packets.PacketWindowItems;
+import com.willfp.ecoarmor.display.ArmorDisplay;
+import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.ArmorSets;
-import com.willfp.ecoarmor.tiers.CrystalListener;
-import com.willfp.ecoarmor.tiers.UpgradeCrystal;
+import com.willfp.ecoarmor.sets.util.EffectiveDurabilityListener;
+import com.willfp.ecoarmor.sets.util.PotionEffectListener;
+import com.willfp.ecoarmor.upgrades.advanced.AdvancementShardListener;
+import com.willfp.ecoarmor.upgrades.crystal.CrystalListener;
+import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
+import com.willfp.ecoarmor.util.DiscoverRecipeListener;
+import lombok.Getter;
 import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
@@ -25,10 +29,17 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class EcoArmorPlugin extends AbstractEcoPlugin {
     /**
+     * Instance of EcoArmor.
+     */
+    @Getter
+    private static EcoArmorPlugin instance;
+
+    /**
      * Internal constructor called by bukkit on plugin load.
      */
     public EcoArmorPlugin() {
-        super("EcoArmor", 0, 10002, "com.willfp.ecoarmor.proxy", "&5");
+        super("EcoArmor", 0, 10002, "com.willfp.ecoarmor.proxy", "&c");
+        instance = this;
     }
 
     /**
@@ -36,7 +47,10 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
      */
     @Override
     public void enable() {
-        Effects.values().forEach(effect -> this.getEventManager().registerListener(effect));
+        Display.registerDisplayModule(new DisplayModule(ArmorDisplay::display, 1, this.getPluginName()));
+        Display.registerRevertModule(ArmorDisplay::revertDisplay);
+        Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
+        ArmorSets.update();
         this.onReload();
     }
 
@@ -61,6 +75,8 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
      */
     @Override
     public void onReload() {
+        Effects.values().forEach(effect -> this.getEventManager().unregisterListener(effect));
+        Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
         this.getLog().info(ArmorSets.values().size() + " Sets Loaded");
     }
 
@@ -102,12 +118,7 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
      */
     @Override
     public List<AbstractPacketAdapter> getPacketAdapters() {
-        return Arrays.asList(
-                new PacketChat(this),
-                new PacketSetSlot(this),
-                new PacketSetCreativeSlot(this),
-                new PacketWindowItems(this)
-        );
+        return new ArrayList<>();
     }
 
     /**
@@ -118,14 +129,17 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
     @Override
     public List<Listener> getListeners() {
         return Arrays.asList(
-                new CrystalListener(this)
+                new CrystalListener(this),
+                new AdvancementShardListener(this),
+                new PotionEffectListener(this),
+                new EffectiveDurabilityListener(this),
+                new DiscoverRecipeListener(this)
         );
     }
 
     @Override
     public List<Class<?>> getUpdatableClasses() {
         return Arrays.asList(
-                EcoArmorConfigs.class,
                 ArmorSets.class,
                 TabcompleterEagive.class,
                 UpgradeCrystal.class

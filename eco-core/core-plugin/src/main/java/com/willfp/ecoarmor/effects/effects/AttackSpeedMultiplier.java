@@ -12,18 +12,18 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class SpeedMutiplier extends Effect<Double> {
-    private static final UUID MODIFIER_UUID = UUID.nameUUIDFromBytes("speed-multiplier".getBytes());
+public class AttackSpeedMultiplier extends Effect<Double> {
+    private static final UUID MODIFIER_UUID = UUID.nameUUIDFromBytes("attack-speed-multiplier".getBytes());
 
-    public SpeedMutiplier() {
-        super("speed-multiplier");
+    public AttackSpeedMultiplier() {
+        super("attack-speed-multiplier");
     }
 
     @EventHandler
     public void listener(@NotNull final ArmorEquipEvent event) {
         Player player = event.getPlayer();
 
-        AttributeInstance movementSpeed = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
+        AttributeInstance movementSpeed = player.getAttribute(Attribute.GENERIC_ATTACK_SPEED);
         assert movementSpeed != null;
 
         this.getPlugin().getScheduler().runLater(() -> {

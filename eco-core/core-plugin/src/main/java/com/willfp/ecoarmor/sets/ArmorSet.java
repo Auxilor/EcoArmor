@@ -1,16 +1,18 @@
 package com.willfp.ecoarmor.sets;
 
-import com.willfp.eco.common.recipes.lookup.RecipePartUtils;
-import com.willfp.eco.util.ProxyUtils;
 import com.willfp.eco.util.StringUtils;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.recipe.EcoShapedRecipe;
+import com.willfp.eco.util.recipe.lookup.RecipePartUtils;
+import com.willfp.eco.util.recipe.parts.ComplexRecipePart;
+import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.proxy.proxies.SkullProxy;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
+import com.willfp.ecoarmor.sets.util.ArmorUtils;
+import com.willfp.ecoarmor.util.ProxyUtils;
 import lombok.Getter;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -37,7 +39,7 @@ public class ArmorSet {
     /**
      * Instance of EcoArmor.
      */
-    private static final AbstractEcoPlugin PLUGIN = AbstractEcoPlugin.getInstance();
+    private static final EcoArmorPlugin PLUGIN = EcoArmorPlugin.getInstance();
 
     /**
      * The name of the set.
@@ -46,16 +48,16 @@ public class ArmorSet {
     private final String name;
 
     /**
-     * If the set is craftable.
-     */
-    @Getter
-    private final boolean craftable;
-
-    /**
      * Effects and their strengths.
      */
     @Getter
     private final Map<Effect<?>, Object> effects = new HashMap<>();
+
+    /**
+     * Effects and their strengths on advanced armor.
+     */
+    @Getter
+    private final Map<Effect<?>, Object> advancedEffects = new HashMap<>();
 
     /**
      * Potion effects to be applied on equip.
@@ -64,9 +66,26 @@ public class ArmorSet {
     private final Map<PotionEffectType, Integer> potionEffects = new HashMap<>();
 
     /**
+     * Potion effects to be applied on equipping advanced.
+     */
+    @Getter
+    private final Map<PotionEffectType, Integer> advancedPotionEffects = new HashMap<>();
+
+    /**
      * Items in set.
      */
     private final Map<ArmorSlot, ItemStack> items = new HashMap<>();
+
+    /**
+     * Items in advanced set.
+     */
+    private final Map<ArmorSlot, ItemStack> advancedItems = new HashMap<>();
+
+    /**
+     * Advancement shard item.
+     */
+    @Getter
+    private final ItemStack advancementShardItem;
 
     /**
      * Create a new Armor Set.
@@ -75,7 +94,6 @@ public class ArmorSet {
      */
     public ArmorSet(@NotNull final String name) {
         this.name = name;
-        this.craftable = EcoArmorConfigs.SETS.getBool(name + ".craftable");
 
         for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".set-bonus").getKeys(false)) {
             Effect<?> effect = Effects.getByName(effectName);
@@ -83,15 +101,78 @@ public class ArmorSet {
             effects.put(effect, value);
         }
 
-        for (ArmorSlot slot : ArmorSlot.values()) {
-            ItemStack item = construct(slot.name().toLowerCase());
-            items.put(slot, item);
+        for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".advanced-set-bonus").getKeys(false)) {
+            Effect<?> effect = Effects.getByName(effectName);
+            Object value = EcoArmorConfigs.SETS.getConfig().get(name + ".advanced-set-bonus." + effectName);
+            advancedEffects.put(effect, value);
         }
+
+        if (EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".potion-effects") != null) {
+            for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".potion-effects").getKeys(false)) {
+                PotionEffectType type = PotionEffectType.getByName(effectName.toUpperCase());
+                int strength = EcoArmorConfigs.SETS.getInt(name + ".potion-effects." + effectName);
+                potionEffects.put(type, strength);
+            }
+        }
+
+        if (EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".advanced-potion-effects") != null) {
+            for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".advanced-potion-effects").getKeys(false)) {
+                PotionEffectType type = PotionEffectType.getByName(effectName.toUpperCase());
+                int strength = EcoArmorConfigs.SETS.getInt(name + ".advanced-potion-effects." + effectName);
+                advancedPotionEffects.put(type, strength);
+            }
+        }
+
+        for (ArmorSlot slot : ArmorSlot.values()) {
+            ItemStack item = construct(slot.name().toLowerCase(), false);
+            items.put(slot, item);
+
+            ItemStack advancedItem = construct(slot.name().toLowerCase(), true);
+            advancedItems.put(slot, advancedItem);
+        }
+
+        this.advancementShardItem = constructShard();
 
         ArmorSets.addNewSet(this);
     }
 
-    private ItemStack construct(@NotNull final String slot) {
+    private ItemStack constructShard() {
+        ItemStack shardItem = new ItemStack(Material.PRISMARINE_SHARD);
+        ItemMeta shardMeta = shardItem.getItemMeta();
+        assert shardMeta != null;
+        shardMeta.setDisplayName(EcoArmorConfigs.SETS.getString(name + ".advancement-shard-name"));
+
+        shardMeta.addEnchant(Enchantment.DURABILITY, 3, true);
+        shardMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
+        List<String> shardLore = new ArrayList<>();
+        for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + ".advancement-shard-lore")) {
+            shardLore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
+        }
+
+        shardMeta.setLore(shardLore);
+        shardMeta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING, name);
+
+        shardItem.setItemMeta(shardMeta);
+
+        if (EcoArmorConfigs.SETS.getBool(name + ".shard-craftable")) {
+            EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(PLUGIN, this.getName() + "_shard").setOutput(shardItem);
+
+            List<String> recipeStrings = EcoArmorConfigs.SETS.getStrings(name + ".shard-recipe");
+
+            for (int i = 0; i < 9; i++) {
+                builder.setRecipePart(i, RecipePartUtils.lookup(recipeStrings.get(i)));
+            }
+
+            EcoShapedRecipe recipe = builder.build();
+            recipe.register();
+        }
+
+        return shardItem;
+    }
+
+    private ItemStack construct(@NotNull final String slot,
+                                final boolean advanced) {
         String pieceName = slot.toLowerCase();
 
         Material material = Material.getMaterial(EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".material").toUpperCase());
@@ -108,11 +189,22 @@ public class ArmorSet {
 
         assert meta != null;
 
-        String displayName = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".name");
+        String displayName;
+        if (advanced) {
+            displayName = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".advanced-name");
+        } else {
+            displayName = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".name");
+        }
 
         List<String> lore = new ArrayList<>();
         for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + "." + pieceName + ".lore")) {
             lore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
+        }
+
+        if (advanced) {
+            for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + ".advanced-lore")) {
+                lore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
+            }
         }
 
         if (meta instanceof SkullMeta) {
@@ -137,9 +229,21 @@ public class ArmorSet {
         PersistentDataContainer container = meta.getPersistentDataContainer();
         container.set(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING, name);
         container.set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, "default");
+        container.set(PLUGIN.getNamespacedKeyFactory().create("effective-durability"), PersistentDataType.INTEGER, EcoArmorConfigs.SETS.getInt(name + "." + pieceName + ".effective-durability"));
+        if (advanced) {
+            container.set(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER, 1);
+        }
         itemStack.setItemMeta(meta);
 
-        if (this.isCraftable()) {
+        RecipePartUtils.registerLookup("ecoarmor:set_" + name.toLowerCase() + "_" + pieceName, s -> new ComplexRecipePart(test -> {
+            if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
+                return false;
+            }
+            return Objects.equals(this, ArmorUtils.getSetOnItem(test));
+        }, itemStack));
+
+
+        if (!advanced) {
             constructRecipe(slot, itemStack);
         }
 
@@ -171,6 +275,16 @@ public class ArmorSet {
     }
 
     /**
+     * Get item stack from slot.
+     *
+     * @param slot The slot.
+     * @return The item.
+     */
+    public ItemStack getAdvancedItemStack(@NotNull final ArmorSlot slot) {
+        return advancedItems.get(slot);
+    }
+
+    /**
      * Get effect strength of effect.
      *
      * @param effect The effect to query.
@@ -179,6 +293,17 @@ public class ArmorSet {
      */
     public <T> T getEffectStrength(@NotNull final Effect<T> effect) {
         return (T) effects.get(effect);
+    }
+
+    /**
+     * Get effect strength of effect on advanced armor.
+     *
+     * @param effect The effect to query.
+     * @param <T>    The type of the effect value.
+     * @return The strength.
+     */
+    public <T> T getAdvancedEffectStrength(@NotNull final Effect<T> effect) {
+        return (T) advancedEffects.get(effect);
     }
 
     @Override

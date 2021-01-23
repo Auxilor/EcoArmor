@@ -1,0 +1,453 @@
+#
+# You can make any tiers you want, but you **cannot** remove default
+#
+
+
+default:
+  display: "&8&lDEFAULT"
+  # No crystal for default
+
+iron:
+  display: "&7&lIRON"
+  requires-tier: default # Set to 'none' to always allow application
+  crystal-craftable: true
+  crystal-name: "&7Iron Upgrade Crystal"
+  crystal-recipe:
+    - air
+    - iron_block
+    - air
+
+    - iron_block
+    - leather_chestplate
+    - iron_block
+
+    - air
+    - iron_block
+    - air
+  crystal-lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&7&lIRON"
+  properties:
+    helmet:
+      armor: 2
+      toughness: 0
+      knockback-resistance: 0
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    chestplate:
+      armor: 6
+      toughness: 0
+      knockback-resistance: 0
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    elytra:
+      armor: 2
+      toughness: 0
+      knockback-resistance: 0
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    leggings:
+      armor: 5
+      toughness: 0
+      knockback-resistance: 0
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    boots:
+      armor: 2
+      toughness: 0
+      knockback-resistance: 0
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+
+diamond:
+  display: "&b&lDIAMOND"
+  requires-tier: iron # Set to 'none' to always allow application
+  crystal-craftable: true
+  crystal-name: "&bDiamond Upgrade Crystal"
+  crystal-recipe:
+    - air
+    - diamond_block
+    - air
+
+    - diamond_block
+    - ecoarmor:upgrade_crystal_iron
+    - diamond_block
+
+    - air
+    - diamond_block
+    - air
+  crystal-lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&b&lDIAMOND"
+  properties:
+    helmet:
+      armor: 3
+      toughness: 2
+      knockback-resistance: 0
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    chestplate:
+      armor: 8
+      toughness: 2
+      knockback-resistance: 0
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    elytra:
+      armor: 3
+      toughness: 0
+      knockback-resistance: 0
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    leggings:
+      armor: 6
+      toughness: 2
+      knockback-resistance: 0
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    boots:
+      armor: 3
+      toughness: 2
+      knockback-resistance: 0
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+
+netherite:
+  display: "&c&lNETHERITE"
+  requires-tier: diamond # Set to 'none' to always allow application
+  crystal-craftable: true
+  crystal-name: "&cNetherite Upgrade Crystal"
+  crystal-recipe:
+    - air
+    - netherite_ingot
+    - air
+
+    - netherite_ingot
+    - ecoarmor:upgrade_crystal_diamond
+    - netherite_ingot
+
+    - air
+    - netherite_ingot
+    - air
+  crystal-lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&c&lNETHERITE"
+  properties:
+    helmet:
+      armor: 3
+      toughness: 3
+      knockback-resistance: 1
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    chestplate:
+      armor: 8
+      toughness: 3
+      knockback-resistance: 1
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    elytra:
+      armor: 3
+      toughness: 0
+      knockback-resistance: 1
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    leggings:
+      armor: 6
+      toughness: 3
+      knockback-resistance: 1
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    boots:
+      armor: 3
+      toughness: 3
+      knockback-resistance: 1
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+
+manyullyn:
+  display: "&d&k!!&r <GRADIENT:f953c6>&lMANYULLYN</GRADIENT:b91d73>&r &d&k!!&r"
+  requires-tier: netherite # Set to 'none' to always allow application
+  crystal-craftable: true
+  crystal-name: "<GRADIENT:f953c6>Manyullyn Upgrade Crystal</GRADIENT:b91d73>"
+  crystal-recipe:
+    - ecoarmor:upgrade_crystal_netherite
+    - enchanted_golden_apple
+    - ecoarmor:upgrade_crystal_netherite
+
+    - enchanted_golden_apple
+    - ecoarmor:upgrade_crystal_netherite
+    - enchanted_golden_apple
+
+    - ecoarmor:upgrade_crystal_netherite
+    - enchanted_golden_apple
+    - ecoarmor:upgrade_crystal_netherite
+  crystal-lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&d&k!!&r <GRADIENT:f953c6>&lMANYULLYN</GRADIENT:b91d73>&r &d&k!!&r"
+  properties:
+    helmet:
+      armor: 3
+      toughness: 5
+      knockback-resistance: 2
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    chestplate:
+      armor: 8
+      toughness: 5
+      knockback-resistance: 2
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    elytra:
+      armor: 3
+      toughness: 0
+      knockback-resistance: 2
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    leggings:
+      armor: 6
+      toughness: 5
+      knockback-resistance: 2
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+    boots:
+      armor: 3
+      toughness: 5
+      knockback-resistance: 2
+      speed-percentage: 0
+      attack-speed-percentage: 0
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 0
+
+
+
+cobalt:
+  display: "&#0047ab&lCOBALT"
+  requires-tier: iron # Set to 'none' to always allow application
+  crystal-craftable: true
+  crystal-name: "&#0047abCobalt Upgrade Crystal"
+  crystal-recipe:
+    - air
+    - obsidian
+    - air
+
+    - obsidian
+    - ecoarmor:upgrade_crystal_iron
+    - obsidian
+
+    - air
+    - obsidian
+    - air
+  crystal-lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&#0047ab&lCOBALT"
+  properties:
+    helmet:
+      armor: 3
+      toughness: 4
+      knockback-resistance: 1
+      speed-percentage: -10
+      attack-speed-percentage: -10
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 10
+    chestplate:
+      armor: 8
+      toughness: 4
+      knockback-resistance: 1
+      speed-percentage: -10
+      attack-speed-percentage: -10
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 10
+    elytra:
+      armor: 6
+      toughness: 2
+      knockback-resistance: 1
+      speed-percentage: -10
+      attack-speed-percentage: -10
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 10
+    leggings:
+      armor: 6
+      toughness: 4
+      knockback-resistance: 1
+      speed-percentage: -10
+      attack-speed-percentage: -1
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 10
+    boots:
+      armor: 3
+      toughness: 4
+      knockback-resistance: 1
+      speed-percentage: -10
+      attack-speed-percentage: -10
+      attack-damage-percentage: 0
+      attack-knockback-percentage: 10
+
+osmium:
+  display: "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!"
+  requires-tier: cobalt # Set to 'none' to always allow application
+  crystal-craftable: true
+  crystal-name: "<GRADIENT:c7f1ff>Osmium upgrade crystal</GRADIENT:5c92ff>"
+  crystal-recipe:
+    - air
+    - netherite_block
+    - air
+
+    - netherite_block
+    - ecoarmor:upgrade_crystal_cobalt
+    - netherite_block
+
+    - air
+    - netherite_block
+    - air
+  crystal-lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!"
+  properties:
+    helmet:
+      armor: 3
+      toughness: 6
+      knockback-resistance: 3
+      speed-percentage: -15
+      attack-speed-percentage: -15
+      attack-damage-percentage: 5
+      attack-knockback-percentage: 25
+    chestplate:
+      armor: 8
+      toughness: 6
+      knockback-resistance: 3
+      speed-percentage: -15
+      attack-speed-percentage: -15
+      attack-damage-percentage: 5
+      attack-knockback-percentage: 25
+    elytra:
+      armor: 8
+      toughness: 6
+      knockback-resistance: 3
+      speed-percentage: -15
+      attack-speed-percentage: -15
+      attack-damage-percentage: 5
+      attack-knockback-percentage: 25
+    leggings:
+      armor: 6
+      toughness: 6
+      knockback-resistance: 3
+      speed-percentage: -15
+      attack-speed-percentage: -15
+      attack-damage-percentage: 5
+      attack-knockback-percentage: 25
+    boots:
+      armor: 3
+      toughness: 6
+      knockback-resistance: 3
+      speed-percentage: -15
+      attack-speed-percentage: -15
+      attack-damage-percentage: 5
+      attack-knockback-percentage: 25
+
+
+
+exotic:
+  display: "&6&k!!&r <GRADIENT:f79d00>&lEXOTIC</GRADIENT:64f38c>&r &6&k!!&r"
+  requires-tier: netherite # Set to 'none' to always allow application
+  crystal-craftable: true
+  crystal-name: "<GRADIENT:f79d00>Exotic Upgrade Crystal</GRADIENT:64f38c>"
+  crystal-recipe:
+    - ecoarmor:upgrade_crystal_netherite
+    - turtle_egg
+    - ecoarmor:upgrade_crystal_netherite
+
+    - turtle_egg
+    - ecoarmor:upgrade_crystal_cobalt
+    - turtle_egg
+
+    - ecoarmor:upgrade_crystal_netherite
+    - turtle_egg
+    - ecoarmor:upgrade_crystal_netherite
+  crystal-lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&6&k!!&r <GRADIENT:f79d00>&lEXOTIC</GRADIENT:64f38c>&r &6&k!!&r"
+  properties:
+    helmet:
+      armor: 3
+      toughness: 2
+      knockback-resistance: 0
+      speed-percentage: 5
+      attack-speed-percentage: 10
+      attack-damage-percentage: -5
+      attack-knockback-percentage: -20
+    chestplate:
+      armor: 8
+      toughness: 2
+      knockback-resistance: 0
+      speed-percentage: 5
+      attack-speed-percentage: 10
+      attack-damage-percentage: -5
+      attack-knockback-percentage: -20
+    elytra:
+      armor: 3
+      toughness: 0
+      knockback-resistance: 0
+      speed-percentage: 5
+      attack-speed-percentage: 10
+      attack-damage-percentage: -5
+      attack-knockback-percentage: -20
+    leggings:
+      armor: 6
+      toughness: 2
+      knockback-resistance: 0
+      speed-percentage: 5
+      attack-speed-percentage: 10
+      attack-damage-percentage: -5
+      attack-knockback-percentage: -20
+    boots:
+      armor: 3
+      toughness: 2
+      knockback-resistance: 0
+      speed-percentage: 5
+      attack-speed-percentage: 10
+      attack-damage-percentage: -5
+      attack-knockback-percentage: -20

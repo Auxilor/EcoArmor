@@ -20,7 +20,7 @@ public class BonusHearts extends Effect<Integer> {
     }
 
     @EventHandler
-    public void onArmorEquip(@NotNull final ArmorEquipEvent event) {
+    public void listener(@NotNull final ArmorEquipEvent event) {
         Player player = event.getPlayer();
 
         AttributeInstance maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
