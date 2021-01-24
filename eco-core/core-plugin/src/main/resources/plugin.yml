@@ -35,7 +35,7 @@ permissions:
     default: op
     children:
       ecoarmor.reload: true
-      ecoarmor.give: trueR
+      ecoarmor.give: true
 
   ecoarmor.reload:
     description: Allows reloading the config
