@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://i.imgur.com/XKHaYdM.png" alt="EcoArmor logo" width="256">
+  <img src="https://i.imgur.com/TbAPGlp.png" alt="EcoArmor logo" width="256">
   <br>
 </h1>
 
@@ -8,27 +8,27 @@
 
 <p align="center">
     <a href="https://www.spigotmc.org/resources/ecoarmor.79573/">
-        <img alt="spigot" src="https://img.shields.io/badge/spigot-ecoarmor-orange?style=for-the-badge"/>
+        <img alt="spigot" src="https://img.shields.io/badge/spigot-ecoarmor-purple?style=for-the-badge"/>
     </a>
     <a href="https://bstats.org/plugin/bukkit/EcoArmor" alt="bstats servers">
-        <img src="https://img.shields.io/bstats/servers/10002?color=orange&style=for-the-badge"/>
+        <img src="https://img.shields.io/bstats/servers/10002?color=purple&style=for-the-badge"/>
     </a>
     <a href="https://bstats.org/plugin/bukkit/EcoArmor" alt="bstats players">
-        <img src="https://img.shields.io/bstats/players/10002?color=orange&style=for-the-badge"/>
+        <img src="https://img.shields.io/bstats/players/10002?color=purple&style=for-the-badge"/>
     </a>
     <a href="https://auxilor.gitbook.io/ecoarmor/" alt="Docs (gitbook)">
-        <img src="https://img.shields.io/badge/docs-gitbook-orange?style=for-the-badge&logo=appveyor"/>
+        <img src="https://img.shields.io/badge/docs-gitbook-purple?style=for-the-badge&logo=appveyor"/>
     </a>
     <a href="https://discord.gg/ZcwpSsE/" alt="Discord">
-        <img src="https://img.shields.io/discord/452518336627081236?label=discord&style=for-the-badge&color=orange"/>
+        <img src="https://img.shields.io/discord/452518336627081236?label=discord&style=for-the-badge&color=purple"/>
     </a>
 </p>
 
 
-[![Title](https://i.imgur.com/S3BUbGA.png)]()
-[![Features](https://i.imgur.com/mtvbxli.png)]()
-[![Docs](https://i.imgur.com/LoEuV4j.png)](https://auxilor.gitbook.io/ecoarmor/)
-[![Compatibility](https://i.imgur.com/hjmbGHF.png)]()
+[![Title](https://i.imgur.com/jcBbZhG.png)]()
+[![Features](https://i.imgur.com/ikQaAHr.png)]()
+[![Docs](https://i.imgur.com/oXdVuIw.png)](https://auxilor.gitbook.io/ecoarmor/)
+[![Compatibility](https://i.imgur.com/Q9Gko0q.png)]()
 
 ## License
 *Click here to read [the entire license](https://github.com/Auxilor/EcoArmor/blob/master/LICENSE.md).*
