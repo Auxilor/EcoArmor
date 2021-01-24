@@ -25,9 +25,6 @@ commands:
   eareload:
     description: Reloads config
     permission: ecoarmor.reload
-  eadebug:
-    description: Debug information
-    permission: ecoarmor.debug
   eagive:
     description: Give a player a set
     permission: ecoarmor.give
@@ -38,19 +35,15 @@ permissions:
     default: op
     children:
       ecoarmor.reload: true
-      ecoarmor.debug: true
       ecoarmor.give: true
       ecoarmor.fromtable.*: true
 
-  eareload.reload:
+  ecoarmor.reload:
     description: Allows reloading the config
     default: op
-  eareload.debug:
-    description: Allows the use of /eadebug to print verbose debug information to console
-    default: op
-  eareload.give:
+  ecoarmor.give:
     description: Allows the use of /eagive
     default: true
-  eareload.fromtable.*:
+  ecoarmor.fromtable.*:
     description: Allows crafting all sets
     default: true
