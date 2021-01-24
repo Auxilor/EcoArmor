@@ -35,15 +35,11 @@ permissions:
     default: op
     children:
       ecoarmor.reload: true
-      ecoarmor.give: true
-      ecoarmor.fromtable.*: true
+      ecoarmor.give: trueR
 
   ecoarmor.reload:
     description: Allows reloading the config
     default: op
   ecoarmor.give:
     description: Allows the use of /eagive
-    default: true
-  ecoarmor.fromtable.*:
-    description: Allows crafting all sets
     default: true
