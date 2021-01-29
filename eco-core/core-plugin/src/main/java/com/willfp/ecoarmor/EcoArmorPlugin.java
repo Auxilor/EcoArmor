@@ -50,6 +50,16 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
         Display.registerDisplayModule(new DisplayModule(ArmorDisplay::display, 1, this.getPluginName()));
         Display.registerRevertModule(ArmorDisplay::revertDisplay);
         Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
+
+        this.getExtensionLoader().loadExtensions();
+
+        if (this.getExtensionLoader().getLoadedExtensions().isEmpty()) {
+            this.getLog().info("&cNo extensions found");
+        } else {
+            this.getLog().info("Extensions Loaded:");
+            this.getExtensionLoader().getLoadedExtensions().forEach(extension -> this.getLog().info("- " + extension.getName() + " v" + extension.getVersion()));
+        }
+
         ArmorSets.update();
         this.onReload();
     }
@@ -78,6 +88,7 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
         Effects.values().forEach(effect -> this.getEventManager().unregisterListener(effect));
         Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
         this.getLog().info(ArmorSets.values().size() + " Sets Loaded");
+        this.getExtensionLoader().unloadExtensions();
     }
 
     /**
