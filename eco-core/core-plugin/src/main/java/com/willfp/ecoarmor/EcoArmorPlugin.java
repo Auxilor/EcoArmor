@@ -59,9 +59,6 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
             this.getLog().info("Extensions Loaded:");
             this.getExtensionLoader().getLoadedExtensions().forEach(extension -> this.getLog().info("- " + extension.getName() + " v" + extension.getVersion()));
         }
-
-        ArmorSets.update();
-        this.onReload();
     }
 
     /**
