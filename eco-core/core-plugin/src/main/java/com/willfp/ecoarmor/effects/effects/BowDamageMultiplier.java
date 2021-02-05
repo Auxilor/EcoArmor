@@ -21,7 +21,7 @@ public class BowDamageMultiplier extends Effect<Double> {
             return;
         }
 
-        Player attacker = null;
+        Player player = null;
         if (event.getDamager() instanceof Arrow) {
             ProjectileSource shooter = ((Projectile) event.getDamager()).getShooter();
             if (shooter == null) {
@@ -29,15 +29,15 @@ public class BowDamageMultiplier extends Effect<Double> {
             }
 
             if (shooter instanceof Player) {
-                attacker = (Player) shooter;
+                player = (Player) shooter;
             }
         }
 
-        if (attacker == null) {
+        if (player == null) {
             return;
         }
 
-        Double multiplier = ArmorUtils.getEffectStrength(attacker, this);
+        Double multiplier = ArmorUtils.getEffectStrength(player, this);
         if (multiplier == null) {
             return;
         }
