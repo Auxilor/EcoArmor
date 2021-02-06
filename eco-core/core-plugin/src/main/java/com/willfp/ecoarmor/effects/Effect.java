@@ -6,6 +6,8 @@ import lombok.Getter;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.UUID;
+
 public abstract class Effect<T> implements Listener {
     /**
      * Instance of EcoArmor.
@@ -18,6 +20,12 @@ public abstract class Effect<T> implements Listener {
      */
     @Getter
     private final String name;
+
+    /**
+     * UUID of the effect, used in attribute modifiers.
+     */
+    @Getter
+    private final UUID uuid;
 
     /**
      * If the effect is enabled.
@@ -41,6 +49,7 @@ public abstract class Effect<T> implements Listener {
                      @NotNull final Class<T> typeClass) {
         this.name = name;
         this.typeClass = typeClass;
+        this.uuid = UUID.nameUUIDFromBytes(name.getBytes());
 
         update();
         Effects.addNewEffect(this);

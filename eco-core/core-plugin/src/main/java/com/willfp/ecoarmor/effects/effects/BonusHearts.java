@@ -10,11 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.UUID;
-
 public class BonusHearts extends Effect<Integer> {
-    private static final UUID MODIFIER_UUID = UUID.nameUUIDFromBytes("bonus-hearts".getBytes());
-
     public BonusHearts() {
         super("bonus-hearts", Integer.class);
     }
@@ -29,9 +25,9 @@ public class BonusHearts extends Effect<Integer> {
         this.getPlugin().getScheduler().runLater(() -> {
             Integer bonus = ArmorUtils.getEffectStrength(player, this);
             if (bonus == null) {
-                maxHealth.removeModifier(new AttributeModifier(MODIFIER_UUID, "bonus-hearts", 0, AttributeModifier.Operation.ADD_NUMBER));
+                maxHealth.removeModifier(new AttributeModifier(this.getUuid(), "bonus-hearts", 0, AttributeModifier.Operation.ADD_NUMBER));
             } else {
-                AttributeModifier modifier = new AttributeModifier(MODIFIER_UUID, "bonus-hearts", bonus * 2, AttributeModifier.Operation.ADD_NUMBER);
+                AttributeModifier modifier = new AttributeModifier(this.getUuid(), "bonus-hearts", bonus * 2, AttributeModifier.Operation.ADD_NUMBER);
                 if (!maxHealth.getModifiers().contains(modifier)) {
                     maxHealth.addModifier(modifier);
                 }

@@ -10,11 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.UUID;
-
 public class AttackSpeedMultiplier extends Effect<Double> {
-    private static final UUID MODIFIER_UUID = UUID.nameUUIDFromBytes("attack-speed-multiplier".getBytes());
-
     public AttackSpeedMultiplier() {
         super("attack-speed-multiplier", Double.class);
     }
@@ -29,9 +25,9 @@ public class AttackSpeedMultiplier extends Effect<Double> {
         this.getPlugin().getScheduler().runLater(() -> {
             Double multiplier = ArmorUtils.getEffectStrength(player, this);
             if (multiplier == null) {
-                movementSpeed.removeModifier(new AttributeModifier(MODIFIER_UUID, "speed-multiplier", 0, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
+                movementSpeed.removeModifier(new AttributeModifier(this.getUuid(), "attack-speed-multiplier", 0, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
             } else {
-                AttributeModifier modifier = new AttributeModifier(MODIFIER_UUID, "speed-multiplier", multiplier - 1, AttributeModifier.Operation.MULTIPLY_SCALAR_1);
+                AttributeModifier modifier = new AttributeModifier(this.getUuid(), "attack-speed-multiplier", multiplier - 1, AttributeModifier.Operation.MULTIPLY_SCALAR_1);
                 if (!movementSpeed.getModifiers().contains(modifier)) {
                     movementSpeed.addModifier(modifier);
                 }
