@@ -21,29 +21,20 @@ public class TridentDamageMultiplier extends Effect<Double> {
             return;
         }
 
-        Player attacker = null;
-        if (event.getDamager() instanceof Trident) {
-            ProjectileSource shooter = ((Projectile) event.getDamager()).getShooter();
-            if (shooter == null) {
-                return;
-            }
-
-            if (shooter instanceof Player) {
-                attacker = (Player) shooter;
-            }
-        }
-
-        if (attacker == null) {
+        if (!(event.getDamager() instanceof Trident)) {
             return;
         }
 
-        Double multiplier = ArmorUtils.getEffectStrength(attacker, this);
+        ProjectileSource shooter = ((Projectile) event.getDamager()).getShooter();
 
+        if (!(shooter instanceof Player)) {
+            return;
+        }
+
+        Player player = (Player) shooter;
+
+        Double multiplier = ArmorUtils.getEffectStrength(player, this);
         if (multiplier == null) {
-            return;
-        }
-
-        if (multiplier == 0) {
             return;
         }
 
