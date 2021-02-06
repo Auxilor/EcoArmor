@@ -16,7 +16,7 @@
     <a href="https://bstats.org/plugin/bukkit/EcoArmor" alt="bstats players">
         <img src="https://img.shields.io/bstats/players/10002?color=purple&style=for-the-badge"/>
     </a>
-    <a href="https://auxilor.gitbook.io/ecoarmor/" alt="Docs (gitbook)">
+    <a href="https://ecoarmor.willfp.com/" alt="Docs (gitbook)">
         <img src="https://img.shields.io/badge/docs-gitbook-purple?style=for-the-badge&logo=appveyor"/>
     </a>
     <a href="https://discord.gg/ZcwpSsE/" alt="Discord">
@@ -27,7 +27,7 @@
 
 [![Title](https://i.imgur.com/jcBbZhG.png)]()
 [![Features](https://i.imgur.com/ikQaAHr.png)]()
-[![Docs](https://i.imgur.com/oXdVuIw.png)](https://auxilor.gitbook.io/ecoarmor/)
+[![Docs](https://i.imgur.com/oXdVuIw.png)](https://ecoarmor.willfp.com/)
 [![Compatibility](https://i.imgur.com/Q9Gko0q.png)]()
 
 ## License
