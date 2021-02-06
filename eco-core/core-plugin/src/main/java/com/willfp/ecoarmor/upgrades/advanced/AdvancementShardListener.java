@@ -38,10 +38,6 @@ public class AdvancementShardListener extends PluginDependent implements Listene
             return;
         }
 
-        if (cursor.getType() != Material.PRISMARINE_SHARD) {
-            return;
-        }
-
         ItemMeta cursorMeta = cursor.getItemMeta();
 
         if (cursorMeta == null) {

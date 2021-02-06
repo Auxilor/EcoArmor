@@ -138,7 +138,7 @@ public class ArmorSet {
     }
 
     private ItemStack constructShard() {
-        ItemStack shardItem = new ItemStack(Material.PRISMARINE_SHARD);
+        ItemStack shardItem = new ItemStack(Objects.requireNonNull(Material.getMaterial(PLUGIN.getConfigYml().getString("advancement-shard-material").toUpperCase())));
         ItemMeta shardMeta = shardItem.getItemMeta();
         assert shardMeta != null;
         shardMeta.setDisplayName(EcoArmorConfigs.SETS.getString(name + ".advancement-shard-name"));
