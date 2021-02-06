@@ -20,6 +20,7 @@ softdepend:
   - Matrix
   - Spartan
   - PlaceholderAPI
+  - EcoEnchants
 
 commands:
   eareload:
