@@ -197,6 +197,27 @@ public class ArmorSet {
             displayName = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".name");
         }
 
+        if (EcoArmorConfigs.SETS.getConfig().contains(name + "." + pieceName + ".flags")) {
+            List<ItemFlag> flags = new ArrayList<>();
+            for (String flagName : EcoArmorConfigs.SETS.getStrings(name + "." + pieceName + ".flags")) {
+                ItemFlag flag = ItemFlag.valueOf(flagName.toUpperCase());
+                flags.add(flag);
+            }
+            meta.addItemFlags(flags.toArray(new ItemFlag[0]));
+        }
+
+        if (EcoArmorConfigs.SETS.getConfig().contains(name + "." + pieceName + ".custom-model-data")) {
+            int data = EcoArmorConfigs.SETS.getInt(name + "." + pieceName + ".custom-model-data");
+            if (data != -1) {
+                meta.setCustomModelData(data);
+            }
+        }
+
+        if (EcoArmorConfigs.SETS.getConfig().contains(name + "." + pieceName + ".unbreakable")) {
+            boolean unbreakable = EcoArmorConfigs.SETS.getBool(name + "." + pieceName + ".unbreakable");
+            meta.setUnbreakable(unbreakable);
+        }
+
         List<String> lore = new ArrayList<>();
         for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + "." + pieceName + ".lore")) {
             lore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
