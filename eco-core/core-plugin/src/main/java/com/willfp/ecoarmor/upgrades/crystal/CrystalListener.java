@@ -66,7 +66,12 @@ public class CrystalListener extends PluginDependent implements Listener {
 
         ArmorUtils.setTier(current, tier);
 
-        event.getWhoClicked().setItemOnCursor(new ItemStack(Material.AIR));
+        if (cursor.getAmount() > 1) {
+            cursor.setAmount(cursor.getAmount() - 1);
+            event.getWhoClicked().setItemOnCursor(cursor);
+        } else {
+            event.getWhoClicked().setItemOnCursor(new ItemStack(Material.AIR));
+        }
 
         event.setCancelled(true);
     }

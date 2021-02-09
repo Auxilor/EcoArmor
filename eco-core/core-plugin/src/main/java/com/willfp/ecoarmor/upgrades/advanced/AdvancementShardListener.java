@@ -70,8 +70,12 @@ public class AdvancementShardListener extends PluginDependent implements Listene
 
         ArmorUtils.setAdvanced(current, true);
 
-        event.getWhoClicked().setItemOnCursor(new ItemStack(Material.AIR));
-
+        if (cursor.getAmount() > 1) {
+            cursor.setAmount(cursor.getAmount() - 1);
+            event.getWhoClicked().setItemOnCursor(cursor);
+        } else {
+            event.getWhoClicked().setItemOnCursor(new ItemStack(Material.AIR));
+        }
         event.setCancelled(true);
     }
 }
