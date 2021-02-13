@@ -16,13 +16,13 @@ effects:
   bonus-hearts:
     # Extra hearts given to a player
     enabled: true
-  bow-damage-multipier:
+  bow-damage-multiplier:
     # Changes bow damage by some multiplier
     enabled: true
-  damage-multipier:
+  damage-multiplier:
     # Changes damage from any form by some multiplier
     enabled: true
-  damage-taken-multipier:
+  damage-taken-multiplier:
     # Changes incoming damage by some multiplier
     enabled: true
   durability-multiplier:
