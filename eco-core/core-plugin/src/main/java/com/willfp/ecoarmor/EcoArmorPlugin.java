@@ -9,6 +9,7 @@ import com.willfp.eco.util.protocollib.AbstractPacketAdapter;
 import com.willfp.ecoarmor.commands.CommandEagive;
 import com.willfp.ecoarmor.commands.CommandEareload;
 import com.willfp.ecoarmor.commands.TabcompleterEagive;
+import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
@@ -150,7 +151,8 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
         return Arrays.asList(
                 ArmorSets.class,
                 TabcompleterEagive.class,
-                UpgradeCrystal.class
+                UpgradeCrystal.class,
+                EcoArmorConfigs.class
         );
     }
 }
