@@ -1,5 +1,6 @@
 package com.willfp.ecoarmor.sets;
 
+import com.willfp.eco.util.SkullUtils;
 import com.willfp.eco.util.StringUtils;
 import com.willfp.eco.util.recipe.EcoShapedRecipe;
 import com.willfp.eco.util.recipe.lookup.RecipePartUtils;
@@ -9,10 +10,8 @@ import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
-import com.willfp.ecoarmor.proxy.proxies.SkullProxy;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
-import com.willfp.ecoarmor.util.ProxyUtils;
 import lombok.Getter;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -231,7 +230,7 @@ public class ArmorSet {
 
         if (meta instanceof SkullMeta) {
             String base64 = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".skull-texture");
-            ProxyUtils.getProxy(SkullProxy.class).setTexture((SkullMeta) meta, base64);
+            SkullUtils.setSkullTexture((SkullMeta) meta, base64);
         }
 
         if (meta instanceof LeatherArmorMeta) {
