@@ -2,12 +2,12 @@ package com.willfp.ecoarmor.sets;
 
 import com.willfp.eco.util.SkullUtils;
 import com.willfp.eco.util.StringUtils;
-import com.willfp.eco.util.recipe.EcoShapedRecipe;
-import com.willfp.eco.util.recipe.lookup.RecipePartUtils;
+import com.willfp.eco.util.display.Display;
+import com.willfp.eco.util.recipe.RecipeParts;
 import com.willfp.eco.util.recipe.parts.ComplexRecipePart;
+import com.willfp.eco.util.recipe.recipes.EcoShapedRecipe;
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.config.EcoArmorConfigs;
-import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
@@ -147,7 +147,7 @@ public class ArmorSet {
 
         List<String> shardLore = new ArrayList<>();
         for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + ".advancement-shard-lore")) {
-            shardLore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
+            shardLore.add(Display.PREFIX + StringUtils.translate(loreLine));
         }
 
         shardMeta.setLore(shardLore);
@@ -161,7 +161,7 @@ public class ArmorSet {
             List<String> recipeStrings = EcoArmorConfigs.SETS.getStrings(name + ".shard-recipe");
 
             for (int i = 0; i < 9; i++) {
-                builder.setRecipePart(i, RecipePartUtils.lookup(recipeStrings.get(i)));
+                builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));
             }
 
             EcoShapedRecipe recipe = builder.build();
@@ -219,12 +219,12 @@ public class ArmorSet {
 
         List<String> lore = new ArrayList<>();
         for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + "." + pieceName + ".lore")) {
-            lore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
+            lore.add(Display.PREFIX + StringUtils.translate(loreLine));
         }
 
         if (advanced) {
             for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + ".advanced-lore")) {
-                lore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
+                lore.add(Display.PREFIX + StringUtils.translate(loreLine));
             }
         }
 
@@ -256,7 +256,7 @@ public class ArmorSet {
         }
         itemStack.setItemMeta(meta);
 
-        RecipePartUtils.registerLookup("ecoarmor:set_" + name.toLowerCase() + "_" + pieceName, s -> new ComplexRecipePart(test -> {
+        RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create(name.toLowerCase() + "_" + pieceName), new ComplexRecipePart(test -> {
             if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
                 return false;
             }
@@ -278,7 +278,7 @@ public class ArmorSet {
         List<String> recipeStrings = EcoArmorConfigs.SETS.getStrings(name + "." + slot.toLowerCase() + ".recipe");
 
         for (int i = 0; i < 9; i++) {
-            builder.setRecipePart(i, RecipePartUtils.lookup(recipeStrings.get(i)));
+            builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));
         }
 
         EcoShapedRecipe recipe = builder.build();

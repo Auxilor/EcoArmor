@@ -5,12 +5,12 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.willfp.eco.util.StringUtils;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
-import com.willfp.eco.util.recipe.EcoShapedRecipe;
-import com.willfp.eco.util.recipe.lookup.RecipePartUtils;
+import com.willfp.eco.util.display.Display;
+import com.willfp.eco.util.recipe.RecipeParts;
 import com.willfp.eco.util.recipe.parts.ComplexRecipePart;
+import com.willfp.eco.util.recipe.recipes.EcoShapedRecipe;
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.config.EcoArmorConfigs;
-import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import lombok.Getter;
 import org.bukkit.Material;
@@ -90,7 +90,7 @@ public class UpgradeCrystal {
 
         List<String> lore = new ArrayList<>();
         for (String loreLine : EcoArmorConfigs.TIERS.getStrings(tier + ".crystal-lore")) {
-            lore.add(ArmorDisplay.PREFIX + StringUtils.translate(loreLine));
+            lore.add(Display.PREFIX + StringUtils.translate(loreLine));
         }
         outMeta.setLore(lore);
 
@@ -103,7 +103,7 @@ public class UpgradeCrystal {
 
             List<String> recipeStrings = EcoArmorConfigs.TIERS.getStrings(tier + ".crystal-recipe");
 
-            RecipePartUtils.registerLookup("ecoarmor:upgrade_crystal_" + tier, s -> new ComplexRecipePart(test -> {
+            RecipeParts.registerRecipePart(this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal_" + tier), new ComplexRecipePart(test -> {
                 if (ArmorUtils.getCrystalTier(test) == null) {
                     return false;
                 }
@@ -111,7 +111,7 @@ public class UpgradeCrystal {
             }, out));
 
             for (int i = 0; i < 9; i++) {
-                builder.setRecipePart(i, RecipePartUtils.lookup(recipeStrings.get(i)));
+                builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));
             }
 
             this.recipe = builder.build();

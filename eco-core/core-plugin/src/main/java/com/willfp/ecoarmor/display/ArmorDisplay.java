@@ -1,76 +1,38 @@
 package com.willfp.ecoarmor.display;
 
 import com.willfp.eco.util.SkullUtils;
+import com.willfp.eco.util.display.DisplayModule;
+import com.willfp.eco.util.display.DisplayPriority;
+import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
-import lombok.experimental.UtilityClass;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@UtilityClass
-public class ArmorDisplay {
+public class ArmorDisplay extends DisplayModule {
     /**
-     * The prefix for all EcoArmor lines to have in lore.
-     */
-    public static final String PREFIX = "§v";
-
-    /**
-     * Revert display.
+     * Create armor display.
      *
-     * @param item The item to revert.
-     * @return The item, updated.
+     * @param plugin Instance of EcoArmor.
      */
-    public static ItemStack revertDisplay(@Nullable final ItemStack item) {
-        if (item == null || item.getItemMeta() == null) {
-            return item;
-        }
-
-        ItemMeta meta = item.getItemMeta();
-        List<String> itemLore;
-
-        if (meta.hasLore()) {
-            itemLore = meta.getLore();
-        } else {
-            itemLore = new ArrayList<>();
-        }
-
-        if (itemLore == null) {
-            itemLore = new ArrayList<>();
-        }
-
-        itemLore.removeIf(s -> s.startsWith(PREFIX));
-
-        meta.setLore(itemLore);
-        item.setItemMeta(meta);
-
-        return item;
+    public ArmorDisplay(@NotNull final AbstractEcoPlugin plugin) {
+        super(plugin, DisplayPriority.LOWEST);
     }
 
-    /**
-     * Show itemStack lore, set display name, color, texture, etc.
-     *
-     * @param itemStack The itemStack to update.
-     * @return The itemStack, updated.
-     */
-    public static ItemStack display(@Nullable final ItemStack itemStack) {
-        if (itemStack == null || itemStack.getItemMeta() == null) {
-            return itemStack;
-        }
-
-        revertDisplay(itemStack);
-
+    @Override
+    protected void display(@NotNull final ItemStack itemStack) {
         ItemMeta meta = itemStack.getItemMeta();
         if (meta == null) {
-            return itemStack;
+            return;
         }
 
         ArmorSet set = ArmorUtils.getSetOnItem(itemStack);
@@ -90,12 +52,12 @@ public class ArmorDisplay {
                 itemStack.setItemMeta(shardSet.getAdvancementShardItem().getItemMeta());
             }
 
-            return itemStack;
+            return;
         }
 
         ArmorSlot slot = ArmorSlot.getSlot(itemStack);
         if (slot == null) {
-            return itemStack;
+            return;
         }
 
         ItemStack slotStack;
@@ -129,7 +91,10 @@ public class ArmorDisplay {
         }
 
         itemStack.setItemMeta(meta);
+    }
 
-        return itemStack;
+    @Override
+    protected void revert(@NotNull final ItemStack itemStack) {
+
     }
 }

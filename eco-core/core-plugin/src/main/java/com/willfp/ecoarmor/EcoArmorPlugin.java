@@ -1,7 +1,6 @@
 package com.willfp.ecoarmor;
 
 import com.willfp.eco.util.command.AbstractCommand;
-import com.willfp.eco.util.display.Display;
 import com.willfp.eco.util.display.DisplayModule;
 import com.willfp.eco.util.integrations.IntegrationLoader;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
@@ -22,6 +21,7 @@ import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
 import com.willfp.ecoarmor.util.DiscoverRecipeListener;
 import lombok.Getter;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,8 +48,6 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
      */
     @Override
     public void enable() {
-        Display.registerDisplayModule(new DisplayModule(ArmorDisplay::display, 1, this.getPluginName()));
-        Display.registerRevertModule(ArmorDisplay::revertDisplay);
         Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
 
         this.getExtensionLoader().loadExtensions();
@@ -154,5 +152,10 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
                 UpgradeCrystal.class,
                 EcoArmorConfigs.class
         );
+    }
+
+    @Override
+    protected @Nullable DisplayModule createDisplayModule() {
+        return new ArmorDisplay(this);
     }
 }
