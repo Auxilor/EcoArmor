@@ -5,7 +5,7 @@ import com.willfp.ecoarmor.EcoArmorPlugin;
 
 public class Tiers extends StaticBaseConfig {
     /**
-     * sets.yml.
+     * tiers.yml.
      */
     public Tiers() {
         super("tiers", EcoArmorPlugin.getInstance());

@@ -1,5 +1,6 @@
 package com.willfp.ecoarmor.sets;
 
+import com.willfp.eco.internal.config.AbstractUndefinedConfig;
 import com.willfp.eco.util.SkullUtils;
 import com.willfp.eco.util.StringUtils;
 import com.willfp.eco.util.display.Display;
@@ -7,7 +8,6 @@ import com.willfp.eco.util.recipe.RecipeParts;
 import com.willfp.eco.util.recipe.parts.ComplexRecipePart;
 import com.willfp.eco.util.recipe.recipes.EcoShapedRecipe;
 import com.willfp.ecoarmor.EcoArmorPlugin;
-import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
@@ -46,6 +46,12 @@ public class ArmorSet {
      */
     @Getter
     private final String name;
+
+    /**
+     * The config of the set.
+     */
+    @Getter
+    private final AbstractUndefinedConfig config;
 
     /**
      * Effects and their strengths.
@@ -90,12 +96,15 @@ public class ArmorSet {
     /**
      * Create a new Armor Set.
      *
-     * @param name The name of the set.
+     * @param name   The name of the set.
+     * @param config The set's config.
      */
-    public ArmorSet(@NotNull final String name) {
+    public ArmorSet(@NotNull final String name,
+                    @NotNull final AbstractUndefinedConfig config) {
+        this.config = config;
         this.name = name;
 
-        for (String definedKey : EcoArmorConfigs.SETS.getStrings(name + ".set-bonus")) {
+        for (String definedKey : this.getConfig().getStrings("set-bonus")) {
             String[] split = definedKey.split(":");
             String key = split[0].trim();
             String value = split[1].trim();
@@ -103,7 +112,7 @@ public class ArmorSet {
             effects.put(effect, ArmorUtils.getEffectValue(value, effect));
         }
 
-        for (String definedKey : EcoArmorConfigs.SETS.getStrings(name + ".advanced-set-bonus")) {
+        for (String definedKey : this.getConfig().getStrings("advanced-set-bonus")) {
             String[] split = definedKey.split(":");
             String key = split[0].trim();
             String value = split[1].trim();
@@ -111,7 +120,7 @@ public class ArmorSet {
             advancedEffects.put(effect, ArmorUtils.getEffectValue(value, effect));
         }
 
-        for (String definedKey : EcoArmorConfigs.SETS.getStrings(name + ".potion-effects")) {
+        for (String definedKey : this.getConfig().getStrings("potion-effects")) {
             String[] split = definedKey.split(":");
             String key = split[0].trim();
             String value = split[1].trim();
@@ -119,7 +128,7 @@ public class ArmorSet {
             potionEffects.put(type, Integer.parseInt(value));
         }
 
-        for (String definedKey : EcoArmorConfigs.SETS.getStrings(name + ".advanced-potion-effects")) {
+        for (String definedKey : this.getConfig().getStrings("advanced-potion-effects")) {
             String[] split = definedKey.split(":");
             String key = split[0].trim();
             String value = split[1].trim();
@@ -137,7 +146,7 @@ public class ArmorSet {
 
         this.advancementShardItem = constructShard();
 
-        if (!EcoArmorConfigs.SETS.getBool(name + ".enabled")) {
+        if (!this.getConfig().getBool("enabled")) {
             return;
         }
 
@@ -148,13 +157,13 @@ public class ArmorSet {
         ItemStack shardItem = new ItemStack(Objects.requireNonNull(Material.getMaterial(PLUGIN.getConfigYml().getString("advancement-shard-material").toUpperCase())));
         ItemMeta shardMeta = shardItem.getItemMeta();
         assert shardMeta != null;
-        shardMeta.setDisplayName(EcoArmorConfigs.SETS.getString(name + ".advancement-shard-name"));
+        shardMeta.setDisplayName(this.getConfig().getString("advancement-shard-name"));
 
         shardMeta.addEnchant(Enchantment.DURABILITY, 3, true);
         shardMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
         List<String> shardLore = new ArrayList<>();
-        for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + ".advancement-shard-lore")) {
+        for (String loreLine : this.getConfig().getStrings("advancement-shard-lore")) {
             shardLore.add(Display.PREFIX + StringUtils.translate(loreLine));
         }
 
@@ -163,10 +172,10 @@ public class ArmorSet {
 
         shardItem.setItemMeta(shardMeta);
 
-        if (EcoArmorConfigs.SETS.getBool(name + ".shard-craftable")) {
+        if (this.getConfig().getBool("shard-craftable")) {
             EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(PLUGIN, this.getName() + "_shard").setOutput(shardItem);
 
-            List<String> recipeStrings = EcoArmorConfigs.SETS.getStrings(name + ".shard-recipe");
+            List<String> recipeStrings = this.getConfig().getStrings("shard-recipe");
 
             for (int i = 0; i < 9; i++) {
                 builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));
@@ -183,16 +192,18 @@ public class ArmorSet {
                                 final boolean advanced) {
         String pieceName = slot.toLowerCase();
 
-        Material material = Material.getMaterial(EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".material").toUpperCase());
+        Material material = Material.getMaterial(this.getConfig().getString(pieceName + ".material").toUpperCase());
         Map<Enchantment, Integer> enchants = new HashMap<>();
 
-        for (String definedKey : EcoArmorConfigs.SETS.getStrings(name + "." + pieceName + ".enchants")) {
+        for (String definedKey : this.getConfig().getStrings(pieceName + ".enchants")) {
             String[] split = definedKey.split(":");
             String key = split[0].trim();
             String value = split[1].trim();
             Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(key));
             enchants.put(enchantment, Integer.valueOf(value));
         }
+
+        assert material != null;
 
         ItemStack itemStack = new ItemStack(material);
         ItemMeta meta = itemStack.getItemMeta();
@@ -201,50 +212,44 @@ public class ArmorSet {
 
         String displayName;
         if (advanced) {
-            displayName = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".advanced-name");
+            displayName = this.getConfig().getString(pieceName + ".advanced-name");
         } else {
-            displayName = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".name");
+            displayName = this.getConfig().getString(pieceName + ".name");
         }
 
-        if (EcoArmorConfigs.SETS.getConfig().contains(name + "." + pieceName + ".flags")) {
-            List<ItemFlag> flags = new ArrayList<>();
-            for (String flagName : EcoArmorConfigs.SETS.getStrings(name + "." + pieceName + ".flags")) {
-                ItemFlag flag = ItemFlag.valueOf(flagName.toUpperCase());
-                flags.add(flag);
-            }
-            meta.addItemFlags(flags.toArray(new ItemFlag[0]));
+        List<ItemFlag> flags = new ArrayList<>();
+        for (String flagName : this.getConfig().getStrings(pieceName + ".flags")) {
+            ItemFlag flag = ItemFlag.valueOf(flagName.toUpperCase());
+            flags.add(flag);
+        }
+        meta.addItemFlags(flags.toArray(new ItemFlag[0]));
+
+        int data = this.getConfig().getInt(pieceName + ".custom-model-data");
+        if (data != -1) {
+            meta.setCustomModelData(data);
         }
 
-        if (EcoArmorConfigs.SETS.getConfig().contains(name + "." + pieceName + ".custom-model-data")) {
-            int data = EcoArmorConfigs.SETS.getInt(name + "." + pieceName + ".custom-model-data");
-            if (data != -1) {
-                meta.setCustomModelData(data);
-            }
-        }
-
-        if (EcoArmorConfigs.SETS.getConfig().contains(name + "." + pieceName + ".unbreakable")) {
-            boolean unbreakable = EcoArmorConfigs.SETS.getBool(name + "." + pieceName + ".unbreakable");
-            meta.setUnbreakable(unbreakable);
-        }
+        boolean unbreakable = this.getConfig().getBool(pieceName + ".unbreakable");
+        meta.setUnbreakable(unbreakable);
 
         List<String> lore = new ArrayList<>();
-        for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + "." + pieceName + ".lore")) {
+        for (String loreLine : this.getConfig().getStrings(pieceName + ".lore")) {
             lore.add(Display.PREFIX + StringUtils.translate(loreLine));
         }
 
         if (advanced) {
-            for (String loreLine : EcoArmorConfigs.SETS.getStrings(name + ".advanced-lore")) {
+            for (String loreLine : this.getConfig().getStrings("advanced-lore")) {
                 lore.add(Display.PREFIX + StringUtils.translate(loreLine));
             }
         }
 
         if (meta instanceof SkullMeta) {
-            String base64 = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".skull-texture");
+            String base64 = this.getConfig().getString(pieceName + ".skull-texture");
             SkullUtils.setSkullTexture((SkullMeta) meta, base64);
         }
 
         if (meta instanceof LeatherArmorMeta) {
-            String colorString = EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".leather-color");
+            String colorString = this.getConfig().getString(pieceName + ".leather-color");
             java.awt.Color awtColor = java.awt.Color.decode(colorString);
             Color color = Color.fromRGB(awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue());
             ((LeatherArmorMeta) meta).setColor(color);
@@ -260,7 +265,7 @@ public class ArmorSet {
         PersistentDataContainer container = meta.getPersistentDataContainer();
         container.set(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING, name);
         container.set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, "default");
-        container.set(PLUGIN.getNamespacedKeyFactory().create("effective-durability"), PersistentDataType.INTEGER, EcoArmorConfigs.SETS.getInt(name + "." + pieceName + ".effective-durability"));
+        container.set(PLUGIN.getNamespacedKeyFactory().create("effective-durability"), PersistentDataType.INTEGER, this.getConfig().getInt(pieceName + ".effective-durability"));
         if (advanced) {
             container.set(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER, 1);
         }
@@ -285,7 +290,7 @@ public class ArmorSet {
                                  @NotNull final ItemStack out) {
         EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(PLUGIN, this.getName() + "_" + slot).setOutput(out);
 
-        List<String> recipeStrings = EcoArmorConfigs.SETS.getStrings(name + "." + slot.toLowerCase() + ".recipe");
+        List<String> recipeStrings = this.getConfig().getStrings(slot.toLowerCase() + ".recipe");
 
         for (int i = 0; i < 9; i++) {
             builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));

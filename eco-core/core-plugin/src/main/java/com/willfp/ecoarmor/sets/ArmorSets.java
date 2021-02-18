@@ -5,10 +5,18 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
-import com.willfp.ecoarmor.config.EcoArmorConfigs;
+import com.willfp.ecoarmor.EcoArmorPlugin;
+import com.willfp.ecoarmor.config.configs.BaseEcoArmorConfig;
+import com.willfp.ecoarmor.config.configs.EcoArmorConfig;
 import lombok.experimental.UtilityClass;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 @UtilityClass
@@ -17,6 +25,16 @@ public class ArmorSets {
      * Registered armor sets.
      */
     private static final BiMap<String, ArmorSet> BY_NAME = HashBiMap.create();
+
+    /**
+     * Sets that exist by default.
+     */
+    private static final List<String> DEFAULT_SET_NAMES = Arrays.asList(
+            "miner",
+            "reaper",
+            "ender",
+            "young"
+    );
 
     /**
      * Get all registered {@link ArmorSet}s.
@@ -46,8 +64,22 @@ public class ArmorSets {
             removeSet(set);
         }
 
-        for (String key : EcoArmorConfigs.SETS.getConfig().getKeys(false)) {
-            new ArmorSet(key);
+        for (String defaultSetName : DEFAULT_SET_NAMES) {
+            new ArmorSet(defaultSetName, new BaseEcoArmorConfig(defaultSetName));
+        }
+
+        try {
+            Files.walk(Paths.get(new File(EcoArmorPlugin.getInstance().getDataFolder(), "sets/").toURI()))
+                    .filter(Files::isRegularFile)
+                    .forEach(path -> {
+                        String name = path.getFileName().toString().replace(".yml", "");
+                        new ArmorSet(
+                                name,
+                                new EcoArmorConfig(name, YamlConfiguration.loadConfiguration(path.toFile()))
+                        );
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

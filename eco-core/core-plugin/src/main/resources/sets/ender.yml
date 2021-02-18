@@ -1,0 +1,188 @@
+enabled: true
+set-bonus:
+  - "warp-chance: 20"
+  - "evade-chance: 10"
+advanced-set-bonus:
+  - "warp-chance: 30"
+  - "evade-chance: 20"
+advanced-lore:
+  - ""
+  - "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>"
+  - "&8» &330% Chance to warp behind your opponent"
+  - "&8» &320% Chance to evade attacks"
+  - "&8&oRequires full set to be worn"
+advancement-shard-name: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &3Ender"
+advancement-shard-lore:
+  - "&8Drop this onto &3Ender Armor"
+  - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+shard-craftable: true
+shard-recipe:
+  - prismarine_shard
+  - ecoarmor:set_ender_helmet
+  - prismarine_shard
+
+  - ecoarmor:set_ender_chestplate
+  - nether_star
+  - ecoarmor:set_ender_leggings
+
+  - prismarine_shard
+  - ecoarmor:set_ender_boots
+  - prismarine_shard
+helmet:
+  enchants:
+    - "protection: 3"
+    - "unbreaking: 1"
+  material: player_head
+  skull-texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGFhOGZjOGRlNjQxN2I0OGQ0OGM4MGI0NDNjZjUzMjZlM2Q5ZGE0ZGJlOWIyNWZjZDQ5NTQ5ZDk2MTY4ZmMwIn19fQ==
+  name: "&bEnder Helmet"
+  advanced-name: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&3 Ender Helmet"
+  effective-durability: 1024
+  unbreakable: false
+  flags: [ ]
+  custom-model-data: -1
+  lore:
+    - "&3&lENDER SET BONUS"
+    - "&8» &320% Chance to warp behind your opponent"
+    - "&8» &310% Chance to evade attacks"
+    - "&8&oRequires full set to be worn"
+    - ""
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  recipe:
+    - ender_eye
+    - ender_eye
+    - ender_eye
+
+    - ender_eye
+    - iron_helmet
+    - ender_eye
+
+    - ender_eye
+    - ender_eye
+    - ender_eye
+chestplate:
+  enchants:
+    - "protection: 3"
+    - "unbreaking: 1"
+  material: leather_chestplate
+  leather-color: "#0d6961"
+  name: "&3Ender Chestplate"
+  advanced-name: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&3 Ender Chestplate"
+  effective-durability: 1024
+  unbreakable: false
+  flags: [ ]
+  custom-model-data: -1
+  lore:
+    - "&3&lENDER SET BONUS"
+    - "&8» &320% Chance to warp behind your opponent"
+    - "&8» &310% Chance to evade attacks"
+    - "&8&oRequires full set to be worn"
+    - ""
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  recipe:
+    - ender_eye
+    - ender_eye
+    - ender_eye
+
+    - ender_eye
+    - iron_chestplate
+    - ender_eye
+
+    - ender_eye
+    - ender_eye
+    - ender_eye
+elytra:
+  enchants:
+    - "unbreaking: 1"
+  material: elytra
+  name: "&3Ender Elytra"
+  advanced-name: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&3 Ender Elytra"
+  effective-durability: 1024
+  unbreakable: false
+  flags: [ ]
+  custom-model-data: -1
+  lore:
+    - "&3&lENDER SET BONUS"
+    - "&8» &320% Chance to warp behind your opponent"
+    - "&8» &310% Chance to evade attacks"
+    - "&8&oRequires full set to be worn"
+    - ""
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  recipe:
+    - ender_eye
+    - ender_eye
+    - ender_eye
+
+    - ender_eye
+    - elytra
+    - ender_eye
+
+    - ender_eye
+    - ender_eye
+    - ender_eye
+leggings:
+  enchants:
+    - "protection: 3"
+    - "unbreaking: 1"
+  material: leather_leggings
+  leather-color: "#0d6961"
+  name: "&3Ender Leggings"
+  advanced-name: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&3 Ender Leggings"
+  effective-durability: 1024
+  unbreakable: false
+  flags: [ ]
+  custom-model-data: -1
+  lore:
+    - "&3&lENDER SET BONUS"
+    - "&8» &320% Chance to warp behind your opponent"
+    - "&8» &310% Chance to evade attacks"
+    - "&8&oRequires full set to be worn"
+    - ""
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  recipe:
+    - ender_eye
+    - ender_eye
+    - ender_eye
+
+    - ender_eye
+    - iron_leggings
+    - ender_eye
+
+    - ender_eye
+    - ender_eye
+    - ender_eye
+boots:
+  enchants:
+    - "protection: 3"
+    - "unbreaking: 1"
+  material: leather_boots
+  leather-color: "#0d6961"
+  name: "&3Ender Boots"
+  advanced-name: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&3 Ender Boots"
+  effective-durability: 1024
+  unbreakable: false
+  flags: [ ]
+  custom-model-data: -1
+  lore:
+    - "&3&lENDER SET BONUS"
+    - "&8» &320% Chance to warp behind your opponent"
+    - "&8» &310% Chance to evade attacks"
+    - "&8&oRequires full set to be worn"
+    - ""
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  recipe:
+    - ender_eye
+    - ender_eye
+    - ender_eye
+
+    - ender_eye
+    - iron_boots
+    - ender_eye
+
+    - ender_eye
+    - ender_eye
+    - ender_eye
