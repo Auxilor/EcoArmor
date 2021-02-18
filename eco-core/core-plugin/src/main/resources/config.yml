@@ -8,8 +8,6 @@ discover-recipes: true # If all recipes should be automatically discovered.
 # The material for advancement shards.
 advancement-shard-material: prismarine_shard
 
-default-tier-display: "&8&lDEFAULT"
-
 # Effects are passive abilities that happen when wearing a full set with the effect present.
 effects:
   attack-speed-multiplier:

@@ -1,3 +1,4 @@
+enabled: true
 display: "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!"
 requires-tier: cobalt # Set to 'none' to always allow application
 crystal-craftable: true

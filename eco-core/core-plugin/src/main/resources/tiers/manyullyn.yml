@@ -1,3 +1,4 @@
+enabled: true
 display: "&d&k!!&r <GRADIENT:f953c6>&lMANYULLYN</GRADIENT:b91d73>&r &d&k!!&r"
 requires-tier: netherite # Set to 'none' to always allow application
 crystal-craftable: true

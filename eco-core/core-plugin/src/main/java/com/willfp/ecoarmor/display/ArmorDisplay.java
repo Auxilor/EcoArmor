@@ -76,11 +76,7 @@ public class ArmorDisplay extends DisplayModule {
         List<String> lore = new ArrayList<>();
 
         for (String s : slotMeta.getLore()) {
-            if (tierName.equals("default")) {
-                s = s.replace("%tier%", this.getPlugin().getConfigYml().getString("default-tier-display"));
-            } else {
-                s = s.replace("%tier%", tier.getDisplayName());
-            }
+            s = s.replace("%tier%", tier.getDisplayName());
             lore.add(s);
         }
 

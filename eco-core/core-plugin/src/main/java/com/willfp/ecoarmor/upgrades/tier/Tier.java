@@ -47,6 +47,7 @@ public class Tier {
      * Sets that exist by default.
      */
     private static final List<String> DEFAULT_TIER_NAMES = Arrays.asList(
+            "default",
             "iron",
             "diamond",
             "netherite",
@@ -114,6 +115,10 @@ public class Tier {
                 @NotNull final AbstractUndefinedConfig config) {
         this.name = tierName;
         this.config = config;
+        if (!this.config.getBool("enabled") && !this.getName().equalsIgnoreCase("default")) {
+            return;
+        }
+
         BY_NAME.put(tierName, this);
         this.update();
     }

@@ -52,15 +52,13 @@ public class CrystalListener extends PluginDependent implements Listener {
         String previousTier = ArmorUtils.getTierName(current);
         boolean allowed = false;
 
-        if (!previousTier.equals("default")) {
-            Tier tier = Tier.getByName(previousTier);
-            String prereq = tier.getConfig().getString("requires-tier");
+        Tier tier = Tier.getByName(crystalTier);
+        String prereq = tier.getConfig().getString("requires-tier");
 
-            if (prereq.equals("none")) {
-                allowed = true;
-            } else if (prereq.equals(previousTier)) {
-                allowed = true;
-            }
+        if (prereq.equals("none")) {
+            allowed = true;
+        } else if (prereq.equals(previousTier)) {
+            allowed = true;
         }
 
         if (!allowed) {
