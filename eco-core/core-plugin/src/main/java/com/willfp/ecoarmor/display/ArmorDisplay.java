@@ -82,7 +82,7 @@ public class ArmorDisplay extends DisplayModule {
         meta.setDisplayName(slotMeta.getDisplayName());
 
         if (meta instanceof SkullMeta && slotMeta instanceof SkullMeta) {
-            String base64 = EcoArmorConfigs.SETS.getString(set.getName() + "." + slot.name().toLowerCase() + ".skull-texture");
+            String base64 = set.getConfig().getString(slot.name().toLowerCase() + ".skull-texture");
             SkullUtils.setSkullTexture((SkullMeta) meta, base64);
         }
 
