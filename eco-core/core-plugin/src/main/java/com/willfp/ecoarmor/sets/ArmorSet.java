@@ -95,32 +95,36 @@ public class ArmorSet {
     public ArmorSet(@NotNull final String name) {
         this.name = name;
 
-        for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".set-bonus").getKeys(false)) {
-            Effect<?> effect = Effects.getByName(effectName);
-            Object value = EcoArmorConfigs.SETS.getConfig().get(name + ".set-bonus." + effectName);
-            effects.put(effect, value);
+        for (String definedKey : EcoArmorConfigs.SETS.getStrings(name + ".set-bonus")) {
+            String[] split = definedKey.split(":");
+            String key = split[0].trim();
+            String value = split[1].trim();
+            Effect<?> effect = Effects.getByName(key);
+            effects.put(effect, ArmorUtils.getEffectValue(value, effect));
         }
 
-        for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".advanced-set-bonus").getKeys(false)) {
-            Effect<?> effect = Effects.getByName(effectName);
-            Object value = EcoArmorConfigs.SETS.getConfig().get(name + ".advanced-set-bonus." + effectName);
-            advancedEffects.put(effect, value);
+        for (String definedKey : EcoArmorConfigs.SETS.getStrings(name + ".advanced-set-bonus")) {
+            String[] split = definedKey.split(":");
+            String key = split[0].trim();
+            String value = split[1].trim();
+            Effect<?> effect = Effects.getByName(key);
+            advancedEffects.put(effect, ArmorUtils.getEffectValue(value, effect));
         }
 
-        if (EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".potion-effects") != null) {
-            for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".potion-effects").getKeys(false)) {
-                PotionEffectType type = PotionEffectType.getByName(effectName.toUpperCase());
-                int strength = EcoArmorConfigs.SETS.getInt(name + ".potion-effects." + effectName);
-                potionEffects.put(type, strength);
-            }
+        for (String definedKey : EcoArmorConfigs.SETS.getStrings(name + ".potion-effects")) {
+            String[] split = definedKey.split(":");
+            String key = split[0].trim();
+            String value = split[1].trim();
+            PotionEffectType type = PotionEffectType.getByName(key.toUpperCase());
+            potionEffects.put(type, Integer.parseInt(value));
         }
 
-        if (EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".advanced-potion-effects") != null) {
-            for (String effectName : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + ".advanced-potion-effects").getKeys(false)) {
-                PotionEffectType type = PotionEffectType.getByName(effectName.toUpperCase());
-                int strength = EcoArmorConfigs.SETS.getInt(name + ".advanced-potion-effects." + effectName);
-                advancedPotionEffects.put(type, strength);
-            }
+        for (String definedKey : EcoArmorConfigs.SETS.getStrings(name + ".advanced-potion-effects")) {
+            String[] split = definedKey.split(":");
+            String key = split[0].trim();
+            String value = split[1].trim();
+            PotionEffectType type = PotionEffectType.getByName(key.toUpperCase());
+            advancedPotionEffects.put(type, Integer.parseInt(value));
         }
 
         for (ArmorSlot slot : ArmorSlot.values()) {
@@ -132,6 +136,10 @@ public class ArmorSet {
         }
 
         this.advancementShardItem = constructShard();
+
+        if (!EcoArmorConfigs.SETS.getBool(name + ".enabled")) {
+            return;
+        }
 
         ArmorSets.addNewSet(this);
     }
@@ -178,10 +186,12 @@ public class ArmorSet {
         Material material = Material.getMaterial(EcoArmorConfigs.SETS.getString(name + "." + pieceName + ".material").toUpperCase());
         Map<Enchantment, Integer> enchants = new HashMap<>();
 
-        for (String enchantKey : EcoArmorConfigs.SETS.getConfig().getConfigurationSection(name + "." + pieceName + ".enchants").getKeys(false)) {
-            int level = EcoArmorConfigs.SETS.getInt(name + "." + pieceName + ".enchants." + enchantKey);
-            Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(enchantKey));
-            enchants.put(enchantment, level);
+        for (String definedKey : EcoArmorConfigs.SETS.getStrings(name + "." + pieceName + ".enchants")) {
+            String[] split = definedKey.split(":");
+            String key = split[0].trim();
+            String value = split[1].trim();
+            Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(key));
+            enchants.put(enchantment, Integer.valueOf(value));
         }
 
         ItemStack itemStack = new ItemStack(material);
@@ -314,14 +324,7 @@ public class ArmorSet {
      */
     @Nullable
     public <T> T getEffectStrength(@NotNull final Effect<T> effect) {
-        Object strength = effects.get(effect);
-        if (strength instanceof Integer) {
-            if (effect.getTypeClass().equals(Double.class)) {
-                strength = (double) (int) strength;
-            }
-        }
-
-        return (T) strength;
+        return (T) effects.get(effect);
     }
 
     /**

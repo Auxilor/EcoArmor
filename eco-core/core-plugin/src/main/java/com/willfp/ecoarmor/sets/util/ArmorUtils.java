@@ -333,4 +333,30 @@ public class ArmorUtils {
 
         return ArmorSets.getByName(shardSet);
     }
+
+    /**
+     * Get value of effect.
+     *
+     * @param string Value as string.
+     * @param effect Effect.
+     * @param <T>    The type of the effect.
+     * @return Value.
+     */
+    @NotNull
+    public static <T> Object getEffectValue(@NotNull final String string,
+                                            @NotNull final Effect<T> effect) {
+        if (effect.getTypeClass().equals(Boolean.class)) {
+            return Boolean.parseBoolean(string);
+        }
+
+        if (effect.getTypeClass().equals(Integer.class)) {
+            return Integer.parseInt(string);
+        }
+
+        if (effect.getTypeClass().equals(Double.class)) {
+            return Double.parseDouble(string);
+        }
+
+        return "";
+    }
 }

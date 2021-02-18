@@ -1,12 +1,13 @@
 miner:
+  enabled: true
   set-bonus:
-    experience-multiplier: 1.25
+    - "experience-multiplier: 1.25"
   advanced-set-bonus:
-    hunger-loss-multiplier: 0.5
+    - "hunger-loss-multiplier: 0.5"
   potion-effects:
-    fast_digging: 2
+    - "fast_digging: 2"
   advanced-potion-effects:
-    fast_digging: 3
+    - "fast_digging: 3"
   advanced-lore:
     - ""
     - "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>"
@@ -32,8 +33,8 @@ miner:
     - prismarine_shard
   helmet:
     enchants:
-      fire_protection: 4
-      unbreaking: 1
+      - "fire_protection: 4"
+      - "unbreaking: 1"
     material: leather_helmet
     leather-color: "#6699cc"
     name: "&9Miner Helmet"
@@ -64,8 +65,8 @@ miner:
       - air
   chestplate:
     enchants:
-      fire_protection: 4
-      unbreaking: 1
+      - "fire_protection: 4"
+      - "unbreaking: 1"
     material: leather_chestplate
     leather-color: "#6699cc"
     name: "&9Miner Chestplate"
@@ -96,7 +97,7 @@ miner:
       - air
   elytra:
     enchants:
-      unbreaking: 1
+      - "unbreaking: 1"
     material: elytra
     name: "&9Miner Elytra"
     advanced-name: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&9 Miner Elytra"
@@ -126,8 +127,8 @@ miner:
       - air
   leggings:
     enchants:
-      fire_protection: 4
-      unbreaking: 1
+      - "fire_protection: 4"
+      - "unbreaking: 1"
     material: leather_leggings
     leather-color: "#6699cc"
     name: "&9Miner Leggings"
@@ -158,8 +159,8 @@ miner:
       - air
   boots:
     enchants:
-      fire_protection: 4
-      unbreaking: 1
+      - "fire_protection: 4"
+      - "unbreaking: 1"
     material: leather_boots
     leather-color: "#6699cc"
     name: "&9Miner Boots"
@@ -190,10 +191,11 @@ miner:
       - air
 
 reaper:
+  enabled: true
   set-bonus:
-    damage-multiplier: 1.25
+    - "damage-multiplier: 1.25"
   advanced-set-bonus:
-    damage-taken-multiplier: 0.9
+    - "damage-taken-multiplier: 0.9"
   advanced-lore:
     - ""
     - "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>"
@@ -218,8 +220,8 @@ reaper:
     - prismarine_shard
   helmet:
     enchants:
-      protection: 4
-      unbreaking: 3
+      - "protection: 4"
+      - "unbreaking: 3"
     material: leather_helmet
     leather-color: "#303030"
     name: "&cReaper Helmet"
@@ -249,8 +251,8 @@ reaper:
       - air
   chestplate:
     enchants:
-      protection: 4
-      unbreaking: 3
+      - "protection: 4"
+      - "unbreaking: 3"
     material: leather_chestplate
     leather-color: "#303030"
     name: "&cReaper Chestplate"
@@ -280,7 +282,7 @@ reaper:
       - air
   elytra:
     enchants:
-      unbreaking: 3
+      - "unbreaking: 3"
     material: elytra
     name: "&cReaper Elytra"
     advanced-name: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Elytra"
@@ -309,8 +311,8 @@ reaper:
       - air
   leggings:
     enchants:
-      protection: 4
-      unbreaking: 3
+      - "protection: 4"
+      - "unbreaking: 3"
     material: leather_leggings
     leather-color: "#303030"
     name: "&cReaper Leggings"
@@ -340,8 +342,8 @@ reaper:
       - air
   boots:
     enchants:
-      protection: 4
-      unbreaking: 3
+      - "protection: 4"
+      - "unbreaking: 3"
     material: leather_boots
     leather-color: "#303030"
     name: "&cReaper Boots"
@@ -372,12 +374,13 @@ reaper:
 
 
 young:
+  enabled: true
   set-bonus:
-    speed-multiplier: 1.25
+    - "speed-multiplier: 1.25"
   advanced-set-bonus:
-    speed-multiplier: 1.5
+    - "speed-multiplier: 1.5"
   advanced-potion-effects:
-    jump: 2
+    - "jump: 2"
   advanced-lore:
     - ""
     - "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>"
@@ -403,8 +406,8 @@ young:
     - prismarine_shard
   helmet:
     enchants:
-      protection: 2
-      unbreaking: 3
+      - "protection: 2"
+      - "unbreaking: 3"
     material: player_head
     skull-texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWM0ODZhZjNiODgyNzY2ZTgyYTBiYzE2NjVmZjAyZWI2ZTg3M2I2ZTBkNzcxZjNhZGFiYzc1OWI3MjAyMjZhIn19fQ==
     name: "&bYoung Helmet"
@@ -434,8 +437,8 @@ young:
       - air
   chestplate:
     enchants:
-      protection: 2
-      unbreaking: 3
+      - "protection: 2"
+      - "unbreaking: 3"
     material: leather_chestplate
     leather-color: "#DDE4F0"
     name: "&bYoung Chestplate"
@@ -465,7 +468,7 @@ young:
       - diamond
   elytra:
     enchants:
-      unbreaking: 3
+      - "unbreaking: 3"
     material: elytra
     name: "&bYoung Elytra"
     advanced-name: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Young Elytra"
@@ -494,8 +497,8 @@ young:
       - air
   leggings:
     enchants:
-      protection: 2
-      unbreaking: 3
+      - "protection: 2"
+      - "unbreaking: 3"
     material: leather_leggings
     leather-color: "#DDE4F0"
     name: "&bYoung Leggings"
@@ -525,9 +528,9 @@ young:
       - diamond
   boots:
     enchants:
-      protection: 2
-      unbreaking: 3
-      depth_strider: 3
+      - "protection: 2"
+      - "unbreaking: 3"
+      - "depth_strider: 3"
     material: leather_boots
     leather-color: "#DDE4F0"
     name: "&bYoung Boots"
@@ -557,12 +560,13 @@ young:
       - redstone
 
 ender:
+  enabled: true
   set-bonus:
-    warp-chance: 20
-    evade-chance: 10
+    - "warp-chance: 20"
+    - "evade-chance: 10"
   advanced-set-bonus:
-    warp-chance: 30
-    evade-chance: 20
+    - "warp-chance: 30"
+    - "evade-chance: 20"
   advanced-lore:
     - ""
     - "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>"
@@ -588,8 +592,8 @@ ender:
     - prismarine_shard
   helmet:
     enchants:
-      protection: 3
-      unbreaking: 1
+      - "protection: 3"
+      - "unbreaking: 1"
     material: player_head
     skull-texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGFhOGZjOGRlNjQxN2I0OGQ0OGM4MGI0NDNjZjUzMjZlM2Q5ZGE0ZGJlOWIyNWZjZDQ5NTQ5ZDk2MTY4ZmMwIn19fQ==
     name: "&bEnder Helmet"
@@ -620,8 +624,8 @@ ender:
       - ender_eye
   chestplate:
     enchants:
-      protection: 3
-      unbreaking: 1
+      - "protection: 3"
+      - "unbreaking: 1"
     material: leather_chestplate
     leather-color: "#0d6961"
     name: "&3Ender Chestplate"
@@ -652,7 +656,7 @@ ender:
       - ender_eye
   elytra:
     enchants:
-      unbreaking: 1
+      - "unbreaking: 1"
     material: elytra
     name: "&3Ender Elytra"
     advanced-name: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&3 Ender Elytra"
@@ -682,8 +686,8 @@ ender:
       - ender_eye
   leggings:
     enchants:
-      protection: 3
-      unbreaking: 1
+      - "protection: 3"
+      - "unbreaking: 1"
     material: leather_leggings
     leather-color: "#0d6961"
     name: "&3Ender Leggings"
@@ -714,8 +718,8 @@ ender:
       - ender_eye
   boots:
     enchants:
-      protection: 3
-      unbreaking: 1
+      - "protection: 3"
+      - "unbreaking: 1"
     material: leather_boots
     leather-color: "#0d6961"
     name: "&3Ender Boots"

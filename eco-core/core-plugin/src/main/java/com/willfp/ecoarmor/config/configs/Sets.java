@@ -1,13 +1,13 @@
 package com.willfp.ecoarmor.config.configs;
 
-import com.willfp.eco.util.config.StaticBaseConfig;
+import com.willfp.eco.util.config.BaseConfig;
 import com.willfp.ecoarmor.EcoArmorPlugin;
 
-public class Sets extends StaticBaseConfig {
+public class Sets extends BaseConfig {
     /**
      * sets.yml.
      */
     public Sets() {
-        super("sets", EcoArmorPlugin.getInstance());
+        super("sets", false, EcoArmorPlugin.getInstance());
     }
 }
