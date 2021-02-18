@@ -6,7 +6,7 @@ import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
-import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
+import com.willfp.ecoarmor.upgrades.tier.Tier;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -123,16 +123,16 @@ public class CommandEagive extends AbstractCommand {
         }
 
         if (itemNamespace.equalsIgnoreCase("crystal")) {
-            UpgradeCrystal crystal = UpgradeCrystal.getByName(itemKey);
+            Tier crystal = Tier.getByName(itemKey);
             if (crystal == null) {
                 sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
                 return;
             }
 
             String message = this.getPlugin().getLangYml().getMessage("give-success");
-            message = message.replace("%item%", crystal.getItemStack().getItemMeta().getDisplayName()).replace("%recipient%", reciever.getName());
+            message = message.replace("%item%", crystal.getCrystal().getItemMeta().getDisplayName()).replace("%recipient%", reciever.getName());
             sender.sendMessage(message);
-            items.add(crystal.getItemStack());
+            items.add(crystal.getCrystal());
 
             if (args.size() >= 3) {
                 try {

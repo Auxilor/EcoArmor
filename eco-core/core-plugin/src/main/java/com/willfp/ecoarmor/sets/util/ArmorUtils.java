@@ -1,11 +1,11 @@
 package com.willfp.ecoarmor.sets.util;
 
 import com.willfp.ecoarmor.EcoArmorPlugin;
-import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
+import com.willfp.ecoarmor.upgrades.tier.Tier;
 import lombok.experimental.UtilityClass;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -164,7 +164,7 @@ public class ArmorUtils {
      * @param itemStack The item to check.
      * @return The found tier.
      */
-    public static String getTier(@NotNull final ItemStack itemStack) {
+    public static String getTierName(@NotNull final ItemStack itemStack) {
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta == null) {
@@ -179,13 +179,13 @@ public class ArmorUtils {
     }
 
     /**
-     * Get tier on item.
+     * Set tier on item.
      *
      * @param itemStack The item to check.
-     * @param tier      The tier to set.
+     * @param tierName  The tier to set.
      */
     public static void setTier(@NotNull final ItemStack itemStack,
-                               @NotNull final String tier) {
+                               @NotNull final String tierName) {
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta == null) {
@@ -196,7 +196,13 @@ public class ArmorUtils {
             return;
         }
 
-        meta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, tier);
+        meta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, tierName);
+
+        Tier tier = Tier.getByName(tierName);
+
+        if (tier == null) {
+            return;
+        }
 
         ArmorSlot slot = ArmorSlot.getSlot(itemStack);
 
@@ -204,13 +210,13 @@ public class ArmorUtils {
             return;
         }
 
-        int armor = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".armor");
-        int toughness = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".toughness");
-        int knockback = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".knockback-resistance");
-        int speed = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".speed-percentage");
-        int attackSpeed = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".attack-speed-percentage");
-        int attackDamage = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".attack-damage-percentage");
-        int attackKnockback = EcoArmorConfigs.TIERS.getInt(tier + ".properties." + slot.name().toLowerCase() + ".attack-knockback-percentage");
+        int armor = tier.getProperties().get(slot).getArmor();
+        int toughness = tier.getProperties().get(slot).getToughness();
+        int knockback = tier.getProperties().get(slot).getKnockback();
+        int speed = tier.getProperties().get(slot).getSpeed();
+        int attackSpeed = tier.getProperties().get(slot).getAttackSpeed();
+        int attackDamage = tier.getProperties().get(slot).getAttackDamage();
+        int attackKnockback = tier.getProperties().get(slot).getAttackKnockback();
 
         if (armor > 0) {
             meta.removeAttributeModifier(Attribute.GENERIC_ARMOR);

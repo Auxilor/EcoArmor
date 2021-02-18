@@ -8,7 +8,6 @@ import com.willfp.eco.util.protocollib.AbstractPacketAdapter;
 import com.willfp.ecoarmor.commands.CommandEagive;
 import com.willfp.ecoarmor.commands.CommandEareload;
 import com.willfp.ecoarmor.commands.TabcompleterEagive;
-import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
@@ -16,8 +15,8 @@ import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.util.EffectiveDurabilityListener;
 import com.willfp.ecoarmor.sets.util.PotionEffectListener;
 import com.willfp.ecoarmor.upgrades.advanced.AdvancementShardListener;
-import com.willfp.ecoarmor.upgrades.crystal.CrystalListener;
-import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
+import com.willfp.ecoarmor.upgrades.tier.CrystalListener;
+import com.willfp.ecoarmor.upgrades.tier.Tier;
 import com.willfp.ecoarmor.util.DiscoverRecipeListener;
 import lombok.Getter;
 import org.bukkit.event.Listener;
@@ -149,8 +148,7 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
         return Arrays.asList(
                 ArmorSets.class,
                 TabcompleterEagive.class,
-                UpgradeCrystal.class,
-                EcoArmorConfigs.class
+                Tier.class
         );
     }
 

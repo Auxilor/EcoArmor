@@ -1,0 +1,61 @@
+display: "&#0047ab&lCOBALT"
+requires-tier: iron # Set to 'none' to always allow application
+crystal-craftable: true
+crystal-name: "&#0047abCobalt Upgrade Crystal"
+crystal-recipe:
+  - air
+  - obsidian
+  - air
+
+  - obsidian
+  - ecoarmor:upgrade_crystal_iron
+  - obsidian
+
+  - air
+  - obsidian
+  - air
+crystal-lore:
+  - "&8Drop this onto an armor piece"
+  - "&8to set its tier to:"
+  - "&#0047ab&lCOBALT"
+properties:
+  helmet:
+    armor: 3
+    toughness: 4
+    knockback-resistance: 1
+    speed-percentage: -10
+    attack-speed-percentage: -10
+    attack-damage-percentage: 0
+    attack-knockback-percentage: 10
+  chestplate:
+    armor: 8
+    toughness: 4
+    knockback-resistance: 1
+    speed-percentage: -10
+    attack-speed-percentage: -10
+    attack-damage-percentage: 0
+    attack-knockback-percentage: 10
+  elytra:
+    armor: 6
+    toughness: 2
+    knockback-resistance: 1
+    speed-percentage: -10
+    attack-speed-percentage: -10
+    attack-damage-percentage: 0
+    attack-knockback-percentage: 10
+  leggings:
+    armor: 6
+    toughness: 4
+    knockback-resistance: 1
+    speed-percentage: -10
+    attack-speed-percentage: -1
+    attack-damage-percentage: 0
+    attack-knockback-percentage: 10
+  boots:
+    armor: 3
+    toughness: 4
+    knockback-resistance: 1
+    speed-percentage: -10
+    attack-speed-percentage: -10
+    attack-damage-percentage: 0
+    attack-knockback-percentage: 10

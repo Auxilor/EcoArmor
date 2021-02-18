@@ -4,11 +4,10 @@ import com.willfp.eco.util.SkullUtils;
 import com.willfp.eco.util.display.DisplayModule;
 import com.willfp.eco.util.display.DisplayPriority;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
-import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
-import com.willfp.ecoarmor.upgrades.crystal.UpgradeCrystal;
+import com.willfp.ecoarmor.upgrades.tier.Tier;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -39,10 +38,10 @@ public class ArmorDisplay extends DisplayModule {
 
         if (set == null) {
             String crystalTier = ArmorUtils.getCrystalTier(itemStack);
-            UpgradeCrystal crystal = UpgradeCrystal.getByName(crystalTier);
+            Tier crystal = Tier.getByName(crystalTier);
 
             if (crystalTier != null && crystal != null) {
-                meta.setLore(UpgradeCrystal.getByName(crystalTier).getItemStack().getItemMeta().getLore());
+                meta.setLore(Tier.getByName(crystalTier).getCrystal().getItemMeta().getLore());
                 itemStack.setItemMeta(meta);
             }
 
@@ -70,12 +69,19 @@ public class ArmorDisplay extends DisplayModule {
         ItemMeta slotMeta = slotStack.getItemMeta();
         assert slotMeta != null;
 
-        String tier = ArmorUtils.getTier(itemStack);
+        String tierName = ArmorUtils.getTierName(itemStack);
+
+        Tier tier = Tier.getByName(tierName);
 
         List<String> lore = new ArrayList<>();
 
         for (String s : slotMeta.getLore()) {
-            lore.add(s.replace("%tier%", EcoArmorConfigs.TIERS.getString(tier + ".display")));
+            if (tierName.equals("default")) {
+                s = s.replace("%tier%", this.getPlugin().getConfigYml().getString("default-tier-display"));
+            } else {
+                s = s.replace("%tier%", tier.getDisplayName());
+            }
+            lore.add(s);
         }
 
         meta.setLore(lore);

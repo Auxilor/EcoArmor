@@ -1,4 +1,4 @@
-package com.willfp.ecoarmor.config.configs;
+package com.willfp.ecoarmor.config;
 
 import com.willfp.eco.util.config.ExtendableConfig;
 import com.willfp.ecoarmor.EcoArmorPlugin;

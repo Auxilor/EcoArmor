@@ -6,8 +6,8 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
 import com.willfp.ecoarmor.EcoArmorPlugin;
-import com.willfp.ecoarmor.config.configs.BaseEcoArmorConfig;
-import com.willfp.ecoarmor.config.configs.EcoArmorConfig;
+import com.willfp.ecoarmor.config.BaseEcoArmorConfig;
+import com.willfp.ecoarmor.config.CustomConfig;
 import lombok.experimental.UtilityClass;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
@@ -75,7 +75,7 @@ public class ArmorSets {
                         String name = path.getFileName().toString().replace(".yml", "");
                         new ArmorSet(
                                 name,
-                                new EcoArmorConfig(name, YamlConfiguration.loadConfiguration(path.toFile()))
+                                new CustomConfig(name, YamlConfiguration.loadConfiguration(path.toFile()))
                         );
                     });
         } catch (IOException e) {

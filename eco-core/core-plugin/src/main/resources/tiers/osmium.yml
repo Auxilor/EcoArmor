@@ -1,0 +1,61 @@
+display: "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!"
+requires-tier: cobalt # Set to 'none' to always allow application
+crystal-craftable: true
+crystal-name: "<GRADIENT:c7f1ff>Osmium upgrade crystal</GRADIENT:5c92ff>"
+crystal-recipe:
+  - air
+  - netherite_block
+  - air
+
+  - netherite_block
+  - ecoarmor:upgrade_crystal_cobalt
+  - netherite_block
+
+  - air
+  - netherite_block
+  - air
+crystal-lore:
+  - "&8Drop this onto an armor piece"
+  - "&8to set its tier to:"
+  - "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!"
+properties:
+  helmet:
+    armor: 3
+    toughness: 6
+    knockback-resistance: 3
+    speed-percentage: -15
+    attack-speed-percentage: -15
+    attack-damage-percentage: 5
+    attack-knockback-percentage: 25
+  chestplate:
+    armor: 8
+    toughness: 6
+    knockback-resistance: 3
+    speed-percentage: -15
+    attack-speed-percentage: -15
+    attack-damage-percentage: 5
+    attack-knockback-percentage: 25
+  elytra:
+    armor: 8
+    toughness: 6
+    knockback-resistance: 3
+    speed-percentage: -15
+    attack-speed-percentage: -15
+    attack-damage-percentage: 5
+    attack-knockback-percentage: 25
+  leggings:
+    armor: 6
+    toughness: 6
+    knockback-resistance: 3
+    speed-percentage: -15
+    attack-speed-percentage: -15
+    attack-damage-percentage: 5
+    attack-knockback-percentage: 25
+  boots:
+    armor: 3
+    toughness: 6
+    knockback-resistance: 3
+    speed-percentage: -15
+    attack-speed-percentage: -15
+    attack-damage-percentage: 5
+    attack-knockback-percentage: 25

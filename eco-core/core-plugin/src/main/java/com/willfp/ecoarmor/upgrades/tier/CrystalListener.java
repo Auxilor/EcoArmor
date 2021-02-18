@@ -1,8 +1,7 @@
-package com.willfp.ecoarmor.upgrades.crystal;
+package com.willfp.ecoarmor.upgrades.tier;
 
 import com.willfp.eco.util.internal.PluginDependent;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
-import com.willfp.ecoarmor.config.EcoArmorConfigs;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -40,9 +39,9 @@ public class CrystalListener extends PluginDependent implements Listener {
             return;
         }
 
-        String tier = ArmorUtils.getCrystalTier(cursor);
+        String crystalTier = ArmorUtils.getCrystalTier(cursor);
 
-        if (tier == null) {
+        if (crystalTier == null) {
             return;
         }
 
@@ -50,21 +49,25 @@ public class CrystalListener extends PluginDependent implements Listener {
             return;
         }
 
-        String previousTier = ArmorUtils.getTier(current);
-
-        String prereq = EcoArmorConfigs.TIERS.getString(tier + ".requires-tier");
+        String previousTier = ArmorUtils.getTierName(current);
         boolean allowed = false;
-        if (prereq.equals("none")) {
-            allowed = true;
-        } else if (prereq.equals(previousTier)) {
-            allowed = true;
+
+        if (!previousTier.equals("default")) {
+            Tier tier = Tier.getByName(previousTier);
+            String prereq = tier.getConfig().getString("requires-tier");
+
+            if (prereq.equals("none")) {
+                allowed = true;
+            } else if (prereq.equals(previousTier)) {
+                allowed = true;
+            }
         }
 
         if (!allowed) {
             return;
         }
 
-        ArmorUtils.setTier(current, tier);
+        ArmorUtils.setTier(current, crystalTier);
 
         if (cursor.getAmount() > 1) {
             cursor.setAmount(cursor.getAmount() - 1);
