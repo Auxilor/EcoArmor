@@ -38,7 +38,7 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
      * Internal constructor called by bukkit on plugin load.
      */
     public EcoArmorPlugin() {
-        super("EcoArmor", 0, 10002, "com.willfp.ecoarmor.proxy", "&c");
+        super("EcoArmor", 88246, 10002, "com.willfp.ecoarmor.proxy", "&c");
         instance = this;
     }
 
