@@ -6,6 +6,7 @@ import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.upgrades.tier.Tier;
+import com.willfp.ecoarmor.upgrades.tier.Tiers;
 import lombok.experimental.UtilityClass;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -147,7 +148,7 @@ public class ArmorUtils {
         }
 
         if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING)) {
-            return Tier.getByName(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING));
+            return Tiers.getByName(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING));
         }
 
         return null;
@@ -168,7 +169,7 @@ public class ArmorUtils {
         }
 
         if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING)) {
-            return Tier.getByName(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING));
+            return Tiers.getByName(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING));
         }
 
         return null;

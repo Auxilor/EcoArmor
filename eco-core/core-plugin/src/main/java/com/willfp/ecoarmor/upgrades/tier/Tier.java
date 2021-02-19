@@ -1,24 +1,18 @@
 package com.willfp.ecoarmor.upgrades.tier;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.ImmutableList;
 import com.willfp.eco.internal.config.AbstractUndefinedConfig;
 import com.willfp.eco.util.StringUtils;
-import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
 import com.willfp.eco.util.display.Display;
+import com.willfp.eco.util.internal.PluginDependent;
+import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.recipe.RecipeParts;
 import com.willfp.eco.util.recipe.parts.ComplexRecipePart;
 import com.willfp.eco.util.recipe.recipes.EcoShapedRecipe;
-import com.willfp.ecoarmor.EcoArmorPlugin;
-import com.willfp.ecoarmor.config.BaseTierConfig;
-import com.willfp.ecoarmor.config.CustomConfig;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -26,47 +20,13 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class Tier {
-    /**
-     * Registered crystals.
-     */
-    private static final BiMap<String, Tier> BY_NAME = HashBiMap.create();
-
-    /**
-     * Sets that exist by default.
-     */
-    private static final List<String> DEFAULT_TIER_NAMES = Arrays.asList(
-            "iron",
-            "diamond",
-            "netherite",
-            "manyullyn",
-            "cobalt",
-            "osmium",
-            "exotic"
-    );
-
-    /**
-     * Default tier.
-     */
-    public static final Tier DEFAULT = new Tier("default", new BaseTierConfig("default"));
-
-    /**
-     * Instance of EcoArmor to create keys for.
-     */
-    @Getter
-    private final EcoArmorPlugin plugin = EcoArmorPlugin.getInstance();
-
+public class Tier extends PluginDependent {
     /**
      * The tier name.
      */
@@ -119,16 +79,19 @@ public class Tier {
      *
      * @param tierName The name of the tier.
      * @param config   The config of the tier.
+     * @param plugin   Instance of EcoArmor.
      */
     public Tier(@NotNull final String tierName,
-                @NotNull final AbstractUndefinedConfig config) {
+                @NotNull final AbstractUndefinedConfig config,
+                @NotNull final AbstractEcoPlugin plugin) {
+        super(plugin);
         this.name = tierName;
         this.config = config;
         if (!this.config.getBool("enabled") && !this.getName().equalsIgnoreCase("default")) {
             return;
         }
 
-        BY_NAME.put(tierName, this);
+        Tiers.addNewTier(this);
         this.update();
     }
 
@@ -202,7 +165,7 @@ public class Tier {
      */
     @Nullable
     public Tier getRequiredTierForApplication() {
-        return Tier.getByName(requiredTierForApplication);
+        return Tiers.getByName(requiredTierForApplication);
     }
 
     @Override
@@ -221,50 +184,5 @@ public class Tier {
     @Override
     public int hashCode() {
         return Objects.hash(getName());
-    }
-
-    /**
-     * Get {@link Tier} matching name.
-     *
-     * @param name The name to search for.
-     * @return The matching {@link Tier}, or null if not found.
-     */
-    public static Tier getByName(@Nullable final String name) {
-        return BY_NAME.get(name);
-    }
-
-    /**
-     * Get all registered {@link Tier}s.
-     *
-     * @return A list of all {@link Tier}s.
-     */
-    public static List<Tier> values() {
-        return ImmutableList.copyOf(BY_NAME.values());
-    }
-
-    /**
-     * Update.
-     */
-    @ConfigUpdater
-    public static void reload() {
-        BY_NAME.clear();
-
-        for (String defaultSetName : DEFAULT_TIER_NAMES) {
-            new Tier(defaultSetName, new BaseTierConfig(defaultSetName));
-        }
-
-        try {
-            Files.walk(Paths.get(new File(EcoArmorPlugin.getInstance().getDataFolder(), "tiers/").toURI()))
-                    .filter(Files::isRegularFile)
-                    .forEach(path -> {
-                        String name = path.getFileName().toString().replace(".yml", "");
-                        new Tier(
-                                name,
-                                new CustomConfig(name, YamlConfiguration.loadConfiguration(path.toFile()))
-                        );
-                    });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

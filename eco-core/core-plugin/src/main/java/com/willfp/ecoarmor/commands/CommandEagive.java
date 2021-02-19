@@ -7,6 +7,7 @@ import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.upgrades.tier.Tier;
+import com.willfp.ecoarmor.upgrades.tier.Tiers;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -123,7 +124,7 @@ public class CommandEagive extends AbstractCommand {
         }
 
         if (itemNamespace.equalsIgnoreCase("crystal")) {
-            Tier crystal = Tier.getByName(itemKey);
+            Tier crystal = Tiers.getByName(itemKey);
             if (crystal == null) {
                 sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
                 return;
