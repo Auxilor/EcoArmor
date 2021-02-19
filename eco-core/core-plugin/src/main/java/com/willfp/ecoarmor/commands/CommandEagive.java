@@ -31,7 +31,7 @@ public class CommandEagive extends AbstractCommand {
 
     @Override
     public @Nullable AbstractTabCompleter getTab() {
-        return new TabcompleterEagive();
+        return new TabcompleterEagive(this);
     }
 
     @Override

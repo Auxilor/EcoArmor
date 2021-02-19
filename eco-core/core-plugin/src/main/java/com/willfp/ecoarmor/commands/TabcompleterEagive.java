@@ -1,6 +1,5 @@
 package com.willfp.ecoarmor.commands;
 
-import com.willfp.eco.util.command.AbstractCommand;
 import com.willfp.eco.util.command.AbstractTabCompleter;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
 import com.willfp.ecoarmor.sets.ArmorSets;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class TabcompleterEagive extends AbstractTabCompleter {
@@ -46,9 +44,11 @@ public class TabcompleterEagive extends AbstractTabCompleter {
 
     /**
      * Instantiate a new tab-completer for /eagive.
+     *
+     * @param command Instance of /eagive.
      */
-    public TabcompleterEagive() {
-        super((AbstractCommand) Objects.requireNonNull(Bukkit.getPluginCommand("eagive")).getExecutor());
+    public TabcompleterEagive(@NotNull final CommandEagive command) {
+        super(command);
         reload();
     }
 
