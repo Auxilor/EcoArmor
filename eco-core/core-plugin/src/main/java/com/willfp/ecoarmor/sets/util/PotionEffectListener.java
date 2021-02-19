@@ -45,7 +45,7 @@ public class PotionEffectListener extends PluginDependent implements Listener {
                 player.addPotionEffect(new PotionEffect(potionEffectType, 0x6fffffff, integer - 1, false, false, true));
             });
 
-            if (ArmorUtils.isAdvanced(player)) {
+            if (ArmorUtils.isWearingAdvanced(player)) {
                 set.getAdvancedPotionEffects().forEach((potionEffectType, integer) -> {
                     player.addPotionEffect(new PotionEffect(potionEffectType, 0x6fffffff, integer - 1, false, false, true));
                 });

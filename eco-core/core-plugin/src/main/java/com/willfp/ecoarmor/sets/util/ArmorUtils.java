@@ -113,7 +113,7 @@ public class ArmorUtils {
 
         T strength = set.getEffectStrength(effect);
 
-        if (isAdvanced(player)) {
+        if (isWearingAdvanced(player)) {
             strength = set.getAdvancedEffectStrength(effect);
         }
 
@@ -139,12 +139,7 @@ public class ArmorUtils {
      * @return The found tier, or null.
      */
     @Nullable
-    public static String getCrystalTier(@NotNull final ItemStack itemStack) {
-        // I have no idea when null gets passed but it broke crystal crafting so this check goes here.
-        if (itemStack == null) {
-            return null;
-        }
-
+    public static Tier getCrystalTier(@NotNull final ItemStack itemStack) {
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta == null) {
@@ -152,7 +147,7 @@ public class ArmorUtils {
         }
 
         if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING)) {
-            return meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING);
+            return Tier.getByName(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING));
         }
 
         return null;
@@ -162,30 +157,31 @@ public class ArmorUtils {
      * Get tier on item.
      *
      * @param itemStack The item to check.
-     * @return The found tier.
+     * @return The found tier, or null if not found.
      */
-    public static String getTierName(@NotNull final ItemStack itemStack) {
+    @Nullable
+    public static Tier getTier(@NotNull final ItemStack itemStack) {
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta == null) {
-            return "default";
+            return null;
         }
 
         if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING)) {
-            return meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING);
+            return Tier.getByName(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING));
         }
 
-        return "default";
+        return null;
     }
 
     /**
      * Set tier on item.
      *
      * @param itemStack The item to check.
-     * @param tierName  The tier to set.
+     * @param tier  The tier to set.
      */
     public static void setTier(@NotNull final ItemStack itemStack,
-                               @NotNull final String tierName) {
+                               @NotNull final Tier tier) {
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta == null) {
@@ -196,13 +192,7 @@ public class ArmorUtils {
             return;
         }
 
-        meta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, tierName);
-
-        Tier tier = Tier.getByName(tierName);
-
-        if (tier == null) {
-            return;
-        }
+        meta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, tier.getName());
 
         ArmorSlot slot = ArmorSlot.getSlot(itemStack);
 
@@ -220,31 +210,52 @@ public class ArmorUtils {
 
         if (armor > 0) {
             meta.removeAttributeModifier(Attribute.GENERIC_ARMOR);
-            meta.addAttributeModifier(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "ecoarmor-armor", armor, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot()));
+            meta.addAttributeModifier(
+                    Attribute.GENERIC_ARMOR,
+                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-armor", armor, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot())
+            );
         }
         if (toughness > 0) {
             meta.removeAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS);
-            meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "ecoarmor-toughness", toughness, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot()));
+            meta.addAttributeModifier(
+                    Attribute.GENERIC_ARMOR_TOUGHNESS,
+                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-toughness", toughness, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot())
+            );
         }
         if (knockback > 0) {
             meta.removeAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
-            meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "ecoarmor-knockback", (double) knockback / 10, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot()));
+            meta.addAttributeModifier(
+                    Attribute.GENERIC_KNOCKBACK_RESISTANCE,
+                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-knockback", (double) knockback / 10, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot())
+            );
         }
         if (speed != 0) {
             meta.removeAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED);
-            meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier(UUID.randomUUID(), "ecoarmor-speed", (double) speed / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot()));
+            meta.addAttributeModifier(
+                    Attribute.GENERIC_MOVEMENT_SPEED,
+                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-speed", (double) speed / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot())
+            );
         }
         if (attackSpeed != 0) {
             meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
-            meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackspeed", (double) attackSpeed / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot()));
+            meta.addAttributeModifier(
+                    Attribute.GENERIC_ATTACK_SPEED,
+                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackspeed", (double) attackSpeed / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot())
+            );
         }
         if (attackDamage != 0) {
             meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
-            meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackdamage", (double) attackDamage / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot()));
+            meta.addAttributeModifier(
+                    Attribute.GENERIC_ATTACK_DAMAGE,
+                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackdamage", (double) attackDamage / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot())
+            );
         }
         if (attackKnockback != 0) {
             meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_KNOCKBACK);
-            meta.addAttributeModifier(Attribute.GENERIC_ATTACK_KNOCKBACK, new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackknockback", (double) attackKnockback / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot()));
+            meta.addAttributeModifier(
+                    Attribute.GENERIC_ATTACK_KNOCKBACK,
+                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackknockback", (double) attackKnockback / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot())
+            );
         }
 
         itemStack.setItemMeta(meta);
@@ -256,7 +267,7 @@ public class ArmorUtils {
      * @param player The player to check.
      * @return If advanced.
      */
-    public static boolean isAdvanced(@NotNull final Player player) {
+    public static boolean isWearingAdvanced(@NotNull final Player player) {
         if (getSetOnPlayer(player) == null) {
             return false;
         }
@@ -363,6 +374,6 @@ public class ArmorUtils {
             return Double.parseDouble(string);
         }
 
-        return "";
+        return string;
     }
 }

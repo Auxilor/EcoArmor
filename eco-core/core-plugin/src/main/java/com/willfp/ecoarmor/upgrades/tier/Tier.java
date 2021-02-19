@@ -47,7 +47,6 @@ public class Tier {
      * Sets that exist by default.
      */
     private static final List<String> DEFAULT_TIER_NAMES = Arrays.asList(
-            "default",
             "iron",
             "diamond",
             "netherite",
@@ -56,6 +55,11 @@ public class Tier {
             "osmium",
             "exotic"
     );
+
+    /**
+     * Default tier.
+     */
+    public static final Tier DEFAULT = new Tier("default", new BaseTierConfig("default"));
 
     /**
      * Instance of EcoArmor to create keys for.
@@ -80,6 +84,11 @@ public class Tier {
      */
     @Getter
     private String displayName;
+
+    /**
+     * The name of the tier required for application.
+     */
+    private String requiredTierForApplication;
 
     /**
      * If the crafting recipe is enabled.
@@ -129,6 +138,7 @@ public class Tier {
     public void update() {
         this.enabled = this.getConfig().getBool("crystal-craftable");
         this.displayName = this.getConfig().getString("display");
+        this.requiredTierForApplication = this.getConfig().getString("requires-tier");
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal");
 
         ItemStack out = new ItemStack(Material.END_CRYSTAL);
@@ -167,10 +177,13 @@ public class Tier {
             List<String> recipeStrings = this.getConfig().getStrings("crystal-recipe");
 
             RecipeParts.registerRecipePart(this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal_" + name), new ComplexRecipePart(test -> {
+                if (test == null) {
+                    return false;
+                }
                 if (ArmorUtils.getCrystalTier(test) == null) {
                     return false;
                 }
-                return Objects.equals(name, ArmorUtils.getCrystalTier(test));
+                return this.equals(ArmorUtils.getCrystalTier(test));
             }, out));
 
             for (int i = 0; i < 9; i++) {
@@ -180,6 +193,34 @@ public class Tier {
             this.crystalRecipe = builder.build();
             this.crystalRecipe.register();
         }
+    }
+
+    /**
+     * Get the required tier for application.
+     *
+     * @return The tier, or null if 'none' or invalid.
+     */
+    @Nullable
+    public Tier getRequiredTierForApplication() {
+        return Tier.getByName(requiredTierForApplication);
+    }
+
+    @Override
+    public boolean equals(@Nullable final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Tier)) {
+            return false;
+        }
+
+        Tier tier = (Tier) o;
+        return Objects.equals(getName(), tier.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName());
     }
 
     /**

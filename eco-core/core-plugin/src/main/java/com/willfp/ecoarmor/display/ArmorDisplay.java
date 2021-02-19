@@ -37,11 +37,10 @@ public class ArmorDisplay extends DisplayModule {
         ArmorSet set = ArmorUtils.getSetOnItem(itemStack);
 
         if (set == null) {
-            String crystalTier = ArmorUtils.getCrystalTier(itemStack);
-            Tier crystal = Tier.getByName(crystalTier);
+            Tier crystalTier = ArmorUtils.getCrystalTier(itemStack);
 
-            if (crystalTier != null && crystal != null) {
-                meta.setLore(Tier.getByName(crystalTier).getCrystal().getItemMeta().getLore());
+            if (crystalTier != null) {
+                meta.setLore(crystalTier.getCrystal().getItemMeta().getLore());
                 itemStack.setItemMeta(meta);
             }
 
@@ -69,9 +68,7 @@ public class ArmorDisplay extends DisplayModule {
         ItemMeta slotMeta = slotStack.getItemMeta();
         assert slotMeta != null;
 
-        String tierName = ArmorUtils.getTierName(itemStack);
-
-        Tier tier = Tier.getByName(tierName);
+        Tier tier = ArmorUtils.getTier(itemStack);
 
         List<String> lore = new ArrayList<>();
 
