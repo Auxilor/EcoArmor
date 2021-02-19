@@ -104,4 +104,8 @@ public class Tiers {
             e.printStackTrace();
         }
     }
+
+    static {
+        reload();
+    }
 }

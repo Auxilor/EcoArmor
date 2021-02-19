@@ -148,10 +148,11 @@ public class ArmorSet {
         }
 
         for (ArmorSlot slot : ArmorSlot.values()) {
-            ItemStack item = construct(slot.name().toLowerCase(), false);
+            ItemStack item = construct(slot, false);
             items.put(slot, item);
+            constructRecipe(slot, item);
 
-            ItemStack advancedItem = construct(slot.name().toLowerCase(), true);
+            ItemStack advancedItem = construct(slot, true);
             advancedItems.put(slot, advancedItem);
         }
 
@@ -199,9 +200,9 @@ public class ArmorSet {
         return shardItem;
     }
 
-    private ItemStack construct(@NotNull final String slot,
+    private ItemStack construct(@NotNull final ArmorSlot slot,
                                 final boolean advanced) {
-        String pieceName = slot.toLowerCase();
+        String pieceName = slot.name().toLowerCase();
 
         Material material = Material.getMaterial(this.getConfig().getString(pieceName + ".material").toUpperCase());
         Map<Enchantment, Integer> enchants = new HashMap<>();
@@ -281,8 +282,6 @@ public class ArmorSet {
         ArmorUtils.setAdvanced(itemStack, advanced);
         ArmorUtils.setTier(itemStack, Tiers.DEFAULT);
 
-        Display.display(itemStack);
-
         RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create(name.toLowerCase() + "_" + pieceName), new ComplexRecipePart(test -> {
             if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
                 return false;
@@ -290,19 +289,14 @@ public class ArmorSet {
             return Objects.equals(this, ArmorUtils.getSetOnItem(test));
         }, itemStack));
 
-
-        if (!advanced) {
-            constructRecipe(slot, itemStack);
-        }
-
         return itemStack;
     }
 
-    private void constructRecipe(@NotNull final String slot,
+    private void constructRecipe(@NotNull final ArmorSlot slot,
                                  @NotNull final ItemStack out) {
-        EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(PLUGIN, this.getName() + "_" + slot).setOutput(out);
+        EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(PLUGIN, this.getName() + "_" + slot.name().toLowerCase()).setOutput(out);
 
-        List<String> recipeStrings = this.getConfig().getStrings(slot.toLowerCase() + ".recipe");
+        List<String> recipeStrings = this.getConfig().getStrings(slot.name().toLowerCase() + ".recipe");
 
         for (int i = 0; i < 9; i++) {
             builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));

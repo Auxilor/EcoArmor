@@ -194,7 +194,7 @@ public class ArmorUtils {
             return;
         }
 
-        if (getSetOnItem(itemStack) == null) {
+        if (!meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING)) {
             return;
         }
 
