@@ -168,11 +168,16 @@ public class ArmorUtils {
             return null;
         }
 
+        if (getSetOnItem(itemStack) == null) {
+            return null;
+        }
+
         if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING)) {
             return Tiers.getByName(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING));
         }
 
-        return null;
+        setTier(itemStack, Tiers.DEFAULT);
+        return getTier(itemStack);
     }
 
     /**
