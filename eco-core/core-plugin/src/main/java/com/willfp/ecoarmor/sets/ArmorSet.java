@@ -156,13 +156,11 @@ public class ArmorSet {
             advancedItems.put(slot, advancedItem);
         }
 
-        this.advancementShardItem = constructShard();
-
-        if (!this.getConfig().getBool("enabled")) {
-            return;
+        if (this.getConfig().getBool("enabled")) {
+            ArmorSets.addNewSet(this);
         }
 
-        ArmorSets.addNewSet(this);
+        this.advancementShardItem = constructShard();
     }
 
     private ItemStack constructShard() {
