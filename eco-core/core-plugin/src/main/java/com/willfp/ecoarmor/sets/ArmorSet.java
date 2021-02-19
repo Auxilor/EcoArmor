@@ -280,7 +280,7 @@ public class ArmorSet {
         ArmorUtils.setAdvanced(itemStack, advanced);
         ArmorUtils.setTier(itemStack, Tiers.DEFAULT);
 
-        RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create(name.toLowerCase() + "_" + pieceName), new ComplexRecipePart(test -> {
+        RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + pieceName), new ComplexRecipePart(test -> {
             if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
                 return false;
             }
