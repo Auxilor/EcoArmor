@@ -12,6 +12,7 @@ import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
+import com.willfp.ecoarmor.upgrades.Tiers;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.Color;
@@ -274,12 +275,13 @@ public class ArmorSet {
         enchants.forEach((enchantment, integer) -> meta.addEnchant(enchantment, integer, true));
         PersistentDataContainer container = meta.getPersistentDataContainer();
         container.set(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING, name);
-        container.set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, "default");
         container.set(PLUGIN.getNamespacedKeyFactory().create("effective-durability"), PersistentDataType.INTEGER, this.getConfig().getInt(pieceName + ".effective-durability"));
-        if (advanced) {
-            container.set(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER, 1);
-        }
         itemStack.setItemMeta(meta);
+
+        ArmorUtils.setAdvanced(itemStack, advanced);
+        ArmorUtils.setTier(itemStack, Tiers.DEFAULT);
+
+        Display.display(itemStack);
 
         RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create(name.toLowerCase() + "_" + pieceName), new ComplexRecipePart(test -> {
             if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
