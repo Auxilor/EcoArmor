@@ -78,6 +78,15 @@ public class ArmorSet {
     private final Map<PotionEffectType, Integer> advancedPotionEffects = new HashMap<>();
 
     /**
+     * The base64 texture of a skull used as a helmet.
+     * <p>
+     * Null if no skull.
+     */
+    @Getter
+    @Nullable
+    private String skullBase64;
+
+    /**
      * Items in set.
      */
     private final Map<ArmorSlot, ItemStack> items = new HashMap<>();
@@ -244,8 +253,8 @@ public class ArmorSet {
         }
 
         if (meta instanceof SkullMeta) {
-            String base64 = this.getConfig().getString(pieceName + ".skull-texture");
-            SkullUtils.setSkullTexture((SkullMeta) meta, base64);
+            this.skullBase64 = this.getConfig().getString(pieceName + ".skull-texture");
+            SkullUtils.setSkullTexture((SkullMeta) meta, skullBase64);
         }
 
         if (meta instanceof LeatherArmorMeta) {

@@ -81,8 +81,9 @@ public class ArmorDisplay extends DisplayModule {
         meta.setDisplayName(slotMeta.getDisplayName());
 
         if (meta instanceof SkullMeta && slotMeta instanceof SkullMeta) {
-            String base64 = set.getConfig().getString(slot.name().toLowerCase() + ".skull-texture");
-            SkullUtils.setSkullTexture((SkullMeta) meta, base64);
+            if (set.getSkullBase64() != null) {
+                SkullUtils.setSkullTexture((SkullMeta) meta, set.getSkullBase64());
+            }
         }
 
         if (meta instanceof LeatherArmorMeta && slotMeta instanceof LeatherArmorMeta) {
