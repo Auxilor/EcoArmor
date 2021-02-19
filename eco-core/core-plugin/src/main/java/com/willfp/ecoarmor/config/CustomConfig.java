@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class CustomConfig extends StaticOptionalConfig {
     /**
-     * Create new ArmorSet config.
+     * Create new custom config.
      *
      * @param configName The name of the config.
      * @param config     The config.
