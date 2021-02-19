@@ -27,12 +27,12 @@ public class Tiers {
     private static final EcoArmorPlugin PLUGIN = EcoArmorPlugin.getInstance();
 
     /**
-     * Registered crystals.
+     * Registered tiers.
      */
     private static final BiMap<String, Tier> BY_NAME = HashBiMap.create();
 
     /**
-     * Sets that exist by default.
+     * Tiers that exist by default.
      */
     private static final List<String> DEFAULT_TIER_NAMES = Arrays.asList(
             "iron",
@@ -69,7 +69,7 @@ public class Tiers {
     }
 
     /**
-     * Add new {@link Tier} to EcoArmor.
+     * Add new {@link Tier} to EcoArmor.c
      *
      * @param tier The {@link Tier} to add.
      */

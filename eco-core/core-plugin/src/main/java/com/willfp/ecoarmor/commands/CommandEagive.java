@@ -31,7 +31,8 @@ public class CommandEagive extends AbstractCommand {
     }
 
     @Override
-    public @Nullable AbstractTabCompleter getTab() {
+    @Nullable
+    public AbstractTabCompleter getTab() {
         return new TabcompleterEagive(this);
     }
 
@@ -141,16 +142,16 @@ public class CommandEagive extends AbstractCommand {
         }
 
         if (itemNamespace.equalsIgnoreCase("crystal")) {
-            Tier crystal = Tiers.getByName(itemKey);
-            if (crystal == null) {
+            Tier tier = Tiers.getByName(itemKey);
+            if (tier == null) {
                 sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
                 return;
             }
 
             String message = this.getPlugin().getLangYml().getMessage("give-success");
-            message = message.replace("%item%", crystal.getCrystal().getItemMeta().getDisplayName()).replace("%recipient%", reciever.getName());
+            message = message.replace("%item%", tier.getCrystal().getItemMeta().getDisplayName()).replace("%recipient%", reciever.getName());
             sender.sendMessage(message);
-            items.add(crystal.getCrystal());
+            items.add(tier.getCrystal());
 
             if (args.size() >= 3) {
                 try {
