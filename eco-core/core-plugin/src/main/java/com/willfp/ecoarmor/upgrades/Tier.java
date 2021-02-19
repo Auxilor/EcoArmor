@@ -1,4 +1,4 @@
-package com.willfp.ecoarmor.upgrades.tier;
+package com.willfp.ecoarmor.upgrades;
 
 import com.willfp.eco.internal.config.AbstractUndefinedConfig;
 import com.willfp.eco.util.StringUtils;

@@ -1,4 +1,4 @@
-package com.willfp.ecoarmor.upgrades.tier;
+package com.willfp.ecoarmor.upgrades;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;

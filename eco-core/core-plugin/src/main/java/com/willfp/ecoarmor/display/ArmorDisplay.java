@@ -7,7 +7,7 @@ import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
-import com.willfp.ecoarmor.upgrades.tier.Tier;
+import com.willfp.ecoarmor.upgrades.Tier;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;

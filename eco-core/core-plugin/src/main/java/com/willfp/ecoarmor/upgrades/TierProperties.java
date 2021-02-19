@@ -1,4 +1,4 @@
-package com.willfp.ecoarmor.upgrades.tier;
+package com.willfp.ecoarmor.upgrades;
 
 import lombok.Data;
 

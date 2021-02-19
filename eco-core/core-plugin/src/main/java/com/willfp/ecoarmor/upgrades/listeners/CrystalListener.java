@@ -1,8 +1,9 @@
-package com.willfp.ecoarmor.upgrades.tier;
+package com.willfp.ecoarmor.upgrades.listeners;
 
 import com.willfp.eco.util.internal.PluginDependent;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
+import com.willfp.ecoarmor.upgrades.Tier;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
