@@ -120,6 +120,7 @@ public class Tier extends PluginDependent {
         outMeta.setLore(lore);
 
         out.setItemMeta(outMeta);
+        out.setAmount(1); // who knows
         this.crystal = out;
 
         for (ArmorSlot slot : ArmorSlot.values()) {
