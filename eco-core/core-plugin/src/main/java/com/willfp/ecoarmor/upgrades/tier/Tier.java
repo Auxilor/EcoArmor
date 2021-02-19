@@ -136,8 +136,10 @@ public class Tier extends PluginDependent {
         }
 
         if (this.isEnabled()) {
+            ItemStack recipeOut = out.clone();
+            recipeOut.setAmount(this.getConfig().getInt("recipe-give-amount"));
             EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(this.getPlugin(), "upgrade_crystal_" + name)
-                    .setOutput(out);
+                    .setOutput(recipeOut);
 
             List<String> recipeStrings = this.getConfig().getStrings("crystal-recipe");
 

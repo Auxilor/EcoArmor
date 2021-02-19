@@ -15,6 +15,7 @@ crystal-recipe:
   - air
   - diamond_block
   - air
+recipe-give-amount: 1
 crystal-lore:
   - "&8Drop this onto an armor piece"
   - "&8to set its tier to:"

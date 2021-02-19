@@ -15,6 +15,7 @@ crystal-recipe:
   - ecoarmor:upgrade_crystal_netherite
   - turtle_egg
   - ecoarmor:upgrade_crystal_netherite
+recipe-give-amount: 1
 crystal-lore:
   - "&8Drop this onto an armor piece"
   - "&8to set its tier to:"
