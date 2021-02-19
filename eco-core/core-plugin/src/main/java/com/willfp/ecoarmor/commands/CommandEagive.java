@@ -6,6 +6,7 @@ import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
+import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import com.willfp.ecoarmor.upgrades.Tier;
 import com.willfp.ecoarmor.upgrades.Tiers;
 import org.bukkit.Bukkit;
@@ -85,6 +86,8 @@ public class CommandEagive extends AbstractCommand {
 
             boolean advanced = false;
 
+            Tier tier = null;
+
             List<ArmorSlot> slots = new ArrayList<>();
 
             if (args.size() >= 3) {
@@ -111,15 +114,29 @@ public class CommandEagive extends AbstractCommand {
             }
 
             if (args.size() >= 5) {
+                tier = Tiers.getByName(args.get(4));
+            }
+
+            if (args.size() >= 6) {
                 try {
-                    amount = Integer.parseInt(args.get(4));
+                    amount = Integer.parseInt(args.get(5));
                 } catch (NumberFormatException ignored) {
                     // do nothing
                 }
             }
 
+            if (tier == null) {
+                tier = Tiers.DEFAULT;
+            }
+
             for (ArmorSlot slot : slots) {
                 items.add(advanced ? set.getAdvancedItemStack(slot) : set.getItemStack(slot));
+            }
+
+            for (ItemStack item : new ArrayList<>(items)) {
+                items.remove(item);
+                ArmorUtils.setTier(item, tier);
+                items.add(item);
             }
         }
 

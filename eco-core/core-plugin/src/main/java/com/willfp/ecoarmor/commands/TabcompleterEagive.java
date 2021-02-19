@@ -4,6 +4,7 @@ import com.willfp.eco.util.command.AbstractTabCompleter;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
+import com.willfp.ecoarmor.upgrades.Tier;
 import com.willfp.ecoarmor.upgrades.Tiers;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -21,12 +22,17 @@ public class TabcompleterEagive extends AbstractTabCompleter {
     /**
      * The cached names.
      */
-    private static final List<String> SET_NAMES = new ArrayList<>();
+    private static final List<String> ITEM_NAMES = new ArrayList<>();
 
     /**
      * The cached slots.
      */
     private static final List<String> SLOTS = new ArrayList<>();
+
+    /**
+     * The cached tiers.
+     */
+    private static final List<String> TIERS = new ArrayList<>();
 
     /**
      * The cached numbers.
@@ -57,12 +63,13 @@ public class TabcompleterEagive extends AbstractTabCompleter {
      */
     @ConfigUpdater
     public static void reload() {
-        SET_NAMES.clear();
-        SET_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "set:" + armorSet.getName()).collect(Collectors.toList()));
-        SET_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "shard:" + armorSet.getName()).collect(Collectors.toList()));
-        SET_NAMES.addAll(Tiers.values().stream().map(crystal -> "crystal:" + crystal.getName()).collect(Collectors.toList()));
+        ITEM_NAMES.clear();
+        ITEM_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "set:" + armorSet.getName()).collect(Collectors.toList()));
+        ITEM_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "shard:" + armorSet.getName()).collect(Collectors.toList()));
+        ITEM_NAMES.addAll(Tiers.values().stream().map(crystal -> "crystal:" + crystal.getName()).collect(Collectors.toList()));
         SLOTS.addAll(Arrays.stream(ArmorSlot.values()).map(slot -> slot.name().toLowerCase()).collect(Collectors.toList()));
         SLOTS.add("full");
+        TIERS.addAll(Tiers.values().stream().map(Tier::getName).collect(Collectors.toList()));
     }
 
     /**
@@ -79,7 +86,7 @@ public class TabcompleterEagive extends AbstractTabCompleter {
 
         if (args.isEmpty()) {
             // Currently, this case is not ever reached
-            return SET_NAMES;
+            return ITEM_NAMES;
         }
 
         if (args.size() == 1) {
@@ -88,7 +95,7 @@ public class TabcompleterEagive extends AbstractTabCompleter {
         }
 
         if (args.size() == 2) {
-            StringUtil.copyPartialMatches(args.get(1), SET_NAMES, completions);
+            StringUtil.copyPartialMatches(args.get(1), ITEM_NAMES, completions);
 
             Collections.sort(completions);
             return completions;
@@ -110,7 +117,14 @@ public class TabcompleterEagive extends AbstractTabCompleter {
             }
 
             if (args.size() == 5) {
-                StringUtil.copyPartialMatches(args.get(4), NUMBERS, completions);
+                StringUtil.copyPartialMatches(args.get(4), TIERS, completions);
+
+                Collections.sort(completions);
+                return completions;
+            }
+
+            if (args.size() == 6) {
+                StringUtil.copyPartialMatches(args.get(5), NUMBERS, completions);
 
                 return completions;
             }
