@@ -12,6 +12,7 @@ import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
+import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -50,7 +51,7 @@ public class ArmorSet {
     /**
      * The config of the set.
      */
-    @Getter
+    @Getter(AccessLevel.PRIVATE)
     private final AbstractUndefinedConfig config;
 
     /**

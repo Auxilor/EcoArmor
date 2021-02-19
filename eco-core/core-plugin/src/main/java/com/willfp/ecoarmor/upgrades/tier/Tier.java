@@ -10,6 +10,7 @@ import com.willfp.eco.util.recipe.parts.ComplexRecipePart;
 import com.willfp.eco.util.recipe.recipes.EcoShapedRecipe;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
+import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -36,7 +37,7 @@ public class Tier extends PluginDependent {
     /**
      * The config of the crystal.
      */
-    @Getter
+    @Getter(AccessLevel.PRIVATE)
     private final AbstractUndefinedConfig config;
 
     /**
