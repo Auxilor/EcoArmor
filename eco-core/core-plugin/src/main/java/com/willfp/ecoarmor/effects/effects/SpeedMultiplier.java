@@ -10,8 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.jetbrains.annotations.NotNull;
 
-public class SpeedMutiplier extends Effect<Double> {
-    public SpeedMutiplier() {
+public class SpeedMultiplier extends Effect<Double> {
+    public SpeedMultiplier() {
         super("speed-multiplier", Double.class);
     }
 
