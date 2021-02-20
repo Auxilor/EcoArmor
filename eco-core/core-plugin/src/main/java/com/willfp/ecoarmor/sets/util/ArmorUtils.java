@@ -1,6 +1,7 @@
 package com.willfp.ecoarmor.sets.util;
 
 import com.willfp.ecoarmor.EcoArmorPlugin;
+import com.willfp.ecoarmor.conditions.Condition;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
@@ -20,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @UtilityClass
@@ -134,6 +136,46 @@ public class ArmorUtils {
     }
 
     /**
+     * Get the value of a condition on a player's set.
+     *
+     * @param player    The player to test.
+     * @param condition The condition to test.
+     * @param <T>       Condition type.
+     * @return The value or null if not found.
+     */
+    @Nullable
+    public <T> T getConditionValue(@NotNull final Player player,
+                                   @NotNull final Condition<T> condition) {
+        ArmorSet set = getSetOnPlayer(player);
+        if (set == null) {
+            return null;
+        }
+
+        return set.getConditionValue(condition);
+    }
+
+    /**
+     * Get if all conditions are met for a player.
+     *
+     * @param player The player.
+     * @return If conditions are men.
+     */
+    public boolean areConditionsMet(@NotNull final Player player) {
+        ArmorSet set = getSetOnPlayer(player);
+        if (set == null) {
+            return true;
+        }
+
+        for (Map.Entry<Condition<?>, Object> entry : set.getConditions().entrySet()) {
+            if (!entry.getKey().isMet(player, entry.getValue())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Get tier on upgrade crystal.
      *
      * @param itemStack The item to check.
@@ -184,7 +226,7 @@ public class ArmorUtils {
      * Set tier on item.
      *
      * @param itemStack The item to check.
-     * @param tier  The tier to set.
+     * @param tier      The tier to set.
      */
     public static void setTier(@NotNull final ItemStack itemStack,
                                @NotNull final Tier tier) {
@@ -377,6 +419,32 @@ public class ArmorUtils {
         }
 
         if (effect.getTypeClass().equals(Double.class)) {
+            return Double.parseDouble(string);
+        }
+
+        return string;
+    }
+
+    /**
+     * Get value of condition.
+     *
+     * @param string    Value as string.
+     * @param condition Condition.
+     * @param <T>       The type of the condition.
+     * @return Value.
+     */
+    @NotNull
+    public static <T> Object getConditionValue(@NotNull final String string,
+                                               @NotNull final Condition<T> condition) {
+        if (condition.getTypeClass().equals(Boolean.class)) {
+            return Boolean.parseBoolean(string);
+        }
+
+        if (condition.getTypeClass().equals(Integer.class)) {
+            return Integer.parseInt(string);
+        }
+
+        if (condition.getTypeClass().equals(Double.class)) {
             return Double.parseDouble(string);
         }
 

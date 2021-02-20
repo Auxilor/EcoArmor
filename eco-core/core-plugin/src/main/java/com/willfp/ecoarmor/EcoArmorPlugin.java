@@ -11,6 +11,7 @@ import com.willfp.ecoarmor.commands.TabcompleterEagive;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
+import com.willfp.ecoarmor.effects.util.EffectWatcher;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.util.EffectiveDurabilityListener;
 import com.willfp.ecoarmor.sets.util.PotionEffectListener;
@@ -139,7 +140,8 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
                 new AdvancementShardListener(this),
                 new PotionEffectListener(this),
                 new EffectiveDurabilityListener(this),
-                new DiscoverRecipeListener(this)
+                new DiscoverRecipeListener(this),
+                new EffectWatcher(this)
         );
     }
 

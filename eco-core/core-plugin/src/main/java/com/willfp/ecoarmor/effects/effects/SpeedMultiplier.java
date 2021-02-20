@@ -1,13 +1,11 @@
 package com.willfp.ecoarmor.effects.effects;
 
-import com.willfp.eco.util.events.armorequip.ArmorEquipEvent;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.jetbrains.annotations.NotNull;
 
 public class SpeedMultiplier extends Effect<Double> {
@@ -15,23 +13,28 @@ public class SpeedMultiplier extends Effect<Double> {
         super("speed-multiplier", Double.class);
     }
 
-    @EventHandler
-    public void listener(@NotNull final ArmorEquipEvent event) {
-        Player player = event.getPlayer();
-
+    @Override
+    protected void onEnable(@NotNull final Player player) {
         AttributeInstance movementSpeed = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         assert movementSpeed != null;
 
-        this.getPlugin().getScheduler().runLater(() -> {
-            Double multiplier = ArmorUtils.getEffectStrength(player, this);
-            if (multiplier == null) {
-                movementSpeed.removeModifier(new AttributeModifier(this.getUuid(), "speed-multiplier", 0, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
-            } else {
-                AttributeModifier modifier = new AttributeModifier(this.getUuid(), "speed-multiplier", multiplier - 1, AttributeModifier.Operation.MULTIPLY_SCALAR_1);
-                if (!movementSpeed.getModifiers().contains(modifier)) {
-                    movementSpeed.addModifier(modifier);
-                }
-            }
-        }, 1);
+        Double strength = ArmorUtils.getEffectStrength(player, this);
+
+        if (strength == null) {
+            return;
+        }
+
+        AttributeModifier modifier = new AttributeModifier(this.getUuid(), "speed-multiplier", strength - 1, AttributeModifier.Operation.MULTIPLY_SCALAR_1);
+        if (!movementSpeed.getModifiers().contains(modifier)) {
+            movementSpeed.addModifier(modifier);
+        }
+    }
+
+    @Override
+    protected void onDisable(@NotNull final Player player) {
+        AttributeInstance movementSpeed = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
+        assert movementSpeed != null;
+
+        movementSpeed.removeModifier(new AttributeModifier(this.getUuid(), "speed-multiplier", 0, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
     }
 }

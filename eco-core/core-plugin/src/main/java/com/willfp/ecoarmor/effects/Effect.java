@@ -3,9 +3,12 @@ package com.willfp.ecoarmor.effects;
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import lombok.AccessLevel;
 import lombok.Getter;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 public abstract class Effect<T> implements Listener {
@@ -40,6 +43,11 @@ public abstract class Effect<T> implements Listener {
     private final Class<T> typeClass;
 
     /**
+     * Players that the effect is currently enabled for.
+     */
+    private final Set<UUID> enabledPlayers = new HashSet<>();
+
+    /**
      * Create a new effect.
      *
      * @param name      The effect name.
@@ -53,6 +61,53 @@ public abstract class Effect<T> implements Listener {
 
         update();
         Effects.addNewEffect(this);
+    }
+    /**
+     * Get if effect is enabled for player.
+     *
+     * @param player The player.
+     * @return If enabled.
+     */
+    public final boolean isEnabledForPlayer(@NotNull final Player player) {
+        return enabledPlayers.contains(player.getUniqueId());
+    }
+
+    /**
+     * Enable the effect for a player.
+     *
+     * @param player The player.
+     */
+    public final void enable(@NotNull final Player player) {
+        if (enabledPlayers.contains(player.getUniqueId())) {
+            return;
+        }
+
+        enabledPlayers.add(player.getUniqueId());
+
+        this.onEnable(player);
+    }
+
+    /**
+     * Disable the effect for a player.
+     *
+     * @param player The player.
+     */
+    public final void disable(@NotNull final Player player) {
+        if (!enabledPlayers.contains(player.getUniqueId())) {
+            return;
+        }
+
+        enabledPlayers.remove(player.getUniqueId());
+
+        this.onDisable(player);
+    }
+
+    protected void onEnable(@NotNull final Player player) {
+        // Empty by default
+    }
+
+    protected void onDisable(@NotNull final Player player) {
+        // Empty by default
     }
 
     /**
