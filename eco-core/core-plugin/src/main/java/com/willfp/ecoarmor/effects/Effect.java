@@ -93,10 +93,6 @@ public abstract class Effect<T> implements Listener {
      * @param player The player.
      */
     public final void disable(@NotNull final Player player) {
-        if (!enabledPlayers.contains(player.getUniqueId())) {
-            return;
-        }
-
         enabledPlayers.remove(player.getUniqueId());
 
         this.onDisable(player);
