@@ -44,7 +44,7 @@ public class EffectWatcher extends PluginDependent implements Listener {
                         enabled = false;
                     }
 
-                    if (ArmorUtils.areConditionsMet(player)) {
+                    if (!ArmorUtils.areConditionsMet(player)) {
                         enabled = false;
                     }
                 }
