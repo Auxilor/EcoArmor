@@ -16,6 +16,10 @@ public class ExperienceMultiplier extends Effect<Double> {
     public void listener(@NotNull final NaturalExpGainEvent event) {
         Player player = event.getExpChangeEvent().getPlayer();
 
+        if (!this.isEnabledForPlayer(player)) {
+            return;
+        }
+
         if (event.getExpChangeEvent().getAmount() < 0) {
             return;
         }

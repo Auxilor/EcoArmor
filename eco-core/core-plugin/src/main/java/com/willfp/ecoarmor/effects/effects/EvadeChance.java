@@ -25,6 +25,10 @@ public class EvadeChance extends Effect<Double> {
 
         Player player = (Player) event.getEntity();
 
+        if (!this.isEnabledForPlayer(player)) {
+            return;
+        }
+
         Double chance = ArmorUtils.getEffectStrength(player, this);
 
         if (chance == null) {

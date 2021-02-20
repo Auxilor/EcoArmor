@@ -24,6 +24,10 @@ public class DamageTakenMultiplier extends Effect<Double> {
 
         Player player = (Player) event.getEntity();
 
+        if (!this.isEnabledForPlayer(player)) {
+            return;
+        }
+
         Double multiplier = ArmorUtils.getEffectStrength(player, this);
         if (multiplier == null) {
             return;

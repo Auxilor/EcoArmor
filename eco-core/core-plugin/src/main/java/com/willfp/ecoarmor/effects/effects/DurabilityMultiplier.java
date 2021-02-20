@@ -21,6 +21,10 @@ public class DurabilityMultiplier extends Effect<Double> {
 
         Player player = event.getPlayer();
 
+        if (!this.isEnabledForPlayer(player)) {
+            return;
+        }
+
         Double multiplier = ArmorUtils.getEffectStrength(player, this);
 
         if (multiplier == null) {

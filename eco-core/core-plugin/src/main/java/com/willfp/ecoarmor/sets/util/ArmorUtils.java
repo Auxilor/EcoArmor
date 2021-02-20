@@ -124,37 +124,6 @@ public class ArmorUtils {
     }
 
     /**
-     * If a player has an active effect.
-     *
-     * @param player The player to test.
-     * @param effect The effect to test.
-     * @return If a player has an active effect.
-     */
-    public boolean hasEffect(@NotNull final Player player,
-                             @NotNull final Effect<?> effect) {
-        return getEffectStrength(player, effect) != null;
-    }
-
-    /**
-     * Get the value of a condition on a player's set.
-     *
-     * @param player    The player to test.
-     * @param condition The condition to test.
-     * @param <T>       Condition type.
-     * @return The value or null if not found.
-     */
-    @Nullable
-    public <T> T getConditionValue(@NotNull final Player player,
-                                   @NotNull final Condition<T> condition) {
-        ArmorSet set = getSetOnPlayer(player);
-        if (set == null) {
-            return null;
-        }
-
-        return set.getConditionValue(condition);
-    }
-
-    /**
      * Get if all conditions are met for a player.
      *
      * @param player The player.

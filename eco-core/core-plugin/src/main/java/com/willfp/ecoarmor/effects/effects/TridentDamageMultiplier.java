@@ -33,6 +33,10 @@ public class TridentDamageMultiplier extends Effect<Double> {
 
         Player player = (Player) shooter;
 
+        if (!this.isEnabledForPlayer(player)) {
+            return;
+        }
+
         Double multiplier = ArmorUtils.getEffectStrength(player, this);
         if (multiplier == null) {
             return;

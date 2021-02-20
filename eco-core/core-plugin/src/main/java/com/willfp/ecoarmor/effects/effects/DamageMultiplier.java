@@ -38,6 +38,10 @@ public class DamageMultiplier extends Effect<Double> {
             return;
         }
 
+        if (!this.isEnabledForPlayer(attacker)) {
+            return;
+        }
+
         Double multiplier = ArmorUtils.getEffectStrength(attacker, this);
         if (multiplier == null) {
             return;

@@ -34,10 +34,6 @@ public class WarpChance extends Effect<Double> {
         Player player = (Player) event.getDamager();
         LivingEntity victim = (LivingEntity) event.getEntity();
 
-        if (!ArmorUtils.hasEffect(player, this)) {
-            return;
-        }
-
         Double chance = ArmorUtils.getEffectStrength(player, this);
 
         if (chance == null) {

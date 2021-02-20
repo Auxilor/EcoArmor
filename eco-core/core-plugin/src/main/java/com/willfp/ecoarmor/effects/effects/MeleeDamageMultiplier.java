@@ -24,6 +24,10 @@ public class MeleeDamageMultiplier extends Effect<Double> {
 
         Player attacker = (Player) event.getDamager();
 
+        if (!this.isEnabledForPlayer(attacker)) {
+            return;
+        }
+
         Double multiplier = ArmorUtils.getEffectStrength(attacker, this);
         if (multiplier == null) {
             return;
