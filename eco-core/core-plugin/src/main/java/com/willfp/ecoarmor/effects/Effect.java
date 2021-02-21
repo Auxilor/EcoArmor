@@ -83,6 +83,10 @@ public abstract class Effect<T> implements Listener {
      */
     public final void enable(@NotNull final Player player,
                              @NotNull final Object value) {
+        if (!this.isEnabled()) {
+            return;
+        }
+
         if (enabledPlayers.containsKey(player.getUniqueId())) {
             return;
         }

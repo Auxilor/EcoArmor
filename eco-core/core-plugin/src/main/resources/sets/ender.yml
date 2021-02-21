@@ -1,4 +1,5 @@
 enabled: true
+conditions: []
 set-bonus:
   - "warp-chance: 20"
   - "evade-chance: 10"
