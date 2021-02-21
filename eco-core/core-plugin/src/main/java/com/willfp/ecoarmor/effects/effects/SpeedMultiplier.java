@@ -24,7 +24,7 @@ public class SpeedMultiplier extends Effect<Double> {
         }
 
         AttributeModifier modifier = new AttributeModifier(this.getUuid(), "speed-multiplier", strength - 1, AttributeModifier.Operation.MULTIPLY_SCALAR_1);
-        if (!movementSpeed.getModifiers().contains(modifier)) {
+        if (movementSpeed.getModifiers().stream().noneMatch(attributeModifier -> attributeModifier.getUniqueId().equals(modifier.getUniqueId()))) {
             movementSpeed.addModifier(modifier);
         }
     }

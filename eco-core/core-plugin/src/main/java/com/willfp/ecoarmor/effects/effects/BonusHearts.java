@@ -23,7 +23,10 @@ public class BonusHearts extends Effect<Integer> {
             return;
         }
 
-        maxHealth.removeModifier(new AttributeModifier(this.getUuid(), "bonus-hearts", 0, AttributeModifier.Operation.ADD_NUMBER));
+        AttributeModifier modifier = new AttributeModifier(this.getUuid(), "bonus-hearts", bonus, AttributeModifier.Operation.ADD_NUMBER);
+        if (maxHealth.getModifiers().stream().noneMatch(attributeModifier -> attributeModifier.getUniqueId().equals(modifier.getUniqueId()))) {
+            maxHealth.addModifier(modifier);
+        }
     }
 
     @Override
@@ -31,9 +34,6 @@ public class BonusHearts extends Effect<Integer> {
         AttributeInstance maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
         assert maxHealth != null;
 
-        AttributeModifier modifier = new AttributeModifier(this.getUuid(), "bonus-hearts", 0, AttributeModifier.Operation.ADD_NUMBER);
-        if (!maxHealth.getModifiers().contains(modifier)) {
-            maxHealth.addModifier(modifier);
-        }
+        maxHealth.removeModifier(new AttributeModifier(this.getUuid(), "bonus-hearts", 0, AttributeModifier.Operation.ADD_NUMBER));
     }
 }

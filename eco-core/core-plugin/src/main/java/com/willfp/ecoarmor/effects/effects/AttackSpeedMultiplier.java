@@ -14,8 +14,8 @@ public class AttackSpeedMultiplier extends Effect<Double> {
 
     @Override
     protected void onEnable(@NotNull final Player player) {
-        AttributeInstance maxHealth = player.getAttribute(Attribute.GENERIC_ATTACK_SPEED);
-        assert maxHealth != null;
+        AttributeInstance attackSpeed = player.getAttribute(Attribute.GENERIC_ATTACK_SPEED);
+        assert attackSpeed != null;
 
         Double multiplier = this.getStrengthForPlayer(player);
 
@@ -24,16 +24,16 @@ public class AttackSpeedMultiplier extends Effect<Double> {
         }
 
         AttributeModifier modifier = new AttributeModifier(this.getUuid(), "attack-speed-multiplier", 1 - multiplier, AttributeModifier.Operation.MULTIPLY_SCALAR_1);
-        if (!maxHealth.getModifiers().contains(modifier)) {
-            maxHealth.addModifier(modifier);
+        if (attackSpeed.getModifiers().stream().noneMatch(attributeModifier -> attributeModifier.getUniqueId().equals(modifier.getUniqueId()))) {
+            attackSpeed.addModifier(modifier);
         }
     }
 
     @Override
     protected void onDisable(@NotNull final Player player) {
-        AttributeInstance maxHealth = player.getAttribute(Attribute.GENERIC_ATTACK_SPEED);
-        assert maxHealth != null;
+        AttributeInstance attackSpeed = player.getAttribute(Attribute.GENERIC_ATTACK_SPEED);
+        assert attackSpeed != null;
 
-        maxHealth.removeModifier(new AttributeModifier(this.getUuid(), "attack-speed-multiplier", 0, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
+        attackSpeed.removeModifier(new AttributeModifier(this.getUuid(), "attack-speed-multiplier", 0, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
     }
 }
