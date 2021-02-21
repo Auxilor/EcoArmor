@@ -1,7 +1,6 @@
 package com.willfp.ecoarmor.effects.effects;
 
 import com.willfp.ecoarmor.effects.Effect;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
@@ -18,7 +17,7 @@ public class AttackSpeedMultiplier extends Effect<Double> {
         AttributeInstance maxHealth = player.getAttribute(Attribute.GENERIC_ATTACK_SPEED);
         assert maxHealth != null;
 
-        Double multiplier = ArmorUtils.getEffectStrength(player, this);
+        Double multiplier = this.getStrengthForPlayer(player);
 
         if (multiplier == null) {
             return;

@@ -1,7 +1,6 @@
 package com.willfp.ecoarmor.effects.effects;
 
 import com.willfp.ecoarmor.effects.Effect;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -24,11 +23,8 @@ public class MeleeDamageMultiplier extends Effect<Double> {
 
         Player attacker = (Player) event.getDamager();
 
-        if (!this.isEnabledForPlayer(attacker)) {
-            return;
-        }
+        Double multiplier = this.getStrengthForPlayer(attacker);
 
-        Double multiplier = ArmorUtils.getEffectStrength(attacker, this);
         if (multiplier == null) {
             return;
         }

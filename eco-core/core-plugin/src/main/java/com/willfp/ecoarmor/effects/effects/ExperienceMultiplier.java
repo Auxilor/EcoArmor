@@ -2,7 +2,6 @@ package com.willfp.ecoarmor.effects.effects;
 
 import com.willfp.eco.util.events.naturalexpgainevent.NaturalExpGainEvent;
 import com.willfp.ecoarmor.effects.Effect;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.jetbrains.annotations.NotNull;
@@ -16,15 +15,11 @@ public class ExperienceMultiplier extends Effect<Double> {
     public void listener(@NotNull final NaturalExpGainEvent event) {
         Player player = event.getExpChangeEvent().getPlayer();
 
-        if (!this.isEnabledForPlayer(player)) {
-            return;
-        }
-
         if (event.getExpChangeEvent().getAmount() < 0) {
             return;
         }
 
-        Double multiplier = ArmorUtils.getEffectStrength(player, this);
+        Double multiplier = this.getStrengthForPlayer(player);
 
         if (multiplier == null) {
             return;

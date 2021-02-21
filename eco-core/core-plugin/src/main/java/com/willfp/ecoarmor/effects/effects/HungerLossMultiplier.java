@@ -2,7 +2,6 @@ package com.willfp.ecoarmor.effects.effects;
 
 import com.willfp.eco.util.NumberUtils;
 import com.willfp.ecoarmor.effects.Effect;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -21,11 +20,7 @@ public class HungerLossMultiplier extends Effect<Double> {
 
         Player player = (Player) event.getEntity();
 
-        if (!this.isEnabledForPlayer(player)) {
-            return;
-        }
-
-        Double multiplier = ArmorUtils.getEffectStrength(player, this);
+        Double multiplier = this.getStrengthForPlayer(player);
 
         if (multiplier == null) {
             return;

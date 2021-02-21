@@ -38,19 +38,29 @@ public class EffectWatcher extends PluginDependent implements Listener {
                 boolean enabled = true;
 
                 if (set == null) {
-                    enabled = false;
-                } else {
-                    if (set.getEffectStrength(effect) == null) {
-                        enabled = false;
-                    }
+                    effect.disable(player);
+                    continue;
+                }
 
-                    if (!ArmorUtils.areConditionsMet(player)) {
-                        enabled = false;
+                Object strength = set.getEffectStrength(effect);
+
+                if (ArmorUtils.isWearingAdvanced(player)) {
+                    Object advancedStrength = set.getAdvancedEffectStrength(effect);
+                    if (advancedStrength != null) {
+                        strength = advancedStrength;
                     }
                 }
 
+                if (strength == null) {
+                    enabled = false;
+                }
+
+                if (!ArmorUtils.areConditionsMet(player)) {
+                    enabled = false;
+                }
+
                 if (enabled) {
-                    effect.enable(player);
+                    effect.enable(player, strength);
                 } else {
                     effect.disable(player);
                 }

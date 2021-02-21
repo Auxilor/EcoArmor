@@ -99,31 +99,6 @@ public class ArmorUtils {
     }
 
     /**
-     * Get the strength of an effect on a player's set.
-     *
-     * @param player The player to test.
-     * @param effect The effect to test.
-     * @param <T>    Effect type.
-     * @return The strength, or null if not found.
-     */
-    @Nullable
-    public <T> T getEffectStrength(@NotNull final Player player,
-                                   @NotNull final Effect<T> effect) {
-        ArmorSet set = getSetOnPlayer(player);
-        if (set == null) {
-            return null;
-        }
-
-        T strength = set.getEffectStrength(effect);
-
-        if (isWearingAdvanced(player)) {
-            strength = set.getAdvancedEffectStrength(effect);
-        }
-
-        return strength;
-    }
-
-    /**
      * Get if all conditions are met for a player.
      *
      * @param player The player.

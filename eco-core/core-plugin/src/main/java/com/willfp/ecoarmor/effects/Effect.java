@@ -6,9 +6,10 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class Effect<T> implements Listener {
@@ -45,7 +46,7 @@ public abstract class Effect<T> implements Listener {
     /**
      * Players that the effect is currently enabled for.
      */
-    private final Set<UUID> enabledPlayers = new HashSet<>();
+    private final Map<UUID, T> enabledPlayers = new HashMap<>();
 
     /**
      * Create a new effect.
@@ -62,27 +63,31 @@ public abstract class Effect<T> implements Listener {
         update();
         Effects.addNewEffect(this);
     }
+
     /**
-     * Get if effect is enabled for player.
+     * Get the effect strength for a player.
      *
      * @param player The player.
-     * @return If enabled.
+     * @return The strength.
      */
-    public final boolean isEnabledForPlayer(@NotNull final Player player) {
-        return enabledPlayers.contains(player.getUniqueId());
+    @Nullable
+    public final T getStrengthForPlayer(@NotNull final Player player) {
+        return enabledPlayers.get(player.getUniqueId());
     }
 
     /**
      * Enable the effect for a player.
      *
      * @param player The player.
+     * @param value  The strength.
      */
-    public final void enable(@NotNull final Player player) {
-        if (enabledPlayers.contains(player.getUniqueId())) {
+    public final void enable(@NotNull final Player player,
+                             @NotNull final Object value) {
+        if (enabledPlayers.containsKey(player.getUniqueId())) {
             return;
         }
 
-        enabledPlayers.add(player.getUniqueId());
+        enabledPlayers.put(player.getUniqueId(), typeClass.cast(value));
 
         this.onEnable(player);
     }

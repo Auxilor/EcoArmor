@@ -1,7 +1,6 @@
 package com.willfp.ecoarmor.effects.effects;
 
 import com.willfp.ecoarmor.effects.Effect;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
@@ -18,7 +17,7 @@ public class BonusHearts extends Effect<Integer> {
         AttributeInstance maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
         assert maxHealth != null;
 
-        Integer bonus = ArmorUtils.getEffectStrength(player, this);
+        Integer bonus = this.getStrengthForPlayer(player);
 
         if (bonus == null) {
             return;

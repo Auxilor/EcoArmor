@@ -1,7 +1,6 @@
 package com.willfp.ecoarmor.effects.effects;
 
 import com.willfp.ecoarmor.effects.Effect;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
@@ -18,7 +17,7 @@ public class SpeedMultiplier extends Effect<Double> {
         AttributeInstance movementSpeed = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         assert movementSpeed != null;
 
-        Double strength = ArmorUtils.getEffectStrength(player, this);
+        Double strength = this.getStrengthForPlayer(player);
 
         if (strength == null) {
             return;

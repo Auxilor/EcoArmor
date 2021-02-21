@@ -30,7 +30,7 @@ public class ConditionBelowY extends Condition<Double> {
         }
 
         if (isMet(player, value)) {
-            set.getEffects().keySet().forEach(effect -> effect.enable(player));
+            set.getEffects().keySet().forEach(effect -> effect.enable(player, value));
         } else {
             set.getEffects().keySet().forEach(effect -> effect.disable(player));
         }
