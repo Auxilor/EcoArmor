@@ -1,6 +1,6 @@
 enabled: true
 conditions:
-  - "below-y: 40"
+  - "above-health-percent: 50"
 set-bonus:
   - "speed-multiplier: 1.25"
 advanced-set-bonus:
