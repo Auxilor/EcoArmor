@@ -6,6 +6,7 @@ import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,7 +18,10 @@ public class ConditionInWorld extends Condition<String> {
         super("in-world", String.class);
     }
 
-    @EventHandler
+    @EventHandler(
+            priority = EventPriority.MONITOR,
+            ignoreCancelled = true
+    )
     public void listener(@NotNull final PlayerMoveEvent event) {
         Player player = event.getPlayer();
 
@@ -33,11 +37,13 @@ public class ConditionInWorld extends Condition<String> {
             return;
         }
 
-        if (isMet(player, value)) {
-            set.getEffects().keySet().forEach(effect -> effect.enable(player, value));
-        } else {
-            set.getEffects().keySet().forEach(effect -> effect.disable(player));
-        }
+        this.getPlugin().getScheduler().runLater(() -> {
+            if (isMet(player, value)) {
+                set.getEffects().keySet().forEach(effect -> effect.enable(player, value));
+            } else {
+                set.getEffects().keySet().forEach(effect -> effect.disable(player));
+            }
+        }, 1);
     }
 
     @Override

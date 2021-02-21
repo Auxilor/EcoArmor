@@ -6,6 +6,7 @@ import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +16,10 @@ public class ConditionBelowHealthPercent extends Condition<Double> {
         super("below-health-percent", Double.class);
     }
 
-    @EventHandler
+    @EventHandler(
+            priority = EventPriority.MONITOR,
+            ignoreCancelled = true
+    )
     public void listener(@NotNull final EntityRegainHealthEvent event) {
         if (!(event.getEntity() instanceof Player)) {
             return;
@@ -35,14 +39,19 @@ public class ConditionBelowHealthPercent extends Condition<Double> {
             return;
         }
 
-        if (isMet(player, value)) {
-            set.getEffects().keySet().forEach(effect -> effect.enable(player, value));
-        } else {
-            set.getEffects().keySet().forEach(effect -> effect.disable(player));
-        }
+        this.getPlugin().getScheduler().runLater(() -> {
+            if (isMet(player, value)) {
+                set.getEffects().keySet().forEach(effect -> effect.enable(player, value));
+            } else {
+                set.getEffects().keySet().forEach(effect -> effect.disable(player));
+            }
+        }, 1);
     }
 
-    @EventHandler
+    @EventHandler(
+            priority = EventPriority.MONITOR,
+            ignoreCancelled = true
+    )
     public void listener(@NotNull final EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player)) {
             return;
