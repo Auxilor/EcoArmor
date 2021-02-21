@@ -1,7 +1,6 @@
 package com.willfp.ecoarmor.effects.effects;
 
 import com.willfp.ecoarmor.effects.Effect;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
@@ -24,7 +23,7 @@ public class RegenerationMultiplier extends Effect<Double> {
 
         Player player = (Player) event.getEntity();
 
-        Double multiplier = ArmorUtils.getEffectStrength(player, this);
+        Double multiplier = this.getStrengthForPlayer(player);
 
         if (multiplier == null) {
             return;

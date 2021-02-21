@@ -1,7 +1,6 @@
 package com.willfp.ecoarmor.effects.effects;
 
 import com.willfp.ecoarmor.effects.Effect;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Trident;
@@ -33,7 +32,8 @@ public class TridentDamageMultiplier extends Effect<Double> {
 
         Player player = (Player) shooter;
 
-        Double multiplier = ArmorUtils.getEffectStrength(player, this);
+        Double multiplier = this.getStrengthForPlayer(player);
+
         if (multiplier == null) {
             return;
         }

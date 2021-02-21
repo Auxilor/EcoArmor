@@ -8,6 +8,8 @@ import com.willfp.eco.util.recipe.RecipeParts;
 import com.willfp.eco.util.recipe.parts.ComplexRecipePart;
 import com.willfp.eco.util.recipe.recipes.EcoShapedRecipe;
 import com.willfp.ecoarmor.EcoArmorPlugin;
+import com.willfp.ecoarmor.conditions.Condition;
+import com.willfp.ecoarmor.conditions.Conditions;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
@@ -54,6 +56,12 @@ public class ArmorSet {
      */
     @Getter(AccessLevel.PRIVATE)
     private final AbstractUndefinedConfig config;
+
+    /**
+     * Conditions and their values.
+     */
+    @Getter
+    private final Map<Condition<?>, Object> conditions = new HashMap<>();
 
     /**
      * Effects and their strengths.
@@ -114,6 +122,14 @@ public class ArmorSet {
                     @NotNull final AbstractUndefinedConfig config) {
         this.config = config;
         this.name = name;
+
+        for (String definedKey : this.getConfig().getStrings("conditions")) {
+            String[] split = definedKey.split(":");
+            String key = split[0].trim();
+            String value = split[1].trim();
+            Condition<?> condition = Conditions.getByName(key);
+            conditions.put(condition, ArmorUtils.getConditionValue(value, condition));
+        }
 
         for (String definedKey : this.getConfig().getStrings("set-bonus")) {
             String[] split = definedKey.split(":");
@@ -322,6 +338,18 @@ public class ArmorSet {
      */
     public ItemStack getAdvancedItemStack(@NotNull final ArmorSlot slot) {
         return advancedItems.get(slot);
+    }
+
+    /**
+     * Get condition value of effect.
+     *
+     * @param condition The condition to query.
+     * @param <T>       The type of the condition value.
+     * @return The value.
+     */
+    @Nullable
+    public <T> T getConditionValue(@NotNull final Condition<T> condition) {
+        return (T) conditions.get(condition);
     }
 
     /**

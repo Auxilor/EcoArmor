@@ -2,7 +2,6 @@ package com.willfp.ecoarmor.effects.effects;
 
 import com.willfp.eco.util.NumberUtils;
 import com.willfp.ecoarmor.effects.Effect;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
@@ -34,11 +33,7 @@ public class WarpChance extends Effect<Double> {
         Player player = (Player) event.getDamager();
         LivingEntity victim = (LivingEntity) event.getEntity();
 
-        if (!ArmorUtils.hasEffect(player, this)) {
-            return;
-        }
-
-        Double chance = ArmorUtils.getEffectStrength(player, this);
+        Double chance = this.getStrengthForPlayer(player);
 
         if (chance == null) {
             return;

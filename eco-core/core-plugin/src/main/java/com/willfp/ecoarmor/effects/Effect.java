@@ -3,9 +3,13 @@ package com.willfp.ecoarmor.effects;
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import lombok.AccessLevel;
 import lombok.Getter;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class Effect<T> implements Listener {
@@ -40,6 +44,11 @@ public abstract class Effect<T> implements Listener {
     private final Class<T> typeClass;
 
     /**
+     * Players that the effect is currently enabled for.
+     */
+    private final Map<UUID, T> enabledPlayers = new HashMap<>();
+
+    /**
      * Create a new effect.
      *
      * @param name      The effect name.
@@ -53,6 +62,57 @@ public abstract class Effect<T> implements Listener {
 
         update();
         Effects.addNewEffect(this);
+    }
+
+    /**
+     * Get the effect strength for a player.
+     *
+     * @param player The player.
+     * @return The strength.
+     */
+    @Nullable
+    public final T getStrengthForPlayer(@NotNull final Player player) {
+        return enabledPlayers.get(player.getUniqueId());
+    }
+
+    /**
+     * Enable the effect for a player.
+     *
+     * @param player The player.
+     * @param value  The strength.
+     */
+    public final void enable(@NotNull final Player player,
+                             @NotNull final Object value) {
+        if (!this.isEnabled()) {
+            return;
+        }
+
+        if (enabledPlayers.containsKey(player.getUniqueId())) {
+            return;
+        }
+
+        enabledPlayers.put(player.getUniqueId(), typeClass.cast(value));
+
+        this.onEnable(player);
+    }
+
+    /**
+     * Disable the effect for a player.
+     *
+     * @param player The player.
+     */
+    public final void disable(@NotNull final Player player) {
+        enabledPlayers.remove(player.getUniqueId());
+
+        this.onDisable(player);
+    }
+
+    protected void onEnable(@NotNull final Player player) {
+        // Empty by default
+    }
+
+    protected void onDisable(@NotNull final Player player) {
+        // Empty by default
     }
 
     /**

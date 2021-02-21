@@ -1,4 +1,6 @@
 enabled: true
+conditions:
+  - "above-health-percent: 50"
 set-bonus:
   - "speed-multiplier: 1.25"
 advanced-set-bonus:
@@ -10,7 +12,7 @@ advanced-lore:
   - "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>"
   - "&8» &bPermanent Jump Boost II"
   - "&8» &bMove 50% faster"
-  - "&8&oRequires full set to be worn"
+  - "&8&oRequires full set to be worn above 50% health"
 advancement-shard-name: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &bYoung"
 advancement-shard-lore:
   - "&8Drop this onto &bYoung Armor"
@@ -43,7 +45,7 @@ helmet:
   lore:
     - "&b&lYOUNG SET BONUS"
     - "&8» &bMove 25% faster"
-    - "&8&oRequires full set to be worn"
+    - "&8&oRequires full set to be worn above 50% health"
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
@@ -74,7 +76,7 @@ chestplate:
   lore:
     - "&b&lYOUNG SET BONUS"
     - "&8» &bMove 25% faster"
-    - "&8&oRequires full set to be worn"
+    - "&8&oRequires full set to be worn above 50% health"
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
@@ -103,7 +105,7 @@ elytra:
   lore:
     - "&b&lYOUNG SET BONUS"
     - "&8» &bMove 25% faster"
-    - "&8&oRequires full set to be worn"
+    - "&8&oRequires full set to be worn above 50% health"
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
@@ -134,7 +136,7 @@ leggings:
   lore:
     - "&b&lYOUNG SET BONUS"
     - "&8» &bMove 25% faster"
-    - "&8&oRequires full set to be worn"
+    - "&8&oRequires full set to be worn above 50% health"
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
@@ -166,7 +168,7 @@ boots:
   lore:
     - "&b&lYOUNG SET BONUS"
     - "&8» &bMove 25% faster"
-    - "&8&oRequires full set to be worn"
+    - "&8&oRequires full set to be worn above 50% health"
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"

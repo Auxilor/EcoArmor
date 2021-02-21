@@ -1,7 +1,6 @@
 package com.willfp.ecoarmor.effects.effects;
 
 import com.willfp.ecoarmor.effects.Effect;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -38,7 +37,7 @@ public class DamageMultiplier extends Effect<Double> {
             return;
         }
 
-        Double multiplier = ArmorUtils.getEffectStrength(attacker, this);
+        Double multiplier = this.getStrengthForPlayer(attacker);
         if (multiplier == null) {
             return;
         }

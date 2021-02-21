@@ -15,7 +15,7 @@ import com.willfp.ecoarmor.effects.effects.Flight;
 import com.willfp.ecoarmor.effects.effects.HungerLossMultiplier;
 import com.willfp.ecoarmor.effects.effects.MeleeDamageMultiplier;
 import com.willfp.ecoarmor.effects.effects.RegenerationMultiplier;
-import com.willfp.ecoarmor.effects.effects.SpeedMutiplier;
+import com.willfp.ecoarmor.effects.effects.SpeedMultiplier;
 import com.willfp.ecoarmor.effects.effects.TridentDamageMultiplier;
 import com.willfp.ecoarmor.effects.effects.WarpChance;
 import lombok.experimental.UtilityClass;
@@ -39,7 +39,7 @@ public class Effects {
     public static final Effect<?> MELEE_DAMAGE_MULTIPLIER = new MeleeDamageMultiplier();
     public static final Effect<?> TRIDENT_DAMAGE_MULTIPLIER = new TridentDamageMultiplier();
     public static final Effect<?> BONUS_HEARTS = new BonusHearts();
-    public static final Effect<?> SPEED_MULTIPLIER = new SpeedMutiplier();
+    public static final Effect<?> SPEED_MULTIPLIER = new SpeedMultiplier();
     public static final Effect<?> EXPERIENCE_MULTIPLIER = new ExperienceMultiplier();
     public static final Effect<?> REGENERATION_MULTIPLIER = new RegenerationMultiplier();
     public static final Effect<?> WARP_CHANCE = new WarpChance();
