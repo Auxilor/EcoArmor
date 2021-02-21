@@ -39,13 +39,7 @@ public class ConditionAboveHealthPercent extends Condition<Double> {
             return;
         }
 
-        this.getPlugin().getScheduler().runLater(() -> {
-            if (isMet(player, value)) {
-                set.getEffects().keySet().forEach(effect -> effect.enable(player, value));
-            } else {
-                set.getEffects().keySet().forEach(effect -> effect.disable(player));
-            }
-        }, 1);
+        evaluateEffects(player, value, set);
     }
 
     @EventHandler(
@@ -71,13 +65,7 @@ public class ConditionAboveHealthPercent extends Condition<Double> {
             return;
         }
 
-        this.getPlugin().getScheduler().runLater(() -> {
-            if (isMet(player, value)) {
-                set.getEffects().keySet().forEach(effect -> effect.enable(player, value));
-            } else {
-                set.getEffects().keySet().forEach(effect -> effect.disable(player));
-            }
-        }, 1);
+        evaluateEffects(player, value, set);
     }
 
     @Override
