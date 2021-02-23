@@ -49,6 +49,7 @@ helmet:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - ender_eye
     - ender_eye
@@ -81,6 +82,7 @@ chestplate:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - ender_eye
     - ender_eye
@@ -111,6 +113,7 @@ elytra:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - ender_eye
     - ender_eye
@@ -143,6 +146,7 @@ leggings:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - ender_eye
     - ender_eye
@@ -175,6 +179,7 @@ boots:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - ender_eye
     - ender_eye

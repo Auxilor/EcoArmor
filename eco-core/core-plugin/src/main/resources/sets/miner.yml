@@ -51,6 +51,7 @@ helmet:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - air
     - diamond_pickaxe
@@ -83,6 +84,7 @@ chestplate:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - air
     - diamond_pickaxe
@@ -113,6 +115,7 @@ elytra:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - air
     - diamond_pickaxe
@@ -145,6 +148,7 @@ leggings:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - air
     - diamond_pickaxe
@@ -177,6 +181,7 @@ boots:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - air
     - diamond_pickaxe

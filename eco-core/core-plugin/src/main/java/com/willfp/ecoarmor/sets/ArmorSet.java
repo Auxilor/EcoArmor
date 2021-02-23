@@ -308,16 +308,18 @@ public class ArmorSet {
 
     private void constructRecipe(@NotNull final ArmorSlot slot,
                                  @NotNull final ItemStack out) {
-        EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(PLUGIN, this.getName() + "_" + slot.name().toLowerCase()).setOutput(out);
+        if (this.getConfig().getBool(slot.name().toLowerCase() + ".craftable")) {
+            EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(PLUGIN, this.getName() + "_" + slot.name().toLowerCase()).setOutput(out);
 
-        List<String> recipeStrings = this.getConfig().getStrings(slot.name().toLowerCase() + ".recipe");
+            List<String> recipeStrings = this.getConfig().getStrings(slot.name().toLowerCase() + ".recipe");
 
-        for (int i = 0; i < 9; i++) {
-            builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));
+            for (int i = 0; i < 9; i++) {
+                builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));
+            }
+
+            EcoShapedRecipe recipe = builder.build();
+            recipe.register();
         }
-
-        EcoShapedRecipe recipe = builder.build();
-        recipe.register();
     }
 
     /**

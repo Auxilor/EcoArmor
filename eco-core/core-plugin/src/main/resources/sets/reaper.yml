@@ -45,6 +45,7 @@ helmet:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - air
     - nether_star
@@ -76,6 +77,7 @@ chestplate:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - air
     - nether_star
@@ -105,6 +107,7 @@ elytra:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - air
     - nether_star
@@ -136,6 +139,7 @@ leggings:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - air
     - nether_star
@@ -167,6 +171,7 @@ boots:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - air
     - nether_star

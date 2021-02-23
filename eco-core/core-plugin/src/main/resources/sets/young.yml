@@ -49,6 +49,7 @@ helmet:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - diamond
     - redstone
@@ -80,6 +81,7 @@ chestplate:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - diamond
     - air
@@ -109,6 +111,7 @@ elytra:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - air
     - redstone
@@ -140,6 +143,7 @@ leggings:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - diamond
     - redstone
@@ -172,6 +176,7 @@ boots:
     - ""
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
   recipe:
     - air
     - air
