@@ -4,9 +4,11 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.willfp.ecoarmor.conditions.conditions.ConditionAboveHealthPercent;
+import com.willfp.ecoarmor.conditions.conditions.ConditionAboveHungerPercent;
 import com.willfp.ecoarmor.conditions.conditions.ConditionAboveXPLevel;
 import com.willfp.ecoarmor.conditions.conditions.ConditionAboveY;
 import com.willfp.ecoarmor.conditions.conditions.ConditionBelowHealthPercent;
+import com.willfp.ecoarmor.conditions.conditions.ConditionBelowHungerPercent;
 import com.willfp.ecoarmor.conditions.conditions.ConditionBelowXPLevel;
 import com.willfp.ecoarmor.conditions.conditions.ConditionBelowY;
 import com.willfp.ecoarmor.conditions.conditions.ConditionInWater;
@@ -32,6 +34,8 @@ public class Conditions {
     public static final Condition<?> IN_WORLD = new ConditionInWorld();
     public static final Condition<?> ABOVE_XP_LEVEL = new ConditionAboveXPLevel();
     public static final Condition<?> BELOW_XP_LEVEL = new ConditionBelowXPLevel();
+    public static final Condition<?> ABOVE_HUNGER_PERCENT = new ConditionAboveHungerPercent();
+    public static final Condition<?> BELOW_HUNGER_PERCENT = new ConditionBelowHungerPercent();
 
     /**
      * Get condition matching name.s
