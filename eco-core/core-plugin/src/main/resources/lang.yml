@@ -8,5 +8,3 @@ messages:
   needs-item: "&cYou must specify an item!"
   invalid-item: "&cInvalid item!"
   give-success: "Gave &a%item%&r to &a%recipient%"
-
-description-color: "&8"

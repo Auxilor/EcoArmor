@@ -69,7 +69,7 @@ public class Tiers {
     }
 
     /**
-     * Add new {@link Tier} to EcoArmor.c
+     * Add new {@link Tier} to EcoArmor.
      *
      * @param tier The {@link Tier} to add.
      */
