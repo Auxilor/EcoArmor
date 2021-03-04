@@ -16,6 +16,7 @@ import com.willfp.ecoarmor.effects.util.EffectWatcher;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.util.EffectiveDurabilityListener;
 import com.willfp.ecoarmor.sets.util.PotionEffectListener;
+import com.willfp.ecoarmor.sets.util.PreventSkullPlaceListener;
 import com.willfp.ecoarmor.upgrades.Tiers;
 import com.willfp.ecoarmor.upgrades.listeners.AdvancementShardListener;
 import com.willfp.ecoarmor.upgrades.listeners.CrystalListener;
@@ -143,7 +144,8 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
                 new PotionEffectListener(this),
                 new EffectiveDurabilityListener(this),
                 new DiscoverRecipeListener(this),
-                new EffectWatcher(this)
+                new EffectWatcher(this),
+                new PreventSkullPlaceListener()
         );
     }
 
