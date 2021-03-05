@@ -23,6 +23,12 @@ public class BonusHearts extends Effect<Integer> {
             return;
         }
 
+        if (player.getHealth() >= maxHealth.getValue()) {
+            this.getPlugin().getScheduler().runLater(() -> {
+                player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+            }, 1);
+        }
+
         AttributeModifier modifier = new AttributeModifier(this.getUuid(), "bonus-hearts", bonus, AttributeModifier.Operation.ADD_NUMBER);
         if (maxHealth.getModifiers().stream().noneMatch(attributeModifier -> attributeModifier.getUniqueId().equals(modifier.getUniqueId()))) {
             maxHealth.addModifier(modifier);
