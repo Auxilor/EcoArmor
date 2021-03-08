@@ -10,6 +10,7 @@ import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
 
 public class EffectWatcher extends PluginDependent implements Listener {
@@ -34,6 +35,8 @@ public class EffectWatcher extends PluginDependent implements Listener {
         this.getPlugin().getScheduler().runLater(() -> {
             ArmorSet set = ArmorUtils.getSetOnPlayer(player);
 
+            boolean conditionsMet = ArmorUtils.areConditionsMet(player);
+
             for (Effect<?> effect : Effects.values()) {
                 boolean enabled = true;
 
@@ -55,7 +58,7 @@ public class EffectWatcher extends PluginDependent implements Listener {
                     enabled = false;
                 }
 
-                if (!ArmorUtils.areConditionsMet(player)) {
+                if (!conditionsMet) {
                     enabled = false;
                 }
 
@@ -63,6 +66,24 @@ public class EffectWatcher extends PluginDependent implements Listener {
                     effect.enable(player, strength);
                 } else {
                     effect.disable(player);
+                }
+            }
+
+            if (set == null || !conditionsMet) {
+                for (PotionEffect effect : player.getActivePotionEffects()) {
+                    if (effect.getDuration() >= 500000000) {
+                        player.removePotionEffect(effect.getType());
+                    }
+                }
+            } else {
+                set.getPotionEffects().forEach((potionEffectType, integer) -> {
+                    player.addPotionEffect(new PotionEffect(potionEffectType, 0x6fffffff, integer - 1, false, false, true));
+                });
+
+                if (ArmorUtils.isWearingAdvanced(player)) {
+                    set.getAdvancedPotionEffects().forEach((potionEffectType, integer) -> {
+                        player.addPotionEffect(new PotionEffect(potionEffectType, 0x6fffffff, integer - 1, false, false, true));
+                    });
                 }
             }
         }, 1);

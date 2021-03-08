@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class Condition<T> implements Listener {
@@ -77,8 +78,24 @@ public abstract class Condition<T> implements Listener {
                         effect.enable(player, strength);
                     }
                 }
+
+                set.getPotionEffects().forEach((potionEffectType, integer) -> {
+                    player.addPotionEffect(new PotionEffect(potionEffectType, 0x6fffffff, integer - 1, false, false, true));
+                });
+
+                if (ArmorUtils.isWearingAdvanced(player)) {
+                    set.getAdvancedPotionEffects().forEach((potionEffectType, integer) -> {
+                        player.addPotionEffect(new PotionEffect(potionEffectType, 0x6fffffff, integer - 1, false, false, true));
+                    });
+                }
             } else {
                 set.getEffects().keySet().forEach(effect -> effect.disable(player));
+
+                for (PotionEffect effect : player.getActivePotionEffects()) {
+                    if (effect.getDuration() >= 500000000) {
+                        player.removePotionEffect(effect.getType());
+                    }
+                }
             }
         }, 1);
     }
