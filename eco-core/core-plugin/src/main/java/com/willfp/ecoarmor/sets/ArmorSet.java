@@ -296,12 +296,27 @@ public class ArmorSet {
         ArmorUtils.setAdvanced(itemStack, advanced);
         ArmorUtils.setTier(itemStack, Tiers.DEFAULT);
 
-        RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + pieceName), new ComplexRecipePart(test -> {
-            if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
-                return false;
-            }
-            return Objects.equals(this, ArmorUtils.getSetOnItem(test));
-        }, itemStack));
+        if (advanced) {
+            RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + pieceName + "_advanced"), new ComplexRecipePart(test -> {
+                if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
+                    return false;
+                }
+                if (!ArmorUtils.isAdvanced(itemStack)) {
+                    return false;
+                }
+                return Objects.equals(this, ArmorUtils.getSetOnItem(test));
+            }, itemStack));
+        } else {
+            RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + pieceName), new ComplexRecipePart(test -> {
+                if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
+                    return false;
+                }
+                if (ArmorUtils.isAdvanced(itemStack)) {
+                    return false;
+                }
+                return Objects.equals(this, ArmorUtils.getSetOnItem(test));
+            }, itemStack));
+        }
 
         return itemStack;
     }
