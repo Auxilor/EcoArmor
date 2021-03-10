@@ -36,10 +36,6 @@ public class CrystalListener extends PluginDependent implements Listener {
             return;
         }
 
-        if (cursor.getType() != Material.END_CRYSTAL) {
-            return;
-        }
-
         Tier crystalTier = ArmorUtils.getCrystalTier(cursor);
 
         if (crystalTier == null) {
@@ -84,9 +80,6 @@ public class CrystalListener extends PluginDependent implements Listener {
     @EventHandler
     public void onPlaceCrystal(@NotNull final BlockPlaceEvent event) {
         ItemStack item = event.getItemInHand();
-        if (item.getType() != Material.END_CRYSTAL) {
-            return;
-        }
 
         if (ArmorUtils.getCrystalTier(item) != null) {
             event.setCancelled(true);

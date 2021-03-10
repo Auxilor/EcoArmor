@@ -5,8 +5,8 @@
 
 discover-recipes: true # If all recipes should be automatically discovered.
 
-# The material for advancement shards.
-advancement-shard-material: prismarine_shard
+advancement-shard-material: prismarine_shard # The material for advancement shards.
+upgrade-crystal-material: end_crystal # The material for upgrade crystals.
 
 # Effects are passive abilities that happen when wearing a full set with the effect present.
 effects:
