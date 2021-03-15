@@ -43,4 +43,4 @@ permissions:
     default: op
   ecoarmor.give:
     description: Allows the use of /eagive
-    default: true
+    default: op
