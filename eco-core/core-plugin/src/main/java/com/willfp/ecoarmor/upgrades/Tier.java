@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Tier extends PluginDependent {
     /**
@@ -47,9 +48,9 @@ public class Tier extends PluginDependent {
     private String displayName;
 
     /**
-     * The name of the tier required for application.
+     * The names of the tiers required for application.
      */
-    private String requiredTierForApplication;
+    private List<String> requiredTiersForApplication;
 
     /**
      * If the crafting recipe is enabled.
@@ -102,7 +103,7 @@ public class Tier extends PluginDependent {
     public void update() {
         this.enabled = this.getConfig().getBool("crystal-craftable");
         this.displayName = this.getConfig().getString("display");
-        this.requiredTierForApplication = this.getConfig().getString("requires-tier");
+        this.requiredTiersForApplication = this.getConfig().getStrings("requires-tiers");
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal");
 
         ItemStack out = new ItemStack(Objects.requireNonNull(Material.getMaterial(this.getPlugin().getConfigYml().getString("upgrade-crystal-material").toUpperCase())));
@@ -163,13 +164,12 @@ public class Tier extends PluginDependent {
     }
 
     /**
-     * Get the required tier for application.
+     * Get the required tiers for application.
      *
-     * @return The tier, or null if 'none' or invalid.
+     * @return The tiers, or a blank list if always available.
      */
-    @Nullable
-    public Tier getRequiredTierForApplication() {
-        return Tiers.getByName(requiredTierForApplication);
+    public List<Tier> getRequiredTiersForApplication() {
+        return requiredTiersForApplication.stream().map(Tiers::getByName).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     @Override

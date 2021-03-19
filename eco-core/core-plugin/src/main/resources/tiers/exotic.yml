@@ -1,6 +1,7 @@
 enabled: true
 display: "&6&k!!&r <GRADIENT:f79d00>&lEXOTIC</GRADIENT:64f38c>&r &6&k!!&r"
-requires-tier: netherite # Set to 'none' to always allow application
+requires-tiers: # Leave empty to always allow application
+  - netherite
 crystal-craftable: true
 crystal-name: "<GRADIENT:f79d00>Exotic Upgrade Crystal</GRADIENT:64f38c>"
 crystal-recipe:

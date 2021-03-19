@@ -1,6 +1,7 @@
 enabled: true
 display: "&#0047ab&lCOBALT"
-requires-tier: iron # Set to 'none' to always allow application
+requires-tiers: # Leave empty to always allow application
+  - iron
 crystal-craftable: true
 crystal-name: "&#0047abCobalt Upgrade Crystal"
 crystal-recipe:

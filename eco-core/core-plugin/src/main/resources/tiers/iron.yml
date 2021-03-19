@@ -1,6 +1,7 @@
 enabled: true
 display: "&7&lIRON"
-requires-tier: default # Set to 'none' to always allow application
+requires-tiers: # Leave empty to always allow application
+  - default
 crystal-craftable: true
 crystal-name: "&7Iron Upgrade Crystal"
 crystal-recipe:
