@@ -3,7 +3,7 @@ conditions: []
 set-bonus:
   - "damage-multiplier: 1.25"
 advanced-set-bonus:
-  - "damage-taken-multiplier: 0.9"
+  - "damage-tasken-multiplier: 0.9"
 advanced-lore:
   - ""
   - "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>"
@@ -46,6 +46,7 @@ helmet:
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
+  default-tier: default
   recipe:
     - air
     - nether_star
@@ -78,6 +79,7 @@ chestplate:
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
+  default-tier: default
   recipe:
     - air
     - nether_star
@@ -108,6 +110,7 @@ elytra:
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
+  default-tier: default
   recipe:
     - air
     - nether_star
@@ -140,6 +143,7 @@ leggings:
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
+  default-tier: default
   recipe:
     - air
     - nether_star
@@ -172,6 +176,7 @@ boots:
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
+  default-tier: default
   recipe:
     - air
     - nether_star

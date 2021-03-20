@@ -150,9 +150,9 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
     @Override
     public List<Class<?>> getUpdatableClasses() {
         return Arrays.asList(
+                Tiers.class,
                 ArmorSets.class,
-                TabcompleterEagive.class,
-                Tiers.class
+                TabcompleterEagive.class
         );
     }
 
