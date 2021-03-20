@@ -1,6 +1,7 @@
 enabled: true
 display: "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!"
-requires-tier: cobalt # Set to 'none' to always allow application
+requires-tiers: # Leave empty to always allow application
+  - cobalt
 crystal-craftable: true
 crystal-name: "<GRADIENT:c7f1ff>Osmium upgrade crystal</GRADIENT:5c92ff>"
 crystal-recipe:

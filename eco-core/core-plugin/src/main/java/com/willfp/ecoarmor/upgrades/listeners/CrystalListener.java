@@ -12,6 +12,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public class CrystalListener extends PluginDependent implements Listener {
     /**
      * Create new listeners for dragging crystals onto items.
@@ -48,11 +50,11 @@ public class CrystalListener extends PluginDependent implements Listener {
 
         Tier previousTier = ArmorUtils.getTier(current);
         boolean allowed = false;
-        Tier prereq = crystalTier.getRequiredTierForApplication();
+        List<Tier> prereq = crystalTier.getRequiredTiersForApplication();
 
-        if (prereq == null) {
+        if (prereq.isEmpty()) {
             allowed = true;
-        } else if (prereq.equals(previousTier)) {
+        } else if (prereq.contains(previousTier)) {
             allowed = true;
         }
 

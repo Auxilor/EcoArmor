@@ -1,6 +1,7 @@
 enabled: true
 display: "&d&k!!&r <GRADIENT:f953c6>&lMANYULLYN</GRADIENT:b91d73>&r &d&k!!&r"
-requires-tier: netherite # Set to 'none' to always allow application
+requires-tiers: # Leave empty to always allow application
+  - netherite
 crystal-craftable: true
 crystal-name: "<GRADIENT:f953c6>Manyullyn Upgrade Crystal</GRADIENT:b91d73>"
 crystal-recipe:

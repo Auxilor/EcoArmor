@@ -1,6 +1,7 @@
 enabled: true
 display: "&c&lNETHERITE"
-requires-tier: diamond # Set to 'none' to always allow application
+requires-tiers: # Leave empty to always allow application
+  - diamond
 crystal-craftable: true
 crystal-name: "&cNetherite Upgrade Crystal"
 crystal-recipe:
