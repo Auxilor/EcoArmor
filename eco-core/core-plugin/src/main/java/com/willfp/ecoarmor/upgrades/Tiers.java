@@ -56,6 +56,9 @@ public class Tiers {
      * @return The matching {@link Tiers}, or null if not found.
      */
     public static Tier getByName(@Nullable final String name) {
+        if (name != null && name.equalsIgnoreCase("default")) {
+            return DEFAULT;
+        }
         return BY_NAME.get(name);
     }
 
@@ -106,6 +109,7 @@ public class Tiers {
     }
 
     static {
+        addNewTier(DEFAULT);
         reload();
     }
 }

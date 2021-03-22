@@ -86,7 +86,6 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
         Effects.values().forEach(effect -> this.getEventManager().unregisterListener(effect));
         Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
         this.getLog().info(ArmorSets.values().size() + " Sets Loaded");
-        this.getExtensionLoader().unloadExtensions();
     }
 
     /**

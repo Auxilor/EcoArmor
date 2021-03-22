@@ -1,0 +1,3 @@
+name: mcMMO
+main: com.willfp.ecoarmor.mcmmo.McmmoMain
+version: ${projectVersion}
