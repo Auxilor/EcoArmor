@@ -294,7 +294,7 @@ public class ArmorSet {
         itemStack.setItemMeta(meta);
 
         ArmorUtils.setAdvanced(itemStack, advanced);
-        ArmorUtils.setTier(itemStack, Tiers.getByName(pieceName + ".default-tier"));
+        ArmorUtils.setTier(itemStack, Tiers.getByName(this.getConfig().getString(pieceName + ".default-tier")));
 
         if (advanced) {
             RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + pieceName + "_advanced"), new ComplexRecipePart(test -> {
