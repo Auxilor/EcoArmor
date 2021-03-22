@@ -49,9 +49,6 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
      */
     @Override
     public void enable() {
-        Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
-        Conditions.values().forEach(condition -> this.getEventManager().registerListener(condition));
-
         this.getExtensionLoader().loadExtensions();
 
         if (this.getExtensionLoader().getLoadedExtensions().isEmpty()) {
@@ -60,6 +57,9 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
             this.getLog().info("Extensions Loaded:");
             this.getExtensionLoader().getLoadedExtensions().forEach(extension -> this.getLog().info("- " + extension.getName() + " v" + extension.getVersion()));
         }
+
+        Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
+        Conditions.values().forEach(condition -> this.getEventManager().registerListener(condition));
     }
 
     /**
