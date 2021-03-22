@@ -55,6 +55,7 @@ public class Tiers {
      * @param name The name to search for.
      * @return The matching {@link Tiers}, or null if not found.
      */
+    @Nullable
     public static Tier getByName(@Nullable final String name) {
         return BY_NAME.get(name);
     }

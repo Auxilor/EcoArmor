@@ -14,9 +14,11 @@ import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
+import com.willfp.ecoarmor.upgrades.Tier;
 import com.willfp.ecoarmor.upgrades.Tiers;
 import lombok.AccessLevel;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -128,7 +130,11 @@ public class ArmorSet {
             String key = split[0].trim();
             String value = split[1].trim();
             Condition<?> condition = Conditions.getByName(key);
-            conditions.put(condition, ArmorUtils.getConditionValue(value, condition));
+            if (condition == null) {
+                Bukkit.getLogger().warning("Invalid condition specified in " + this.name);
+            } else {
+                conditions.put(condition, ArmorUtils.getConditionValue(value, condition));
+            }
         }
 
         for (String definedKey : this.getConfig().getStrings("set-bonus")) {
@@ -136,7 +142,11 @@ public class ArmorSet {
             String key = split[0].trim();
             String value = split[1].trim();
             Effect<?> effect = Effects.getByName(key);
-            effects.put(effect, ArmorUtils.getEffectValue(value, effect));
+            if (effect == null) {
+                Bukkit.getLogger().warning("Invalid effect specified in " + this.name);
+            } else {
+                effects.put(effect, ArmorUtils.getEffectValue(value, effect));
+            }
         }
 
         for (String definedKey : this.getConfig().getStrings("advanced-set-bonus")) {
@@ -144,7 +154,11 @@ public class ArmorSet {
             String key = split[0].trim();
             String value = split[1].trim();
             Effect<?> effect = Effects.getByName(key);
-            advancedEffects.put(effect, ArmorUtils.getEffectValue(value, effect));
+            if (effect == null) {
+                Bukkit.getLogger().warning("Invalid advanced effect specified in " + this.name);
+            } else {
+                advancedEffects.put(effect, ArmorUtils.getEffectValue(value, effect));
+            }
         }
 
         for (String definedKey : this.getConfig().getStrings("potion-effects")) {
@@ -152,7 +166,11 @@ public class ArmorSet {
             String key = split[0].trim();
             String value = split[1].trim();
             PotionEffectType type = PotionEffectType.getByName(key.toUpperCase());
-            potionEffects.put(type, Integer.parseInt(value));
+            if (type == null) {
+                Bukkit.getLogger().warning("Invalid potion effect specified in " + this.name);
+            } else {
+                potionEffects.put(type, Integer.parseInt(value));
+            }
         }
 
         for (String definedKey : this.getConfig().getStrings("advanced-potion-effects")) {
@@ -160,7 +178,11 @@ public class ArmorSet {
             String key = split[0].trim();
             String value = split[1].trim();
             PotionEffectType type = PotionEffectType.getByName(key.toUpperCase());
-            advancedPotionEffects.put(type, Integer.parseInt(value));
+            if (type == null) {
+                Bukkit.getLogger().warning("Invalid advanced potion effect specified in " + this.name);
+            } else {
+                advancedPotionEffects.put(type, Integer.parseInt(value));
+            }
         }
 
         for (ArmorSlot slot : ArmorSlot.values()) {
@@ -226,7 +248,11 @@ public class ArmorSet {
             String key = split[0].trim();
             String value = split[1].trim();
             Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(key));
-            enchants.put(enchantment, Integer.valueOf(value));
+            if (enchantment == null) {
+                Bukkit.getLogger().warning("Invalid enchantment specified in " + this.name + " " + pieceName);
+            } else {
+                enchants.put(enchantment, Integer.valueOf(value));
+            }
         }
 
         assert material != null;
@@ -294,7 +320,13 @@ public class ArmorSet {
         itemStack.setItemMeta(meta);
 
         ArmorUtils.setAdvanced(itemStack, advanced);
-        ArmorUtils.setTier(itemStack, Tiers.getByName(this.getConfig().getString(pieceName + ".default-tier")));
+        Tier defaultTier = Tiers.getByName(this.getConfig().getString(pieceName + ".default-tier"));
+        if (defaultTier == null) {
+            Bukkit.getLogger().warning("Default tier specified in " + this.name + " " + pieceName + " is invalid! Defaulting to 'default'");
+            ArmorUtils.setTier(itemStack, Tiers.DEFAULT);
+        } else {
+            ArmorUtils.setTier(itemStack, defaultTier);
+        }
 
         if (advanced) {
             RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + pieceName + "_advanced"), new ComplexRecipePart(test -> {

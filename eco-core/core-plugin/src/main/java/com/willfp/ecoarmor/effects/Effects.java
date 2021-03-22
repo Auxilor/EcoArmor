@@ -20,6 +20,7 @@ import com.willfp.ecoarmor.effects.effects.TridentDamageMultiplier;
 import com.willfp.ecoarmor.effects.effects.WarpChance;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class Effects {
      * @param name The name to query.
      * @return The matching effect, or null if not found.
      */
+    @Nullable
     public static Effect<?> getByName(@NotNull final String name) {
         return BY_NAME.get(name);
     }

@@ -11,6 +11,7 @@ import com.willfp.ecoarmor.config.CustomConfig;
 import lombok.experimental.UtilityClass;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,6 +52,7 @@ public class ArmorSets {
      * @param name The name to search for.
      * @return The matching {@link ArmorSet}, or null if not found.
      */
+    @Nullable
     public static ArmorSet getByName(@NotNull final String name) {
         return BY_NAME.get(name);
     }
