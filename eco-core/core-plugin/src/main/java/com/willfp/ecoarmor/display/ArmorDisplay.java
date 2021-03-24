@@ -77,6 +77,9 @@ public class ArmorDisplay extends DisplayModule {
             lore.add(s);
         }
 
+        if (meta.hasLore()) {
+            lore.addAll(meta.getLore());
+        }
         meta.setLore(lore);
         meta.setDisplayName(slotMeta.getDisplayName());
 
