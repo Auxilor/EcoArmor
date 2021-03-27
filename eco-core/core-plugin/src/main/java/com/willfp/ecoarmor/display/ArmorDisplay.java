@@ -28,7 +28,8 @@ public class ArmorDisplay extends DisplayModule {
     }
 
     @Override
-    protected void display(@NotNull final ItemStack itemStack) {
+    protected void display(@NotNull final ItemStack itemStack,
+                           @NotNull final Object... args) {
         ItemMeta meta = itemStack.getItemMeta();
         if (meta == null) {
             return;
@@ -94,10 +95,5 @@ public class ArmorDisplay extends DisplayModule {
         }
 
         itemStack.setItemMeta(meta);
-    }
-
-    @Override
-    protected void revert(@NotNull final ItemStack itemStack) {
-
     }
 }
