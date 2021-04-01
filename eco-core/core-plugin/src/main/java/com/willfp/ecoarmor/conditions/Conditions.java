@@ -11,6 +11,7 @@ import com.willfp.ecoarmor.conditions.conditions.ConditionBelowHealthPercent;
 import com.willfp.ecoarmor.conditions.conditions.ConditionBelowHungerPercent;
 import com.willfp.ecoarmor.conditions.conditions.ConditionBelowXPLevel;
 import com.willfp.ecoarmor.conditions.conditions.ConditionBelowY;
+import com.willfp.ecoarmor.conditions.conditions.ConditionInBiome;
 import com.willfp.ecoarmor.conditions.conditions.ConditionInWater;
 import com.willfp.ecoarmor.conditions.conditions.ConditionInWorld;
 import lombok.experimental.UtilityClass;
@@ -36,6 +37,7 @@ public class Conditions {
     public static final Condition<?> BELOW_XP_LEVEL = new ConditionBelowXPLevel();
     public static final Condition<?> ABOVE_HUNGER_PERCENT = new ConditionAboveHungerPercent();
     public static final Condition<?> BELOW_HUNGER_PERCENT = new ConditionBelowHungerPercent();
+    public static final Condition<?> IN_BIOME = new ConditionInBiome();
 
     /**
      * Get condition matching name.s
