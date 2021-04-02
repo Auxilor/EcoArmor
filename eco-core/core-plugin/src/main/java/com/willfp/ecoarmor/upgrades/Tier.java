@@ -1,7 +1,7 @@
 package com.willfp.ecoarmor.upgrades;
 
-import com.willfp.eco.internal.config.AbstractUndefinedConfig;
 import com.willfp.eco.util.StringUtils;
+import com.willfp.eco.util.config.Config;
 import com.willfp.eco.util.display.Display;
 import com.willfp.eco.util.internal.PluginDependent;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
@@ -39,7 +39,7 @@ public class Tier extends PluginDependent {
      * The config of the crystal.
      */
     @Getter(AccessLevel.PRIVATE)
-    private final AbstractUndefinedConfig config;
+    private final Config config;
 
     /**
      * The display name of the crystal.
@@ -84,7 +84,7 @@ public class Tier extends PluginDependent {
      * @param plugin   Instance of EcoArmor.
      */
     public Tier(@NotNull final String tierName,
-                @NotNull final AbstractUndefinedConfig config,
+                @NotNull final Config config,
                 @NotNull final AbstractEcoPlugin plugin) {
         super(plugin);
         this.name = tierName;

@@ -1,8 +1,8 @@
 package com.willfp.ecoarmor.sets;
 
-import com.willfp.eco.internal.config.AbstractUndefinedConfig;
 import com.willfp.eco.util.SkullUtils;
 import com.willfp.eco.util.StringUtils;
+import com.willfp.eco.util.config.Config;
 import com.willfp.eco.util.display.Display;
 import com.willfp.eco.util.recipe.RecipeParts;
 import com.willfp.eco.util.recipe.parts.ComplexRecipePart;
@@ -57,7 +57,7 @@ public class ArmorSet {
      * The config of the set.
      */
     @Getter(AccessLevel.PRIVATE)
-    private final AbstractUndefinedConfig config;
+    private final Config config;
 
     /**
      * Conditions and their values.
@@ -121,7 +121,7 @@ public class ArmorSet {
      * @param config The set's config.
      */
     public ArmorSet(@NotNull final String name,
-                    @NotNull final AbstractUndefinedConfig config) {
+                    @NotNull final Config config) {
         this.config = config;
         this.name = name;
 
@@ -186,11 +186,11 @@ public class ArmorSet {
         }
 
         for (ArmorSlot slot : ArmorSlot.values()) {
-            ItemStack item = construct(slot, false);
+            ItemStack item = construct(slot, this.getConfig().getSubsection(slot.name().toLowerCase()), false);
             items.put(slot, item);
-            constructRecipe(slot, item);
+            constructRecipe(slot, this.getConfig().getSubsection(slot.name().toLowerCase()), item);
 
-            ItemStack advancedItem = construct(slot, true);
+            ItemStack advancedItem = construct(slot, this.getConfig().getSubsection(slot.name().toLowerCase()), true);
             advancedItems.put(slot, advancedItem);
         }
 
@@ -237,19 +237,18 @@ public class ArmorSet {
     }
 
     private ItemStack construct(@NotNull final ArmorSlot slot,
+                                @NotNull final Config slotConfig,
                                 final boolean advanced) {
-        String pieceName = slot.name().toLowerCase();
-
-        Material material = Material.getMaterial(this.getConfig().getString(pieceName + ".material").toUpperCase());
+        Material material = Material.getMaterial(slotConfig.getString("material").toUpperCase());
         Map<Enchantment, Integer> enchants = new HashMap<>();
 
-        for (String definedKey : this.getConfig().getStrings(pieceName + ".enchants")) {
+        for (String definedKey : slotConfig.getStrings("enchants")) {
             String[] split = definedKey.split(":");
             String key = split[0].trim();
             String value = split[1].trim();
             Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(key));
             if (enchantment == null) {
-                Bukkit.getLogger().warning("Invalid enchantment specified in " + this.name + " " + pieceName);
+                Bukkit.getLogger().warning("Invalid enchantment specified in " + this.name + " " + slot.name().toLowerCase());
             } else {
                 enchants.put(enchantment, Integer.valueOf(value));
             }
@@ -264,28 +263,28 @@ public class ArmorSet {
 
         String displayName;
         if (advanced) {
-            displayName = this.getConfig().getString(pieceName + ".advanced-name");
+            displayName = slotConfig.getString("advanced-name");
         } else {
-            displayName = this.getConfig().getString(pieceName + ".name");
+            displayName = slotConfig.getString("name");
         }
 
         List<ItemFlag> flags = new ArrayList<>();
-        for (String flagName : this.getConfig().getStrings(pieceName + ".flags")) {
+        for (String flagName : slotConfig.getStrings("flags")) {
             ItemFlag flag = ItemFlag.valueOf(flagName.toUpperCase());
             flags.add(flag);
         }
         meta.addItemFlags(flags.toArray(new ItemFlag[0]));
 
-        int data = this.getConfig().getInt(pieceName + ".custom-model-data");
+        int data = slotConfig.getInt("custom-model-data");
         if (data != -1) {
             meta.setCustomModelData(data);
         }
 
-        boolean unbreakable = this.getConfig().getBool(pieceName + ".unbreakable");
+        boolean unbreakable = slotConfig.getBool("unbreakable");
         meta.setUnbreakable(unbreakable);
 
         List<String> lore = new ArrayList<>();
-        for (String loreLine : this.getConfig().getStrings(pieceName + ".lore")) {
+        for (String loreLine : slotConfig.getStrings("lore")) {
             lore.add(Display.PREFIX + StringUtils.translate(loreLine));
         }
 
@@ -296,12 +295,12 @@ public class ArmorSet {
         }
 
         if (meta instanceof SkullMeta) {
-            this.skullBase64 = this.getConfig().getString(pieceName + ".skull-texture");
+            this.skullBase64 = slotConfig.getString("skull-texture");
             SkullUtils.setSkullTexture((SkullMeta) meta, skullBase64);
         }
 
         if (meta instanceof LeatherArmorMeta) {
-            String colorString = this.getConfig().getString(pieceName + ".leather-color");
+            String colorString = slotConfig.getString("leather-color");
             java.awt.Color awtColor = java.awt.Color.decode(colorString);
             Color color = Color.fromRGB(awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue());
             ((LeatherArmorMeta) meta).setColor(color);
@@ -316,20 +315,20 @@ public class ArmorSet {
         enchants.forEach((enchantment, integer) -> meta.addEnchant(enchantment, integer, true));
         PersistentDataContainer container = meta.getPersistentDataContainer();
         container.set(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING, name);
-        container.set(PLUGIN.getNamespacedKeyFactory().create("effective-durability"), PersistentDataType.INTEGER, this.getConfig().getInt(pieceName + ".effective-durability"));
+        container.set(PLUGIN.getNamespacedKeyFactory().create("effective-durability"), PersistentDataType.INTEGER, slotConfig.getInt("effective-durability"));
         itemStack.setItemMeta(meta);
 
         ArmorUtils.setAdvanced(itemStack, advanced);
-        Tier defaultTier = Tiers.getByName(this.getConfig().getString(pieceName + ".default-tier"));
+        Tier defaultTier = Tiers.getByName(slotConfig.getString("default-tier"));
         if (defaultTier == null) {
-            Bukkit.getLogger().warning("Default tier specified in " + this.name + " " + pieceName + " is invalid! Defaulting to 'default'");
+            Bukkit.getLogger().warning("Default tier specified in " + this.name + " " + slot.name().toLowerCase() + " is invalid! Defaulting to 'default'");
             ArmorUtils.setTier(itemStack, Tiers.DEFAULT);
         } else {
             ArmorUtils.setTier(itemStack, defaultTier);
         }
 
         if (advanced) {
-            RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + pieceName + "_advanced"), new ComplexRecipePart(test -> {
+            RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + slot.name().toLowerCase() + "_advanced"), new ComplexRecipePart(test -> {
                 if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
                     return false;
                 }
@@ -339,7 +338,7 @@ public class ArmorSet {
                 return Objects.equals(this, ArmorUtils.getSetOnItem(test));
             }, itemStack));
         } else {
-            RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + pieceName), new ComplexRecipePart(test -> {
+            RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + slot.name().toLowerCase()), new ComplexRecipePart(test -> {
                 if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
                     return false;
                 }
@@ -354,11 +353,12 @@ public class ArmorSet {
     }
 
     private void constructRecipe(@NotNull final ArmorSlot slot,
+                                 @NotNull final Config slotConfig,
                                  @NotNull final ItemStack out) {
-        if (this.getConfig().getBool(slot.name().toLowerCase() + ".craftable")) {
+        if (slotConfig.getBool("craftable")) {
             EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(PLUGIN, this.getName() + "_" + slot.name().toLowerCase()).setOutput(out);
 
-            List<String> recipeStrings = this.getConfig().getStrings(slot.name().toLowerCase() + ".recipe");
+            List<String> recipeStrings = slotConfig.getStrings("recipe");
 
             for (int i = 0; i < 9; i++) {
                 builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));
