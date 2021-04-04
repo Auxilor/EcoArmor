@@ -58,3 +58,6 @@ effects:
   hunger-loss-multiplier:
     # Modify hunger loss by some multiplier
     enabled: true
+  boss-damage-multiplier:
+    # Modify boss damage by some multiplier
+    enabled: true

@@ -5,6 +5,7 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.willfp.ecoarmor.effects.effects.AttackSpeedMultiplier;
 import com.willfp.ecoarmor.effects.effects.BonusHearts;
+import com.willfp.ecoarmor.effects.effects.BossDamageMultiplier;
 import com.willfp.ecoarmor.effects.effects.BowDamageMultiplier;
 import com.willfp.ecoarmor.effects.effects.DamageMultiplier;
 import com.willfp.ecoarmor.effects.effects.DamageTakenMultiplier;
@@ -47,6 +48,7 @@ public class Effects {
     public static final Effect<?> ATTACK_SPEED_MULTIPLIER = new AttackSpeedMultiplier();
     public static final Effect<?> FLIGHT = new Flight();
     public static final Effect<?> HUNGER_LOSS_MULTIPLIER = new HungerLossMultiplier();
+    public static final Effect<?> BOSS_DAMAGE_MULTIPLIER = new BossDamageMultiplier();
 
     /**
      * Get effect matching name.
