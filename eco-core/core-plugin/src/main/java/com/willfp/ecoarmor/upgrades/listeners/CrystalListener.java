@@ -1,7 +1,7 @@
 package com.willfp.ecoarmor.upgrades.listeners;
 
-import com.willfp.eco.util.internal.PluginDependent;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.PluginDependent;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import com.willfp.ecoarmor.upgrades.Tier;
 import org.bukkit.Material;
@@ -20,7 +20,7 @@ public class CrystalListener extends PluginDependent implements Listener {
      *
      * @param plugin The plugin to listen for.
      */
-    public CrystalListener(@NotNull final AbstractEcoPlugin plugin) {
+    public CrystalListener(@NotNull final EcoPlugin plugin) {
         super(plugin);
     }
 

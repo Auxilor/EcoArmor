@@ -1,7 +1,7 @@
 package com.willfp.ecoarmor.mcmmo;
 
-import com.willfp.eco.util.extensions.Extension;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.eco.core.extensions.Extension;
+import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.effects.Effect;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +13,7 @@ public class McmmoMain extends Extension {
      *
      * @param plugin Instance of Talismans.
      */
-    public McmmoMain(@NotNull final AbstractEcoPlugin plugin) {
+    public McmmoMain(@NotNull final EcoArmorPlugin plugin) {
         super(plugin);
     }
 

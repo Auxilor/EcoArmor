@@ -1,10 +1,10 @@
 package com.willfp.ecoarmor;
 
-import com.willfp.eco.util.command.AbstractCommand;
-import com.willfp.eco.util.display.DisplayModule;
-import com.willfp.eco.util.integrations.IntegrationLoader;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
-import com.willfp.eco.util.protocollib.AbstractPacketAdapter;
+import com.willfp.eco.core.AbstractPacketAdapter;
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.command.AbstractCommand;
+import com.willfp.eco.core.display.DisplayModule;
+import com.willfp.eco.core.integrations.IntegrationLoader;
 import com.willfp.ecoarmor.commands.CommandEagive;
 import com.willfp.ecoarmor.commands.CommandEareload;
 import com.willfp.ecoarmor.commands.TabcompleterEagive;
@@ -29,7 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class EcoArmorPlugin extends AbstractEcoPlugin {
+public class EcoArmorPlugin extends EcoPlugin {
     /**
      * Instance of EcoArmor.
      */
@@ -52,10 +52,10 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
         this.getExtensionLoader().loadExtensions();
 
         if (this.getExtensionLoader().getLoadedExtensions().isEmpty()) {
-            this.getLog().info("&cNo extensions found");
+            this.getLogger().info("&cNo extensions found");
         } else {
-            this.getLog().info("Extensions Loaded:");
-            this.getExtensionLoader().getLoadedExtensions().forEach(extension -> this.getLog().info("- " + extension.getName() + " v" + extension.getVersion()));
+            this.getLogger().info("Extensions Loaded:");
+            this.getExtensionLoader().getLoadedExtensions().forEach(extension -> this.getLogger().info("- " + extension.getName() + " v" + extension.getVersion()));
         }
 
         Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
@@ -85,7 +85,7 @@ public class EcoArmorPlugin extends AbstractEcoPlugin {
     public void onReload() {
         Effects.values().forEach(effect -> this.getEventManager().unregisterListener(effect));
         Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
-        this.getLog().info(ArmorSets.values().size() + " Sets Loaded");
+        this.getLogger().info(ArmorSets.values().size() + " Sets Loaded");
     }
 
     /**

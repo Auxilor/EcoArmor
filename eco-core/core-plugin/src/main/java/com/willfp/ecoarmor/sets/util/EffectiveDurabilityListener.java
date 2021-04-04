@@ -1,8 +1,8 @@
 package com.willfp.ecoarmor.sets.util;
 
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.PluginDependent;
 import com.willfp.eco.util.NumberUtils;
-import com.willfp.eco.util.internal.PluginDependent;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemDamageEvent;
@@ -18,7 +18,7 @@ public class EffectiveDurabilityListener extends PluginDependent implements List
      *
      * @param plugin The plugin.
      */
-    public EffectiveDurabilityListener(@NotNull final AbstractEcoPlugin plugin) {
+    public EffectiveDurabilityListener(@NotNull final EcoPlugin plugin) {
         super(plugin);
     }
 

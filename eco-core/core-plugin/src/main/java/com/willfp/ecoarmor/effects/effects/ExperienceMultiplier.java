@@ -1,6 +1,6 @@
 package com.willfp.ecoarmor.effects.effects;
 
-import com.willfp.eco.util.events.naturalexpgainevent.NaturalExpGainEvent;
+import com.willfp.eco.core.events.NaturalExpGainEvent;
 import com.willfp.ecoarmor.effects.Effect;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

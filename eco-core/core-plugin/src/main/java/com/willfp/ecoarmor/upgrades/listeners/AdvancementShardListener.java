@@ -1,7 +1,8 @@
 package com.willfp.ecoarmor.upgrades.listeners;
 
-import com.willfp.eco.util.internal.PluginDependent;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.PluginDependent;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
@@ -20,7 +21,7 @@ public class AdvancementShardListener extends PluginDependent implements Listene
      *
      * @param plugin The plugin to listen for.
      */
-    public AdvancementShardListener(@NotNull final AbstractEcoPlugin plugin) {
+    public AdvancementShardListener(@NotNull final EcoPlugin plugin) {
         super(plugin);
     }
 

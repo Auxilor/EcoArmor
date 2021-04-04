@@ -1,7 +1,7 @@
 package com.willfp.ecoarmor.commands;
 
-import com.willfp.eco.util.command.AbstractTabCompleter;
-import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
+import com.willfp.eco.core.command.AbstractTabCompleter;
+import com.willfp.eco.core.config.ConfigUpdater;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.upgrades.Tier;

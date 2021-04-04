@@ -1,10 +1,15 @@
 package com.willfp.ecoarmor.config;
 
-import com.willfp.eco.util.config.StaticOptionalConfig;
+import com.willfp.eco.core.config.YamlConfig;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 
-public class CustomConfig extends StaticOptionalConfig {
+public class CustomConfig extends YamlConfig {
+    /**
+     * The config name.
+     */
+    private final String configName;
+
     /**
      * Create new custom config.
      *
@@ -13,6 +18,7 @@ public class CustomConfig extends StaticOptionalConfig {
      */
     public CustomConfig(@NotNull final String configName,
                         @NotNull final YamlConfiguration config) {
-        super(configName, config);
+        super(config);
+        this.configName = configName;
     }
 }

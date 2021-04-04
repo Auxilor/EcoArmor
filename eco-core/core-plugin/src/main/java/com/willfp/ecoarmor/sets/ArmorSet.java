@@ -1,12 +1,12 @@
 package com.willfp.ecoarmor.sets;
 
+import com.willfp.eco.core.config.Config;
+import com.willfp.eco.core.display.Display;
+import com.willfp.eco.core.items.CustomItem;
+import com.willfp.eco.core.items.Items;
+import com.willfp.eco.core.recipe.recipes.ShapedCraftingRecipe;
 import com.willfp.eco.util.SkullUtils;
 import com.willfp.eco.util.StringUtils;
-import com.willfp.eco.util.config.Config;
-import com.willfp.eco.util.display.Display;
-import com.willfp.eco.util.recipe.RecipeParts;
-import com.willfp.eco.util.recipe.parts.ComplexRecipePart;
-import com.willfp.eco.util.recipe.recipes.EcoShapedRecipe;
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.conditions.Condition;
 import com.willfp.ecoarmor.conditions.Conditions;
@@ -221,15 +221,15 @@ public class ArmorSet {
         shardItem.setItemMeta(shardMeta);
 
         if (this.getConfig().getBool("shard-craftable")) {
-            EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(PLUGIN, this.getName() + "_shard").setOutput(shardItem);
+            ShapedCraftingRecipe.Builder builder = ShapedCraftingRecipe.builder(PLUGIN, this.getName() + "_shard").setOutput(shardItem);
 
             List<String> recipeStrings = this.getConfig().getStrings("shard-recipe");
 
             for (int i = 0; i < 9; i++) {
-                builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));
+                builder.setRecipePart(i, Items.lookup(recipeStrings.get(i)));
             }
 
-            EcoShapedRecipe recipe = builder.build();
+            ShapedCraftingRecipe recipe = builder.build();
             recipe.register();
         }
 
@@ -328,7 +328,7 @@ public class ArmorSet {
         }
 
         if (advanced) {
-            RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + slot.name().toLowerCase() + "_advanced"), new ComplexRecipePart(test -> {
+            new CustomItem(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + slot.name().toLowerCase() + "_advanced"), test -> {
                 if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
                     return false;
                 }
@@ -336,9 +336,9 @@ public class ArmorSet {
                     return false;
                 }
                 return Objects.equals(this, ArmorUtils.getSetOnItem(test));
-            }, itemStack));
+            }, itemStack).register();
         } else {
-            RecipeParts.registerRecipePart(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + slot.name().toLowerCase()), new ComplexRecipePart(test -> {
+            new CustomItem(PLUGIN.getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + slot.name().toLowerCase()), test -> {
                 if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
                     return false;
                 }
@@ -346,7 +346,7 @@ public class ArmorSet {
                     return false;
                 }
                 return Objects.equals(this, ArmorUtils.getSetOnItem(test));
-            }, itemStack));
+            }, itemStack).register();
         }
 
         return itemStack;
@@ -356,15 +356,15 @@ public class ArmorSet {
                                  @NotNull final Config slotConfig,
                                  @NotNull final ItemStack out) {
         if (slotConfig.getBool("craftable")) {
-            EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(PLUGIN, this.getName() + "_" + slot.name().toLowerCase()).setOutput(out);
+            ShapedCraftingRecipe.Builder builder = ShapedCraftingRecipe.builder(PLUGIN, this.getName() + "_" + slot.name().toLowerCase()).setOutput(out);
 
             List<String> recipeStrings = slotConfig.getStrings("recipe");
 
             for (int i = 0; i < 9; i++) {
-                builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));
+                builder.setRecipePart(i, Items.lookup(recipeStrings.get(i)));
             }
 
-            EcoShapedRecipe recipe = builder.build();
+            ShapedCraftingRecipe recipe = builder.build();
             recipe.register();
         }
     }

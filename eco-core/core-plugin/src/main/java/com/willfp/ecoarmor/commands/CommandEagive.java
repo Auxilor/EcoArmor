@@ -1,8 +1,8 @@
 package com.willfp.ecoarmor.commands;
 
-import com.willfp.eco.util.command.AbstractCommand;
-import com.willfp.eco.util.command.AbstractTabCompleter;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.command.AbstractCommand;
+import com.willfp.eco.core.command.AbstractTabCompleter;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
@@ -26,7 +26,7 @@ public class CommandEagive extends AbstractCommand {
      *
      * @param plugin The plugin for the commands to listen for.
      */
-    public CommandEagive(@NotNull final AbstractEcoPlugin plugin) {
+    public CommandEagive(@NotNull final EcoPlugin plugin) {
         super(plugin, "eagive", "ecoarmor.give", false);
     }
 

@@ -1,7 +1,8 @@
 package com.willfp.ecoarmor.commands;
 
-import com.willfp.eco.util.command.AbstractCommand;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.command.AbstractCommand;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +14,7 @@ public class CommandEareload extends AbstractCommand {
      *
      * @param plugin The plugin for the commands to listen for.
      */
-    public CommandEareload(@NotNull final AbstractEcoPlugin plugin) {
+    public CommandEareload(@NotNull final EcoPlugin plugin) {
         super(plugin, "eareload", "ecoarmor.reload", false);
     }
 

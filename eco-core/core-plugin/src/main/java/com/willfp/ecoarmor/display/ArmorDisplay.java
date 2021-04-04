@@ -1,9 +1,9 @@
 package com.willfp.ecoarmor.display;
 
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.display.DisplayModule;
+import com.willfp.eco.core.display.DisplayPriority;
 import com.willfp.eco.util.SkullUtils;
-import com.willfp.eco.util.display.DisplayModule;
-import com.willfp.eco.util.display.DisplayPriority;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
@@ -23,7 +23,7 @@ public class ArmorDisplay extends DisplayModule {
      *
      * @param plugin Instance of EcoArmor.
      */
-    public ArmorDisplay(@NotNull final AbstractEcoPlugin plugin) {
+    public ArmorDisplay(@NotNull final EcoPlugin plugin) {
         super(plugin, DisplayPriority.LOWEST);
     }
 

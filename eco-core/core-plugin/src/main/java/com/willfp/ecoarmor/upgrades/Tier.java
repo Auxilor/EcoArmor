@@ -1,13 +1,13 @@
 package com.willfp.ecoarmor.upgrades;
 
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.PluginDependent;
+import com.willfp.eco.core.config.Config;
+import com.willfp.eco.core.display.Display;
+import com.willfp.eco.core.items.CustomItem;
+import com.willfp.eco.core.items.Items;
+import com.willfp.eco.core.recipe.recipes.ShapedCraftingRecipe;
 import com.willfp.eco.util.StringUtils;
-import com.willfp.eco.util.config.Config;
-import com.willfp.eco.util.display.Display;
-import com.willfp.eco.util.internal.PluginDependent;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
-import com.willfp.eco.util.recipe.RecipeParts;
-import com.willfp.eco.util.recipe.parts.ComplexRecipePart;
-import com.willfp.eco.util.recipe.recipes.EcoShapedRecipe;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import lombok.AccessLevel;
@@ -68,7 +68,7 @@ public class Tier extends PluginDependent {
      * The crafting recipe to make the crystal.
      */
     @Getter
-    private EcoShapedRecipe crystalRecipe;
+    private ShapedCraftingRecipe crystalRecipe;
 
     /**
      * Item properties.
@@ -85,7 +85,7 @@ public class Tier extends PluginDependent {
      */
     public Tier(@NotNull final String tierName,
                 @NotNull final Config config,
-                @NotNull final AbstractEcoPlugin plugin) {
+                @NotNull final EcoPlugin plugin) {
         super(plugin);
         this.name = tierName;
         this.config = config;
@@ -139,12 +139,12 @@ public class Tier extends PluginDependent {
         if (this.isEnabled()) {
             ItemStack recipeOut = out.clone();
             recipeOut.setAmount(this.getConfig().getInt("recipe-give-amount"));
-            EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(this.getPlugin(), "upgrade_crystal_" + name)
+            ShapedCraftingRecipe.Builder builder = ShapedCraftingRecipe.builder(this.getPlugin(), "upgrade_crystal_" + name)
                     .setOutput(recipeOut);
 
             List<String> recipeStrings = this.getConfig().getStrings("crystal-recipe");
 
-            RecipeParts.registerRecipePart(this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal_" + name), new ComplexRecipePart(test -> {
+            new CustomItem(this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal_" + name), test -> {
                 if (test == null) {
                     return false;
                 }
@@ -152,10 +152,10 @@ public class Tier extends PluginDependent {
                     return false;
                 }
                 return this.equals(ArmorUtils.getCrystalTier(test));
-            }, out));
+            }, out).register();
 
             for (int i = 0; i < 9; i++) {
-                builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));
+                builder.setRecipePart(i, Items.lookup(recipeStrings.get(i)));
             }
 
             this.crystalRecipe = builder.build();

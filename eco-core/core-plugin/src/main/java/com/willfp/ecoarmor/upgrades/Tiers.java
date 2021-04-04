@@ -3,7 +3,7 @@ package com.willfp.ecoarmor.upgrades;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
-import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
+import com.willfp.eco.core.config.ConfigUpdater;
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.config.BaseTierConfig;
 import com.willfp.ecoarmor.config.CustomConfig;

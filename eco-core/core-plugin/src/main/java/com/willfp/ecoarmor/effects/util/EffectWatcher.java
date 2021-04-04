@@ -1,8 +1,8 @@
 package com.willfp.ecoarmor.effects.util;
 
-import com.willfp.eco.util.events.armorequip.ArmorEquipEvent;
-import com.willfp.eco.util.internal.PluginDependent;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.PluginDependent;
+import com.willfp.eco.core.events.ArmorEquipEvent;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.ArmorSet;
@@ -15,11 +15,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class EffectWatcher extends PluginDependent implements Listener {
     /**
-     * Pass an {@link AbstractEcoPlugin} in order to interface with it.
+     * Pass an {@link EcoPlugin} in order to interface with it.
      *
      * @param plugin The plugin to manage.
      */
-    public EffectWatcher(@NotNull final AbstractEcoPlugin plugin) {
+    public EffectWatcher(@NotNull final EcoPlugin plugin) {
         super(plugin);
     }
 

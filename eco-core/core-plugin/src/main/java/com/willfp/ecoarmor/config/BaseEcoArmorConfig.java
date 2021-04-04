@@ -1,6 +1,6 @@
 package com.willfp.ecoarmor.config;
 
-import com.willfp.eco.util.config.ExtendableConfig;
+import com.willfp.eco.core.config.ExtendableConfig;
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import org.jetbrains.annotations.NotNull;
 
