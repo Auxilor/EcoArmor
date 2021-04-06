@@ -13,7 +13,9 @@ import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.effects.util.EffectWatcher;
+import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
+import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.EffectiveDurabilityListener;
 import com.willfp.ecoarmor.sets.util.PreventSkullPlaceListener;
 import com.willfp.ecoarmor.upgrades.Tiers;
@@ -21,6 +23,7 @@ import com.willfp.ecoarmor.upgrades.listeners.AdvancementShardListener;
 import com.willfp.ecoarmor.upgrades.listeners.CrystalListener;
 import com.willfp.ecoarmor.util.DiscoverRecipeListener;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.Nullable;
 

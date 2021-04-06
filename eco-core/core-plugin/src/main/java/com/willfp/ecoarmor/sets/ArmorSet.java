@@ -188,7 +188,9 @@ public class ArmorSet {
         for (ArmorSlot slot : ArmorSlot.values()) {
             ItemStack item = construct(slot, this.getConfig().getSubsection(slot.name().toLowerCase()), false);
             items.put(slot, item);
-            constructRecipe(slot, this.getConfig().getSubsection(slot.name().toLowerCase()), item);
+            if (this.getConfig().getBool("enabled")) {
+                constructRecipe(slot, this.getConfig().getSubsection(slot.name().toLowerCase()), item);
+            }
 
             ItemStack advancedItem = construct(slot, this.getConfig().getSubsection(slot.name().toLowerCase()), true);
             advancedItems.put(slot, advancedItem);
