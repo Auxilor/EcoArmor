@@ -6,6 +6,7 @@ import com.willfp.eco.core.PluginDependent;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,6 +33,10 @@ public class AdvancementShardListener extends PluginDependent implements Listene
      */
     @EventHandler
     public void onDrag(@NotNull final InventoryClickEvent event) {
+        if (event.getWhoClicked().getGameMode() == GameMode.CREATIVE) {
+            return;
+        }
+
         ItemStack current = event.getCurrentItem();
         ItemStack cursor = event.getCursor();
 
