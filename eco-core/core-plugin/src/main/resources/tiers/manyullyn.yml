@@ -21,6 +21,8 @@ crystal-lore:
   - "&8Drop this onto an armor piece"
   - "&8to set its tier to:"
   - "&d&k!!&r <GRADIENT:f953c6>&lMANYULLYN</GRADIENT:b91d73>&r &d&k!!&r"
+  - ""
+  - "&8&oRequires the armor to already have Netherite tier"
 properties:
   helmet:
     armor: 3

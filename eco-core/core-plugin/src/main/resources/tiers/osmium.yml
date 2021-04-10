@@ -21,6 +21,8 @@ crystal-lore:
   - "&8Drop this onto an armor piece"
   - "&8to set its tier to:"
   - "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!"
+  - ""
+  - "&8&oRequires the armor to already have Cobalt tier"
 properties:
   helmet:
     armor: 3

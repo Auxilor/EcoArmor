@@ -21,6 +21,8 @@ crystal-lore:
   - "&8Drop this onto an armor piece"
   - "&8to set its tier to:"
   - "&c&lNETHERITE"
+  - ""
+  - "&8&oRequires the armor to already have Diamond tier"
 properties:
   helmet:
     armor: 3
