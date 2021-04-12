@@ -17,6 +17,10 @@ public class Flight extends Effect<Boolean> {
 
     @Override
     protected void onDisable(@NotNull final Player player) {
+        if (player.hasPermission("ecoarmor.noflydisable")) {
+            return;
+        }
+
         if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
             player.setAllowFlight(false);
         }

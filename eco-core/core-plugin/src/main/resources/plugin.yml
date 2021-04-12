@@ -37,10 +37,14 @@ permissions:
     children:
       ecoarmor.reload: true
       ecoarmor.give: true
+      ecoarmor.noflydisable: true
 
   ecoarmor.reload:
     description: Allows reloading the config
     default: op
   ecoarmor.give:
     description: Allows the use of /eagive
+    default: op
+  ecoarmor.noflydisable:
+    description: Prevents losing fly.
     default: op
