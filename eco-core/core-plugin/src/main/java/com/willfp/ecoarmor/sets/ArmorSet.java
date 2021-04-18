@@ -370,9 +370,6 @@ public class ArmorSet {
                 lore.add(s);
             }
 
-            if (meta.hasLore()) {
-                lore.addAll(meta.getLore());
-            }
             meta.setLore(lore);
             formattedOut.setItemMeta(meta);
 
