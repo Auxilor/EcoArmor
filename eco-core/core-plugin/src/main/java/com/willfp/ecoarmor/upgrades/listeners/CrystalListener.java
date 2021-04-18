@@ -57,9 +57,7 @@ public class CrystalListener extends PluginDependent implements Listener {
         boolean allowed = false;
         List<Tier> prereq = crystalTier.getRequiredTiersForApplication();
 
-        if (prereq.isEmpty()) {
-            allowed = true;
-        } else if (prereq.contains(previousTier)) {
+        if (prereq.isEmpty() || prereq.contains(previousTier)) {
             allowed = true;
         }
 
