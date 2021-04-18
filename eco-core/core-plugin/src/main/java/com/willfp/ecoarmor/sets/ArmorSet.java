@@ -358,7 +358,25 @@ public class ArmorSet {
                                  @NotNull final Config slotConfig,
                                  @NotNull final ItemStack out) {
         if (slotConfig.getBool("craftable")) {
-            ShapedCraftingRecipe.Builder builder = ShapedCraftingRecipe.builder(PLUGIN, this.getName() + "_" + slot.name().toLowerCase()).setOutput(out);
+            ItemStack formattedOut = out.clone();
+            ItemMeta meta = formattedOut.getItemMeta();
+            assert meta != null;
+            assert meta.getLore() != null;
+
+            List<String> lore = new ArrayList<>();
+
+            for (String s : meta.getLore()) {
+                s = s.replace("%tier%", Tiers.DEFAULT.getDisplayName());
+                lore.add(s);
+            }
+
+            if (meta.hasLore()) {
+                lore.addAll(meta.getLore());
+            }
+            meta.setLore(lore);
+            formattedOut.setItemMeta(meta);
+
+            ShapedCraftingRecipe.Builder builder = ShapedCraftingRecipe.builder(PLUGIN, this.getName() + "_" + slot.name().toLowerCase()).setOutput(formattedOut);
 
             List<String> recipeStrings = slotConfig.getStrings("recipe");
 
