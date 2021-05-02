@@ -20,14 +20,10 @@ public class DurabilityMultiplier extends Effect<Double> {
 
         Player player = event.getPlayer();
 
-        Double multiplier = this.getStrengthForPlayer(player);
-
-        if (multiplier == null) {
-            return;
-        }
-
-        if (NumberUtils.randFloat(0, 100) < 1 - (1 / multiplier)) {
-            event.setCancelled(true);
-        }
+        this.applyIfEnabled(player, multiplier -> {
+            if (NumberUtils.randFloat(0, 100) < 1 - (1 / multiplier)) {
+                event.setCancelled(true);
+            }
+        });
     }
 }

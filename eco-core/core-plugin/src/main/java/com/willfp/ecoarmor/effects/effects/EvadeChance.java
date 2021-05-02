@@ -24,14 +24,10 @@ public class EvadeChance extends Effect<Double> {
 
         Player player = (Player) event.getEntity();
 
-        Double chance = this.getStrengthForPlayer(player);
-
-        if (chance == null) {
-            return;
-        }
-
-        if (NumberUtils.randFloat(0, 100) < chance) {
-            event.setCancelled(true);
-        }
+        this.applyIfEnabled(player, chance -> {
+            if (NumberUtils.randFloat(0, 100) < chance) {
+                event.setCancelled(true);
+            }
+        });
     }
 }

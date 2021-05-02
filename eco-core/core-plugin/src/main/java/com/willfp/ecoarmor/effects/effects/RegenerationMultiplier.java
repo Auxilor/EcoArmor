@@ -23,12 +23,6 @@ public class RegenerationMultiplier extends Effect<Double> {
 
         Player player = (Player) event.getEntity();
 
-        Double multiplier = this.getStrengthForPlayer(player);
-
-        if (multiplier == null) {
-            return;
-        }
-
-        event.setAmount(event.getAmount() * multiplier);
+        this.applyIfEnabled(player, multiplier -> event.setAmount(event.getAmount() * multiplier));
     }
 }

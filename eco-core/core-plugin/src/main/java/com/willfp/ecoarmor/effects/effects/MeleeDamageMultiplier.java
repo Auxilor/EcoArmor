@@ -23,12 +23,6 @@ public class MeleeDamageMultiplier extends Effect<Double> {
 
         Player attacker = (Player) event.getDamager();
 
-        Double multiplier = this.getStrengthForPlayer(attacker);
-
-        if (multiplier == null) {
-            return;
-        }
-
-        event.setDamage(event.getDamage() * multiplier);
+        this.applyIfEnabled(attacker, multiplier -> event.setDamage(event.getDamage() * multiplier));
     }
 }

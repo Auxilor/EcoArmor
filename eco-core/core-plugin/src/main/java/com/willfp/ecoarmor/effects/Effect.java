@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public abstract class Effect<T> implements Listener {
     /**
@@ -73,6 +74,22 @@ public abstract class Effect<T> implements Listener {
     @Nullable
     public final T getStrengthForPlayer(@NotNull final Player player) {
         return enabledPlayers.get(player.getUniqueId());
+    }
+
+    /**
+     * Apply effect if enabled for a player.
+     *
+     * @param player   The player.
+     * @param consumer The effect function.
+     */
+    public void applyIfEnabled(@NotNull final Player player,
+                               @NotNull final Consumer<T> consumer) {
+        T strength = getStrengthForPlayer(player);
+        if (strength == null) {
+            return;
+        } else {
+            consumer.accept(strength);
+        }
     }
 
     /**

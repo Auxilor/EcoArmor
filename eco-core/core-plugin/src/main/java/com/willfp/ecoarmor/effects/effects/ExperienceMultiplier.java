@@ -19,12 +19,6 @@ public class ExperienceMultiplier extends Effect<Double> {
             return;
         }
 
-        Double multiplier = this.getStrengthForPlayer(player);
-
-        if (multiplier == null) {
-            return;
-        }
-
-        event.getExpChangeEvent().setAmount((int) Math.ceil(event.getExpChangeEvent().getAmount() * multiplier));
+        this.applyIfEnabled(player, multiplier -> event.getExpChangeEvent().setAmount((int) Math.ceil(event.getExpChangeEvent().getAmount() * multiplier)));
     }
 }

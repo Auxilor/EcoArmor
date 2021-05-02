@@ -37,11 +37,6 @@ public class DamageMultiplier extends Effect<Double> {
             return;
         }
 
-        Double multiplier = this.getStrengthForPlayer(attacker);
-        if (multiplier == null) {
-            return;
-        }
-
-        event.setDamage(event.getDamage() * multiplier);
+        this.applyIfEnabled(attacker, multiplier -> event.setDamage(event.getDamage() * multiplier));
     }
 }

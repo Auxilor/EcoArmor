@@ -32,12 +32,6 @@ public class TridentDamageMultiplier extends Effect<Double> {
 
         Player player = (Player) shooter;
 
-        Double multiplier = this.getStrengthForPlayer(player);
-
-        if (multiplier == null) {
-            return;
-        }
-
-        event.setDamage(event.getDamage() * multiplier);
+        this.applyIfEnabled(player, multiplier -> event.setDamage(event.getDamage() * multiplier));
     }
 }
