@@ -19,6 +19,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,17 @@ public class ArmorUtils {
             return null;
         }
 
+        return getSetOnItem(meta);
+    }
+
+    /**
+     * Get armor set on an item.
+     *
+     * @param meta The itemStack to check.
+     * @return The set, or null if no set is found.
+     */
+    @Nullable
+    public ArmorSet getSetOnItem(@NotNull final ItemMeta meta) {
         PersistentDataContainer container = meta.getPersistentDataContainer();
         String setName = container.get(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING);
 
@@ -133,6 +145,17 @@ public class ArmorUtils {
             return null;
         }
 
+        return getCrystalTier(meta);
+    }
+
+    /**
+     * Get tier on upgrade crystal.
+     *
+     * @param meta The item to check.
+     * @return The found tier, or null.
+     */
+    @Nullable
+    public static Tier getCrystalTier(@NotNull final ItemMeta meta) {
         if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING)) {
             return Tiers.getByName(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING));
         }
@@ -154,7 +177,25 @@ public class ArmorUtils {
             return null;
         }
 
-        if (getSetOnItem(itemStack) == null) {
+        Tier tier = getTier(meta);
+
+        if (getSetOnItem(meta) != null && tier == null) {
+            setTier(itemStack, Tiers.DEFAULT);
+            return Tiers.DEFAULT;
+        } else {
+            return tier;
+        }
+    }
+
+    /**
+     * Get tier on item.
+     *
+     * @param meta The item to check.
+     * @return The found tier, or null if not found.
+     */
+    @Nullable
+    public static Tier getTier(@NotNull final ItemMeta meta) {
+        if (getSetOnItem(meta) == null) {
             return null;
         }
 
@@ -162,8 +203,7 @@ public class ArmorUtils {
             return Tiers.getByName(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING));
         }
 
-        setTier(itemStack, Tiers.DEFAULT);
-        return getTier(itemStack);
+        return null;
     }
 
     /**
@@ -290,6 +330,16 @@ public class ArmorUtils {
             return false;
         }
 
+        return isAdvanced(meta);
+    }
+
+    /**
+     * Get if item is advanced.
+     *
+     * @param meta The item to check.
+     * @return If advanced.
+     */
+    public static boolean isAdvanced(@NotNull final ItemMeta meta) {
         if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER)) {
             return meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER) == 1;
         }
@@ -334,6 +384,17 @@ public class ArmorUtils {
             return null;
         }
 
+        return getShardSet(meta);
+    }
+
+    /**
+     * Get the set from a shard.
+     *
+     * @param meta The item to check.
+     * @return The set, or null if not a shard.
+     */
+    @Nullable
+    public static ArmorSet getShardSet(@NotNull final ItemMeta meta) {
         String shardSet = meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING);
 
         if (shardSet == null) {

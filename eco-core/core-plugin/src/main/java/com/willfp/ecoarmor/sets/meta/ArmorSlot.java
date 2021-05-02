@@ -56,29 +56,24 @@ public enum ArmorSlot {
         }
 
         Material material = itemStack.getType();
-        String name = material.name().toLowerCase();
+        String[] split = material.name().toLowerCase().split("_");
+        String name = split[split.length - 1];
 
-        if (name.endsWith("helmet") || name.endsWith("head")) {
-            return HELMET;
+        switch (name) {
+            case "helmet":
+            case "head":
+                return HELMET;
+            case "chestplate":
+                return CHESTPLATE;
+            case "elytra":
+                return ELYTRA;
+            case "leggings":
+                return LEGGINGS;
+            case "boots":
+                return BOOTS;
+            default:
+                return null;
         }
-
-        if (name.endsWith("chestplate")) {
-            return CHESTPLATE;
-        }
-
-        if (name.endsWith("elytra")) {
-            return ELYTRA;
-        }
-
-        if (name.endsWith("leggings")) {
-            return LEGGINGS;
-        }
-
-        if (name.endsWith("boots")) {
-            return BOOTS;
-        }
-
-        return null;
     }
 
     /**

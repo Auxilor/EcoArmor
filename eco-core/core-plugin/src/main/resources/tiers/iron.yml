@@ -21,6 +21,8 @@ crystal-lore:
   - "&8Drop this onto an armor piece"
   - "&8to set its tier to:"
   - "&7&lIRON"
+  - ""
+  - "&8&oRequires the armor to already have default tier"
 properties:
   helmet:
     armor: 2

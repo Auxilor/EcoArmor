@@ -35,17 +35,17 @@ public class ArmorDisplay extends DisplayModule {
             return;
         }
 
-        ArmorSet set = ArmorUtils.getSetOnItem(itemStack);
+        ArmorSet set = ArmorUtils.getSetOnItem(meta);
 
         if (set == null) {
-            Tier crystalTier = ArmorUtils.getCrystalTier(itemStack);
+            Tier crystalTier = ArmorUtils.getCrystalTier(meta);
 
             if (crystalTier != null) {
                 meta.setLore(crystalTier.getCrystal().getItemMeta().getLore());
                 itemStack.setItemMeta(meta);
             }
 
-            ArmorSet shardSet = ArmorUtils.getShardSet(itemStack);
+            ArmorSet shardSet = ArmorUtils.getShardSet(meta);
 
             if (shardSet != null) {
                 itemStack.setItemMeta(shardSet.getAdvancementShardItem().getItemMeta());
@@ -61,7 +61,7 @@ public class ArmorDisplay extends DisplayModule {
 
         ItemStack slotStack;
 
-        if (ArmorUtils.isAdvanced(itemStack)) {
+        if (ArmorUtils.isAdvanced(meta)) {
             slotStack = set.getAdvancedItemStack(slot);
         } else {
             slotStack = set.getItemStack(slot);
@@ -69,7 +69,7 @@ public class ArmorDisplay extends DisplayModule {
         ItemMeta slotMeta = slotStack.getItemMeta();
         assert slotMeta != null;
 
-        Tier tier = ArmorUtils.getTier(itemStack);
+        Tier tier = ArmorUtils.getTier(meta);
 
         List<String> lore = new ArrayList<>();
 

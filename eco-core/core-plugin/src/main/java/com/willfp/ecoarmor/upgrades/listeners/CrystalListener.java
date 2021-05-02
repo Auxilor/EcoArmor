@@ -4,6 +4,7 @@ import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.PluginDependent;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import com.willfp.ecoarmor.upgrades.Tier;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,6 +32,10 @@ public class CrystalListener extends PluginDependent implements Listener {
      */
     @EventHandler
     public void onDrag(@NotNull final InventoryClickEvent event) {
+        if (event.getWhoClicked().getGameMode() == GameMode.CREATIVE) {
+            return;
+        }
+
         ItemStack current = event.getCurrentItem();
         ItemStack cursor = event.getCursor();
 
@@ -52,9 +57,7 @@ public class CrystalListener extends PluginDependent implements Listener {
         boolean allowed = false;
         List<Tier> prereq = crystalTier.getRequiredTiersForApplication();
 
-        if (prereq.isEmpty()) {
-            allowed = true;
-        } else if (prereq.contains(previousTier)) {
+        if (prereq.isEmpty() || prereq.contains(previousTier)) {
             allowed = true;
         }
 
