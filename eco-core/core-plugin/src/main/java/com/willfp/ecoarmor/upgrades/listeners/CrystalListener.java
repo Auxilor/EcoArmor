@@ -49,6 +49,10 @@ public class CrystalListener extends PluginDependent implements Listener {
             return;
         }
 
+        if (ArmorUtils.getSetOnItem(current) == null) {
+            return;
+        }
+
         if (current.getType() == Material.AIR) {
             return;
         }
