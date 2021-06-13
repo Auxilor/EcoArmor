@@ -238,51 +238,51 @@ public class ArmorUtils {
         int attackSpeed = tier.getProperties().get(slot).getAttackSpeed();
         int attackDamage = tier.getProperties().get(slot).getAttackDamage();
         int attackKnockback = tier.getProperties().get(slot).getAttackKnockback();
+        meta.removeAttributeModifier(Attribute.GENERIC_ARMOR);
+        meta.removeAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS);
+        meta.removeAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
+        meta.removeAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED);
+        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
+        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
+        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_KNOCKBACK);
 
         if (armor > 0) {
-            meta.removeAttributeModifier(Attribute.GENERIC_ARMOR);
             meta.addAttributeModifier(
                     Attribute.GENERIC_ARMOR,
                     new AttributeModifier(UUID.randomUUID(), "ecoarmor-armor", armor, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot())
             );
         }
         if (toughness > 0) {
-            meta.removeAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS);
             meta.addAttributeModifier(
                     Attribute.GENERIC_ARMOR_TOUGHNESS,
                     new AttributeModifier(UUID.randomUUID(), "ecoarmor-toughness", toughness, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot())
             );
         }
         if (knockback > 0) {
-            meta.removeAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
             meta.addAttributeModifier(
                     Attribute.GENERIC_KNOCKBACK_RESISTANCE,
                     new AttributeModifier(UUID.randomUUID(), "ecoarmor-knockback", (double) knockback / 10, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot())
             );
         }
         if (speed != 0) {
-            meta.removeAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED);
             meta.addAttributeModifier(
                     Attribute.GENERIC_MOVEMENT_SPEED,
                     new AttributeModifier(UUID.randomUUID(), "ecoarmor-speed", (double) speed / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot())
             );
         }
         if (attackSpeed != 0) {
-            meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
             meta.addAttributeModifier(
                     Attribute.GENERIC_ATTACK_SPEED,
                     new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackspeed", (double) attackSpeed / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot())
             );
         }
         if (attackDamage != 0) {
-            meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
             meta.addAttributeModifier(
                     Attribute.GENERIC_ATTACK_DAMAGE,
                     new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackdamage", (double) attackDamage / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot())
             );
         }
         if (attackKnockback != 0) {
-            meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_KNOCKBACK);
             meta.addAttributeModifier(
                     Attribute.GENERIC_ATTACK_KNOCKBACK,
                     new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackknockback", (double) attackKnockback / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot())
