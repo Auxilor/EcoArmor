@@ -59,21 +59,14 @@ public enum ArmorSlot {
         String[] split = material.name().toLowerCase().split("_");
         String name = split[split.length - 1];
 
-        switch (name) {
-            case "helmet":
-            case "head":
-                return HELMET;
-            case "chestplate":
-                return CHESTPLATE;
-            case "elytra":
-                return ELYTRA;
-            case "leggings":
-                return LEGGINGS;
-            case "boots":
-                return BOOTS;
-            default:
-                return null;
-        }
+        return switch (name) {
+            case "helmet", "head" -> HELMET;
+            case "chestplate" -> CHESTPLATE;
+            case "elytra" -> ELYTRA;
+            case "leggings" -> LEGGINGS;
+            case "boots" -> BOOTS;
+            default -> null;
+        };
     }
 
     /**
@@ -84,19 +77,13 @@ public enum ArmorSlot {
      */
     @Nullable
     public static ArmorSlot getSlot(@NotNull final String name) {
-        switch (name.toLowerCase()) {
-            case "helmet":
-                return HELMET;
-            case "chestplate":
-                return CHESTPLATE;
-            case "elytra":
-                return ELYTRA;
-            case "leggings":
-                return LEGGINGS;
-            case "boots":
-                return BOOTS;
-            default:
-                return null;
-        }
+        return switch (name.toLowerCase()) {
+            case "helmet" -> HELMET;
+            case "chestplate" -> CHESTPLATE;
+            case "elytra" -> ELYTRA;
+            case "leggings" -> LEGGINGS;
+            case "boots" -> BOOTS;
+            default -> null;
+        };
     }
 }
