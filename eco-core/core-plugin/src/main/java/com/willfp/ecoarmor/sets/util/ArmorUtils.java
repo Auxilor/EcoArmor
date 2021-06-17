@@ -178,8 +178,8 @@ public class ArmorUtils {
         Tier tier = getTier(meta);
 
         if (getSetOnItem(meta) != null && tier == null) {
-            setTier(itemStack, Tiers.DEFAULT);
-            return Tiers.DEFAULT;
+            setTier(itemStack, Tiers.getDefaultTier());
+            return Tiers.getDefaultTier();
         } else {
             return tier;
         }

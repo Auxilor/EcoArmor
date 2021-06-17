@@ -4,50 +4,27 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.willfp.eco.core.config.ConfigUpdater;
+import com.willfp.eco.core.config.JSONConfig;
 import com.willfp.ecoarmor.EcoArmorPlugin;
-import com.willfp.ecoarmor.config.BaseTierConfig;
-import com.willfp.ecoarmor.config.CustomConfig;
+import lombok.Getter;
 import lombok.experimental.UtilityClass;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 
 @UtilityClass
 public class Tiers {
-    /**
-     * Instance of EcoArmor.
-     */
-    private static final EcoArmorPlugin PLUGIN = EcoArmorPlugin.getInstance();
-
     /**
      * Registered tiers.
      */
     private static final BiMap<String, Tier> BY_NAME = HashBiMap.create();
 
     /**
-     * Tiers that exist by default.
-     */
-    private static final List<String> DEFAULT_TIER_NAMES = Arrays.asList(
-            "iron",
-            "diamond",
-            "netherite",
-            "manyullyn",
-            "cobalt",
-            "osmium",
-            "exotic"
-    );
-
-    /**
      * Default tier.
      */
-    public static final Tier DEFAULT = new Tier("default", new BaseTierConfig("default"), PLUGIN);
+    @Getter
+    private static Tier defaultTier;
 
     /**
      * Get {@link Tiers} matching name.
@@ -81,32 +58,21 @@ public class Tiers {
 
     /**
      * Update.
+     *
+     * @param plugin Instance of EcoArmor.
      */
     @ConfigUpdater
-    public static void reload() {
+    public static void reload(@NotNull final EcoArmorPlugin plugin) {
         BY_NAME.clear();
 
-        for (String defaultSetName : DEFAULT_TIER_NAMES) {
-            new Tier(defaultSetName, new BaseTierConfig(defaultSetName), PLUGIN);
+        for (JSONConfig tierConfig : plugin.getSetsJson().getSubsections("tiers")) {
+            addNewTier(new Tier(tierConfig, plugin));
         }
 
-        try {
-            Files.walk(Paths.get(new File(EcoArmorPlugin.getInstance().getDataFolder(), "tiers/").toURI()))
-                    .filter(Files::isRegularFile)
-                    .forEach(path -> {
-                        String name = path.getFileName().toString().replace(".yml", "");
-                        new Tier(
-                                name,
-                                new CustomConfig(name, YamlConfiguration.loadConfiguration(path.toFile())),
-                                PLUGIN
-                        );
-                    });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        defaultTier = Tiers.getByName("default");
     }
 
     static {
-        reload();
+        reload(EcoArmorPlugin.getInstance());
     }
 }

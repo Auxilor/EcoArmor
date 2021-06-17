@@ -16,11 +16,6 @@ import java.util.List;
 @UtilityClass
 public class ArmorSets {
     /**
-     * Instance of EcoArmor.
-     */
-    private static final EcoArmorPlugin PLUGIN = EcoArmorPlugin.getInstance();
-
-    /**
      * Registered armor sets.
      */
     private static final BiMap<String, ArmorSet> BY_NAME = HashBiMap.create();
@@ -47,15 +42,17 @@ public class ArmorSets {
 
     /**
      * Update all {@link ArmorSet}s.
+     *
+     * @param plugin Instance of EcoArmor.
      */
     @ConfigUpdater
-    public static void update() {
+    public static void update(@NotNull final EcoArmorPlugin plugin) {
         for (ArmorSet set : values()) {
             removeSet(set);
         }
 
-        for (JSONConfig setConfig : PLUGIN.getSetsJson().getSubsections("sets")) {
-            addNewSet(new ArmorSetFactory(setConfig).create());
+        for (JSONConfig setConfig : plugin.getSetsJson().getSubsections("sets")) {
+            addNewSet(new ArmorSet(setConfig, plugin));
         }
     }
 

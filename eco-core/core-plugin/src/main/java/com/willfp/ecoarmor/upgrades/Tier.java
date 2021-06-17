@@ -3,6 +3,7 @@ package com.willfp.ecoarmor.upgrades;
 import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.PluginDependent;
 import com.willfp.eco.core.config.Config;
+import com.willfp.eco.core.config.JSONConfig;
 import com.willfp.eco.core.display.Display;
 import com.willfp.eco.core.items.CustomItem;
 import com.willfp.eco.core.items.Items;
@@ -79,21 +80,15 @@ public class Tier extends PluginDependent {
     /**
      * Create a new Tier.
      *
-     * @param tierName The name of the tier.
-     * @param config   The config of the tier.
-     * @param plugin   Instance of EcoArmor.
+     * @param config The config of the tier.
+     * @param plugin Instance of EcoArmor.
      */
-    public Tier(@NotNull final String tierName,
-                @NotNull final Config config,
+    public Tier(@NotNull final JSONConfig config,
                 @NotNull final EcoPlugin plugin) {
         super(plugin);
-        this.name = tierName;
+        this.name = config.getString("name");
         this.config = config;
-        if (!this.config.getBool("enabled") && !this.getName().equalsIgnoreCase("default")) {
-            return;
-        }
 
-        Tiers.addNewTier(this);
         this.update();
     }
 

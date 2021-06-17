@@ -10,6 +10,7 @@ import com.willfp.ecoarmor.commands.CommandEareload;
 import com.willfp.ecoarmor.commands.TabcompleterEagive;
 import com.willfp.ecoarmor.conditions.Conditions;
 import com.willfp.ecoarmor.config.SetsJson;
+import com.willfp.ecoarmor.config.TiersJson;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
@@ -44,6 +45,12 @@ public class EcoArmorPlugin extends EcoPlugin {
     private final SetsJson setsJson;
 
     /**
+     * tiers.json.
+     */
+    @Getter
+    private final TiersJson tiersJson;
+
+    /**
      * Internal constructor called by bukkit on plugin load.
      */
     public EcoArmorPlugin() {
@@ -51,6 +58,7 @@ public class EcoArmorPlugin extends EcoPlugin {
         instance = this;
 
         this.setsJson = new SetsJson(this);
+        this.tiersJson = new TiersJson(this);
     }
 
     /**
