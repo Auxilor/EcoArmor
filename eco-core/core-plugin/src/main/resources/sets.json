@@ -513,6 +513,245 @@
           "air"
         ]
       }
+    },
+    {
+      "name": "reaper",
+      "conditions": [],
+      "set-bonus": [
+        {
+          "id": "damage-multiplier",
+          "args": 1.25
+        }
+      ],
+      "advanced-set-bonus": [
+        {
+          "id": "damage-taken-multiplier",
+          "args": 0.9
+        }
+      ],
+      "advanced-lore": [
+        "",
+        "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>",
+        "&8» &6Take 10% less damage",
+        "&8&oRequires full set to be worn"
+      ],
+      "advancement-shard-name": "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &cReaper",
+      "advancement-shard-lore": [
+        "&8Drop this onto &cReaper Armor",
+        "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+      ],
+      "shard-craftable": true,
+      "shard-recipe": [
+        "prismarine_shard",
+        "ecoarmor:set_reaper_helmet",
+        "prismarine_shard",
+        "ecoarmor:set_reaper_chestplate",
+        "nether_star",
+        "ecoarmor:set_reaper_leggings",
+        "prismarine_shard",
+        "ecoarmor:set_reaper_boots",
+        "prismarine_shard"
+      ],
+      "helmet": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": "4"
+          },
+          {
+            "id": "unbreaking",
+            "level": 3
+          }
+        ],
+        "material": "leather_helmet",
+        "leather-color": "#303030",
+        "name": "&cReaper Helmet",
+        "advanced-name": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Helmet",
+        "effective-durability": 2048,
+        "unbreakable": false,
+        "flags": [],
+        "custom-model-data": -1,
+        "lore": [
+          "&c&lREAPER SET BONUS",
+          "&8» &cDeal 25% more damage",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "default-tier": "default",
+        "recipe": [
+          "air",
+          "nether_star",
+          "air",
+          "nether_star",
+          "netherite_helmet",
+          "nether_star",
+          "air",
+          "nether_star",
+          "air"
+        ]
+      },
+      "chestplate": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": "4"
+          },
+          {
+            "id": "unbreaking",
+            "level": 3
+          }
+        ],
+        "material": "leather_chestplate",
+        "leather-color": "#303030",
+        "name": "&cReaper Chestplate",
+        "advanced-name": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Chestplate",
+        "effective-durability": 2048,
+        "unbreakable": false,
+        "flags": [],
+        "custom-model-data": -1,
+        "lore": [
+          "&c&lREAPER SET BONUS",
+          "&8» &cDeal 25% more damage",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "default-tier": "default",
+        "recipe": [
+          "air",
+          "nether_star",
+          "air",
+          "nether_star",
+          "netherite_chestplate",
+          "nether_star",
+          "air",
+          "nether_star",
+          "air"
+        ]
+      },
+      "elytra": {
+        "enchants": [
+          {
+            "id": "unbreaking",
+            "level": 3
+          }
+        ],
+        "material": "elytra",
+        "name": "&cReaper Elytra",
+        "advanced-name": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Elytra",
+        "effective-durability": 2048,
+        "unbreakable": false,
+        "flags": [],
+        "custom-model-data": -1,
+        "lore": [
+          "&c&lREAPER SET BONUS",
+          "&8» &cDeal 25% more damage",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "default-tier": "default",
+        "recipe": [
+          "air",
+          "nether_star",
+          "air",
+          "nether_star",
+          "elytra",
+          "nether_star",
+          "air",
+          "nether_star",
+          "air"
+        ]
+      },
+      "leggings": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": "4"
+          },
+          {
+            "id": "unbreaking",
+            "level": 3
+          }
+        ],
+        "material": "leather_leggings",
+        "leather-color": "#303030",
+        "name": "&cReaper Leggings",
+        "advanced-name": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Leggings",
+        "effective-durability": 2048,
+        "unbreakable": false,
+        "flags": [],
+        "custom-model-data": -1,
+        "lore": [
+          "&c&lREAPER SET BONUS",
+          "&8» &cDeal 25% more damage",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "default-tier": "default",
+        "recipe": [
+          "air",
+          "nether_star",
+          "air",
+          "nether_star",
+          "netherite_leggings",
+          "nether_star",
+          "air",
+          "nether_star",
+          "air"
+        ]
+      },
+      "boots": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": "4"
+          },
+          {
+            "id": "unbreaking",
+            "level": 3
+          }
+        ],
+        "material": "leather_boots",
+        "leather-color": "#303030",
+        "name": "&cReaper Boots",
+        "advanced-name": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Boots",
+        "effective-durability": 2048,
+        "unbreakable": false,
+        "flags": [],
+        "custom-model-data": -1,
+        "lore": [
+          "&c&lREAPER SET BONUS",
+          "&8» &cDeal 25% more damage",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "default-tier": "default",
+        "recipe": [
+          "air",
+          "nether_star",
+          "air",
+          "nether_star",
+          "netherite_boots",
+          "nether_star",
+          "air",
+          "nether_star",
+          "air"
+        ]
+      }
     }
   ]
 }
