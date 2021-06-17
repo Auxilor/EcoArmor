@@ -9,6 +9,7 @@ import com.willfp.ecoarmor.commands.CommandEagive;
 import com.willfp.ecoarmor.commands.CommandEareload;
 import com.willfp.ecoarmor.commands.TabcompleterEagive;
 import com.willfp.ecoarmor.conditions.Conditions;
+import com.willfp.ecoarmor.config.SetsJson;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
@@ -37,11 +38,19 @@ public class EcoArmorPlugin extends EcoPlugin {
     private static EcoArmorPlugin instance;
 
     /**
+     * sets.json.
+     */
+    @Getter
+    private final SetsJson setsJson;
+
+    /**
      * Internal constructor called by bukkit on plugin load.
      */
     public EcoArmorPlugin() {
         super("EcoArmor", 88246, 10002, "com.willfp.ecoarmor.proxy", "&c");
         instance = this;
+
+        this.setsJson = new SetsJson(this);
     }
 
     /**
