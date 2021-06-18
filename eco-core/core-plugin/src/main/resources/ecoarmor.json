@@ -859,13 +859,13 @@
     {
       "name": "miner",
       "conditions": [],
-      "set-bonus": [
+      "effects": [
         {
           "id": "experience-multiplier",
           "args": 1.25
         }
       ],
-      "advanced-set-bonus": [
+      "advanced-effects": [
         {
           "id": "hunger-loss-multiplier",
           "args": 0.5
@@ -1116,13 +1116,13 @@
     {
       "name": "reaper",
       "conditions": [],
-      "set-bonus": [
+      "effects": [
         {
           "id": "damage-multiplier",
           "args": 1.25
         }
       ],
-      "advanced-set-bonus": [
+      "advanced-effects": [
         {
           "id": "damage-taken-multiplier",
           "args": 0.9
@@ -1360,13 +1360,13 @@
           "args": 50
         }
       ],
-      "set-bonus": [
+      "effects": [
         {
           "id": "speed-multiplier",
           "args": 1.25
         }
       ],
-      "advanced-set-bonus": [
+      "advanced-effects": [
         {
           "id": "speed-multiplier",
           "args": 1.5
