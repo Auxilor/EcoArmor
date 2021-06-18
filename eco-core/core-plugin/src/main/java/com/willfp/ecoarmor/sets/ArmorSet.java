@@ -126,16 +126,10 @@ public class ArmorSet {
         this.plugin = plugin;
         this.name = config.getString("name");
 
-        for (String definedKey : this.getConfig().getStrings("conditions")) {
-            String[] split = definedKey.split(":");
-            String key = split[0].trim();
-            String value = split[1].trim();
-            Condition<?> condition = Conditions.getByName(key);
-            if (condition == null) {
-                Bukkit.getLogger().warning("Invalid condition specified in " + this.name);
-            } else {
-                conditions.put(condition, ArmorUtils.getConditionValue(value, condition));
-            }
+        for (JSONConfig cfg : this.getConfig().getSubsections("conditions")) {
+            Condition<?> effect = Conditions.getByName(cfg.getString("id"));
+            Object value = cfg.get("args");
+            conditions.put(effect, value);
         }
 
         for (JSONConfig cfg : this.getConfig().getSubsections("effects")) {

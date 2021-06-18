@@ -401,30 +401,4 @@ public class ArmorUtils {
 
         return ArmorSets.getByName(shardSet);
     }
-
-    /**
-     * Get value of condition.
-     *
-     * @param string    Value as string.
-     * @param condition Condition.
-     * @param <T>       The type of the condition.
-     * @return Value.
-     */
-    @NotNull
-    public static <T> Object getConditionValue(@NotNull final String string,
-                                               @NotNull final Condition<T> condition) {
-        if (condition.getTypeClass().equals(Boolean.class)) {
-            return Boolean.parseBoolean(string);
-        }
-
-        if (condition.getTypeClass().equals(Integer.class)) {
-            return Integer.parseInt(string);
-        }
-
-        if (condition.getTypeClass().equals(Double.class)) {
-            return Double.parseDouble(string);
-        }
-
-        return string;
-    }
 }
