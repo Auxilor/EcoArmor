@@ -5,12 +5,12 @@ import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.command.AbstractCommand;
 import com.willfp.eco.core.display.DisplayModule;
 import com.willfp.eco.core.integrations.IntegrationLoader;
+import com.willfp.ecoarmor.commands.CommandEaeditor;
 import com.willfp.ecoarmor.commands.CommandEagive;
 import com.willfp.ecoarmor.commands.CommandEareload;
 import com.willfp.ecoarmor.commands.TabcompleterEagive;
 import com.willfp.ecoarmor.conditions.Conditions;
-import com.willfp.ecoarmor.config.SetsJson;
-import com.willfp.ecoarmor.config.TiersJson;
+import com.willfp.ecoarmor.config.EcoArmorJson;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.effects.Effects;
@@ -39,16 +39,10 @@ public class EcoArmorPlugin extends EcoPlugin {
     private static EcoArmorPlugin instance;
 
     /**
-     * sets.json.
-     */
-    @Getter
-    private final SetsJson setsJson;
-
-    /**
      * tiers.json.
      */
     @Getter
-    private final TiersJson tiersJson;
+    private final EcoArmorJson ecoArmorJson;
 
     /**
      * Internal constructor called by bukkit on plugin load.
@@ -57,8 +51,7 @@ public class EcoArmorPlugin extends EcoPlugin {
         super("EcoArmor", 88246, 10002, "com.willfp.ecoarmor.proxy", "&c");
         instance = this;
 
-        this.setsJson = new SetsJson(this);
-        this.tiersJson = new TiersJson(this);
+        this.ecoArmorJson = new EcoArmorJson(this);
     }
 
     /**
@@ -133,7 +126,8 @@ public class EcoArmorPlugin extends EcoPlugin {
     public List<AbstractCommand> getCommands() {
         return Arrays.asList(
                 new CommandEareload(this),
-                new CommandEagive(this)
+                new CommandEagive(this),
+                new CommandEaeditor(this)
         );
     }
 

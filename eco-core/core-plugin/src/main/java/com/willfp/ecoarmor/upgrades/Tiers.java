@@ -65,7 +65,7 @@ public class Tiers {
     public static void reload(@NotNull final EcoArmorPlugin plugin) {
         BY_NAME.clear();
 
-        for (JSONConfig tierConfig : plugin.getTiersJson().getSubsections("tiers")) {
+        for (JSONConfig tierConfig : plugin.getEcoArmorJson().getSubsections("tiers")) {
             addNewTier(new Tier(tierConfig, plugin));
         }
 

@@ -51,7 +51,7 @@ public class ArmorSets {
             removeSet(set);
         }
 
-        for (JSONConfig setConfig : plugin.getSetsJson().getSubsections("sets")) {
+        for (JSONConfig setConfig : plugin.getEcoArmorJson().getSubsections("sets")) {
             addNewSet(new ArmorSet(setConfig, plugin));
         }
     }
