@@ -1159,7 +1159,7 @@
         "enchants": [
           {
             "id": "protection",
-            "level": "4"
+            "level": 4
           },
           {
             "id": "unbreaking",
@@ -1200,7 +1200,7 @@
         "enchants": [
           {
             "id": "protection",
-            "level": "4"
+            "level": 4
           },
           {
             "id": "unbreaking",
@@ -1277,7 +1277,7 @@
         "enchants": [
           {
             "id": "protection",
-            "level": "4"
+            "level": 4
           },
           {
             "id": "unbreaking",
@@ -1318,7 +1318,7 @@
         "enchants": [
           {
             "id": "protection",
-            "level": "4"
+            "level": 4
           },
           {
             "id": "unbreaking",
