@@ -1128,6 +1128,10 @@
           "args": 0.9
         }
       ],
+      "potion-effects": [
+      ],
+      "advanced-potion-effects": [
+      ],
       "advanced-lore": [
         "",
         "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>",
@@ -1371,6 +1375,8 @@
           "id": "speed-multiplier",
           "args": 1.5
         }
+      ],
+      "potion-effects": [
       ],
       "advanced-potion-effects": [
         {
