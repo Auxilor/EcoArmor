@@ -138,19 +138,19 @@ public class ArmorSet {
             effects.put(effect, value);
         }
 
-        for (JSONConfig cfg : this.getConfig().getSubsections("advanced-effects")) {
+        for (JSONConfig cfg : this.getConfig().getSubsections("advancedEffects")) {
             Effect<?> effect = Effects.getByName(cfg.getString("id"));
             Object value = cfg.get("args");
             advancedEffects.put(effect, value);
         }
 
-        for (JSONConfig cfg : this.getConfig().getSubsections("potion-effects")) {
+        for (JSONConfig cfg : this.getConfig().getSubsections("potionEffects")) {
             PotionEffectType effect = PotionEffectType.getByName(cfg.getString("id").toUpperCase());
             int level = cfg.getInt("level");
             potionEffects.put(effect, level);
         }
 
-        for (JSONConfig cfg : this.getConfig().getSubsections("advanced-potion-effects")) {
+        for (JSONConfig cfg : this.getConfig().getSubsections("advancedPotionEffects")) {
             PotionEffectType effect = PotionEffectType.getByName(cfg.getString("id").toUpperCase());
             int level = cfg.getInt("level");
             advancedPotionEffects.put(effect, level);
@@ -171,19 +171,19 @@ public class ArmorSet {
     }
 
     private ItemStack constructShard() {
-        ItemStack shard = new ItemStackBuilder(Objects.requireNonNull(Material.getMaterial(this.getPlugin().getConfigYml().getString("advancement-shard-material").toUpperCase())))
-                .setDisplayName(this.getConfig().getString("advancement-shard-name"))
+        ItemStack shard = new ItemStackBuilder(Objects.requireNonNull(Material.getMaterial(this.getPlugin().getConfigYml().getString("advancementShardMaterial").toUpperCase())))
+                .setDisplayName(this.getConfig().getString("advancementShardName"))
                 .addEnchantment(Enchantment.DURABILITY, 3)
                 .addItemFlag(ItemFlag.HIDE_ENCHANTS)
-                .addLoreLines(this.getConfig().getStrings("advancement-shard-lore"))
-                .writeMetaKey(this.getPlugin().getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING, name)
+                .addLoreLines(this.getConfig().getStrings("advancementShardLore"))
+                .writeMetaKey(this.getPlugin().getNamespacedKeyFactory().create("advancementShard"), PersistentDataType.STRING, name)
                 .build();
 
-        if (this.getConfig().getBool("shard-craftable")) {
+        if (this.getConfig().getBool("shardCraftable")) {
             Recipes.createAndRegisterRecipe(this.getPlugin(),
                     this.getName() + "_shard",
                     shard,
-                    this.getConfig().getStrings("shard-recipe"));
+                    this.getConfig().getStrings("shardRecipe"));
         }
 
         return shard;
@@ -204,7 +204,7 @@ public class ArmorSet {
             default -> new ItemStackBuilder(material);
         };
 
-        builder.setDisplayName(advanced ? slotConfig.getString("advanced-name") : slotConfig.getString("name"))
+        builder.setDisplayName(advanced ? slotConfig.getString("advancedName") : slotConfig.getString("name"))
                 .addItemFlag(
                         slotConfig.getStrings("flags").stream()
                                 .map(s -> ItemFlag.valueOf(s.toUpperCase()))
@@ -214,25 +214,25 @@ public class ArmorSet {
                 .addLoreLines(slotConfig.getStrings("lore").stream().map(s -> Display.PREFIX + s).collect(Collectors.toList()))
                 .addLoreLines(() -> {
                     if (advanced) {
-                        return slotConfig.getStrings("advanced-lore").stream().map(s -> Display.PREFIX + s).collect(Collectors.toList());
+                        return slotConfig.getStrings("advancedLore").stream().map(s -> Display.PREFIX + s).collect(Collectors.toList());
                     } else {
                         return null;
                     }
                 })
                 .setCustomModelData(() -> {
-                    int data = slotConfig.getInt("custom-model-data");
+                    int data = slotConfig.getInt("customModelData");
                     return data != -1 ? data : null;
                 })
-                .setDisplayName(() -> advanced ? slotConfig.getString("advanced-name") : slotConfig.getString("name"));
+                .setDisplayName(() -> advanced ? slotConfig.getString("advancedName") : slotConfig.getString("name"));
 
 
         if (builder instanceof SkullBuilder skullBuilder) {
-            this.skullBase64 = slotConfig.getString("skull-texture");
+            this.skullBase64 = slotConfig.getString("skullTexture");
             skullBuilder.setSkullTexture(skullBase64);
         }
 
         if (builder instanceof LeatherArmorBuilder leatherArmorBuilder) {
-            String colorString = slotConfig.getString("leather-color");
+            String colorString = slotConfig.getString("leatherColor");
             java.awt.Color awtColor = java.awt.Color.decode(colorString);
             leatherArmorBuilder.setColor(awtColor);
             builder.addItemFlag(ItemFlag.HIDE_DYE);
@@ -256,13 +256,13 @@ public class ArmorSet {
         ).writeMetaKey(
                 this.getPlugin().getNamespacedKeyFactory().create("effective-durability"),
                 PersistentDataType.INTEGER,
-                slotConfig.getInt("effective-durability")
+                slotConfig.getInt("effectiveDurability")
         );
 
         ItemStack itemStack = builder.build();
 
         ArmorUtils.setAdvanced(itemStack, advanced);
-        Tier defaultTier = Tiers.getByName(slotConfig.getString("default-tier"));
+        Tier defaultTier = Tiers.getByName(slotConfig.getString("defaultTier"));
         if (defaultTier == null) {
             Bukkit.getLogger().warning("Default tier specified in " + this.name + " " + slot.name().toLowerCase() + " is invalid! Defaulting to 'default'");
             ArmorUtils.setTier(itemStack, Tiers.getDefaultTier());
