@@ -3,7 +3,7 @@
     {
       "name": "default",
       "display": "&8&lDEFAULT",
-      "requires-tiers": [],
+      "requiresTiers": [],
       "crystalCraftable": false,
       "crystalName": "&8Default Upgrade Crystal",
       "crystalRecipe": [
@@ -74,7 +74,7 @@
     {
       "name": "iron",
       "display": "&7&lIRON",
-      "requires-tiers": [
+      "requiresTiers": [
         "default"
       ],
       "crystalCraftable": true,
