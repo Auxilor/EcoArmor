@@ -11,7 +11,9 @@ import org.bukkit.enchantments.Enchantment;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CommandEaeditor extends AbstractCommand {
@@ -29,7 +31,9 @@ public class CommandEaeditor extends AbstractCommand {
                           @NotNull final List<String> args) {
         JSONConfig config = ((EcoArmorPlugin) this.getPlugin()).getEcoArmorJson().clone();
         List<String> enchantKeys = Arrays.stream(Enchantment.values()).map(Enchantment::getKey).map(NamespacedKey::getKey).collect(Collectors.toList());
-        config.set("meta.enchants", enchantKeys);
+        Map<String, Object> meta = new HashMap<>();
+        meta.put("enchants", enchantKeys);
+        config.set("meta", meta);
         String token = new Paste(config.toPlaintext()).getHastebinToken();
         String message = this.getPlugin().getLangYml().getMessage("open-editor")
                 .replace("%url%", "https://auxilor.io/editor/ecoarmor?token=" + token);
