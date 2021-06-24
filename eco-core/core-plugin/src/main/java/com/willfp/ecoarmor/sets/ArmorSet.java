@@ -171,7 +171,7 @@ public class ArmorSet {
     }
 
     private ItemStack constructShard() {
-        ItemStack shard = new ItemStackBuilder(Objects.requireNonNull(Material.getMaterial(this.getPlugin().getConfigYml().getString("advancementShardMaterial").toUpperCase())))
+        ItemStack shard = new ItemStackBuilder(Objects.requireNonNull(Material.getMaterial(this.getPlugin().getConfigYml().getString("advancement-shard-material").toUpperCase())))
                 .setDisplayName(this.getConfig().getString("advancementShardName"))
                 .addEnchantment(Enchantment.DURABILITY, 3)
                 .addItemFlag(ItemFlag.HIDE_ENCHANTS)
