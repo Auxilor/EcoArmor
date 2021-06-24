@@ -101,7 +101,7 @@ public class Tier extends PluginDependent {
         this.requiredTiersForApplication = this.getConfig().getStrings("requiresTiers");
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal");
 
-        ItemStack out = new ItemStack(Objects.requireNonNull(Material.getMaterial(this.getPlugin().getConfigYml().getString("upgradeCrystalMaterial").toUpperCase())));
+        ItemStack out = new ItemStack(Objects.requireNonNull(Material.getMaterial(this.getPlugin().getConfigYml().getString("upgrade-crystal-material").toUpperCase())));
         ItemMeta outMeta = out.getItemMeta();
         assert outMeta != null;
         PersistentDataContainer container = outMeta.getPersistentDataContainer();
