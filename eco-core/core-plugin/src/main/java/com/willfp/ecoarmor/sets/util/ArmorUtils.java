@@ -231,13 +231,13 @@ public class ArmorUtils {
             return;
         }
 
-        int armor = tier.getProperties().get(slot).getArmor();
-        int toughness = tier.getProperties().get(slot).getToughness();
-        int knockback = tier.getProperties().get(slot).getKnockback();
-        int speed = tier.getProperties().get(slot).getSpeed();
-        int attackSpeed = tier.getProperties().get(slot).getAttackSpeed();
-        int attackDamage = tier.getProperties().get(slot).getAttackDamage();
-        int attackKnockback = tier.getProperties().get(slot).getAttackKnockback();
+        int armor = tier.getProperties().get(slot).armor();
+        int toughness = tier.getProperties().get(slot).toughness();
+        int knockback = tier.getProperties().get(slot).knockback();
+        int speed = tier.getProperties().get(slot).speed();
+        int attackSpeed = tier.getProperties().get(slot).attackSpeed();
+        int attackDamage = tier.getProperties().get(slot).attackDamage();
+        int attackKnockback = tier.getProperties().get(slot).attackKnockback();
         meta.removeAttributeModifier(Attribute.GENERIC_ARMOR);
         meta.removeAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS);
         meta.removeAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
