@@ -1,0 +1,1633 @@
+{
+  "tiers": [
+    {
+      "name": "default",
+      "display": "&8&lDEFAULT",
+      "requiresTiers": [],
+      "crystal": {
+        "craftable": false,
+        "name": "&8Default Upgrade Crystal",
+        "recipe": [
+          "air",
+          "leather",
+          "air",
+          "leather",
+          "leather_chestplate",
+          "leather",
+          "air",
+          "leather",
+          "air"
+        ],
+        "giveAmount": 1,
+        "lore": [
+          "&8Drop this onto an armor piece",
+          "&8to set its tier to:",
+          "&8&lDEFAULT"
+        ]
+      },
+      "properties": {
+        "helmet": {
+          "armor": 1,
+          "toughness": 0,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "chestplate": {
+          "armor": 3,
+          "toughness": 0,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "elytra": {
+          "armor": 0,
+          "toughness": 0,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedpercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "leggings": {
+          "armor": 2,
+          "toughness": 0,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "boots": {
+          "armor": 1,
+          "toughness": 0,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        }
+      }
+    },
+    {
+      "name": "iron",
+      "display": "&7&lIRON",
+      "requiresTiers": [
+        "default"
+      ],
+      "crystal": {
+        "craftable": true,
+        "name": "&7Iron Upgrade Crystal",
+        "recipe": [
+          "air",
+          "iron_block",
+          "air",
+          "iron_block",
+          "leather_chestplate",
+          "iron_block",
+          "air",
+          "iron_block",
+          "air"
+        ],
+        "giveAmount": 1,
+        "lore": [
+          "&8Drop this onto an armor piece",
+          "&8to set its tier to:",
+          "&7&lIRON",
+          "",
+          "&8&oRequires the armor to already have default tier"
+        ]
+      },
+      "properties": {
+        "helmet": {
+          "armor": 2,
+          "toughness": 0,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "chestplate": {
+          "armor": 6,
+          "toughness": 0,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "elytra": {
+          "armor": 2,
+          "toughness": 0,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "leggings": {
+          "armor": 5,
+          "toughness": 0,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "boots": {
+          "armor": 2,
+          "toughness": 0,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        }
+      }
+    },
+    {
+      "name": "diamond",
+      "display": "&b&lDIAMOND",
+      "requiresTiers": [
+        "iron"
+      ],
+      "crystal": {
+        "craftable": true,
+        "name": "&bDiamond Upgrade Crystal",
+        "recipe": [
+          "air",
+          "diamond_block",
+          "air",
+          "diamond_block",
+          "ecoarmor:upgrade_crystal_iron",
+          "diamond_block",
+          "air",
+          "diamond_block",
+          "air"
+        ],
+        "giveAmount": 1,
+        "lore": [
+          "&8Drop this onto an armor piece",
+          "&8to set its tier to:",
+          "&b&lDIAMOND",
+          "",
+          "&8&oRequires the armor to already have Iron tier"
+        ]
+      },
+      "properties": {
+        "helmet": {
+          "armor": 3,
+          "toughness": 2,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "chestplate": {
+          "armor": 8,
+          "toughness": 2,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "elytra": {
+          "armor": 3,
+          "toughness": 0,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "leggings": {
+          "armor": 6,
+          "toughness": 2,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "boots": {
+          "armor": 3,
+          "toughness": 2,
+          "knockbackResistance": 0,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        }
+      }
+    },
+    {
+      "name": "netherite",
+      "display": "&c&lNETHERITE",
+      "requiresTiers": [
+        "diamond"
+      ],
+      "crystal": {
+        "craftable": true,
+        "name": "&cNetherite Upgrade Crystal",
+        "recipe": [
+          "air",
+          "netherite_ingot",
+          "air",
+          "netherite_ingot",
+          "ecoarmor:upgrade_crystal_diamond",
+          "netherite_ingot",
+          "air",
+          "netherite_ingot",
+          "air"
+        ],
+        "giveAmount": 1,
+        "lore": [
+          "&8Drop this onto an armor piece",
+          "&8to set its tier to:",
+          "&c&lNETHERITE",
+          "",
+          "&8&oRequires the armor to already have Diamond tier"
+        ]
+      },
+      "properties": {
+        "helmet": {
+          "armor": 3,
+          "toughness": 3,
+          "knockbackResistance": 1,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "chestplate": {
+          "armor": 8,
+          "toughness": 3,
+          "knockbackResistance": 1,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "elytra": {
+          "armor": 3,
+          "toughness": 0,
+          "knockbackResistance": 1,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "leggings": {
+          "armor": 6,
+          "toughness": 3,
+          "knockbackResistance": 1,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "boots": {
+          "armor": 3,
+          "toughness": 3,
+          "knockbackResistance": 1,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        }
+      }
+    },
+    {
+      "name": "manyullyn",
+      "enabled": true,
+      "display": "&d&k!!&r <GRADIENT:f953c6>&lMANYULLYN</GRADIENT:b91d73>&r &d&k!!&r",
+      "requiresTiers": [
+        "netherite"
+      ],
+      "crystal": {
+        "craftable": true,
+        "name": "<GRADIENT:f953c6>Manyullyn Upgrade Crystal</GRADIENT:b91d73>",
+        "recipe": [
+          "ecoarmor:upgrade_crystal_netherite",
+          "enchanted_golden_apple",
+          "ecoarmor:upgrade_crystal_netherite",
+          "enchanted_golden_apple",
+          "ecoarmor:upgrade_crystal_netherite",
+          "enchanted_golden_apple",
+          "ecoarmor:upgrade_crystal_netherite",
+          "enchanted_golden_apple",
+          "ecoarmor:upgrade_crystal_netherite"
+        ],
+        "giveAmount": 1,
+        "lore": [
+          "&8Drop this onto an armor piece",
+          "&8to set its tier to:",
+          "&d&k!!&r <GRADIENT:f953c6>&lMANYULLYN</GRADIENT:b91d73>&r &d&k!!&r",
+          "",
+          "&8&oRequires the armor to already have Netherite tier"
+        ]
+      },
+      "properties": {
+        "helmet": {
+          "armor": 3,
+          "toughness": 5,
+          "knockbackResistance": 2,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "chestplate": {
+          "armor": 8,
+          "toughness": 5,
+          "knockbackResistance": 2,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "elytra": {
+          "armor": 3,
+          "toughness": 0,
+          "knockbackResistance": 2,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "leggings": {
+          "armor": 6,
+          "toughness": 5,
+          "knockbackResistance": 2,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        },
+        "boots": {
+          "armor": 3,
+          "toughness": 5,
+          "knockbackResistance": 2,
+          "speedPercentage": 0,
+          "attackSpeedPercentage": 0,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 0
+        }
+      }
+    },
+    {
+      "name": "cobalt",
+      "display": "&#0047ab&lCOBALT",
+      "requiresTiers": [
+        "iron"
+      ],
+      "crystal": {
+        "craftable": true,
+        "name": "&#0047abCobalt Upgrade Crystal",
+        "recipe": [
+          "air",
+          "obsidian",
+          "air",
+          "obsidian",
+          "ecoarmor:upgrade_crystal_iron",
+          "obsidian",
+          "air",
+          "obsidian",
+          "air"
+        ],
+        "giveAmount": 1,
+        "lore": [
+          "&8Drop this onto an armor piece",
+          "&8to set its tier to:",
+          "&#0047ab&lCOBALT",
+          "",
+          "&8&oRequires the armor to already have Iron tier"
+        ]
+      },
+      "properties": {
+        "helmet": {
+          "armor": 3,
+          "toughness": 4,
+          "knockbackResistance": 1,
+          "speedPercentage": -10,
+          "attackSpeedPercentage": -10,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 10
+        },
+        "chestplate": {
+          "armor": 8,
+          "toughness": 4,
+          "knockbackResistance": 1,
+          "speedPercentage": -10,
+          "attackSpeedPercentage": -10,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 10
+        },
+        "elytra": {
+          "armor": 6,
+          "toughness": 2,
+          "knockbackResistance": 1,
+          "speedPercentage": -10,
+          "attackSpeedPercentage": -10,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 10
+        },
+        "leggings": {
+          "armor": 6,
+          "toughness": 4,
+          "knockbackResistance": 1,
+          "speedPercentage": -10,
+          "attackSpeedPercentage": -1,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 10
+        },
+        "boots": {
+          "armor": 3,
+          "toughness": 4,
+          "knockbackResistance": 1,
+          "speedPercentage": -10,
+          "attackSpeedPercentage": -10,
+          "attackDamagePercentage": 0,
+          "attackKnockbackPercentage": 10
+        }
+      }
+    },
+    {
+      "name": "osmium",
+      "display": "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!",
+      "requiresTiers": [
+        "cobalt"
+      ],
+      "crystal": {
+        "craftable": true,
+        "name": "<GRADIENT:c7f1ff>Osmium upgrade crystal</GRADIENT:5c92ff>",
+        "recipe": [
+          "air",
+          "netherite_block",
+          "air",
+          "netherite_block",
+          "ecoarmor:upgrade_crystal_cobalt",
+          "netherite_block",
+          "air",
+          "netherite_block",
+          "air"
+        ],
+        "giveAmount": 1,
+        "lore": [
+          "&8Drop this onto an armor piece",
+          "&8to set its tier to:",
+          "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!",
+          "",
+          "&8&oRequires the armor to already have Cobalt tier"
+        ]
+      },
+      "properties": {
+        "helmet": {
+          "armor": 3,
+          "toughness": 6,
+          "knockbackResistance": 3,
+          "speedPercentage": -15,
+          "attackSpeedPercentage": -15,
+          "attackDamagePercentage": 5,
+          "attackKnockbackPercentage": 25
+        },
+        "chestplate": {
+          "armor": 8,
+          "toughness": 6,
+          "knockbackResistance": 3,
+          "speedPercentage": -15,
+          "attackSpeedPercentage": -15,
+          "attackDamagePercentage": 5,
+          "attackKnockbackPercentage": 25
+        },
+        "elytra": {
+          "armor": 8,
+          "toughness": 6,
+          "knockbackResistance": 3,
+          "speedPercentage": -15,
+          "attackSpeedPercentage": -15,
+          "attackDamagePercentage": 5,
+          "attackKnockbackPercentage": 25
+        },
+        "leggings": {
+          "armor": 6,
+          "toughness": 6,
+          "knockbackResistance": 3,
+          "speedPercentage": -15,
+          "attackSpeedPercentage": -15,
+          "attackDamagePercentage": 5,
+          "attackKnockbackPercentage": 25
+        },
+        "boots": {
+          "armor": 3,
+          "toughness": 6,
+          "knockbackResistance": 3,
+          "speedPercentage": -15,
+          "attackSpeedPercentage": -15,
+          "attackDamagePercentage": 5,
+          "attackKnockbackPercentage": 25
+        }
+      }
+    },
+    {
+      "name": "exotic",
+      "display": "&6&k!!&r <GRADIENT:f79d00>&lEXOTIC</GRADIENT:64f38c>&r &6&k!!&r",
+      "requiresTiers": [
+        "netherite"
+      ],
+      "crystal": {
+        "craftable": true,
+        "name": "<GRADIENT:f79d00>Exotic Upgrade Crystal</GRADIENT:64f38c>",
+        "recipe": [
+          "ecoarmor:upgrade_crystal_netherite",
+          "turtle_egg",
+          "ecoarmor:upgrade_crystal_netherite",
+          "turtle_egg",
+          "ecoarmor:upgrade_crystal_cobalt",
+          "turtle_egg",
+          "ecoarmor:upgrade_crystal_netherite",
+          "turtle_egg",
+          "ecoarmor:upgrade_crystal_netherite"
+        ],
+        "giveAmount": 1,
+        "lore": [
+          "&8Drop this onto an armor piece",
+          "&8to set its tier to:",
+          "&6&k!!&r <GRADIENT:f79d00>&lEXOTIC</GRADIENT:64f38c>&r &6&k!!&r",
+          "",
+          "&8&oRequires the armor to already have Netherite tier"
+        ]
+      },
+      "properties": {
+        "helmet": {
+          "armor": 3,
+          "toughness": 2,
+          "knockbackResistance": 0,
+          "speedPercentage": 5,
+          "attackSpeedPercentage": 10,
+          "attackDamagePercentage": -5,
+          "attackKnockbackPercentage": -20
+        },
+        "chestplate": {
+          "armor": 8,
+          "toughness": 2,
+          "knockbackResistance": 0,
+          "speedPercentage": 5,
+          "attackSpeedPercentage": 10,
+          "attackDamagePercentage": -5,
+          "attackKnockbackPercentage": -20
+        },
+        "elytra": {
+          "armor": 3,
+          "toughness": 0,
+          "knockbackResistance": 0,
+          "speedPercentage": 5,
+          "attackSpeedPercentage": 10,
+          "attackDamagePercentage": -5,
+          "attackKnockbackPercentage": -20
+        },
+        "leggings": {
+          "armor": 6,
+          "toughness": 2,
+          "knockbackResistance": 0,
+          "speedPercentage": 5,
+          "attackSpeedPercentage": 10,
+          "attackDamagePercentage": -5,
+          "attackKnockbackPercentage": -20
+        },
+        "boots": {
+          "armor": 3,
+          "toughness": 2,
+          "knockbackResistance": 0,
+          "speedPercentage": 5,
+          "attackSpeedPercentage": 10,
+          "attackDamagePercentage": -5,
+          "attackKnockbackPercentage": -20
+        }
+      }
+    }
+  ],
+  "sets": [
+    {
+      "name": "ender",
+      "conditions": [],
+      "effects": [
+        {
+          "id": "warp-chance",
+          "args": 20
+        },
+        {
+          "id": "evade-chance",
+          "args": 10
+        }
+      ],
+      "advancedEffects": [
+        {
+          "id": "warp-chance",
+          "args": 30
+        },
+        {
+          "id": "evade-chance",
+          "args": 20
+        }
+      ],
+      "potionEffects": [
+      ],
+      "advancedPotionEffects": [
+      ],
+      "advancedLore": [
+        "",
+        "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>",
+        "&8» &330% Chance to warp behind your opponent",
+        "&8» &320% Chance to evade attacks",
+        "&8&oRequires full set to be worn"
+      ],
+      "advancementShardName": "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &3Ender",
+      "advancementShardLore": [
+        "&8Drop this onto &3Ender Armor",
+        "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+      ],
+      "shardCraftable": true,
+      "shardRecipe": [
+        "prismarine_shard",
+        "ecoarmor:set_ender_helmet",
+        "prismarine_shard",
+        "ecoarmor:set_ender_chestplate",
+        "nether_star",
+        "ecoarmor:set_ender_leggings",
+        "prismarine_shard",
+        "ecoarmor:set_ender_boots",
+        "prismarine_shard"
+      ],
+      "helmet": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 3
+          },
+          {
+            "id": "unbreaking",
+            "level": 1
+          }
+        ],
+        "material": "player_head",
+        "skullTexture": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGFhOGZjOGRlNjQxN2I0OGQ0OGM4MGI0NDNjZjUzMjZlM2Q5ZGE0ZGJlOWIyNWZjZDQ5NTQ5ZDk2MTY4ZmMwIn19fQ==",
+        "name": "&bEnder Helmet",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&3 Ender Helmet",
+        "effectiveDurability": 1024,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&3&lENDER SET BONUS",
+          "&8» &320% Chance to warp behind your opponent",
+          "&8» &310% Chance to evade attacks",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "iron_helmet",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye"
+        ]
+      },
+      "chestplate": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 3
+          },
+          {
+            "id": "unbreaking",
+            "level": 1
+          }
+        ],
+        "material": "leather_chestplate",
+        "leatherColor": "#0d6961",
+        "name": "&3Ender Chestplate",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&3 Ender Chestplate",
+        "effectiveDurability": 1024,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&3&lENDER SET BONUS",
+          "&8» &320% Chance to warp behind your opponent",
+          "&8» &310% Chance to evade attacks",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "diamond",
+        "recipe": [
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "iron_chestplate",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye"
+        ]
+      },
+      "elytra": {
+        "enchants": [
+          {
+            "id": "unbreaking",
+            "level": 1
+          }
+        ],
+        "material": "elytra",
+        "name": "&3Ender Elytra",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&3 Ender Elytra",
+        "effectiveDurability": 1024,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&3&lENDER SET BONUS",
+          "&8» &320% Chance to warp behind your opponent",
+          "&8» &310% Chance to evade attacks",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "elytra",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye"
+        ]
+      },
+      "leggings": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 3
+          },
+          {
+            "id": "unbreaking",
+            "level": 1
+          }
+        ],
+        "material": "leather_leggings",
+        "leatherColor": "#0d6961",
+        "name": "&3Ender Leggings",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&3 Ender Leggings",
+        "effectiveDurability": 1024,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&3&lENDER SET BONUS",
+          "&8» &320% Chance to warp behind your opponent",
+          "&8» &310% Chance to evade attacks",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "iron_leggings",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye"
+        ]
+      },
+      "boots": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 3
+          },
+          {
+            "id": "unbreaking",
+            "level": 1
+          }
+        ],
+        "material": "leather_boots",
+        "leatherColor": "#0d6961",
+        "name": "&3Ender Boots",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&3 Ender Boots",
+        "effectiveDurability": 1024,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&3&lENDER SET BONUS",
+          "&8» &320% Chance to warp behind your opponent",
+          "&8» &310% Chance to evade attacks",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "iron_boots",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye",
+          "ender_eye"
+        ]
+      }
+    },
+    {
+      "name": "miner",
+      "conditions": [],
+      "effects": [
+        {
+          "id": "experience-multiplier",
+          "args": 1.25
+        }
+      ],
+      "advancedEffects": [
+        {
+          "id": "hunger-loss-multiplier",
+          "args": 0.5
+        }
+      ],
+      "potionEffects": [
+        {
+          "id": "FAST_DIGGING",
+          "args": 2
+        }
+      ],
+      "advancedPotionEffects": [
+        {
+          "id": "FAST_DIGGING",
+          "args": 3
+        }
+      ],
+      "advancedLore": [
+        "",
+        "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>",
+        "&8» &6Lose 50% less hunger",
+        "&8» &6Permanent Haste III",
+        "&8&oRequires full set to be worn"
+      ],
+      "advancementShardName": "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &9Miner",
+      "advancementShardLore": [
+        "&8Drop this onto &9Miner Armor",
+        "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+      ],
+      "shardCraftable": true,
+      "shardRecipe": [
+        "prismarine_shard",
+        "ecoarmor:set_miner_helmet",
+        "prismarine_shard",
+        "ecoarmor:set_miner_chestplate",
+        "nether_star",
+        "ecoarmor:set_miner_leggings",
+        "prismarine_shard",
+        "ecoarmor:set_miner_boots",
+        "prismarine_shard"
+      ],
+      "helmet": {
+        "enchants": [
+          {
+            "id": "fire_protection",
+            "level": 4
+          },
+          {
+            "id": "unbreaking",
+            "level": 1
+          }
+        ],
+        "material": "leather_helmet",
+        "leatherColor": "#6699cc",
+        "name": "&9Miner Helmet",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&9 Miner Helmet",
+        "effectiveDurability": 1024,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&9&lMINER SET BONUS",
+          "&8» &9Gain 50% more experience",
+          "&8» &9Permanent Haste II",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "air",
+          "diamond_pickaxe",
+          "air",
+          "diamond_pickaxe",
+          "diamond_helmet",
+          "diamond_pickaxe",
+          "air",
+          "diamond_pickaxe",
+          "air"
+        ]
+      },
+      "chestplate": {
+        "enchants": [
+          {
+            "id": "fire_protection",
+            "level": 4
+          },
+          {
+            "id": "unbreaking",
+            "level": 1
+          }
+        ],
+        "material": "leather_chestplate",
+        "leatherColor": "#6699cc",
+        "name": "&9Miner Chestplate",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&9 Miner Chestplate",
+        "effectiveDurability": 1024,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&9&lMINER SET BONUS",
+          "&8» &9Gain 50% more experience",
+          "&8» &9Permanent Haste II",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "air",
+          "diamond_pickaxe",
+          "air",
+          "diamond_pickaxe",
+          "diamond_chestplate",
+          "diamond_pickaxe",
+          "air",
+          "diamond_pickaxe",
+          "air"
+        ]
+      },
+      "elytra": {
+        "enchants": [
+          {
+            "id": "unbreaking",
+            "level": 1
+          }
+        ],
+        "material": "elytra",
+        "name": "&9Miner Elytra",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&9 Miner Elytra",
+        "effectiveDurability": 1024,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&9&lMINER SET BONUS",
+          "&8» &9Gain 50% more experience",
+          "&8» &9Permanent Haste II",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "air",
+          "diamond_pickaxe",
+          "air",
+          "diamond_pickaxe",
+          "elytra",
+          "diamond_pickaxe",
+          "air",
+          "diamond_pickaxe",
+          "air"
+        ]
+      },
+      "leggings": {
+        "enchants": [
+          {
+            "id": "fire_protection",
+            "level": 4
+          },
+          {
+            "id": "unbreaking",
+            "level": 1
+          }
+        ],
+        "material": "leather_leggings",
+        "leatherColor": "#6699cc",
+        "name": "&9Miner Leggings",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&9 Miner Leggings",
+        "effectiveDurability": 1024,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&9&lMINER SET BONUS",
+          "&8» &9Gain 50% more experience",
+          "&8» &9Permanent Haste II",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "air",
+          "diamond_pickaxe",
+          "air",
+          "diamond_pickaxe",
+          "diamond_leggings",
+          "diamond_pickaxe",
+          "air",
+          "diamond_pickaxe",
+          "air"
+        ]
+      },
+      "boots": {
+        "enchants": [
+          {
+            "id": "fire_protection",
+            "level": 4
+          },
+          {
+            "id": "unbreaking",
+            "level": 1
+          }
+        ],
+        "material": "leather_boots",
+        "leatherColor": "#6699cc",
+        "name": "&9Miner Boots",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&9 Miner Boots",
+        "effectiveDurability": 1024,
+        "unbreakable": false,
+        "flags": [],
+        "customModeldata": -1,
+        "lore": [
+          "&9&lMINER SET BONUS",
+          "&8» &9Gain 50% more experience",
+          "&8» &9Permanent Haste II",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "air",
+          "diamond_pickaxe",
+          "air",
+          "diamond_pickaxe",
+          "diamond_boots",
+          "diamond_pickaxe",
+          "air",
+          "diamond_pickaxe",
+          "air"
+        ]
+      }
+    },
+    {
+      "name": "reaper",
+      "conditions": [],
+      "effects": [
+        {
+          "id": "damage-multiplier",
+          "args": 1.25
+        }
+      ],
+      "advancedEffects": [
+        {
+          "id": "damage-taken-multiplier",
+          "args": 0.9
+        }
+      ],
+      "potionEffects": [
+      ],
+      "advancedPotionEffects": [
+      ],
+      "advancedLore": [
+        "",
+        "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>",
+        "&8» &6Take 10% less damage",
+        "&8&oRequires full set to be worn"
+      ],
+      "advancementShardName": "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &cReaper",
+      "advancementShardLore": [
+        "&8Drop this onto &cReaper Armor",
+        "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+      ],
+      "shardCraftable": true,
+      "shardRecipe": [
+        "prismarine_shard",
+        "ecoarmor:set_reaper_helmet",
+        "prismarine_shard",
+        "ecoarmor:set_reaper_chestplate",
+        "nether_star",
+        "ecoarmor:set_reaper_leggings",
+        "prismarine_shard",
+        "ecoarmor:set_reaper_boots",
+        "prismarine_shard"
+      ],
+      "helmet": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 4
+          },
+          {
+            "id": "unbreaking",
+            "level": 3
+          }
+        ],
+        "material": "leather_helmet",
+        "leatherColor": "#303030",
+        "name": "&cReaper Helmet",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Helmet",
+        "effectiveDurability": 2048,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&c&lREAPER SET BONUS",
+          "&8» &cDeal 25% more damage",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "air",
+          "nether_star",
+          "air",
+          "nether_star",
+          "netherite_helmet",
+          "nether_star",
+          "air",
+          "nether_star",
+          "air"
+        ]
+      },
+      "chestplate": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 4
+          },
+          {
+            "id": "unbreaking",
+            "level": 3
+          }
+        ],
+        "material": "leather_chestplate",
+        "leatherColor": "#303030",
+        "name": "&cReaper Chestplate",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Chestplate",
+        "effectiveDurability": 2048,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&c&lREAPER SET BONUS",
+          "&8» &cDeal 25% more damage",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "air",
+          "nether_star",
+          "air",
+          "nether_star",
+          "netherite_chestplate",
+          "nether_star",
+          "air",
+          "nether_star",
+          "air"
+        ]
+      },
+      "elytra": {
+        "enchants": [
+          {
+            "id": "unbreaking",
+            "level": 3
+          }
+        ],
+        "material": "elytra",
+        "name": "&cReaper Elytra",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Elytra",
+        "effectiveDurability": 2048,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&c&lREAPER SET BONUS",
+          "&8» &cDeal 25% more damage",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "air",
+          "nether_star",
+          "air",
+          "nether_star",
+          "elytra",
+          "nether_star",
+          "air",
+          "nether_star",
+          "air"
+        ]
+      },
+      "leggings": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 4
+          },
+          {
+            "id": "unbreaking",
+            "level": 3
+          }
+        ],
+        "material": "leather_leggings",
+        "leatherColor": "#303030",
+        "name": "&cReaper Leggings",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Leggings",
+        "effectiveDurability": 2048,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&c&lREAPER SET BONUS",
+          "&8» &cDeal 25% more damage",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "air",
+          "nether_star",
+          "air",
+          "nether_star",
+          "netherite_leggings",
+          "nether_star",
+          "air",
+          "nether_star",
+          "air"
+        ]
+      },
+      "boots": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 4
+          },
+          {
+            "id": "unbreaking",
+            "level": 3
+          }
+        ],
+        "material": "leather_boots",
+        "leatherColor": "#303030",
+        "name": "&cReaper Boots",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Boots",
+        "effectiveDurability": 2048,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&c&lREAPER SET BONUS",
+          "&8» &cDeal 25% more damage",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "air",
+          "nether_star",
+          "air",
+          "nether_star",
+          "netherite_boots",
+          "nether_star",
+          "air",
+          "nether_star",
+          "air"
+        ]
+      }
+    },
+    {
+      "name": "young",
+      "conditions": [
+        {
+          "id": "above-health-percent",
+          "args": 50
+        }
+      ],
+      "effects": [
+        {
+          "id": "speed-multiplier",
+          "args": 1.25
+        }
+      ],
+      "advancedEffects": [
+        {
+          "id": "speed-multiplier",
+          "args": 1.5
+        }
+      ],
+      "potionEffects": [
+      ],
+      "advancedPotionEffects": [
+        {
+          "id": "jump",
+          "args": 2
+        }
+      ],
+      "advancedLore": [
+        "",
+        "<GRADIENT:f12711>&lADVANCED BONUS</GRADIENT:f5af19>",
+        "&8» &bPermanent Jump Boost II",
+        "&8» &bMove 50% faster",
+        "&8&oRequires full set to be worn above 50% health"
+      ],
+      "advancementShardName": "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &bYoung",
+      "advancementShardLore": [
+        "&8Drop this onto &bYoung Armor",
+        "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+      ],
+      "shardCraftable": true,
+      "shardRecipe": [
+        "prismarine_shard",
+        "ecoarmor:set_young_helmet",
+        "prismarine_shard",
+        "ecoarmor:set_young_chestplate",
+        "nether_star",
+        "ecoarmor:set_young_leggings",
+        "prismarine_shard",
+        "ecoarmor:set_young_boots",
+        "prismarine_shard"
+      ],
+      "helmet": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 2
+          },
+          {
+            "id": "protection",
+            "level": 3
+          }
+        ],
+        "material": "player_head",
+        "skullTexture": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWM0ODZhZjNiODgyNzY2ZTgyYTBiYzE2NjVmZjAyZWI2ZTg3M2I2ZTBkNzcxZjNhZGFiYzc1OWI3MjAyMjZhIn19fQ==",
+        "name": "&bYoung Helmet",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Young Helmet",
+        "effectiveDurability": 768,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&b&lYOUNG SET BONUS",
+          "&8» &bMove 25% faster",
+          "&8&oRequires full set to be worn above 50% health",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "diamond",
+          "redstone",
+          "diamond",
+          "redstone",
+          "air",
+          "redstone",
+          "air",
+          "air",
+          "air"
+        ]
+      },
+      "chestplate": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 2
+          },
+          {
+            "id": "protection",
+            "level": 3
+          }
+        ],
+        "material": "leather_chestplate",
+        "leatherColor": "#DDE4F0",
+        "name": "&bYoung Chestplate",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Young Chestplate",
+        "effectiveDurability": 768,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&b&lYOUNG SET BONUS",
+          "&8» &bMove 25% faster",
+          "&8&oRequires full set to be worn above 50% health",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "diamond",
+          "air",
+          "diamond",
+          "redstone",
+          "diamond",
+          "redstone",
+          "diamond",
+          "redstone",
+          "diamond"
+        ]
+      },
+      "elytra": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 3
+          }
+        ],
+        "material": "elytra",
+        "name": "&bYoung Elytra",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Young Elytra",
+        "effectiveDurability": 768,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&b&lYOUNG SET BONUS",
+          "&8» &bMove 25% faster",
+          "&8&oRequires full set to be worn above 50% health",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "air",
+          "redstone",
+          "air",
+          "redstone",
+          "elytra",
+          "redstone",
+          "air",
+          "redstone",
+          "air"
+        ]
+      },
+      "leggings": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 2
+          },
+          {
+            "id": "protection",
+            "level": 3
+          }
+        ],
+        "material": "leather_leggings",
+        "leatherColor": "#DDE4F0",
+        "name": "&bYoung Leggings",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Young Leggings",
+        "effectiveDurability": 768,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&b&lYOUNG SET BONUS",
+          "&8» &bMove 25% faster",
+          "&8&oRequires full set to be worn above 50% health",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "diamond",
+          "redstone",
+          "diamond",
+          "redstone",
+          "air",
+          "redstone",
+          "diamond",
+          "air",
+          "diamond"
+        ]
+      },
+      "boots": {
+        "enchants": [
+          {
+            "id": "protection",
+            "level": 2
+          },
+          {
+            "id": "protection",
+            "level": 3
+          },
+          {
+            "id": "depth_strider",
+            "level": 3
+          }
+        ],
+        "material": "leather_boots",
+        "leatherColor": "#DDE4F0",
+        "name": "&bYoung Boots",
+        "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Young Boots",
+        "effectiveDurability": 768,
+        "unbreakable": false,
+        "flags": [],
+        "customModelData": -1,
+        "lore": [
+          "&b&lYOUNG SET BONUS",
+          "&8» &bMove 25% faster",
+          "&8&oRequires full set to be worn above 50% health",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
+          "air",
+          "air",
+          "air",
+          "diamond",
+          "air",
+          "diamond",
+          "redstone",
+          "air",
+          "redstone"
+        ]
+      }
+    }
+  ]
+}

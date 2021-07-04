@@ -29,6 +29,9 @@ commands:
   eagive:
     description: Give a player a set
     permission: ecoarmor.give
+  eaeditor:
+    description: Open the editor
+    permission: ecoarmor.editor
 
 permissions:
   ecoarmor.*:
@@ -38,6 +41,7 @@ permissions:
       ecoarmor.reload: true
       ecoarmor.give: true
       ecoarmor.noflydisable: true
+      ecoarmor.editor: true
 
   ecoarmor.reload:
     description: Allows reloading the config
@@ -47,4 +51,7 @@ permissions:
     default: op
   ecoarmor.noflydisable:
     description: Prevents losing fly.
+    default: op
+  ecoarmor.editor:
+    description: Allows the user of /eaeditor.
     default: op

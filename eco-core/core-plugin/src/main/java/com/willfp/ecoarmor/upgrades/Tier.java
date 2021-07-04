@@ -3,6 +3,7 @@ package com.willfp.ecoarmor.upgrades;
 import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.PluginDependent;
 import com.willfp.eco.core.config.Config;
+import com.willfp.eco.core.config.JSONConfig;
 import com.willfp.eco.core.display.Display;
 import com.willfp.eco.core.items.CustomItem;
 import com.willfp.eco.core.items.Items;
@@ -56,7 +57,7 @@ public class Tier extends PluginDependent {
      * If the crafting recipe is enabled.
      */
     @Getter
-    private boolean enabled;
+    private boolean craftable;
 
     /**
      * The ItemStack of the crystal.
@@ -79,21 +80,15 @@ public class Tier extends PluginDependent {
     /**
      * Create a new Tier.
      *
-     * @param tierName The name of the tier.
-     * @param config   The config of the tier.
-     * @param plugin   Instance of EcoArmor.
+     * @param config The config of the tier.
+     * @param plugin Instance of EcoArmor.
      */
-    public Tier(@NotNull final String tierName,
-                @NotNull final Config config,
+    public Tier(@NotNull final JSONConfig config,
                 @NotNull final EcoPlugin plugin) {
         super(plugin);
-        this.name = tierName;
+        this.name = config.getString("name");
         this.config = config;
-        if (!this.config.getBool("enabled") && !this.getName().equalsIgnoreCase("default")) {
-            return;
-        }
 
-        Tiers.addNewTier(this);
         this.update();
     }
 
@@ -101,9 +96,9 @@ public class Tier extends PluginDependent {
      * Update the tracker's crafting recipe.
      */
     public void update() {
-        this.enabled = this.getConfig().getBool("crystal-craftable");
+        this.craftable = this.getConfig().getBool("crystal.craftable");
         this.displayName = this.getConfig().getString("display");
-        this.requiredTiersForApplication = this.getConfig().getStrings("requires-tiers");
+        this.requiredTiersForApplication = this.getConfig().getStrings("requiresTiers");
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal");
 
         ItemStack out = new ItemStack(Objects.requireNonNull(Material.getMaterial(this.getPlugin().getConfigYml().getString("upgrade-crystal-material").toUpperCase())));
@@ -112,10 +107,10 @@ public class Tier extends PluginDependent {
         PersistentDataContainer container = outMeta.getPersistentDataContainer();
         container.set(key, PersistentDataType.STRING, name);
 
-        outMeta.setDisplayName(this.getConfig().getString("crystal-name"));
+        outMeta.setDisplayName(this.getConfig().getString("crystal.name"));
 
         List<String> lore = new ArrayList<>();
-        for (String loreLine : this.getConfig().getStrings("crystal-lore")) {
+        for (String loreLine : this.getConfig().getStrings("crystal.lore")) {
             lore.add(Display.PREFIX + StringUtils.translate(loreLine));
         }
         outMeta.setLore(lore);
@@ -128,21 +123,21 @@ public class Tier extends PluginDependent {
             properties.put(slot, new TierProperties(
                     this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".armor"),
                     this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".toughness"),
-                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".knockback-resistance"),
-                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".speed-percentage"),
-                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".attack-speed-percentage"),
-                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".attack-damage-percentage"),
-                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".attack-knockback-percentage")
+                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".knockbackResistance"),
+                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".speedPercentage"),
+                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".attackSpeedPercentage"),
+                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".attackDamagePercentage"),
+                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".attackKnockbackPercentage")
             ));
         }
 
-        if (this.isEnabled()) {
+        if (this.isCraftable()) {
             ItemStack recipeOut = out.clone();
-            recipeOut.setAmount(this.getConfig().getInt("recipe-give-amount"));
+            recipeOut.setAmount(this.getConfig().getInt("crystal.giveAmount"));
             ShapedCraftingRecipe.Builder builder = ShapedCraftingRecipe.builder(this.getPlugin(), "upgrade_crystal_" + name)
                     .setOutput(recipeOut);
 
-            List<String> recipeStrings = this.getConfig().getStrings("crystal-recipe");
+            List<String> recipeStrings = this.getConfig().getStrings("crystal.recipe");
 
             new CustomItem(this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal_" + name), test -> {
                 if (test == null) {

@@ -8,3 +8,4 @@ messages:
   needs-item: "&cYou must specify an item!"
   invalid-item: "&cInvalid item!"
   give-success: "Gave &a%item%&r to &a%recipient%"
+  open-editor: "Open the editor here: &a%url%"

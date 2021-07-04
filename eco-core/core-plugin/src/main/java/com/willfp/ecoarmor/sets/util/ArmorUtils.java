@@ -2,7 +2,6 @@ package com.willfp.ecoarmor.sets.util;
 
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.conditions.Condition;
-import com.willfp.ecoarmor.effects.Effect;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
@@ -179,8 +178,8 @@ public class ArmorUtils {
         Tier tier = getTier(meta);
 
         if (getSetOnItem(meta) != null && tier == null) {
-            setTier(itemStack, Tiers.DEFAULT);
-            return Tiers.DEFAULT;
+            setTier(itemStack, Tiers.getDefaultTier());
+            return Tiers.getDefaultTier();
         } else {
             return tier;
         }
@@ -401,57 +400,5 @@ public class ArmorUtils {
         }
 
         return ArmorSets.getByName(shardSet);
-    }
-
-    /**
-     * Get value of effect.
-     *
-     * @param string Value as string.
-     * @param effect Effect.
-     * @param <T>    The type of the effect.
-     * @return Value.
-     */
-    @NotNull
-    public static <T> Object getEffectValue(@NotNull final String string,
-                                            @NotNull final Effect<T> effect) {
-        if (effect.getTypeClass().equals(Boolean.class)) {
-            return Boolean.parseBoolean(string);
-        }
-
-        if (effect.getTypeClass().equals(Integer.class)) {
-            return Integer.parseInt(string);
-        }
-
-        if (effect.getTypeClass().equals(Double.class)) {
-            return Double.parseDouble(string);
-        }
-
-        return string;
-    }
-
-    /**
-     * Get value of condition.
-     *
-     * @param string    Value as string.
-     * @param condition Condition.
-     * @param <T>       The type of the condition.
-     * @return Value.
-     */
-    @NotNull
-    public static <T> Object getConditionValue(@NotNull final String string,
-                                               @NotNull final Condition<T> condition) {
-        if (condition.getTypeClass().equals(Boolean.class)) {
-            return Boolean.parseBoolean(string);
-        }
-
-        if (condition.getTypeClass().equals(Integer.class)) {
-            return Integer.parseInt(string);
-        }
-
-        if (condition.getTypeClass().equals(Double.class)) {
-            return Double.parseDouble(string);
-        }
-
-        return string;
     }
 }

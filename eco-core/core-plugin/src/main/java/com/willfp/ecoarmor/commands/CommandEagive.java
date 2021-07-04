@@ -127,7 +127,7 @@ public class CommandEagive extends AbstractCommand {
             }
 
             if (tier == null) {
-                tier = Tiers.DEFAULT;
+                tier = Tiers.getDefaultTier();
             }
 
             for (ArmorSlot slot : slots) {
