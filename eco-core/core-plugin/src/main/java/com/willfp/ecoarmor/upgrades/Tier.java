@@ -57,7 +57,7 @@ public class Tier extends PluginDependent {
      * If the crafting recipe is enabled.
      */
     @Getter
-    private boolean enabled;
+    private boolean craftable;
 
     /**
      * The ItemStack of the crystal.
@@ -96,7 +96,7 @@ public class Tier extends PluginDependent {
      * Update the tracker's crafting recipe.
      */
     public void update() {
-        this.enabled = this.getConfig().getBool("crystalCraftable");
+        this.craftable = this.getConfig().getBool("crystal.craftable");
         this.displayName = this.getConfig().getString("display");
         this.requiredTiersForApplication = this.getConfig().getStrings("requiresTiers");
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal");
@@ -107,10 +107,10 @@ public class Tier extends PluginDependent {
         PersistentDataContainer container = outMeta.getPersistentDataContainer();
         container.set(key, PersistentDataType.STRING, name);
 
-        outMeta.setDisplayName(this.getConfig().getString("crystalName"));
+        outMeta.setDisplayName(this.getConfig().getString("crystal.name"));
 
         List<String> lore = new ArrayList<>();
-        for (String loreLine : this.getConfig().getStrings("crystalLore")) {
+        for (String loreLine : this.getConfig().getStrings("crystal.lore")) {
             lore.add(Display.PREFIX + StringUtils.translate(loreLine));
         }
         outMeta.setLore(lore);
@@ -131,13 +131,13 @@ public class Tier extends PluginDependent {
             ));
         }
 
-        if (this.isEnabled()) {
+        if (this.isCraftable()) {
             ItemStack recipeOut = out.clone();
-            recipeOut.setAmount(this.getConfig().getInt("recipeGiveAmount"));
+            recipeOut.setAmount(this.getConfig().getInt("crystal.giveAmount"));
             ShapedCraftingRecipe.Builder builder = ShapedCraftingRecipe.builder(this.getPlugin(), "upgrade_crystal_" + name)
                     .setOutput(recipeOut);
 
-            List<String> recipeStrings = this.getConfig().getStrings("crystalRecipe");
+            List<String> recipeStrings = this.getConfig().getStrings("crystal.recipe");
 
             new CustomItem(this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal_" + name), test -> {
                 if (test == null) {
