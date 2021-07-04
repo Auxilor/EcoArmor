@@ -48,7 +48,7 @@ public class EcoArmorPlugin extends EcoPlugin {
      * Internal constructor called by bukkit on plugin load.
      */
     public EcoArmorPlugin() {
-        super("EcoArmor", 88246, 10002, "com.willfp.ecoarmor.proxy", "&c");
+        super(88246, 10002, "com.willfp.ecoarmor.proxy", "&c");
         instance = this;
 
         this.ecoArmorJson = new EcoArmorJson(this);
