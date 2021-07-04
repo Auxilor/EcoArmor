@@ -890,13 +890,13 @@
       "potionEffects": [
         {
           "id": "FAST_DIGGING",
-          "args": 2
+          "level": 2
         }
       ],
       "advancedPotionEffects": [
         {
           "id": "FAST_DIGGING",
-          "args": 3
+          "level": 3
         }
       ],
       "advancedLore": [
@@ -1397,7 +1397,7 @@
       "advancedPotionEffects": [
         {
           "id": "jump",
-          "args": 2
+          "level": 2
         }
       ],
       "advancedLore": [
