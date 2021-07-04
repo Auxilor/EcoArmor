@@ -86,6 +86,7 @@ public class EcoArmorPlugin extends EcoPlugin {
     public void onReload() {
         Effects.values().forEach(effect -> this.getEventManager().unregisterListener(effect));
         Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
+        this.getLogger().info(Tiers.values().size() + " Tiers Loaded");
         this.getLogger().info(ArmorSets.values().size() + " Sets Loaded");
     }
 
