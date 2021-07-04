@@ -71,18 +71,18 @@ public class EffectWatcher extends PluginDependent implements Listener {
 
             if (set == null || !conditionsMet) {
                 for (PotionEffect effect : player.getActivePotionEffects()) {
-                    if (effect.getDuration() >= 500000000) {
+                    if (effect.getDuration() >= 0x5ffffff && effect.getDuration() <= 0x6ffffff) {
                         player.removePotionEffect(effect.getType());
                     }
                 }
             } else {
                 set.getPotionEffects().forEach((potionEffectType, integer) -> {
-                    player.addPotionEffect(new PotionEffect(potionEffectType, 0x6fffffff, integer - 1, false, false, true));
+                    player.addPotionEffect(new PotionEffect(potionEffectType, 0x6ffffff, integer - 1, false, false, true));
                 });
 
                 if (ArmorUtils.isWearingAdvanced(player)) {
                     set.getAdvancedPotionEffects().forEach((potionEffectType, integer) -> {
-                        player.addPotionEffect(new PotionEffect(potionEffectType, 0x6fffffff, integer - 1, false, false, true));
+                        player.addPotionEffect(new PotionEffect(potionEffectType, 0x6ffffff, integer - 1, false, false, true));
                     });
                 }
             }
