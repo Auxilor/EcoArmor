@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Tier extends PluginDependent {
+public class Tier extends PluginDependent<EcoPlugin> {
     /**
      * The tier name.
      */

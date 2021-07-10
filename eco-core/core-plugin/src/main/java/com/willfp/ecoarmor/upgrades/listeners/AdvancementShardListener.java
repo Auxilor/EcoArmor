@@ -16,7 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-public class AdvancementShardListener extends PluginDependent implements Listener {
+public class AdvancementShardListener extends PluginDependent<EcoPlugin> implements Listener {
     /**
      * Create new listeners for dragging crystals onto items.
      *

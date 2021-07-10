@@ -13,7 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
 
-public class EffectWatcher extends PluginDependent implements Listener {
+public class EffectWatcher extends PluginDependent<EcoPlugin> implements Listener {
     /**
      * Pass an {@link EcoPlugin} in order to interface with it.
      *

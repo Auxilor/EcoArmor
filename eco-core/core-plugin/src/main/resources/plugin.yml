@@ -23,35 +23,38 @@ softdepend:
   - EcoEnchants
 
 commands:
-  eareload:
-    description: Reloads config
-    permission: ecoarmor.reload
-  eagive:
-    description: Give a player a set
-    permission: ecoarmor.give
-  eaeditor:
-    description: Open the editor
-    permission: ecoarmor.editor
+  ecoarmor:
+    description: Base Command
+    permission: ecoarmor.command.ecoarmor
 
 permissions:
   ecoarmor.*:
     description: All ecoarmor permissions
     default: op
     children:
-      ecoarmor.reload: true
-      ecoarmor.give: true
+      ecoarmor.command.*: true
       ecoarmor.noflydisable: true
-      ecoarmor.editor: true
+  ecoarmor.command.*:
+    description: All commands
+    default: op
+    children:
+      ecoarmor.command.reload: true
+      ecoarmor.command.ecoarmor: true
+      ecoarmor.command.give: true
+      ecoarmor.command.editor: true
 
-  ecoarmor.reload:
+  ecoarmor.command.reload:
     description: Allows reloading the config
     default: op
-  ecoarmor.give:
-    description: Allows the use of /eagive
+  ecoarmor.command.give:
+    description: Allows the use of /ecoarmor give
     default: op
   ecoarmor.noflydisable:
     description: Prevents losing fly.
     default: op
-  ecoarmor.editor:
-    description: Allows the user of /eaeditor.
+  ecoarmor.command.editor:
+    description: Allows the user of /ecoarmor editor.
     default: op
+  ecoarmor.command.ecoarmor:
+    description: Allows the user of /ecoarmor.
+    default: true

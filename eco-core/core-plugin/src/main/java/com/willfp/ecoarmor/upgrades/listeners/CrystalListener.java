@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class CrystalListener extends PluginDependent implements Listener {
+public class CrystalListener extends PluginDependent<EcoPlugin> implements Listener {
     /**
      * Create new listeners for dragging crystals onto items.
      *

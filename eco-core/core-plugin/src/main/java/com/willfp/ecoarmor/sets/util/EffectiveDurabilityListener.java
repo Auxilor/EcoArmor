@@ -12,7 +12,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-public class EffectiveDurabilityListener extends PluginDependent implements Listener {
+public class EffectiveDurabilityListener extends PluginDependent<EcoPlugin> implements Listener {
     /**
      * Create new effective durability listeners.
      *

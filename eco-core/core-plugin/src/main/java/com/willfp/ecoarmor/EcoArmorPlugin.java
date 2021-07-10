@@ -2,13 +2,11 @@ package com.willfp.ecoarmor;
 
 import com.willfp.eco.core.AbstractPacketAdapter;
 import com.willfp.eco.core.EcoPlugin;
-import com.willfp.eco.core.command.AbstractCommand;
+import com.willfp.eco.core.command.impl.PluginCommand;
 import com.willfp.eco.core.display.DisplayModule;
 import com.willfp.eco.core.integrations.IntegrationLoader;
-import com.willfp.ecoarmor.commands.CommandEaeditor;
-import com.willfp.ecoarmor.commands.CommandEagive;
-import com.willfp.ecoarmor.commands.CommandEareload;
-import com.willfp.ecoarmor.commands.TabcompleterEagive;
+import com.willfp.ecoarmor.commands.CommandEcoarmor;
+import com.willfp.ecoarmor.commands.CommandGive;
 import com.willfp.ecoarmor.conditions.Conditions;
 import com.willfp.ecoarmor.config.EcoArmorJson;
 import com.willfp.ecoarmor.display.ArmorDisplay;
@@ -118,17 +116,10 @@ public class EcoArmorPlugin extends EcoPlugin {
         return new ArrayList<>();
     }
 
-    /**
-     * EcoArmor-specific commands.
-     *
-     * @return A list of all commands.
-     */
     @Override
-    public List<AbstractCommand> getCommands() {
+    public List<PluginCommand> getPluginCommands() {
         return Arrays.asList(
-                new CommandEareload(this),
-                new CommandEagive(this),
-                new CommandEaeditor(this)
+                new CommandEcoarmor(this)
         );
     }
 
@@ -164,12 +155,17 @@ public class EcoArmorPlugin extends EcoPlugin {
         return Arrays.asList(
                 Tiers.class,
                 ArmorSets.class,
-                TabcompleterEagive.class
+                CommandGive.class
         );
     }
 
     @Override
     protected @Nullable DisplayModule createDisplayModule() {
         return new ArmorDisplay(this);
+    }
+
+    @Override
+    protected String getMinimumEcoVersion() {
+        return "5.7.0";
     }
 }
