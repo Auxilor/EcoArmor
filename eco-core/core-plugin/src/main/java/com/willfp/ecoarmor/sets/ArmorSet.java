@@ -214,7 +214,7 @@ public class ArmorSet {
                 .addLoreLines(slotConfig.getStrings("lore").stream().map(s -> Display.PREFIX + s).collect(Collectors.toList()))
                 .addLoreLines(() -> {
                     if (advanced) {
-                        return slotConfig.getStrings("advancedLore").stream().map(s -> Display.PREFIX + s).collect(Collectors.toList());
+                        return this.getConfig().getStrings("advancedLore").stream().map(s -> Display.PREFIX + s).collect(Collectors.toList());
                     } else {
                         return null;
                     }
