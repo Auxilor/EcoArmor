@@ -8,6 +8,7 @@ import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.upgrades.Tier;
 import com.willfp.ecoarmor.upgrades.Tiers;
 import lombok.experimental.UtilityClass;
+import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
@@ -356,10 +357,6 @@ public class ArmorUtils {
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta == null) {
-            return;
-        }
-
-        if (getSetOnItem(itemStack) == null) {
             return;
         }
 

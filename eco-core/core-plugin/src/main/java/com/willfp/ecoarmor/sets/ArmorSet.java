@@ -176,7 +176,7 @@ public class ArmorSet {
                 .addEnchantment(Enchantment.DURABILITY, 3)
                 .addItemFlag(ItemFlag.HIDE_ENCHANTS)
                 .addLoreLines(this.getConfig().getStrings("advancementShardLore"))
-                .writeMetaKey(this.getPlugin().getNamespacedKeyFactory().create("advancementShard"), PersistentDataType.STRING, name)
+                .writeMetaKey(this.getPlugin().getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING, name)
                 .build();
 
         if (this.getConfig().getBool("shardCraftable")) {
