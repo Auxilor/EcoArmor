@@ -15,6 +15,7 @@ import com.willfp.ecoarmor.conditions.conditions.ConditionHasPermission;
 import com.willfp.ecoarmor.conditions.conditions.ConditionInBiome;
 import com.willfp.ecoarmor.conditions.conditions.ConditionInWater;
 import com.willfp.ecoarmor.conditions.conditions.ConditionInWorld;
+import com.willfp.ecoarmor.conditions.conditions.ConditionIsSneaking;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,6 +41,7 @@ public class Conditions {
     public static final Condition<?> BELOW_HUNGER_PERCENT = new ConditionBelowHungerPercent();
     public static final Condition<?> IN_BIOME = new ConditionInBiome();
     public static final Condition<?> HAS_PERMISSION = new ConditionHasPermission();
+    public static final Condition<?> IS_SNEAKING = new ConditionIsSneaking();
 
     /**
      * Get condition matching name.s
