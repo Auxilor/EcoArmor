@@ -1,10 +1,10 @@
 package com.willfp.ecoarmor.config;
 
 import com.willfp.eco.core.EcoPlugin;
-import com.willfp.eco.core.config.JsonStaticBaseConfig;
+import com.willfp.eco.core.config.json.JSONStaticBaseConfig;
 import org.jetbrains.annotations.NotNull;
 
-public class EcoArmorJson extends JsonStaticBaseConfig {
+public class EcoArmorJson extends JSONStaticBaseConfig {
     /**
      * Create tiers.json.
      *

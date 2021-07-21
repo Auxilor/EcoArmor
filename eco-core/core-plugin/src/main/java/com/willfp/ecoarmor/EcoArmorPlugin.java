@@ -1,12 +1,9 @@
 package com.willfp.ecoarmor;
 
-import com.willfp.eco.core.AbstractPacketAdapter;
 import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.command.impl.PluginCommand;
 import com.willfp.eco.core.display.DisplayModule;
-import com.willfp.eco.core.integrations.IntegrationLoader;
 import com.willfp.ecoarmor.commands.CommandEcoarmor;
-import com.willfp.ecoarmor.commands.CommandGive;
 import com.willfp.ecoarmor.conditions.Conditions;
 import com.willfp.ecoarmor.config.EcoArmorJson;
 import com.willfp.ecoarmor.display.ArmorDisplay;
@@ -24,7 +21,6 @@ import lombok.Getter;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,100 +42,36 @@ public class EcoArmorPlugin extends EcoPlugin {
      * Internal constructor called by bukkit on plugin load.
      */
     public EcoArmorPlugin() {
-        super(88246, 10002, "com.willfp.ecoarmor.proxy", "&c");
+        super(88246, 10002, "&c");
         instance = this;
 
         this.ecoArmorJson = new EcoArmorJson(this);
     }
 
-    /**
-     * Code executed on plugin enable.
-     */
     @Override
-    public void enable() {
-        this.getExtensionLoader().loadExtensions();
-
-        if (this.getExtensionLoader().getLoadedExtensions().isEmpty()) {
-            this.getLogger().info("&cNo extensions found");
-        } else {
-            this.getLogger().info("Extensions Loaded:");
-            this.getExtensionLoader().getLoadedExtensions().forEach(extension -> this.getLogger().info("- " + extension.getName() + " v" + extension.getVersion()));
-        }
-
+    protected void handleEnable() {
         Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
         Conditions.values().forEach(condition -> this.getEventManager().registerListener(condition));
-        this.getScheduler().runTimer((Runnable) Conditions.HAS_PERMISSION, 100, 100);
     }
 
-    /**
-     * Code executed on plugin disable.
-     */
     @Override
-    public void disable() {
-        // Nothing needs to be called on disable
-    }
-
-    /**
-     * Nothing is called on plugin load.
-     */
-    @Override
-    public void load() {
-        // Nothing needs to be called on load
-    }
-
-    /**
-     * Code executed on reload.
-     */
-    @Override
-    public void onReload() {
+    protected void handleReload() {
         Effects.values().forEach(effect -> this.getEventManager().unregisterListener(effect));
         Effects.values().stream().filter(Effect::isEnabled).forEach(effect -> this.getEventManager().registerListener(effect));
         this.getLogger().info(Tiers.values().size() + " Tiers Loaded");
         this.getLogger().info(ArmorSets.values().size() + " Sets Loaded");
-    }
-
-    /**
-     * Code executed after server is up.
-     */
-    @Override
-    public void postLoad() {
-        // Nothing needs to be called after load.
-    }
-
-    /**
-     * EcoArmor-specific integrations.
-     *
-     * @return A list of all integrations.
-     */
-    @Override
-    public List<IntegrationLoader> getIntegrationLoaders() {
-        return new ArrayList<>();
+        this.getScheduler().runTimer((Runnable) Conditions.HAS_PERMISSION, 100, 100);
     }
 
     @Override
-    public List<PluginCommand> getPluginCommands() {
+    protected List<PluginCommand> loadPluginCommands() {
         return Arrays.asList(
                 new CommandEcoarmor(this)
         );
     }
 
-    /**
-     * Packet Adapters.
-     *
-     * @return A list of packet adapters.
-     */
     @Override
-    public List<AbstractPacketAdapter> getPacketAdapters() {
-        return new ArrayList<>();
-    }
-
-    /**
-     * EcoArmor-specific listeners.
-     *
-     * @return A list of all listeners.
-     */
-    @Override
-    public List<Listener> getListeners() {
+    protected List<Listener> loadListeners() {
         return Arrays.asList(
                 new CrystalListener(this),
                 new AdvancementShardListener(this),
@@ -151,21 +83,7 @@ public class EcoArmorPlugin extends EcoPlugin {
     }
 
     @Override
-    public List<Class<?>> getUpdatableClasses() {
-        return Arrays.asList(
-                Tiers.class,
-                ArmorSets.class,
-                CommandGive.class
-        );
-    }
-
-    @Override
     protected @Nullable DisplayModule createDisplayModule() {
         return new ArmorDisplay(this);
-    }
-
-    @Override
-    protected String getMinimumEcoVersion() {
-        return "5.7.0";
     }
 }
