@@ -1,8 +1,8 @@
 package com.willfp.ecoarmor.sets;
 
 import com.willfp.eco.core.EcoPlugin;
-import com.willfp.eco.core.config.Config;
-import com.willfp.eco.core.config.JSONConfig;
+import com.willfp.eco.core.config.interfaces.Config;
+import com.willfp.eco.core.config.interfaces.JSONConfig;
 import com.willfp.eco.core.display.Display;
 import com.willfp.eco.core.items.CustomItem;
 import com.willfp.eco.core.items.builder.ItemBuilder;

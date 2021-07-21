@@ -2,8 +2,8 @@ package com.willfp.ecoarmor.upgrades;
 
 import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.PluginDependent;
-import com.willfp.eco.core.config.Config;
-import com.willfp.eco.core.config.JSONConfig;
+import com.willfp.eco.core.config.interfaces.Config;
+import com.willfp.eco.core.config.interfaces.JSONConfig;
 import com.willfp.eco.core.display.Display;
 import com.willfp.eco.core.items.CustomItem;
 import com.willfp.eco.core.items.Items;
@@ -111,7 +111,7 @@ public class Tier extends PluginDependent<EcoPlugin> {
 
         List<String> lore = new ArrayList<>();
         for (String loreLine : this.getConfig().getStrings("crystal.lore")) {
-            lore.add(Display.PREFIX + StringUtils.translate(loreLine));
+            lore.add(Display.PREFIX + StringUtils.format(loreLine));
         }
         outMeta.setLore(lore);
 
