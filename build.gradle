@@ -98,3 +98,11 @@ java.sourceCompatibility = JavaVersion.VERSION_16
 compileJava.options.encoding = 'UTF-8'
 
 build.dependsOn shadowJar
+
+publishing {
+    publications {
+        shadow(MavenPublication) {
+            from components.java
+        }
+    }
+}
