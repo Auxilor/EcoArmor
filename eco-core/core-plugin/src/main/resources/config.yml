@@ -61,3 +61,6 @@ effects:
   boss-damage-multiplier:
     # Modify boss damage by some multiplier
     enabled: true
+  knockback-multiplier:
+    # Modify knockback by some multiplier
+    enabled: true
