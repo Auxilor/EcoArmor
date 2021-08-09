@@ -18,6 +18,7 @@ import com.willfp.ecoarmor.effects.effects.KnockbackMultiplier;
 import com.willfp.ecoarmor.effects.effects.MeleeDamageMultiplier;
 import com.willfp.ecoarmor.effects.effects.RegenerationMultiplier;
 import com.willfp.ecoarmor.effects.effects.SpeedMultiplier;
+import com.willfp.ecoarmor.effects.effects.Telekinesis;
 import com.willfp.ecoarmor.effects.effects.TridentDamageMultiplier;
 import com.willfp.ecoarmor.effects.effects.WarpChance;
 import lombok.experimental.UtilityClass;
@@ -51,6 +52,7 @@ public class Effects {
     public static final Effect<?> HUNGER_LOSS_MULTIPLIER = new HungerLossMultiplier();
     public static final Effect<?> BOSS_DAMAGE_MULTIPLIER = new BossDamageMultiplier();
     public static final Effect<?> KNOCKBACK_MULTIPLIER = new KnockbackMultiplier();
+    public static final Effect<?> TELEKINESIS = new Telekinesis();
 
     /**
      * Get effect matching name.

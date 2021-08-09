@@ -64,3 +64,6 @@ effects:
   knockback-multiplier:
     # Modify knockback by some multiplier
     enabled: true
+  telekinesis:
+    # Drops and xp go straight to your inventory
+    enabled: true
