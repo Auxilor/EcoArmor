@@ -17,6 +17,6 @@ import org.jetbrains.annotations.NotNull;
 public class Telekinesis extends Effect<Boolean> {
     public Telekinesis() {
         super("telekinesis", Boolean.class);
-        TelekinesisUtils.registerTest(this::getStrengthForPlayer);
+        TelekinesisUtils.registerTest(player -> this.getStrengthForPlayer(player) != null);
     }
 }
