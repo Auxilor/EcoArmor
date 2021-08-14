@@ -4,12 +4,14 @@ import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.config.interfaces.Config;
 import com.willfp.eco.core.config.interfaces.JSONConfig;
 import com.willfp.eco.core.display.Display;
+import com.willfp.eco.core.fast.FastItemStack;
 import com.willfp.eco.core.items.CustomItem;
 import com.willfp.eco.core.items.builder.ItemBuilder;
 import com.willfp.eco.core.items.builder.ItemStackBuilder;
 import com.willfp.eco.core.items.builder.LeatherArmorBuilder;
 import com.willfp.eco.core.items.builder.SkullBuilder;
 import com.willfp.eco.core.recipe.Recipes;
+import com.willfp.eco.util.StringUtils;
 import com.willfp.ecoarmor.conditions.Condition;
 import com.willfp.ecoarmor.conditions.Conditions;
 import com.willfp.ecoarmor.effects.Effect;
@@ -157,11 +159,11 @@ public class ArmorSet {
         }
 
         for (ArmorSlot slot : ArmorSlot.values()) {
-            ItemStack item = construct(slot, (JSONConfig) this.getConfig().getSubsection(slot.name().toLowerCase()), false);
+            ItemStack item = construct(slot, this.getConfig().getSubsection(slot.name().toLowerCase()), false);
             items.put(slot, item);
             constructRecipe(slot, this.getConfig().getSubsection(slot.name().toLowerCase()), item);
 
-            ItemStack advancedItem = construct(slot, (JSONConfig) this.getConfig().getSubsection(slot.name().toLowerCase()), true);
+            ItemStack advancedItem = construct(slot, this.getConfig().getSubsection(slot.name().toLowerCase()), true);
             advancedItems.put(slot, advancedItem);
         }
 

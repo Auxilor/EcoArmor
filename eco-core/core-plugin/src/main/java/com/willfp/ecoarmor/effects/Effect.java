@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -108,7 +109,15 @@ public abstract class Effect<T> implements Listener {
             return;
         }
 
-        enabledPlayers.put(player.getUniqueId(), typeClass.cast(value));
+        Object val;
+
+        if (value instanceof Double && typeClass.equals(Integer.class)) {
+            val = (int) Math.round((double) value);
+        } else {
+            val = value;
+        }
+
+        enabledPlayers.put(player.getUniqueId(), typeClass.cast(val));
 
         this.onEnable(player);
     }

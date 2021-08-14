@@ -5,6 +5,7 @@ import com.willfp.eco.core.command.CommandHandler;
 import com.willfp.eco.core.command.TabCompleteHandler;
 import com.willfp.eco.core.command.impl.Subcommand;
 import com.willfp.eco.core.config.updating.ConfigUpdater;
+import com.willfp.eco.core.display.Display;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
@@ -17,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.DataInput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
