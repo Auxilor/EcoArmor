@@ -278,7 +278,11 @@ public class ArmorSet {
                 if (!ArmorUtils.isAdvanced(itemStack)) {
                     return false;
                 }
-                return Objects.equals(this.getName(), ArmorUtils.getSetOnItem(test).getName());
+                if (ArmorUtils.getSetOnItem(test) == null) {
+                    return false;
+                }
+
+                return Objects.equals(this, ArmorUtils.getSetOnItem(test));
             }, itemStack).register();
         } else {
             new CustomItem(this.getPlugin().getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + slot.name().toLowerCase()), test -> {
@@ -288,7 +292,11 @@ public class ArmorSet {
                 if (ArmorUtils.isAdvanced(itemStack)) {
                     return false;
                 }
-                return Objects.equals(this.getName(), ArmorUtils.getSetOnItem(test).getName());
+                if (ArmorUtils.getSetOnItem(test) == null) {
+                    return false;
+                }
+
+                return Objects.equals(this, ArmorUtils.getSetOnItem(test));
             }, itemStack).register();
         }
 
