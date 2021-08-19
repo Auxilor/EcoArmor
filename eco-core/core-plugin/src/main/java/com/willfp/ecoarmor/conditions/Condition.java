@@ -59,9 +59,9 @@ public abstract class Condition<T> implements Listener {
     protected abstract boolean isConditionMet(@NotNull Player player,
                                               @NotNull T value);
 
-    protected final void evaluateEffects(@NotNull final Player player,
-                                         @NotNull final T value,
-                                         @NotNull final ArmorSet set) {
+    public final void evaluateEffects(@NotNull final Player player,
+                                      @NotNull final Object value,
+                                      @NotNull final ArmorSet set) {
         this.getPlugin().getScheduler().runLater(() -> {
             if (isMet(player, value)) {
                 for (Effect<?> effect : set.getEffects().keySet()) {

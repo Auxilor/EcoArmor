@@ -5,6 +5,7 @@ import com.willfp.eco.core.command.impl.PluginCommand;
 import com.willfp.eco.core.display.DisplayModule;
 import com.willfp.ecoarmor.commands.CommandEcoarmor;
 import com.willfp.ecoarmor.conditions.Conditions;
+import com.willfp.ecoarmor.conditions.util.MovementConditionListener;
 import com.willfp.ecoarmor.config.EcoArmorJson;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.effects.Effect;
@@ -78,6 +79,7 @@ public class EcoArmorPlugin extends EcoPlugin {
                 new EffectiveDurabilityListener(this),
                 new DiscoverRecipeListener(this),
                 new EffectWatcher(this),
+                new MovementConditionListener(this),
                 new PreventSkullPlaceListener()
         );
     }

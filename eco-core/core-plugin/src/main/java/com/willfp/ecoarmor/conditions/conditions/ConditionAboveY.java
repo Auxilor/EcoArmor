@@ -14,28 +14,6 @@ public class ConditionAboveY extends Condition<Double> {
         super("above-y", Double.class);
     }
 
-    @EventHandler(
-            priority = EventPriority.MONITOR,
-            ignoreCancelled = true
-    )
-    public void listener(@NotNull final PlayerMoveEvent event) {
-        Player player = event.getPlayer();
-
-        ArmorSet set = ArmorUtils.getSetOnPlayer(player);
-
-        if (set == null) {
-            return;
-        }
-
-        Double value = set.getConditionValue(this);
-
-        if (value == null) {
-            return;
-        }
-
-        evaluateEffects(player, value, set);
-    }
-
     @Override
     public boolean isConditionMet(@NotNull final Player player,
                                   @NotNull final Double value) {

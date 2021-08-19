@@ -18,28 +18,6 @@ public class ConditionInBiome extends Condition<String> {
         super("in-biome", String.class);
     }
 
-    @EventHandler(
-            priority = EventPriority.MONITOR,
-            ignoreCancelled = true
-    )
-    public void listener(@NotNull final PlayerMoveEvent event) {
-        Player player = event.getPlayer();
-
-        ArmorSet set = ArmorUtils.getSetOnPlayer(player);
-
-        if (set == null) {
-            return;
-        }
-
-        String value = set.getConditionValue(this);
-
-        if (value == null) {
-            return;
-        }
-
-        evaluateEffects(player, value, set);
-    }
-
     @Override
     public boolean isConditionMet(@NotNull final Player player,
                                   @NotNull final String value) {
