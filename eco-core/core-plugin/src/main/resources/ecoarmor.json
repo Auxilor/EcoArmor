@@ -500,7 +500,7 @@
         "&8Drop this onto &5Angelic Armor",
         "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
       ],
-      "shardCraftable": true,
+      "shardCraftable": false,
       "shardRecipe": [
         "prismarine_shard",
         "ecoarmor:set_angelic_helmet",
@@ -535,14 +535,14 @@
         "craftable": true,
         "defaultTier": "default",
         "recipe": [
-          "netherite_ingot",
+          "netherite_block",
           "ecoitems:enchanted_ender_eye ? netherite_ingot",
-          "netherite_ingot",
+          "diamond_block",
           "air",
           "golden_helmet",
           "air",
           "gold_block",
-          "ecoitems:armor_core ? nether_star",
+          "ecoitems:armor_core ? enchanted_book mending:1",
           "gold_block"
         ]
       },
@@ -557,14 +557,14 @@
         "flags": [],
         "customModelData": -1.0,
         "lore": [
-          "netherite_ingot",
+          "netherite_block",
           "ecoitems:enchanted_ender_eye ? netherite_ingot",
-          "netherite_ingot",
+          "diamond_block",
           "air",
           "golden_chestplate",
           "air",
           "gold_block",
-          "ecoitems:armor_core ? nether_star",
+          "ecoitems:armor_core ? enchanted_book mending:1",
           "gold_block"
         ],
         "craftable": true,
@@ -603,14 +603,14 @@
         "craftable": true,
         "defaultTier": "default",
         "recipe": [
-          "netherite_ingot",
+          "netherite_block",
           "ecoitems:enchanted_ender_eye ? netherite_ingot",
-          "netherite_ingot",
+          "diamond_block",
           "air",
           "elytra",
           "air",
           "gold_block",
-          "ecoitems:armor_core ? nether_star",
+          "ecoitems:armor_core ? enchanted_book mending:1",
           "gold_block"
         ]
       },
@@ -637,14 +637,14 @@
         "craftable": true,
         "defaultTier": "default",
         "recipe": [
-          "netherite_ingot",
+          "netherite_block",
           "ecoitems:enchanted_ender_eye ? netherite_ingot",
-          "netherite_ingot",
+          "diamond_block",
           "air",
           "golden_leggings",
           "air",
           "gold_block",
-          "ecoitems:armor_core ? nether_star",
+          "ecoitems:armor_core ? enchanted_book mending:1",
           "gold_block"
         ]
       },
@@ -671,14 +671,14 @@
         "craftable": true,
         "defaultTier": "default",
         "recipe": [
-          "netherite_ingot",
+          "netherite_block",
           "ecoitems:enchanted_ender_eye ? netherite_ingot",
-          "netherite_ingot",
+          "diamond_block",
           "air",
           "golden_boots",
           "air",
           "gold_block",
-          "ecoitems:armor_core ? nether_star",
+          "ecoitems:armor_core ? enchanted_book mending:1",
           "gold_block"
         ]
       }
@@ -725,7 +725,7 @@
         "&8Drop this onto &bHuntress Armor",
         "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
       ],
-      "shardCraftable": true,
+      "shardCraftable": false,
       "shardRecipe": [
         "prismarine_shard",
         "ecoarmor:set_huntress_helmet",
