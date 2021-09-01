@@ -269,8 +269,8 @@
       "advancedLore": [
         "",
         "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>",
-        "&8» &cTake 20% less damage",
-        "&8» &cDeal 2x damage to bosses",
+        "&8» &4Take 20% less damage",
+        "&8» &4Deal 2x damage to bosses",
         "&8&oRequires full set to be worn"
       ],
       "advancementShardName": "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &4Slayer",
@@ -291,7 +291,20 @@
         "prismarine_shard"
       ],
       "helmet": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "leather_helmet",
         "leatherColor": "#750909",
         "name": "&4Slayer Helmet",
@@ -302,14 +315,14 @@
         "customModelData": -1.0,
         "lore": [
           "&4&lSLAYER SET BONUS",
-          "&8» &cDeal 50% more damage to bosses",
-          "&8» &cTake 10% less damage",
+          "&8» &4Deal 50% more damage to bosses",
+          "&8» &4Take 10% less damage",
           "&8&oRequires full set to be worn",
           "",
           "&fTier: %tier%",
           "&8&oUpgrade with an Upgrade Crystal"
         ],
-        "craftable": false,
+        "craftable": true,
         "defaultTier": "default",
         "recipe": [
           "air",
@@ -324,7 +337,20 @@
         ]
       },
       "chestplate": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "leather_chestplate",
         "leatherColor": "#750909",
         "name": "&4Slayer Helmet",
@@ -335,14 +361,14 @@
         "customModelData": -1.0,
         "lore": [
           "&4&lSLAYER SET BONUS",
-          "&8» &cDeal 50% more damage to bosses",
-          "&8» &cTake 10% less damage",
+          "&8» &4Deal 50% more damage to bosses",
+          "&8» &4Take 10% less damage",
           "&8&oRequires full set to be worn",
           "",
           "&fTier: %tier%",
           "&8&oUpgrade with an Upgrade Crystal"
         ],
-        "craftable": false,
+        "craftable": true,
         "defaultTier": "default",
         "recipe": [
           "air",
@@ -357,7 +383,20 @@
         ]
       },
       "elytra": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "elytra",
         "name": "&4Slayer Elytra",
         "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19> &4Slayer Elytra",
@@ -367,11 +406,14 @@
         "customModelData": -1.0,
         "lore": [
           "&4&lSLAYER SET BONUS",
-          "&8» &cDeal 50% more damage to bosses",
-          "&8» &cTake 10% less damage",
-          "&8&oRequires full set to be worn"
+          "&8» &4Deal 50% more damage to bosses",
+          "&8» &4Take 10% less damage",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
         ],
-        "craftable": false,
+        "craftable": true,
         "defaultTier": "default",
         "recipe": [
           "air",
@@ -386,7 +428,20 @@
         ]
       },
       "leggings": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "leather_leggings",
         "leatherColor": "#750909",
         "name": "&4Slayer Leggings",
@@ -404,7 +459,7 @@
           "&fTier: %tier%",
           "&8&oUpgrade with an Upgrade Crystal"
         ],
-        "craftable": false,
+        "craftable": true,
         "defaultTier": "default",
         "recipe": [
           "air",
@@ -419,7 +474,20 @@
         ]
       },
       "boots": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "leather_boots",
         "leatherColor": "#750909",
         "name": "&4Slayer Boots",
@@ -430,8 +498,8 @@
         "customModelData": -1.0,
         "lore": [
           "&4&lSLAYER SET BONUS",
-          "&8» &cDeal 50% more damage to bosses",
-          "&8» &cTake 10% less damage",
+          "&8» &4Deal 50% more damage to bosses",
+          "&8» &4Take 10% less damage",
           "&8&oRequires full set to be worn",
           "",
           "&fTier: %tier%",
@@ -513,7 +581,20 @@
         "prismarine_shard"
       ],
       "helmet": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "leather_helmet",
         "leatherColor": "#bd15a9",
         "name": "&5Angelic Helmet",
@@ -547,7 +628,20 @@
         ]
       },
       "chestplate": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "leather_chestplate",
         "leatherColor": "#bd15a9",
         "name": "&5Angelic Chestplate",
@@ -557,6 +651,18 @@
         "flags": [],
         "customModelData": -1.0,
         "lore": [
+          "&5&lANGELIC SET BONUS",
+          "&8» &dGain 10 more hearts",
+          "&8» &dPermanent regeneration",
+          "&8» &dDeal 10% less melee damage",
+          "&8&oRequires full set to be worn",
+          "",
+          "&fTier: %tier%",
+          "&8&oUpgrade with an Upgrade Crystal"
+        ],
+        "craftable": true,
+        "defaultTier": "default",
+        "recipe": [
           "netherite_block",
           "ecoitems:enchanted_ender_eye ? netherite_ingot",
           "diamond_block",
@@ -566,23 +672,23 @@
           "gold_block",
           "ecoitems:armor_core ? enchanted_book mending:1",
           "gold_block"
-        ],
-        "craftable": true,
-        "defaultTier": "default",
-        "recipe": [
-          "golden_apple",
-          "air",
-          "golden_apple",
-          "golden_apple",
-          "diamond_chestplate",
-          "golden_apple",
-          "golden_apple",
-          "golden_apple",
-          "golden_apple"
         ]
       },
       "elytra": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "elytra",
         "name": "&5Angelic Elytra",
         "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Elytra",
@@ -615,7 +721,20 @@
         ]
       },
       "leggings": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "leather_leggings",
         "leatherColor": "#bd15a9",
         "name": "&5Angelic Leggings",
@@ -649,7 +768,20 @@
         ]
       },
       "boots": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "leather_boots",
         "leatherColor": "#bd15a9",
         "name": "&5Angelic Boots",
@@ -738,7 +870,20 @@
         "prismarine_shard"
       ],
       "helmet": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "leather_helmet",
         "leatherColor": "#97fbfc",
         "name": "&bHuntress Helmet",
@@ -772,7 +917,20 @@
         ]
       },
       "chestplate": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "leather_chestplate",
         "leatherColor": "#97fbfc",
         "name": "&bHuntress Helmet",
@@ -806,7 +964,20 @@
         ]
       },
       "elytra": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "elytra",
         "name": "&bHuntress Elytra",
         "advancedName": "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Elytra",
@@ -839,7 +1010,20 @@
         ]
       },
       "leggings": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "leather_leggings",
         "leatherColor": "#97fbfc",
         "name": "&bHuntress Leggings",
@@ -873,7 +1057,20 @@
         ]
       },
       "boots": {
-        "enchants": [],
+        "enchants": [
+          {
+            "id": "evasion",
+            "level": 3.0
+          },
+          {
+            "id": "protection",
+            "level": 4.0
+          },
+          {
+            "id": "unbreaking",
+            "level": 3.0
+          }
+        ],
         "material": "leather_boots",
         "leatherColor": "#97fbfc",
         "name": "&bHuntress Boots",
