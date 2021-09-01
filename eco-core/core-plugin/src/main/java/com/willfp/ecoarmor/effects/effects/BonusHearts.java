@@ -23,6 +23,8 @@ public class BonusHearts extends Effect<Integer> {
             return;
         }
 
+        bonus *= 2;
+
         if (player.getHealth() >= maxHealth.getValue()) {
             this.getPlugin().getScheduler().runLater(() -> {
                 player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
