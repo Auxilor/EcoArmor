@@ -89,6 +89,7 @@ public class Tier extends PluginDependent<EcoPlugin> {
         this.name = config.getString("name");
         this.config = config;
 
+        Tiers.addNewTier(this);
         this.update();
     }
 
