@@ -52,7 +52,7 @@ public class ArmorSets {
         }
 
         for (JSONConfig setConfig : plugin.getEcoArmorJson().getSubsections("sets")) {
-            addNewSet(new ArmorSet(setConfig, plugin));
+            new ArmorSet(setConfig, plugin);
         }
     }
 

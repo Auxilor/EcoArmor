@@ -158,6 +158,8 @@ public class ArmorSet {
             advancedPotionEffects.put(effect, level);
         }
 
+        ArmorSets.addNewSet(this);
+
         for (ArmorSlot slot : ArmorSlot.values()) {
             ItemStack item = construct(slot, this.getConfig().getSubsection(slot.name().toLowerCase()), false);
             items.put(slot, item);
