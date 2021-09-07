@@ -186,6 +186,12 @@ public class ArmorSet {
                     this.getConfig().getStrings("shardRecipe"));
         }
 
+        new CustomItem(
+                this.getPlugin().getNamespacedKeyFactory().create("shard_" + name.toLowerCase()),
+                test -> this.equals(ArmorUtils.getShardSet(test)),
+                shard
+        ).register();
+
         return shard;
     }
 
