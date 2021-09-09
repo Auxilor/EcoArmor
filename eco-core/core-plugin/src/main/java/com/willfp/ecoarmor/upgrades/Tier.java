@@ -132,6 +132,12 @@ public class Tier extends PluginDependent<EcoPlugin> {
             ));
         }
 
+        new CustomItem(
+                this.getPlugin().getNamespacedKeyFactory().create("crystal_" + name.toLowerCase()),
+                test -> this.equals(ArmorUtils.getCrystalTier(test)),
+                out
+        ).register();
+
         if (this.isCraftable()) {
             ItemStack recipeOut = out.clone();
             recipeOut.setAmount(this.getConfig().getInt("crystal.giveAmount"));
