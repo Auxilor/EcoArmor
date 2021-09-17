@@ -42,14 +42,23 @@ public class ArmorDisplay extends DisplayModule {
             Tier crystalTier = ArmorUtils.getCrystalTier(meta);
 
             if (crystalTier != null) {
-                meta.setLore(crystalTier.getCrystal().getItemMeta().getLore());
+                List<String> lore = meta.getLore();
+                lore = lore == null ? new ArrayList<>() : lore;
+                lore.addAll(crystalTier.getCrystal().getItemMeta().getLore());
+                meta.setLore(lore);
                 itemStack.setItemMeta(meta);
             }
 
             ArmorSet shardSet = ArmorUtils.getShardSet(meta);
 
             if (shardSet != null) {
+                List<String> beforeLore = meta.getLore();
+                beforeLore = beforeLore == null ? new ArrayList<>() : beforeLore;
+                beforeLore.addAll(shardSet.getAdvancementShardItem().getItemMeta().getLore());
                 itemStack.setItemMeta(shardSet.getAdvancementShardItem().getItemMeta());
+                ItemMeta meta2 = itemStack.getItemMeta();
+                meta2.setLore(beforeLore);
+                itemStack.setItemMeta(meta2);
             }
 
             return;
