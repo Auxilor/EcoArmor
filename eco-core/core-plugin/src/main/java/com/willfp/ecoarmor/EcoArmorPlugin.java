@@ -43,7 +43,7 @@ public class EcoArmorPlugin extends EcoPlugin {
      * Internal constructor called by bukkit on plugin load.
      */
     public EcoArmorPlugin() {
-        super(88246, 10002, "&c");
+        super(687, 10002, "&c");
         instance = this;
 
         this.ecoArmorJson = new EcoArmorJson(this);
