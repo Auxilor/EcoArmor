@@ -7,8 +7,8 @@
 <h4 align="center">Source code for EcoArmor, a premium spigot plugin.</h4>
 
 <p align="center">
-    <a href="https://www.spigotmc.org/resources/ecoarmor.79573/">
-        <img alt="spigot" src="https://img.shields.io/badge/spigot-ecoarmor-purple?style=for-the-badge"/>
+    <a href="https://polymart.org/resource/1-16-1-17-ecoarmor.687">
+        <img alt="spigot" src="https://img.shields.io/badge/polymart-ecoarmor-purple?style=for-the-badge"/>
     </a>
     <a href="https://bstats.org/plugin/bukkit/EcoArmor" alt="bstats servers">
         <img src="https://img.shields.io/bstats/servers/10002?color=purple&style=for-the-badge"/>
