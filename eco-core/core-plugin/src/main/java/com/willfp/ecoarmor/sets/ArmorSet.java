@@ -173,11 +173,14 @@ public class ArmorSet {
     }
 
     private ItemStack constructShard() {
+        List<String> shardLore = this.getConfig().getStrings("advancementShardLore");
+        shardLore.replaceAll(s -> Display.PREFIX + s);
+
         ItemStack shard = new ItemStackBuilder(Objects.requireNonNull(Material.getMaterial(this.getPlugin().getConfigYml().getString("advancement-shard-material").toUpperCase())))
                 .setDisplayName(this.getConfig().getString("advancementShardName"))
                 .addEnchantment(Enchantment.DURABILITY, 3)
                 .addItemFlag(ItemFlag.HIDE_ENCHANTS)
-                .addLoreLines(this.getConfig().getStrings("advancementShardLore"))
+                .addLoreLines(shardLore)
                 .writeMetaKey(this.getPlugin().getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING, name)
                 .build();
 
