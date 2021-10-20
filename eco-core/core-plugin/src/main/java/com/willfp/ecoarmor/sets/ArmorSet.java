@@ -254,6 +254,9 @@ public class ArmorSet {
 
         for (JSONConfig enchantSection : slotConfig.getSubsections("enchants")) {
             Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(enchantSection.getString("id")));
+            if (enchantment == null) {
+                continue;
+            }
             int level = enchantSection.getInt("level");
             enchants.put(enchantment, level);
         }
