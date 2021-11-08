@@ -102,7 +102,7 @@ public class Tier extends PluginDependent<EcoPlugin> {
         this.requiredTiersForApplication = this.getConfig().getStrings("requiresTiers");
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal");
 
-        ItemStack out = new ItemStack(Objects.requireNonNull(Material.getMaterial(this.getPlugin().getConfigYml().getString("upgrade-crystal-material").toUpperCase())));
+        ItemStack out = Items.lookup(this.getPlugin().getConfigYml().getString("upgrade-crystal-material").toLowerCase()).getItem();
         ItemMeta outMeta = out.getItemMeta();
         assert outMeta != null;
         PersistentDataContainer container = outMeta.getPersistentDataContainer();

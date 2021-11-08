@@ -6,6 +6,7 @@ import com.willfp.eco.core.config.interfaces.JSONConfig;
 import com.willfp.eco.core.display.Display;
 import com.willfp.eco.core.fast.FastItemStack;
 import com.willfp.eco.core.items.CustomItem;
+import com.willfp.eco.core.items.Items;
 import com.willfp.eco.core.items.builder.ItemBuilder;
 import com.willfp.eco.core.items.builder.ItemStackBuilder;
 import com.willfp.eco.core.items.builder.LeatherArmorBuilder;
@@ -37,6 +38,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -176,7 +178,7 @@ public class ArmorSet {
         List<String> shardLore = this.getConfig().getStrings("advancementShardLore");
         shardLore.replaceAll(s -> Display.PREFIX + s);
 
-        ItemStack shard = new ItemStackBuilder(Objects.requireNonNull(Material.getMaterial(this.getPlugin().getConfigYml().getString("advancement-shard-material").toUpperCase())))
+        ItemStack shard = new ItemStackBuilder(Items.lookup(this.getPlugin().getConfigYml().getString("advancement-shard-material").toLowerCase()).getItem())
                 .setDisplayName(this.getConfig().getString("advancementShardName"))
                 .addEnchantment(Enchantment.DURABILITY, 3)
                 .addItemFlag(ItemFlag.HIDE_ENCHANTS)
