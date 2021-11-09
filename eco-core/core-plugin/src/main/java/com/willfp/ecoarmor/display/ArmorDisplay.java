@@ -3,6 +3,7 @@ package com.willfp.ecoarmor.display;
 import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.display.DisplayModule;
 import com.willfp.eco.core.display.DisplayPriority;
+import com.willfp.eco.core.fast.FastItemStack;
 import com.willfp.eco.util.SkullUtils;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
@@ -30,11 +31,12 @@ public class ArmorDisplay extends DisplayModule {
 
     @Override
     public void display(@NotNull final ItemStack itemStack,
-                           @NotNull final Object... args) {
+                        @NotNull final Object... args) {
         ItemMeta meta = itemStack.getItemMeta();
         if (meta == null) {
             return;
         }
+        FastItemStack fis = FastItemStack.wrap(itemStack);
 
         ArmorSet set = ArmorUtils.getSetOnItem(meta);
 
@@ -42,23 +44,19 @@ public class ArmorDisplay extends DisplayModule {
             Tier crystalTier = ArmorUtils.getCrystalTier(meta);
 
             if (crystalTier != null) {
-                List<String> lore = meta.getLore();
-                lore = lore == null ? new ArrayList<>() : lore;
-                lore.addAll(crystalTier.getCrystal().getItemMeta().getLore());
-                meta.setLore(lore);
-                itemStack.setItemMeta(meta);
+                List<String> lore = fis.getLore();
+                lore.addAll(FastItemStack.wrap(crystalTier.getCrystal()).getLore());
+                fis.setLore(lore);
             }
 
             ArmorSet shardSet = ArmorUtils.getShardSet(meta);
 
             if (shardSet != null) {
-                List<String> beforeLore = meta.getLore();
-                beforeLore = beforeLore == null ? new ArrayList<>() : beforeLore;
-                beforeLore.addAll(shardSet.getAdvancementShardItem().getItemMeta().getLore());
+                List<String> lore = fis.getLore();
+                lore.addAll(FastItemStack.wrap(shardSet.getAdvancementShardItem()).getLore());
+
                 itemStack.setItemMeta(shardSet.getAdvancementShardItem().getItemMeta());
-                ItemMeta meta2 = itemStack.getItemMeta();
-                meta2.setLore(beforeLore);
-                itemStack.setItemMeta(meta2);
+                FastItemStack.wrap(itemStack).setLore(lore);
             }
 
             return;
@@ -83,15 +81,14 @@ public class ArmorDisplay extends DisplayModule {
 
         List<String> lore = new ArrayList<>();
 
-        for (String s : slotMeta.getLore()) {
+        for (String s : FastItemStack.wrap(slotStack).getLore()) {
             s = s.replace("%tier%", tier.getDisplayName());
             lore.add(s);
         }
 
         if (meta.hasLore()) {
-            lore.addAll(meta.getLore());
+            lore.addAll(fis.getLore());
         }
-        meta.setLore(lore);
         meta.setDisplayName(slotMeta.getDisplayName());
 
         if (meta instanceof SkullMeta && slotMeta instanceof SkullMeta) {
@@ -105,5 +102,6 @@ public class ArmorDisplay extends DisplayModule {
         }
 
         itemStack.setItemMeta(meta);
+        FastItemStack.wrap(itemStack).setLore(lore);
     }
 }
