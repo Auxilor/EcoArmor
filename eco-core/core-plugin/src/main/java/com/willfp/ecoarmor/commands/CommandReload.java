@@ -20,7 +20,6 @@ public class CommandReload extends Subcommand {
     public CommandHandler getHandler() {
         return (sender, args) -> {
             this.getPlugin().reload();
-            this.getPlugin().reload();
             sender.sendMessage(this.getPlugin().getLangYml().getMessage("reloaded"));
         };
     }
