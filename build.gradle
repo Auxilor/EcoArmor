@@ -45,10 +45,15 @@ allprojects {
         onlyIf { !sourceSets.main.allSource.files.isEmpty() }
     }
 
-    dependencies {
-        compileOnly 'com.willfp:eco:6.8.1'
+    shadowJar {
+        relocate('com.willfp.libreforge', 'com.willfp.ecoarmor.libreforge')
+    }
 
-        compileOnly 'org.jetbrains:annotations:19.0.0'
+    dependencies {
+        compileOnly 'com.willfp:eco:6.13.10'
+        compileOnly 'com.willfp:libreforge:0.1.2'
+
+        compileOnly 'org.jetbrains:annotations:23.0.0'
 
         compileOnly 'org.projectlombok:lombok:1.18.20'
         annotationProcessor 'org.projectlombok:lombok:1.18.20'

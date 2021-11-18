@@ -1,14 +1,12 @@
 package com.willfp.ecoarmor.sets.util;
 
 import com.willfp.ecoarmor.EcoArmorPlugin;
-import com.willfp.ecoarmor.conditions.Condition;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.upgrades.Tier;
 import com.willfp.ecoarmor.upgrades.Tiers;
 import lombok.experimental.UtilityClass;
-import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
@@ -21,7 +19,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @UtilityClass
@@ -107,27 +104,6 @@ public class ArmorUtils {
         }
 
         return null;
-    }
-
-    /**
-     * Get if all conditions are met for a player.
-     *
-     * @param player The player.
-     * @return If conditions are men.
-     */
-    public boolean areConditionsMet(@NotNull final Player player) {
-        ArmorSet set = getSetOnPlayer(player);
-        if (set == null) {
-            return true;
-        }
-
-        for (Map.Entry<Condition<?>, Object> entry : set.getConditions().entrySet()) {
-            if (!entry.getKey().isMet(player, entry.getValue())) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     /**

@@ -4,7 +4,6 @@ import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.config.interfaces.Config;
 import com.willfp.eco.core.config.interfaces.JSONConfig;
 import com.willfp.eco.core.display.Display;
-import com.willfp.eco.core.fast.FastItemStack;
 import com.willfp.eco.core.items.CustomItem;
 import com.willfp.eco.core.items.Items;
 import com.willfp.eco.core.items.builder.ItemBuilder;
@@ -12,15 +11,17 @@ import com.willfp.eco.core.items.builder.ItemStackBuilder;
 import com.willfp.eco.core.items.builder.LeatherArmorBuilder;
 import com.willfp.eco.core.items.builder.SkullBuilder;
 import com.willfp.eco.core.recipe.Recipes;
-import com.willfp.eco.util.StringUtils;
-import com.willfp.ecoarmor.conditions.Condition;
-import com.willfp.ecoarmor.conditions.Conditions;
-import com.willfp.ecoarmor.effects.Effect;
-import com.willfp.ecoarmor.effects.Effects;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import com.willfp.ecoarmor.upgrades.Tier;
 import com.willfp.ecoarmor.upgrades.Tiers;
+import com.willfp.libreforge.api.conditions.Condition;
+import com.willfp.libreforge.api.conditions.Conditions;
+import com.willfp.libreforge.api.conditions.ConfiguredCondition;
+import com.willfp.libreforge.api.effects.ConfiguredEffect;
+import com.willfp.libreforge.api.effects.Effect;
+import com.willfp.libreforge.api.effects.Effects;
+import com.willfp.libreforge.api.provider.Holder;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -37,14 +38,17 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("unchecked")
-public class ArmorSet {
+/*
+TODO: Split off ArmorSet between two separate armorset objects (one advanced, one not)
+ */
+public class ArmorSet implements Holder {
     /**
      * Instance of EcoArmor.
      */
@@ -67,19 +71,19 @@ public class ArmorSet {
      * Conditions and their values.
      */
     @Getter
-    private final Map<Condition<?>, Object> conditions = new HashMap<>();
+    private final Set<ConfiguredCondition> conditions = new HashSet<>();
 
     /**
      * Effects and their strengths.
      */
     @Getter
-    private final Map<Effect<?>, Object> effects = new HashMap<>();
+    private final Set<ConfiguredEffect> effects = new HashSet<>();
 
     /**
      * Effects and their strengths on advanced armor.
      */
     @Getter
-    private final Map<Effect<?>, Object> advancedEffects = new HashMap<>();
+    private final Set<ConfiguredEffect> advancedEffects = new HashSet<>();
 
     /**
      * Potion effects to be applied on equip.
@@ -131,21 +135,18 @@ public class ArmorSet {
         this.name = config.getString("name");
 
         for (JSONConfig cfg : this.getConfig().getSubsections("conditions")) {
-            Condition<?> effect = Conditions.getByName(cfg.getString("id"));
-            Object value = cfg.get("args");
-            conditions.put(effect, value);
+            Condition effect = Conditions.INSTANCE.getByID(cfg.getString("id"));
+            conditions.add(new ConfiguredCondition(effect, cfg.getSubsection("args")));
         }
 
         for (JSONConfig cfg : this.getConfig().getSubsections("effects")) {
-            Effect<?> effect = Effects.getByName(cfg.getString("id"));
-            Object value = cfg.get("args");
-            effects.put(effect, value);
+            Effect effect = Effects.INSTANCE.getByID(cfg.getString("id"));
+            effects.add(new ConfiguredEffect(effect, cfg.getSubsection("args")));
         }
 
         for (JSONConfig cfg : this.getConfig().getSubsections("advancedEffects")) {
-            Effect<?> effect = Effects.getByName(cfg.getString("id"));
-            Object value = cfg.get("args");
-            advancedEffects.put(effect, value);
+            Effect effect = Effects.INSTANCE.getByID(cfg.getString("id"));
+            advancedEffects.add(new ConfiguredEffect(effect, cfg.getSubsection("args")));
         }
 
         for (JSONConfig cfg : this.getConfig().getSubsections("potionEffects")) {
@@ -365,49 +366,6 @@ public class ArmorSet {
      */
     public ItemStack getAdvancedItemStack(@NotNull final ArmorSlot slot) {
         return advancedItems.get(slot);
-    }
-
-    /**
-     * Get condition value of effect.
-     *
-     * @param condition The condition to query.
-     * @param <T>       The type of the condition value.
-     * @return The value.
-     */
-    @Nullable
-    public <T> T getConditionValue(@NotNull final Condition<T> condition) {
-        return (T) conditions.get(condition);
-    }
-
-    /**
-     * Get effect strength of effect.
-     *
-     * @param effect The effect to query.
-     * @param <T>    The type of the effect value.
-     * @return The strength.
-     */
-    @Nullable
-    public <T> T getEffectStrength(@NotNull final Effect<T> effect) {
-        return (T) effects.get(effect);
-    }
-
-    /**
-     * Get effect strength of effect on advanced armor.
-     *
-     * @param effect The effect to query.
-     * @param <T>    The type of the effect value.
-     * @return The strength.
-     */
-    @Nullable
-    public <T> T getAdvancedEffectStrength(@NotNull final Effect<T> effect) {
-        Object strength = advancedEffects.get(effect);
-        if (strength instanceof Integer) {
-            if (effect.getTypeClass().equals(Double.class)) {
-                strength = (double) (int) strength;
-            }
-        }
-
-        return (T) strength;
     }
 
     @Override

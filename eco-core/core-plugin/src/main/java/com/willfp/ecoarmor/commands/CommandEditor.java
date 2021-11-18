@@ -7,10 +7,10 @@ import com.willfp.eco.core.config.interfaces.JSONConfig;
 import com.willfp.eco.core.web.Paste;
 import com.willfp.eco.util.StringUtils;
 import com.willfp.ecoarmor.EcoArmorPlugin;
-import com.willfp.ecoarmor.conditions.Condition;
-import com.willfp.ecoarmor.conditions.Conditions;
-import com.willfp.ecoarmor.effects.Effect;
-import com.willfp.ecoarmor.effects.Effects;
+import com.willfp.libreforge.api.conditions.Condition;
+import com.willfp.libreforge.api.conditions.Conditions;
+import com.willfp.libreforge.api.effects.Effect;
+import com.willfp.libreforge.api.effects.Effects;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.potion.PotionEffectType;
@@ -44,10 +44,10 @@ public class CommandEditor extends Subcommand {
             List<String> potionEffects = Arrays.stream(PotionEffectType.values()).map(PotionEffectType::getName).collect(Collectors.toList());
             meta.put("potion-effects", potionEffects);
 
-            List<String> effects = Effects.values().stream().map(Effect::getName).collect(Collectors.toList());
+            List<String> effects = Effects.INSTANCE.values().stream().map(Effect::getId).collect(Collectors.toList());
             meta.put("effects", effects);
 
-            List<String> conditions = Conditions.values().stream().map(Condition::getName).collect(Collectors.toList());
+            List<String> conditions = Conditions.INSTANCE.values().stream().map(Condition::getId).collect(Collectors.toList());
             meta.put("conditions", conditions);
 
             config.set("meta", meta);
