@@ -15,13 +15,11 @@ import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import com.willfp.ecoarmor.upgrades.Tier;
 import com.willfp.ecoarmor.upgrades.Tiers;
-import com.willfp.libreforge.api.conditions.Condition;
-import com.willfp.libreforge.api.conditions.Conditions;
-import com.willfp.libreforge.api.conditions.ConfiguredCondition;
-import com.willfp.libreforge.api.effects.ConfiguredEffect;
-import com.willfp.libreforge.api.effects.Effect;
-import com.willfp.libreforge.api.effects.Effects;
-import com.willfp.libreforge.api.provider.Holder;
+import com.willfp.libreforge.Holder;
+import com.willfp.libreforge.conditions.Conditions;
+import com.willfp.libreforge.conditions.ConfiguredCondition;
+import com.willfp.libreforge.effects.ConfiguredEffect;
+import com.willfp.libreforge.effects.Effects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -32,7 +30,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,7 +45,7 @@ import java.util.stream.Collectors;
 /*
 TODO: Split off ArmorSet between two separate armorset objects (one advanced, one not)
  */
-public class ArmorSet implements Holder {
+public class ArmorSet {
     /**
      * Instance of EcoArmor.
      */
@@ -68,34 +65,16 @@ public class ArmorSet implements Holder {
     private final String name;
 
     /**
-     * Conditions and their values.
+     * The advanced holder.
      */
     @Getter
-    private final Set<ConfiguredCondition> conditions = new HashSet<>();
+    private final Holder advancedHoler;
 
     /**
-     * Effects and their strengths.
+     * The regular holder.
      */
     @Getter
-    private final Set<ConfiguredEffect> effects = new HashSet<>();
-
-    /**
-     * Effects and their strengths on advanced armor.
-     */
-    @Getter
-    private final Set<ConfiguredEffect> advancedEffects = new HashSet<>();
-
-    /**
-     * Potion effects to be applied on equip.
-     */
-    @Getter
-    private final Map<PotionEffectType, Integer> potionEffects = new HashMap<>();
-
-    /**
-     * Potion effects to be applied on equipping advanced.
-     */
-    @Getter
-    private final Map<PotionEffectType, Integer> advancedPotionEffects = new HashMap<>();
+    private final Holder regularHolder;
 
     /**
      * The base64 texture of a skull used as a helmet.
@@ -134,32 +113,32 @@ public class ArmorSet implements Holder {
         this.plugin = plugin;
         this.name = config.getString("name");
 
+        Set<ConfiguredCondition> conditions = new HashSet<>();
         for (JSONConfig cfg : this.getConfig().getSubsections("conditions")) {
-            Condition effect = Conditions.INSTANCE.getByID(cfg.getString("id"));
-            conditions.add(new ConfiguredCondition(effect, cfg.getSubsection("args")));
+            ConfiguredCondition conf = Conditions.compile(cfg, "Armor Set " + this.name);
+            if (conf != null) {
+                conditions.add(conf);
+            }
         }
 
+        Set<ConfiguredEffect> effects = new HashSet<>();
         for (JSONConfig cfg : this.getConfig().getSubsections("effects")) {
-            Effect effect = Effects.INSTANCE.getByID(cfg.getString("id"));
-            effects.add(new ConfiguredEffect(effect, cfg.getSubsection("args")));
+            ConfiguredEffect conf = Effects.compile(cfg, "Armor Set " + this.name);
+            if (conf != null) {
+                effects.add(conf);
+            }
         }
 
+        Set<ConfiguredEffect> advancedEffects = new HashSet<>();
         for (JSONConfig cfg : this.getConfig().getSubsections("advancedEffects")) {
-            Effect effect = Effects.INSTANCE.getByID(cfg.getString("id"));
-            advancedEffects.add(new ConfiguredEffect(effect, cfg.getSubsection("args")));
+            ConfiguredEffect conf = Effects.compile(cfg, "Armor Set " + this.name + " (Advanced)");
+            if (conf != null) {
+                effects.add(conf);
+            }
         }
 
-        for (JSONConfig cfg : this.getConfig().getSubsections("potionEffects")) {
-            PotionEffectType effect = PotionEffectType.getByName(cfg.getString("id").toUpperCase());
-            int level = cfg.getInt("level");
-            potionEffects.put(effect, level);
-        }
-
-        for (JSONConfig cfg : this.getConfig().getSubsections("advancedPotionEffects")) {
-            PotionEffectType effect = PotionEffectType.getByName(cfg.getString("id").toUpperCase());
-            int level = cfg.getInt("level");
-            advancedPotionEffects.put(effect, level);
-        }
+        this.regularHolder = new RegularHolder(conditions, effects);
+        this.advancedHoler = new AdvancedHolder(conditions, advancedEffects);
 
         ArmorSets.addNewSet(this);
 

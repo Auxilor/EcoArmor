@@ -6,6 +6,7 @@ import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.upgrades.Tier;
 import com.willfp.ecoarmor.upgrades.Tiers;
+import com.willfp.libreforge.Holder;
 import lombok.experimental.UtilityClass;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -61,6 +62,24 @@ public class ArmorUtils {
         }
 
         return ArmorSets.getByName(setName);
+    }
+
+    /**
+     * Get active holder for a player.
+     *
+     * @param player The player to check.
+     * @return The holder, or null if not found.
+     */
+    @Nullable
+    public Holder getActiveSet(@NotNull final Player player) {
+        ArmorSet armorSet = getSetOnPlayer(player);
+        boolean advanced = isWearingAdvanced(player);
+
+        if (armorSet != null) {
+            return advanced ? armorSet.getAdvancedHoler() : armorSet.getRegularHolder();
+        } else {
+            return null;
+        }
     }
 
     /**

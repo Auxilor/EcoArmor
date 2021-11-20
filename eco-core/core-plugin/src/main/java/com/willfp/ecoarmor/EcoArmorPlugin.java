@@ -8,18 +8,22 @@ import com.willfp.ecoarmor.commands.CommandEcoarmor;
 import com.willfp.ecoarmor.config.EcoArmorJson;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.sets.ArmorSets;
+import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import com.willfp.ecoarmor.sets.util.EffectiveDurabilityListener;
 import com.willfp.ecoarmor.sets.util.PreventSkullPlaceListener;
 import com.willfp.ecoarmor.upgrades.Tiers;
 import com.willfp.ecoarmor.upgrades.listeners.AdvancementShardListener;
 import com.willfp.ecoarmor.upgrades.listeners.CrystalListener;
 import com.willfp.ecoarmor.util.DiscoverRecipeListener;
-import com.willfp.libreforge.api.LibReforge;
+import com.willfp.ecoarmor.util.EffectListener;
+import com.willfp.libreforge.Holder;
+import com.willfp.libreforge.LibReforge;
 import lombok.Getter;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -31,7 +35,7 @@ public class EcoArmorPlugin extends EcoPlugin {
     private static EcoArmorPlugin instance;
 
     /**
-     * tiers.json.
+     * ecoarmor.json.
      */
     @Getter
     private final EcoArmorJson ecoArmorJson;
@@ -46,11 +50,24 @@ public class EcoArmorPlugin extends EcoPlugin {
         this.ecoArmorJson = new EcoArmorJson(this);
 
         LibReforge.init(this);
+        LibReforge.registerHolderProvider(player -> {
+            Holder active = ArmorUtils.getActiveSet(player);
+            if (active == null) {
+                return Collections.emptyList();
+            } else {
+                return Collections.singletonList(active);
+            }
+        });
     }
 
     @Override
     protected void handleEnable() {
         LibReforge.enable(this);
+    }
+
+    @Override
+    protected void handleDisable() {
+        LibReforge.disable(this);
     }
 
     @Override
@@ -73,7 +90,8 @@ public class EcoArmorPlugin extends EcoPlugin {
                 new AdvancementShardListener(this),
                 new EffectiveDurabilityListener(this),
                 new DiscoverRecipeListener(this),
-                new PreventSkullPlaceListener()
+                new PreventSkullPlaceListener(),
+                new EffectListener()
         );
     }
 

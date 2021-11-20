@@ -5,18 +5,28 @@
       "conditions": [],
       "effects": [
         {
-          "id": "damage-multiplier",
-          "args": 1.25
+          "id": "damage_multiplier",
+          "args": {
+            "multiplier": 1.25
+          },
+          "triggers": [
+            "melee_attack",
+            "bow_attack",
+            "trident_attack"
+          ]
         }
       ],
       "advancedEffects": [
         {
-          "id": "damage-taken-multiplier",
-          "args": 0.9
+          "id": "damage_multiplier",
+          "args": {
+            "multiplier": 0.9
+          },
+          "triggers": [
+            "take_damage"
+          ]
         }
       ],
-      "potionEffects": [],
-      "advancedPotionEffects": [],
       "advancedLore": [
         "",
         "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>",
@@ -246,26 +256,54 @@
       "conditions": [],
       "effects": [
         {
-          "id": "boss-damage-multiplier",
-          "args": 1.5
+          "id": "damage_multiplier",
+          "args": {
+            "multiplier": 1.5
+          },
+          "triggers": [
+            "melee_attack",
+            "bow_attack",
+            "trident_attack"
+          ],
+          "filters": {
+            "onlyBosses": true
+          }
         },
         {
-          "id": "damage-taken-multiplier",
-          "args": 0.9
+          "id": "damage_multiplier",
+          "args": {
+            "multiplier": 0.9
+          },
+          "triggers": [
+            "take_damage"
+          ]
         }
       ],
       "advancedEffects": [
         {
-          "id": "damage-taken-multiplier",
-          "args": 0.8
+          "id": "damage_multiplier",
+          "args": {
+            "multiplier": 0.8
+          },
+          "triggers": [
+            "take_damage"
+          ]
         },
         {
-          "id": "boss-damage-multiplier",
-          "args": 2
+          "id": "damage_multiplier",
+          "args": {
+            "multiplier": 2
+          },
+          "triggers": [
+            "melee_attack",
+            "bow_attack",
+            "trident_attack"
+          ],
+          "filters": {
+            "onlyBosses": true
+          }
         }
       ],
-      "potionEffects": [],
-      "advancedPotionEffects": [],
       "advancedLore": [
         "",
         "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>",
@@ -525,34 +563,36 @@
       "conditions": [],
       "effects": [
         {
-          "id": "bonus-hearts",
-          "args": 10.0
+          "id": "bonus_health",
+          "args": {
+            "health": 20
+          }
         },
         {
-          "id": "melee-damage-multiplier",
-          "args": 0.9
+          "id": "damage_multiplier",
+          "args": {
+            "multiplier": 0.9
+          },
+          "triggers": [
+            "melee_attack"
+          ]
         }
       ],
       "advancedEffects": [
         {
-          "id": "bonus-hearts",
-          "args": 20.0
+          "id": "bonus_health",
+          "args": {
+            "health": 40
+          }
         },
         {
-          "id": "hunger-loss-multiplier",
-          "args": 0.5
-        }
-      ],
-      "potionEffects": [
-        {
-          "id": "regeneration",
-          "level": 1.0
-        }
-      ],
-      "advancedPotionEffects": [
-        {
-          "id": "regeneration",
-          "level": 1.0
+          "id": "hunger_multiplier",
+          "args": {
+            "multiplier": 0.5
+          },
+          "triggers": [
+            "lose_hunger"
+          ]
         }
       ],
       "advancedLore": [
@@ -819,26 +859,51 @@
       "conditions": [],
       "effects": [
         {
-          "id": "melee-damage-multiplier",
-          "args": 0.85
+          "id": "damage_multiplier",
+          "args": {
+            "multiplier": 0.85
+          },
+          "triggers": [
+            "melee_attack"
+          ]
         },
         {
-          "id": "trident-damage-multiplier",
-          "args": 2.5
+          "id": "damage_multiplier",
+          "args": {
+            "multiplier": 2.5
+          },
+          "triggers": [
+            "trident_attack"
+          ]
         },
         {
-          "id": "bow-damage-multiplier",
-          "args": 1.5
+          "id": "damage_multiplier",
+          "args": {
+            "multiplier": 1.5
+          },
+          "triggers": [
+            "bow_attack"
+          ]
         }
       ],
       "advancedEffects": [
         {
-          "id": "bow-damage-multiplier",
-          "args": 1.75
+          "id": "damage_multiplier",
+          "args": {
+            "multiplier": 3.5
+          },
+          "triggers": [
+            "trident_attack"
+          ]
         },
         {
-          "id": "trident-damage-multiplier",
-          "args": 3.5
+          "id": "damage_multiplier",
+          "args": {
+            "multiplier": 1.75
+          },
+          "triggers": [
+            "bow_attack"
+          ]
         }
       ],
       "potionEffects": [],
