@@ -16,8 +16,7 @@ public class CommandEcoarmor extends PluginCommand {
         super(plugin, "ecoarmor", "ecoarmor.command.ecoarmor", false);
 
         this.addSubcommand(new CommandReload(plugin))
-                .addSubcommand(new CommandGive(plugin))
-                .addSubcommand(new CommandEditor(plugin));
+                .addSubcommand(new CommandGive(plugin));
     }
 
     @Override

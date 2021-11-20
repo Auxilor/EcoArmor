@@ -29,7 +29,6 @@ permissions:
       ecoarmor.command.reload: true
       ecoarmor.command.ecoarmor: true
       ecoarmor.command.give: true
-      ecoarmor.command.editor: true
 
   ecoarmor.command.reload:
     description: Allows reloading the config
@@ -39,9 +38,6 @@ permissions:
     default: op
   ecoarmor.noflydisable:
     description: Prevents losing fly.
-    default: op
-  ecoarmor.command.editor:
-    description: Allows the user of /ecoarmor editor.
     default: op
   ecoarmor.command.ecoarmor:
     description: Allows the user of /ecoarmor.
