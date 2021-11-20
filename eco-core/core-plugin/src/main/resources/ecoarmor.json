@@ -20,6 +20,17 @@
         {
           "id": "damage_multiplier",
           "args": {
+            "multiplier": 1.25
+          },
+          "triggers": [
+            "melee_attack",
+            "bow_attack",
+            "trident_attack"
+          ]
+        },
+        {
+          "id": "damage_multiplier",
+          "args": {
             "multiplier": 0.9
           },
           "triggers": [
