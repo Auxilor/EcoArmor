@@ -587,6 +587,13 @@
           "triggers": [
             "melee_attack"
           ]
+        },
+        {
+          "id": "permanent_potion_effect",
+          "args": {
+            "effect": "regeneration",
+            "level": 1
+          }
         }
       ],
       "advancedEffects": [
@@ -604,6 +611,13 @@
           "triggers": [
             "lose_hunger"
           ]
+        },
+        {
+          "id": "permanent_potion_effect",
+          "args": {
+            "effect": "regeneration",
+            "level": 1
+          }
         }
       ],
       "advancedLore": [
