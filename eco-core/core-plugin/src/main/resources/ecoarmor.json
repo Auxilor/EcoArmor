@@ -576,7 +576,7 @@
         {
           "id": "bonus_health",
           "args": {
-            "health": 20
+            "health": 10
           }
         },
         {
@@ -600,7 +600,7 @@
         {
           "id": "bonus_health",
           "args": {
-            "health": 40
+            "health": 20
           }
         },
         {
