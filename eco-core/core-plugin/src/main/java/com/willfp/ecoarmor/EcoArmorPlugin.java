@@ -74,6 +74,7 @@ public class EcoArmorPlugin extends EcoPlugin {
     protected void handleReload() {
         this.getLogger().info(Tiers.values().size() + " Tiers Loaded");
         this.getLogger().info(ArmorSets.values().size() + " Sets Loaded");
+        LibReforge.reload(this);
     }
 
     @Override
