@@ -607,10 +607,7 @@
           "id": "hunger_multiplier",
           "args": {
             "multiplier": 0.5
-          },
-          "triggers": [
-            "lose_hunger"
-          ]
+          }
         },
         {
           "id": "permanent_potion_effect",
