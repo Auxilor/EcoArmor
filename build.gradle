@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0"
     }
 }
 
@@ -72,7 +72,7 @@ allprojects {
         testCompileOnly 'org.projectlombok:lombok:1.18.20'
         testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 
-        compileOnly 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
+        compileOnly 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
     }
 
     tasks.withType(JavaCompile) {
