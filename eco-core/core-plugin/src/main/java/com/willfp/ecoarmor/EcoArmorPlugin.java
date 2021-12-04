@@ -105,4 +105,9 @@ public class EcoArmorPlugin extends EcoPlugin {
     protected @Nullable DisplayModule createDisplayModule() {
         return new ArmorDisplay(this);
     }
+
+    @Override
+    public String getMinimumEcoVersion() {
+        return "6.15.0";
+    }
 }
