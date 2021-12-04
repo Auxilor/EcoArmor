@@ -3,7 +3,6 @@ package com.willfp.ecoarmor.upgrades;
 import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.PluginDependent;
 import com.willfp.eco.core.config.interfaces.Config;
-import com.willfp.eco.core.config.interfaces.JSONConfig;
 import com.willfp.eco.core.display.Display;
 import com.willfp.eco.core.items.CustomItem;
 import com.willfp.eco.core.items.Items;
@@ -13,7 +12,6 @@ import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -83,7 +81,7 @@ public class Tier extends PluginDependent<EcoPlugin> {
      * @param config The config of the tier.
      * @param plugin Instance of EcoArmor.
      */
-    public Tier(@NotNull final JSONConfig config,
+    public Tier(@NotNull final Config config,
                 @NotNull final EcoPlugin plugin) {
         super(plugin);
         this.name = config.getString("name");

@@ -2,7 +2,6 @@ package com.willfp.ecoarmor.sets;
 
 import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.config.interfaces.Config;
-import com.willfp.eco.core.config.interfaces.JSONConfig;
 import com.willfp.eco.core.display.Display;
 import com.willfp.eco.core.items.CustomItem;
 import com.willfp.eco.core.items.Items;
@@ -56,7 +55,7 @@ public class ArmorSet {
      * The config of the set.
      */
     @Getter(AccessLevel.PRIVATE)
-    private final JSONConfig config;
+    private final Config config;
 
     /**
      * The name of the set.
@@ -107,14 +106,14 @@ public class ArmorSet {
      * @param config The set's config.
      * @param plugin Instance of EcoArmor.
      */
-    public ArmorSet(@NotNull final JSONConfig config,
+    public ArmorSet(@NotNull final Config config,
                     @NotNull final EcoPlugin plugin) {
         this.config = config;
         this.plugin = plugin;
         this.name = config.getString("name");
 
         Set<ConfiguredCondition> conditions = new HashSet<>();
-        for (JSONConfig cfg : this.getConfig().getSubsections("conditions")) {
+        for (Config cfg : this.getConfig().getSubsections("conditions")) {
             ConfiguredCondition conf = Conditions.compile(cfg, "Armor Set " + this.name);
             if (conf != null) {
                 conditions.add(conf);
@@ -122,7 +121,7 @@ public class ArmorSet {
         }
 
         Set<ConfiguredEffect> effects = new HashSet<>();
-        for (JSONConfig cfg : this.getConfig().getSubsections("effects")) {
+        for (Config cfg : this.getConfig().getSubsections("effects")) {
             ConfiguredEffect conf = Effects.compile(cfg, "Armor Set " + this.name);
             if (conf != null) {
                 effects.add(conf);
@@ -130,7 +129,7 @@ public class ArmorSet {
         }
 
         Set<ConfiguredEffect> advancedEffects = new HashSet<>();
-        for (JSONConfig cfg : this.getConfig().getSubsections("advancedEffects")) {
+        for (Config cfg : this.getConfig().getSubsections("advancedEffects")) {
             ConfiguredEffect conf = Effects.compile(cfg, "Armor Set " + this.name + " (Advanced)");
             if (conf != null) {
                 effects.add(conf);
@@ -183,7 +182,7 @@ public class ArmorSet {
     }
 
     private ItemStack construct(@NotNull final ArmorSlot slot,
-                                @NotNull final JSONConfig slotConfig,
+                                @NotNull final Config slotConfig,
                                 final boolean advanced) {
         Material material = Material.getMaterial(slotConfig.getString("material").toUpperCase());
 
@@ -234,7 +233,7 @@ public class ArmorSet {
 
         Map<Enchantment, Integer> enchants = new HashMap<>();
 
-        for (JSONConfig enchantSection : slotConfig.getSubsections("enchants")) {
+        for (Config enchantSection : slotConfig.getSubsections("enchants")) {
             Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(enchantSection.getString("id")));
             if (enchantment == null) {
                 continue;

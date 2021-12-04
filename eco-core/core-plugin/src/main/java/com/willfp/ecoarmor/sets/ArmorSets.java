@@ -4,7 +4,7 @@ package com.willfp.ecoarmor.sets;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
-import com.willfp.eco.core.config.interfaces.JSONConfig;
+import com.willfp.eco.core.config.interfaces.Config;
 import com.willfp.eco.core.config.updating.ConfigUpdater;
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import lombok.experimental.UtilityClass;
@@ -51,7 +51,7 @@ public class ArmorSets {
             removeSet(set);
         }
 
-        for (JSONConfig setConfig : plugin.getEcoArmorJson().getSubsections("sets")) {
+        for (Config setConfig : plugin.getEcoArmorYml().getSubsections("sets")) {
             new ArmorSet(setConfig, plugin);
         }
     }

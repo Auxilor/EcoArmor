@@ -5,7 +5,7 @@ import com.willfp.eco.core.command.impl.PluginCommand;
 import com.willfp.eco.core.display.DisplayModule;
 import com.willfp.eco.core.integrations.IntegrationLoader;
 import com.willfp.ecoarmor.commands.CommandEcoarmor;
-import com.willfp.ecoarmor.config.EcoArmorJson;
+import com.willfp.ecoarmor.config.EcoArmorYml;
 import com.willfp.ecoarmor.display.ArmorDisplay;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
@@ -35,10 +35,10 @@ public class EcoArmorPlugin extends EcoPlugin {
     private static EcoArmorPlugin instance;
 
     /**
-     * ecoarmor.json.
+     * ecoarmor.yml.
      */
     @Getter
-    private final EcoArmorJson ecoArmorJson;
+    private final EcoArmorYml ecoArmorYml;
 
     /**
      * Internal constructor called by bukkit on plugin load.
@@ -47,7 +47,7 @@ public class EcoArmorPlugin extends EcoPlugin {
         super(687, 10002, "&c");
         instance = this;
 
-        this.ecoArmorJson = new EcoArmorJson(this);
+        this.ecoArmorYml = new EcoArmorYml(this);
 
         LibReforge.init(this);
         LibReforge.registerHolderProvider(player -> {

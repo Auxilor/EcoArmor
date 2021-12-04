@@ -3,7 +3,7 @@ package com.willfp.ecoarmor.upgrades;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
-import com.willfp.eco.core.config.interfaces.JSONConfig;
+import com.willfp.eco.core.config.interfaces.Config;
 import com.willfp.eco.core.config.updating.ConfigUpdater;
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import lombok.Getter;
@@ -65,7 +65,7 @@ public class Tiers {
     public static void reload(@NotNull final EcoArmorPlugin plugin) {
         BY_NAME.clear();
 
-        for (JSONConfig tierConfig : plugin.getEcoArmorJson().getSubsections("tiers")) {
+        for (Config tierConfig : plugin.getEcoArmorYml().getSubsections("tiers")) {
             new Tier(tierConfig, plugin);
         }
 

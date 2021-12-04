@@ -1,0 +1,1548 @@
+sets:
+  - name: reaper
+    conditions: []
+    effects:
+      - id: damage_multiplier
+        args:
+          multiplier: 1.25
+        triggers:
+          - melee_attack
+          - bow_attack
+          - trident_attack
+    advancedEffects:
+      - id: damage_multiplier
+        args:
+          multiplier: 1.25
+        triggers:
+          - melee_attack
+          - bow_attack
+          - trident_attack
+      - id: damage_multiplier
+        args:
+          multiplier: 0.9
+        triggers:
+          - take_damage
+    advancedLore:
+      - ''
+      - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
+      - "&8» &6Take 10% less damage"
+      - "&8&oRequires full set to be worn"
+    advancementShardName: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &cReaper"
+    advancementShardLore:
+      - "&8Drop this onto &cReaper Armor"
+      - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+    shardCraftable: false
+    shardRecipe:
+      - prismarine_shard
+      - ecoarmor:set_reaper_helmet
+      - prismarine_shard
+      - ecoarmor:set_reaper_chestplate
+      - nether_star
+      - ecoarmor:set_reaper_leggings
+      - prismarine_shard
+      - ecoarmor:set_reaper_boots
+      - prismarine_shard
+    helmet:
+      enchants:
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_helmet
+      leatherColor: "#303030"
+      name: "&cReaper Helmet"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Helmet"
+      effectiveDurability: 2048
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&c&lREAPER SET BONUS"
+        - "&8» &cDeal 25% more damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - ecoitems:armor_core ? air
+        - nether_star
+        - ecoitems:armor_core ? air
+        - nether_star
+        - netherite_helmet
+        - nether_star
+        - air
+        - nether_star
+        - air
+    chestplate:
+      enchants:
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_chestplate
+      leatherColor: "#303030"
+      name: "&cReaper Chestplate"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Chestplate"
+      effectiveDurability: 2048
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&c&lREAPER SET BONUS"
+        - "&8» &cDeal 25% more damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - ecoitems:armor_core ? air
+        - nether_star
+        - ecoitems:armor_core ? air
+        - nether_star
+        - netherite_chestplate
+        - nether_star
+        - air
+        - nether_star
+        - air
+    elytra:
+      enchants:
+        - id: unbreaking
+          level: 3
+      material: elytra
+      name: "&cReaper Elytra"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Elytra"
+      effectiveDurability: 2048
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&c&lREAPER SET BONUS"
+        - "&8» &cDeal 25% more damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - ecoitems:armor_core ? air
+        - nether_star
+        - ecoitems:armor_core ? air
+        - nether_star
+        - elytra
+        - nether_star
+        - air
+        - nether_star
+        - air
+    leggings:
+      enchants:
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_leggings
+      leatherColor: "#303030"
+      name: "&cReaper Leggings"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Leggings"
+      effectiveDurability: 2048
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&c&lREAPER SET BONUS"
+        - "&8» &cDeal 25% more damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - ecoitems:armor_core ? air
+        - nether_star
+        - ecoitems:armor_core ? air
+        - nether_star
+        - netherite_leggings
+        - nether_star
+        - air
+        - nether_star
+        - air
+    boots:
+      enchants:
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_boots
+      leatherColor: "#303030"
+      name: "&cReaper Boots"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Boots"
+      effectiveDurability: 2048
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&c&lREAPER SET BONUS"
+        - "&8» &cDeal 25% more damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - ecoitems:armor_core ? air
+        - nether_star
+        - ecoitems:armor_core ? air
+        - nether_star
+        - netherite_boots
+        - nether_star
+        - air
+        - nether_star
+        - air
+  - name: slayer
+    conditions: []
+    effects:
+      - id: damage_multiplier
+        args:
+          multiplier: 1.5
+        triggers:
+          - melee_attack
+          - bow_attack
+          - trident_attack
+        filters:
+          onlyBosses: true
+      - id: damage_multiplier
+        args:
+          multiplier: 0.9
+        triggers:
+          - take_damage
+    advancedEffects:
+      - id: damage_multiplier
+        args:
+          multiplier: 0.8
+        triggers:
+          - take_damage
+      - id: damage_multiplier
+        args:
+          multiplier: 2
+        triggers:
+          - melee_attack
+          - bow_attack
+          - trident_attack
+        filters:
+          onlyBosses: true
+    advancedLore:
+      - ''
+      - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
+      - "&8» &4Take 20% less damage"
+      - "&8» &4Deal 2x damage to bosses"
+      - "&8&oRequires full set to be worn"
+    advancementShardName: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &4Slayer"
+    advancementShardLore:
+      - "&8Drop this onto &4Slayer Armor"
+      - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+    shardCraftable: false
+    shardRecipe:
+      - prismarine_shard
+      - ecoarmor:set_slayer_helmet
+      - prismarine_shard
+      - ecoarmor:set_slayer_chestplate
+      - nether_star
+      - ecoarmor:set_slayer_leggings
+      - prismarine_shard
+      - ecoarmor:set_slayer_boots
+      - prismarine_shard
+    helmet:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_helmet
+      leatherColor: "#750909"
+      name: "&4Slayer Helmet"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&4 Slayer Helmet"
+      effectiveDurability: 768
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&4&lSLAYER SET BONUS"
+        - "&8» &4Deal 50% more damage to bosses"
+        - "&8» &4Take 10% less damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - air
+        - netherite_helmet
+        - air
+        - ecoitems:boss_core ? heart_of_the_sea
+        - air
+        - ecoitems:boss_core ? heart_of_the_sea
+        - obsidian
+        - ecoitems:armor_core ? nether_star
+        - obsidian
+    chestplate:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_chestplate
+      leatherColor: "#750909"
+      name: "&4Slayer Chestplate"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&4 Slayer Chestplate"
+      effectiveDurability: 1024
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&4&lSLAYER SET BONUS"
+        - "&8» &4Deal 50% more damage to bosses"
+        - "&8» &4Take 10% less damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - air
+        - netherite_chestplate
+        - air
+        - ecoitems:boss_core ? heart_of_the_sea
+        - air
+        - ecoitems:boss_core ? heart_of_the_sea
+        - obsidian
+        - ecoitems:armor_core ? nether_star
+        - obsidian
+    elytra:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: elytra
+      name: "&4Slayer Elytra"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19> &4Slayer Elytra"
+      effectiveDurability: 1024
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&4&lSLAYER SET BONUS"
+        - "&8» &4Deal 50% more damage to bosses"
+        - "&8» &4Take 10% less damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - air
+        - elytra
+        - air
+        - ecoitems:boss_core ? heart_of_the_sea
+        - air
+        - ecoitems:boss_core ? heart_of_the_sea
+        - obsidian
+        - ecoitems:armor_core ? nether_star
+        - obsidian
+    leggings:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_leggings
+      leatherColor: "#750909"
+      name: "&4Slayer Leggings"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&4 Slayer Leggings"
+      effectiveDurability: 1024
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&4&lSLAYER SET BONUS"
+        - "&8» &4Deal 50% more damage to bosses"
+        - "&8» &4Take 10% less damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - air
+        - netherite_leggings
+        - air
+        - ecoitems:boss_core ? heart_of_the_sea
+        - air
+        - ecoitems:boss_core ? heart_of_the_sea
+        - obsidian
+        - ecoitems:armor_core ? nether_star
+        - obsidian
+    boots:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_boots
+      leatherColor: "#750909"
+      name: "&4Slayer Boots"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&4 Slayer Boots"
+      effectiveDurability: 1024
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&4&lSLAYER SET BONUS"
+        - "&8» &4Deal 50% more damage to bosses"
+        - "&8» &4Take 10% less damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: false
+      defaultTier: default
+      recipe:
+        - air
+        - netherite_boots
+        - air
+        - ecoitems:boss_core ? heart_of_the_sea
+        - air
+        - ecoitems:boss_core ? heart_of_the_sea
+        - obsidian
+        - ecoitems:armor_core ? nether_star
+        - obsidian
+  - name: angelic
+    conditions: []
+    effects:
+      - id: bonus_health
+        args:
+          health: 10
+      - id: damage_multiplier
+        args:
+          multiplier: 0.9
+        triggers:
+          - melee_attack
+      - id: permanent_potion_effect
+        args:
+          effect: regeneration
+          level: 1
+    advancedEffects:
+      - id: bonus_health
+        args:
+          health: 20
+      - id: hunger_multiplier
+        args:
+          multiplier: 0.5
+      - id: permanent_potion_effect
+        args:
+          effect: regeneration
+          level: 1
+    advancedLore:
+      - ''
+      - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
+      - "&8» &dGet 20 more hearts"
+      - "&8» &dReduce hunger loss by 50%"
+      - "&8&oRequires full set to be worn"
+    advancementShardName: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &5Angelic"
+    advancementShardLore:
+      - "&8Drop this onto &5Angelic Armor"
+      - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+    shardCraftable: false
+    shardRecipe:
+      - prismarine_shard
+      - ecoarmor:set_angelic_helmet
+      - prismarine_shard
+      - ecoarmor:set_angelic_chestplate
+      - nether_star
+      - ecoarmor:set_angelic_leggings
+      - prismarine_shard
+      - ecoarmor:set_angelic_boots
+      - prismarine_shard
+    helmet:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_helmet
+      leatherColor: "#bd15a9"
+      name: "&5Angelic Helmet"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Helmet"
+      effectiveDurability: 768
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&5&lANGELIC SET BONUS"
+        - "&8» &dGain 10 more hearts"
+        - "&8» &dPermanent regeneration"
+        - "&8» &dDeal 10% less melee damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - netherite_block
+        - ecoitems:enchanted_ender_eye ? netherite_ingot
+        - diamond_block
+        - air
+        - golden_helmet
+        - air
+        - gold_block
+        - ecoitems:armor_core ? enchanted_book mending:1
+        - gold_block
+    chestplate:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_chestplate
+      leatherColor: "#bd15a9"
+      name: "&5Angelic Chestplate"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Chestplate"
+      effectiveDurability: 1024
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&5&lANGELIC SET BONUS"
+        - "&8» &dGain 10 more hearts"
+        - "&8» &dPermanent regeneration"
+        - "&8» &dDeal 10% less melee damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - netherite_block
+        - ecoitems:enchanted_ender_eye ? netherite_ingot
+        - diamond_block
+        - air
+        - golden_chestplate
+        - air
+        - gold_block
+        - ecoitems:armor_core ? enchanted_book mending:1
+        - gold_block
+    elytra:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: elytra
+      name: "&5Angelic Elytra"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Elytra"
+      effectiveDurability: 1024
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&5&lANGELIC SET BONUS"
+        - "&8» &dGain 10 more hearts"
+        - "&8» &dPermanent regeneration"
+        - "&8» &dDeal 10% less melee damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - netherite_block
+        - ecoitems:enchanted_ender_eye ? netherite_ingot
+        - diamond_block
+        - air
+        - elytra
+        - air
+        - gold_block
+        - ecoitems:armor_core ? enchanted_book mending:1
+        - gold_block
+    leggings:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_leggings
+      leatherColor: "#bd15a9"
+      name: "&5Angelic Leggings"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Leggings"
+      effectiveDurability: 1024
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&5&lANGELIC SET BONUS"
+        - "&8» &dGain 10 more hearts"
+        - "&8» &dPermanent regeneration"
+        - "&8» &dDeal 10% less melee damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - netherite_block
+        - ecoitems:enchanted_ender_eye ? netherite_ingot
+        - diamond_block
+        - air
+        - golden_leggings
+        - air
+        - gold_block
+        - ecoitems:armor_core ? enchanted_book mending:1
+        - gold_block
+    boots:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_boots
+      leatherColor: "#bd15a9"
+      name: "&5Angelic Boots"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Boots"
+      effectiveDurability: 1024
+      unbreakable: false
+      flags: []
+      customModeldata: -1
+      lore:
+        - "&5&lANGELIC SET BONUS"
+        - "&8» &dGain 10 more hearts"
+        - "&8» &dPermanent regeneration"
+        - "&8» &dDeal 10% less melee damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - netherite_block
+        - ecoitems:enchanted_ender_eye ? netherite_ingot
+        - diamond_block
+        - air
+        - golden_boots
+        - air
+        - gold_block
+        - ecoitems:armor_core ? enchanted_book mending:1
+        - gold_block
+  - name: huntress
+    conditions: []
+    effects:
+      - id: damage_multiplier
+        args:
+          multiplier: 0.85
+        triggers:
+          - melee_attack
+      - id: damage_multiplier
+        args:
+          multiplier: 2.5
+        triggers:
+          - trident_attack
+      - id: damage_multiplier
+        args:
+          multiplier: 1.5
+        triggers:
+          - bow_attack
+    advancedEffects:
+      - id: damage_multiplier
+        args:
+          multiplier: 3.5
+        triggers:
+          - trident_attack
+      - id: damage_multiplier
+        args:
+          multiplier: 1.75
+        triggers:
+          - bow_attack
+    potionEffects: []
+    advancedPotionEffects: []
+    advancedLore:
+      - ''
+      - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
+      - "&8» &bDeal 3.5x trident damage"
+      - "&8» &bDeal 1.75x bow damage"
+      - "&8» &bNo melee damage penalty"
+      - "&8&oRequires full set to be worn"
+    advancementShardName: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &bHuntress"
+    advancementShardLore:
+      - "&8Drop this onto &bHuntress Armor"
+      - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+    shardCraftable: false
+    shardRecipe:
+      - prismarine_shard
+      - ecoarmor:set_huntress_helmet
+      - prismarine_shard
+      - ecoarmor:set_huntress_chestplate
+      - nether_star
+      - ecoarmor:set_huntress_leggings
+      - prismarine_shard
+      - ecoarmor:set_huntress_boots
+      - prismarine_shard
+    helmet:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_helmet
+      leatherColor: "#97fbfc"
+      name: "&bHuntress Helmet"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Helmet"
+      effectiveDurability: 1024
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&b&lHUNTRESS SET BONUS"
+        - "&8» &bDeal 2.5x trident damage"
+        - "&8» &bDeal 1.5x bow damage"
+        - "&8» &bDeal 15% less melee damage damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - ecoitems:armor_core ? crossbow
+        - trident
+        - ecoitems:armor_core ? crossbow
+        - air
+        - iron_helmet
+        - air
+        - spectral_arrow
+        - enchanted_book power:5
+        - spectral_arrow
+    chestplate:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_chestplate
+      leatherColor: "#97fbfc"
+      name: "&bHuntress Chestplate"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Chestplate"
+      effectiveDurability: 2048
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&b&lHUNTRESS SET BONUS"
+        - "&8» &bDeal 2.5x trident damage"
+        - "&8» &bDeal 1.5x bow damage"
+        - "&8» &bDeal 15% less melee damage damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - ecoitems:armor_core ? crossbow
+        - trident
+        - ecoitems:armor_core ? crossbow
+        - air
+        - iron_chestplate
+        - air
+        - spectral_arrow
+        - enchanted_book power:5
+        - spectral_arrow
+    elytra:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: elytra
+      name: "&bHuntress Elytra"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Elytra"
+      effectiveDurability: 2048
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&b&lHUNTRESS SET BONUS"
+        - "&8» &bDeal 2.5x trident damage"
+        - "&8» &bDeal 1.5x bow damage"
+        - "&8» &bDeal 15% less melee damage damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - ecoitems:armor_core ? crossbow
+        - trident
+        - ecoitems:armor_core ? crossbow
+        - air
+        - feather
+        - air
+        - spectral_arrow
+        - enchanted_book power:5
+        - spectral_arrow
+    leggings:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_leggings
+      leatherColor: "#97fbfc"
+      name: "&bHuntress Leggings"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Leggings"
+      effectiveDurability: 2048
+      unbreakable: false
+      flags: []
+      customModelData: -1
+      lore:
+        - "&b&lHUNTRESS SET BONUS"
+        - "&8» &bDeal 2.5x trident damage"
+        - "&8» &bDeal 1.5x bow damage"
+        - "&8» &bDeal 15% less melee damage damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - ecoitems:armor_core ? crossbow
+        - trident
+        - ecoitems:armor_core ? crossbow
+        - air
+        - iron_leggings
+        - air
+        - spectral_arrow
+        - enchanted_book power:5
+        - spectral_arrow
+    boots:
+      enchants:
+        - id: evasion
+          level: 3
+        - id: protection
+          level: 4
+        - id: unbreaking
+          level: 3
+      material: leather_boots
+      leatherColor: "#97fbfc"
+      name: "&bHuntress Boots"
+      advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Boots"
+      effectiveDurability: 2048
+      unbreakable: false
+      flags: []
+      customModeldata: -1
+      lore:
+        - "&b&lHUNTRESS SET BONUS"
+        - "&8» &bDeal 2.5x trident damage"
+        - "&8» &bDeal 1.5x bow damage"
+        - "&8» &bDeal 15% less melee damage damage"
+        - "&8&oRequires full set to be worn"
+        - ''
+        - "&fTier: %tier%"
+        - "&8&oUpgrade with an Upgrade Crystal"
+      craftable: true
+      defaultTier: default
+      recipe:
+        - ecoitems:armor_core ? crossbow
+        - trident
+        - ecoitems:armor_core ? crossbow
+        - air
+        - iron_boots
+        - air
+        - spectral_arrow
+        - enchanted_book power:5
+        - spectral_arrow
+tiers:
+  - name: default
+    display: "&8&lDEFAULT"
+    requiresTiers: []
+    crystal:
+      craftable: false
+      name: "&8Default Upgrade Crystal"
+      recipe:
+        - air
+        - leather
+        - air
+        - leather
+        - leather_chestplate
+        - leather
+        - air
+        - leather
+        - air
+      giveAmount: 1
+      lore:
+        - "&8Drop this onto an armor piece"
+        - "&8to set its tier to:"
+        - "&8&lDEFAULT"
+    properties:
+      helmet:
+        armor: 1
+        toughness: 0
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      chestplate:
+        armor: 3
+        toughness: 0
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      elytra:
+        armor: 0
+        toughness: 0
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedpercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      leggings:
+        armor: 2
+        toughness: 0
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      boots:
+        armor: 1
+        toughness: 0
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+  - name: iron
+    display: "&7&lIRON"
+    requiresTiers:
+      - default
+    crystal:
+      craftable: true
+      name: "&7Iron Upgrade Crystal"
+      recipe:
+        - air
+        - iron_block
+        - air
+        - iron_block
+        - leather_chestplate
+        - iron_block
+        - air
+        - iron_block
+        - air
+      giveAmount: 1
+      lore:
+        - "&8Drop this onto an armor piece"
+        - "&8to set its tier to:"
+        - "&7&lIRON"
+        - ''
+        - "&8&oRequires the armor to already have default tier"
+    properties:
+      helmet:
+        armor: 2
+        toughness: 0
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      chestplate:
+        armor: 6
+        toughness: 0
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      elytra:
+        armor: 2
+        toughness: 0
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      leggings:
+        armor: 5
+        toughness: 0
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      boots:
+        armor: 2
+        toughness: 0
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+  - name: diamond
+    display: "&b&lDIAMOND"
+    requiresTiers:
+      - iron
+    crystal:
+      craftable: true
+      name: "&bDiamond Upgrade Crystal"
+      recipe:
+        - air
+        - diamond_block
+        - air
+        - diamond_block
+        - ecoarmor:upgrade_crystal_iron
+        - diamond_block
+        - air
+        - diamond_block
+        - air
+      giveAmount: 1
+      lore:
+        - "&8Drop this onto an armor piece"
+        - "&8to set its tier to:"
+        - "&b&lDIAMOND"
+        - ''
+        - "&8&oRequires the armor to already have Iron tier"
+    properties:
+      helmet:
+        armor: 3
+        toughness: 2
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      chestplate:
+        armor: 8
+        toughness: 2
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      elytra:
+        armor: 3
+        toughness: 0
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      leggings:
+        armor: 6
+        toughness: 2
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      boots:
+        armor: 3
+        toughness: 2
+        knockbackResistance: 0
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+  - name: netherite
+    display: "&c&lNETHERITE"
+    requiresTiers:
+      - diamond
+    crystal:
+      craftable: true
+      name: "&cNetherite Upgrade Crystal"
+      recipe:
+        - air
+        - netherite_ingot
+        - air
+        - netherite_ingot
+        - ecoarmor:upgrade_crystal_diamond
+        - netherite_ingot
+        - air
+        - netherite_ingot
+        - air
+      giveAmount: 1
+      lore:
+        - "&8Drop this onto an armor piece"
+        - "&8to set its tier to:"
+        - "&c&lNETHERITE"
+        - ''
+        - "&8&oRequires the armor to already have Diamond tier"
+    properties:
+      helmet:
+        armor: 3
+        toughness: 3
+        knockbackResistance: 1
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      chestplate:
+        armor: 8
+        toughness: 3
+        knockbackResistance: 1
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      elytra:
+        armor: 3
+        toughness: 0
+        knockbackResistance: 1
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      leggings:
+        armor: 6
+        toughness: 3
+        knockbackResistance: 1
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      boots:
+        armor: 3
+        toughness: 3
+        knockbackResistance: 1
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+  - name: manyullyn
+    display: "&d&k!!&r <GRADIENT:f953c6>&lMANYULLYN</GRADIENT:b91d73>&r &d&k!!&r"
+    requiresTiers:
+      - netherite
+    crystal:
+      craftable: true
+      name: "<GRADIENT:f953c6>Manyullyn Upgrade Crystal</GRADIENT:b91d73>"
+      recipe:
+        - ecoarmor:upgrade_crystal_netherite
+        - enchanted_golden_apple
+        - ecoarmor:upgrade_crystal_netherite
+        - enchanted_golden_apple
+        - ecoarmor:upgrade_crystal_netherite
+        - enchanted_golden_apple
+        - ecoarmor:upgrade_crystal_netherite
+        - enchanted_golden_apple
+        - ecoarmor:upgrade_crystal_netherite
+      giveAmount: 1
+      lore:
+        - "&8Drop this onto an armor piece"
+        - "&8to set its tier to:"
+        - "&d&k!!&r <GRADIENT:f953c6>&lMANYULLYN</GRADIENT:b91d73>&r &d&k!!&r"
+        - ''
+        - "&8&oRequires the armor to already have Netherite tier"
+    properties:
+      helmet:
+        armor: 3
+        toughness: 5
+        knockbackResistance: 2
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      chestplate:
+        armor: 8
+        toughness: 5
+        knockbackResistance: 2
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      elytra:
+        armor: 3
+        toughness: 0
+        knockbackResistance: 2
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      leggings:
+        armor: 6
+        toughness: 5
+        knockbackResistance: 2
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      boots:
+        armor: 3
+        toughness: 5
+        knockbackResistance: 2
+        speedPercentage: 0
+        attackSpeedPercentage: 0
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+  - name: cobalt
+    display: "&#0047ab&lCOBALT"
+    requiresTiers:
+      - iron
+    crystal:
+      craftable: true
+      name: "&#0047abCobalt Upgrade Crystal"
+      recipe:
+        - air
+        - obsidian
+        - air
+        - obsidian
+        - ecoarmor:upgrade_crystal_iron
+        - obsidian
+        - air
+        - obsidian
+        - air
+      giveAmount: 1
+      lore:
+        - "&8Drop this onto an armor piece"
+        - "&8to set its tier to:"
+        - "&#0047ab&lCOBALT"
+        - ''
+        - "&8&oRequires the armor to already have Iron tier"
+    properties:
+      helmet:
+        armor: 3
+        toughness: 4
+        knockbackResistance: 1
+        speedPercentage: -10
+        attackSpeedPercentage: -10
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 10
+      chestplate:
+        armor: 8
+        toughness: 4
+        knockbackResistance: 1
+        speedPercentage: -10
+        attackSpeedPercentage: -10
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 10
+      elytra:
+        armor: 6
+        toughness: 2
+        knockbackResistance: 1
+        speedPercentage: -10
+        attackSpeedPercentage: -10
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 10
+      leggings:
+        armor: 6
+        toughness: 4
+        knockbackResistance: 1
+        speedPercentage: -10
+        attackSpeedPercentage: -1
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 10
+      boots:
+        armor: 3
+        toughness: 4
+        knockbackResistance: 1
+        speedPercentage: -10
+        attackSpeedPercentage: -10
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 10
+  - name: osmium
+    display: "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!"
+    requiresTiers:
+      - cobalt
+    crystal:
+      craftable: true
+      name: "<GRADIENT:c7f1ff>Osmium upgrade crystal</GRADIENT:5c92ff>"
+      recipe:
+        - air
+        - netherite_block
+        - air
+        - netherite_block
+        - ecoarmor:upgrade_crystal_cobalt
+        - netherite_block
+        - air
+        - netherite_block
+        - air
+      giveAmount: 1
+      lore:
+        - "&8Drop this onto an armor piece"
+        - "&8to set its tier to:"
+        - "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!"
+        - ''
+        - "&8&oRequires the armor to already have Cobalt tier"
+    properties:
+      helmet:
+        armor: 3
+        toughness: 6
+        knockbackResistance: 3
+        speedPercentage: -15
+        attackSpeedPercentage: -15
+        attackDamagePercentage: 5
+        attackKnockbackPercentage: 25
+      chestplate:
+        armor: 8
+        toughness: 6
+        knockbackResistance: 3
+        speedPercentage: -15
+        attackSpeedPercentage: -15
+        attackDamagePercentage: 5
+        attackKnockbackPercentage: 25
+      elytra:
+        armor: 8
+        toughness: 6
+        knockbackResistance: 3
+        speedPercentage: -15
+        attackSpeedPercentage: -15
+        attackDamagePercentage: 5
+        attackKnockbackPercentage: 25
+      leggings:
+        armor: 6
+        toughness: 6
+        knockbackResistance: 3
+        speedPercentage: -15
+        attackSpeedPercentage: -15
+        attackDamagePercentage: 5
+        attackKnockbackPercentage: 25
+      boots:
+        armor: 3
+        toughness: 6
+        knockbackResistance: 3
+        speedPercentage: -15
+        attackSpeedPercentage: -15
+        attackDamagePercentage: 5
+        attackKnockbackPercentage: 25
+  - name: exotic
+    display: "&6&k!!&r <GRADIENT:f79d00>&lEXOTIC</GRADIENT:64f38c>&r &6&k!!&r"
+    requiresTiers:
+      - netherite
+    crystal:
+      craftable: true
+      name: "<GRADIENT:f79d00>Exotic Upgrade Crystal</GRADIENT:64f38c>"
+      recipe:
+        - ecoarmor:upgrade_crystal_netherite
+        - turtle_egg
+        - ecoarmor:upgrade_crystal_netherite
+        - turtle_egg
+        - ecoarmor:upgrade_crystal_cobalt
+        - turtle_egg
+        - ecoarmor:upgrade_crystal_netherite
+        - turtle_egg
+        - ecoarmor:upgrade_crystal_netherite
+      giveAmount: 1
+      lore:
+        - "&8Drop this onto an armor piece"
+        - "&8to set its tier to:"
+        - "&6&k!!&r <GRADIENT:f79d00>&lEXOTIC</GRADIENT:64f38c>&r &6&k!!&r"
+        - ''
+        - "&8&oRequires the armor to already have Netherite tier"
+    properties:
+      helmet:
+        armor: 3
+        toughness: 2
+        knockbackResistance: 0
+        speedPercentage: 5
+        attackSpeedPercentage: 10
+        attackDamagePercentage: -5
+        attackKnockbackPercentage: -20
+      chestplate:
+        armor: 8
+        toughness: 2
+        knockbackResistance: 0
+        speedPercentage: 5
+        attackSpeedPercentage: 10
+        attackDamagePercentage: -5
+        attackKnockbackPercentage: -20
+      elytra:
+        armor: 3
+        toughness: 0
+        knockbackResistance: 0
+        speedPercentage: 5
+        attackSpeedPercentage: 10
+        attackDamagePercentage: -5
+        attackKnockbackPercentage: -20
+      leggings:
+        armor: 6
+        toughness: 2
+        knockbackResistance: 0
+        speedPercentage: 5
+        attackSpeedPercentage: 10
+        attackDamagePercentage: -5
+        attackKnockbackPercentage: -20
+      boots:
+        armor: 3
+        toughness: 2
+        knockbackResistance: 0
+        speedPercentage: 5
+        attackSpeedPercentage: 10
+        attackDamagePercentage: -5
+        attackKnockbackPercentage: -20
+  - name: ancient
+    display: "&6&k!!&r <GRADIENT:ffb347>&lANCIENT</GRADIENT:ffcc33>&r &6&k!!&r"
+    requiresTiers: []
+    crystal:
+      craftable: false
+      name: "<GRADIENT:ffb347>Ancient Upgrade Crystal</GRADIENT:ffcc33>"
+      recipe:
+        - air
+        - netherite_block
+        - air
+        - netherite_block
+        - ecoarmor:upgrade_crystal_cobalt
+        - netherite_block
+        - air
+        - netherite_block
+        - air
+      giveAmount: 1
+      lore:
+        - "&8Drop this onto an armor piece"
+        - "&8to set its tier to:"
+        - "&6&k!!&r <GRADIENT:ffb347>&lANCIENT</GRADIENT:ffcc33>&r &6&k!!&r"
+    properties:
+      helmet:
+        armor: 3
+        toughness: 5
+        knockbackResistance: 0
+        speedPercentage: 5
+        attackSpeedPercentage: 5
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      chestplate:
+        armor: 8
+        toughness: 5
+        knockbackResistance: 0
+        speedPercentage: 5
+        attackSpeedPercentage: 5
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      elytra:
+        armor: 3
+        toughness: 5
+        knockbackResistance: 0
+        speedPercentage: 5
+        attackSpeedPercentage: 5
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      leggings:
+        armor: 6
+        toughness: 6
+        knockbackResistance: 0
+        speedPercentage: 5
+        attackSpeedPercentage: 5
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+      boots:
+        armor: 3
+        toughness: 6
+        knockbackResistance: 0
+        speedPercentage: 5
+        attackSpeedPercentage: 5
+        attackDamagePercentage: 0
+        attackKnockbackPercentage: 0
+  - name: mythic
+    display: "&1&k!!&r <GRADIENT:00c6ff>&lMYTHIC</GRADIENT:0072ff>&r &1&k!!&r"
+    requiresTiers: []
+    crystal:
+      craftable: false
+      name: "<GRADIENT:00c6ff>Mythic Upgrade Crystal</GRADIENT:0072ff>"
+      recipe:
+        - air
+        - netherite_block
+        - air
+        - netherite_block
+        - ecoarmor:upgrade_crystal_cobalt
+        - netherite_block
+        - air
+        - netherite_block
+        - air
+      giveAmount: 1
+      lore:
+        - "&8Drop this onto an armor piece"
+        - "&8to set its tier to:"
+        - "&1&k!!&r <GRADIENT:00c6ff>&lMYTHIC</GRADIENT:0072ff>&r &1&k!!&r"
+    properties:
+      helmet:
+        armor: 3
+        toughness: 7
+        knockbackResistance: 0
+        speedPercentage: 7
+        attackSpeedPercentage: 8
+        attackDamagePercentage: 2
+        attackKnockbackPercentage: 2
+      chestplate:
+        armor: 8
+        toughness: 7
+        knockbackResistance: 0
+        speedPercentage: 7
+        attackSpeedPercentage: 8
+        attackDamagePercentage: 2
+        attackKnockbackPercentage: 2
+      elytra:
+        armor: 3
+        toughness: 7
+        knockbackResistance: 0
+        speedPercentage: 7
+        attackSpeedPercentage: 8
+        attackDamagePercentage: 2
+        attackKnockbackPercentage: 2
+      leggings:
+        armor: 6
+        toughness: 7
+        knockbackResistance: 0
+        speedPercentage: 7
+        attackSpeedPercentage: 8
+        attackDamagePercentage: 2
+        attackKnockbackPercentage: 2
+      boots:
+        armor: 3
+        toughness: 7
+        knockbackResistance: 0
+        speedPercentage: 7
+        attackSpeedPercentage: 8
+        attackDamagePercentage: 2
+        attackKnockbackPercentage: 2
