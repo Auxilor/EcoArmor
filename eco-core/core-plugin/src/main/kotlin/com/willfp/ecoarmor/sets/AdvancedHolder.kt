@@ -4,6 +4,7 @@ import com.willfp.libreforge.Holder
 import com.willfp.libreforge.conditions.ConfiguredCondition
 import com.willfp.libreforge.effects.ConfiguredEffect
 
-class AdvancedHolder(override val conditions: Set<ConfiguredCondition>, override val effects: Set<ConfiguredEffect>) :
-    Holder {
+class AdvancedHolder(
+    override val conditions: Set<ConfiguredCondition>,
+    override val effects: Set<ConfiguredEffect>) : Holder {
 }

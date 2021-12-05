@@ -41,9 +41,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/*
-TODO: Split off ArmorSet between two separate armorset objects (one advanced, one not)
- */
 public class ArmorSet {
     /**
      * Instance of EcoArmor.
@@ -132,7 +129,7 @@ public class ArmorSet {
         for (Config cfg : this.getConfig().getSubsections("advancedEffects")) {
             ConfiguredEffect conf = Effects.compile(cfg, "Armor Set " + this.name + " (Advanced)");
             if (conf != null) {
-                effects.add(conf);
+                advancedEffects.add(conf);
             }
         }
 
