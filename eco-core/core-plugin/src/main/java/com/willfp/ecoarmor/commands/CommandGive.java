@@ -170,17 +170,14 @@ public class CommandGive extends Subcommand {
                     }
                 }
 
-                if (tier == null) {
-                    tier = Tiers.getDefaultTier();
-                }
-
                 for (ArmorSlot slot : slots) {
                     items.add(advanced ? set.getAdvancedItemStack(slot) : set.getItemStack(slot));
                 }
 
                 for (ItemStack item : new ArrayList<>(items)) {
+                    Tier currTear = tier != null ? tier: set.getDefaultTier(ArmorSlot.getSlot(item));
                     items.remove(item);
-                    ArmorUtils.setTier(item, tier);
+                    ArmorUtils.setTier(item, currTear);
                     items.add(item);
                 }
             }
