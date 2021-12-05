@@ -132,7 +132,7 @@ public class ArmorSet {
         for (Config cfg : this.getConfig().getSubsections("advancedEffects")) {
             ConfiguredEffect conf = Effects.compile(cfg, "Armor Set " + this.name + " (Advanced)");
             if (conf != null) {
-                effects.add(conf);
+                advancedEffects.add(conf);
             }
         }
 
