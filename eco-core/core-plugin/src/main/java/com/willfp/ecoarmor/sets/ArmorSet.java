@@ -10,6 +10,7 @@ import com.willfp.eco.core.items.builder.ItemStackBuilder;
 import com.willfp.eco.core.items.builder.LeatherArmorBuilder;
 import com.willfp.eco.core.items.builder.SkullBuilder;
 import com.willfp.eco.core.recipe.Recipes;
+import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import com.willfp.ecoarmor.upgrades.Tier;
@@ -341,6 +342,18 @@ public class ArmorSet {
      */
     public ItemStack getAdvancedItemStack(@NotNull final ArmorSlot slot) {
         return advancedItems.get(slot);
+    }
+
+    /**
+     * Get default tier for slot.
+     *
+     * @param slot The slot.
+     * @return The tier.
+     */
+    public Tier getDefaultTier(@Nullable final ArmorSlot slot) {
+        if (slot == null) return Tiers.getDefaultTier();
+        Tier tier = Tiers.getByName(this.config.getSubsection(slot.name().toLowerCase()).getString("defaultTier"));
+        return tier != null ? tier: Tiers.getDefaultTier();
     }
 
     @Override
