@@ -3,7 +3,7 @@ package com.willfp.ecoarmor.sets.util;
 import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
-import com.willfp.ecoarmor.sets.meta.ArmorSlot;
+import com.willfp.ecoarmor.sets.ArmorSlot;
 import com.willfp.ecoarmor.upgrades.Tier;
 import com.willfp.ecoarmor.upgrades.Tiers;
 import com.willfp.libreforge.Holder;

@@ -8,7 +8,6 @@ import com.willfp.eco.core.items.Items;
 import com.willfp.eco.core.items.builder.ItemBuilder;
 import com.willfp.eco.core.items.builder.ItemStackBuilder;
 import com.willfp.eco.core.recipe.Recipes;
-import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import com.willfp.ecoarmor.upgrades.Tier;
 import com.willfp.ecoarmor.upgrades.Tiers;

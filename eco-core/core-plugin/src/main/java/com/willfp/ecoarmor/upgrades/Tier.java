@@ -8,7 +8,7 @@ import com.willfp.eco.core.items.CustomItem;
 import com.willfp.eco.core.items.Items;
 import com.willfp.eco.core.recipe.recipes.ShapedCraftingRecipe;
 import com.willfp.eco.util.StringUtils;
-import com.willfp.ecoarmor.sets.meta.ArmorSlot;
+import com.willfp.ecoarmor.sets.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,97 +1,57 @@
-package com.willfp.ecoarmor.upgrades.listeners;
+package com.willfp.ecoarmor.upgrades
 
-import com.willfp.eco.core.EcoPlugin;
-import com.willfp.eco.core.PluginDependent;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
-import com.willfp.ecoarmor.upgrades.Tier;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import com.willfp.eco.core.EcoPlugin
+import com.willfp.ecoarmor.sets.util.ArmorUtils
+import org.bukkit.GameMode
+import org.bukkit.Material
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.block.BlockPlaceEvent
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.inventory.ItemStack
 
-import java.util.List;
-
-public class CrystalListener extends PluginDependent<EcoPlugin> implements Listener {
-    /**
-     * Create new listeners for dragging crystals onto items.
-     *
-     * @param plugin The plugin to listen for.
-     */
-    public CrystalListener(@NotNull final EcoPlugin plugin) {
-        super(plugin);
-    }
-
-    /**
-     * Listen for inventory click event.
-     *
-     * @param event The event to handle.
-     */
+class CrystalListener(private val plugin: EcoPlugin) : Listener {
     @EventHandler
-    public void onDrag(@NotNull final InventoryClickEvent event) {
-        if (event.getWhoClicked().getGameMode() == GameMode.CREATIVE) {
-            return;
+    fun onDrag(event: InventoryClickEvent) {
+        if (event.whoClicked.gameMode == GameMode.CREATIVE) {
+            return
         }
+        val current = event.currentItem ?: return
+        val cursor = event.cursor ?: return
 
-        ItemStack current = event.getCurrentItem();
-        ItemStack cursor = event.getCursor();
-
-        if (current == null || cursor == null) {
-            return;
-        }
-
-        Tier crystalTier = ArmorUtils.getCrystalTier(cursor);
-
-        if (crystalTier == null) {
-            return;
-        }
+        val crystalTier = ArmorUtils.getCrystalTier(cursor) ?: return
 
         if (ArmorUtils.getSetOnItem(current) == null) {
-            return;
+            return
         }
 
-        if (current.getType() == Material.AIR) {
-            return;
+        if (current.type == Material.AIR) {
+            return
         }
-
-        Tier previousTier = ArmorUtils.getTier(current);
-        boolean allowed = false;
-        List<Tier> prereq = crystalTier.getRequiredTiersForApplication();
-
+        val previousTier = ArmorUtils.getTier(current)
+        var allowed = false
+        val prereq = crystalTier.requiredTiersForApplication
         if (prereq.isEmpty() || prereq.contains(previousTier)) {
-            allowed = true;
+            allowed = true
         }
-
         if (!allowed) {
-            return;
+            return
         }
-
-        ArmorUtils.setTier(current, crystalTier);
-
-        if (cursor.getAmount() > 1) {
-            cursor.setAmount(cursor.getAmount() - 1);
-            event.getWhoClicked().setItemOnCursor(cursor);
+        ArmorUtils.setTier(current, crystalTier)
+        if (cursor.amount > 1) {
+            cursor.amount = cursor.amount - 1
+            event.whoClicked.setItemOnCursor(cursor)
         } else {
-            event.getWhoClicked().setItemOnCursor(new ItemStack(Material.AIR));
+            event.whoClicked.setItemOnCursor(ItemStack(Material.AIR))
         }
-
-        event.setCancelled(true);
+        event.isCancelled = true
     }
 
-    /**
-     * Prevents placing upgrade crystals.
-     *
-     * @param event The event to listen for.
-     */
     @EventHandler
-    public void onPlaceCrystal(@NotNull final BlockPlaceEvent event) {
-        ItemStack item = event.getItemInHand();
-
+    fun onPlaceCrystal(event: BlockPlaceEvent) {
+        val item = event.itemInHand
         if (ArmorUtils.getCrystalTier(item) != null) {
-            event.setCancelled(true);
+            event.isCancelled = true
         }
     }
 }

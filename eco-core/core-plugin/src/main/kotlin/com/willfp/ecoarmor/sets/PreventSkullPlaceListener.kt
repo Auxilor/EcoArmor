@@ -1,21 +1,16 @@
-package com.willfp.ecoarmor.sets.util;
+package com.willfp.ecoarmor.sets
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.jetbrains.annotations.NotNull;
+import com.willfp.ecoarmor.sets.util.ArmorUtils
+import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
+import org.bukkit.event.Listener
+import org.bukkit.event.block.BlockPlaceEvent
 
-public class PreventSkullPlaceListener implements Listener {
-    /**
-     * Prevents placing skulls.
-     *
-     * @param event The event to listen for.
-     */
+class PreventSkullPlaceListener : Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlace(@NotNull final BlockPlaceEvent event) {
-        if (ArmorUtils.getSetOnItem(event.getItemInHand()) != null) {
-            event.setCancelled(true);
+    fun onPlace(event: BlockPlaceEvent) {
+        if (ArmorUtils.getSetOnItem(event.itemInHand) != null) {
+            event.isCancelled = true
         }
     }
 }

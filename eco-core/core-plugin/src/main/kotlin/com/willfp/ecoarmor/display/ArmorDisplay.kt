@@ -4,7 +4,7 @@ import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.display.DisplayPriority
 import com.willfp.eco.core.fast.FastItemStack
-import com.willfp.ecoarmor.sets.meta.ArmorSlot
+import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.util.ArmorUtils
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.LeatherArmorMeta

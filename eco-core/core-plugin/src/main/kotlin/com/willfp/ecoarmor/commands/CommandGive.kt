@@ -1,298 +1,223 @@
-package com.willfp.ecoarmor.commands;
+package com.willfp.ecoarmor.commands
 
-import com.willfp.eco.core.EcoPlugin;
-import com.willfp.eco.core.command.CommandHandler;
-import com.willfp.eco.core.command.TabCompleteHandler;
-import com.willfp.eco.core.command.impl.Subcommand;
-import com.willfp.eco.core.config.updating.ConfigUpdater;
-import com.willfp.ecoarmor.sets.ArmorSet;
-import com.willfp.ecoarmor.sets.ArmorSets;
-import com.willfp.ecoarmor.sets.meta.ArmorSlot;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
-import com.willfp.ecoarmor.upgrades.Tier;
-import com.willfp.ecoarmor.upgrades.Tiers;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.StringUtil;
-import org.jetbrains.annotations.NotNull;
+import com.willfp.eco.core.EcoPlugin
+import com.willfp.eco.core.command.CommandHandler
+import com.willfp.eco.core.command.TabCompleteHandler
+import com.willfp.eco.core.command.impl.Subcommand
+import com.willfp.ecoarmor.sets.ArmorSets
+import com.willfp.ecoarmor.sets.ArmorSlot
+import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
+import com.willfp.ecoarmor.sets.util.ArmorUtils
+import com.willfp.ecoarmor.upgrades.Tier
+import com.willfp.ecoarmor.upgrades.Tiers
+import org.bukkit.Bukkit
+import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
+import org.bukkit.util.StringUtil
+import java.util.stream.Collectors
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+class CommandGive(plugin: EcoPlugin) : Subcommand(plugin, "give", "ecoarmor.command.give", false) {
+    private val items: Collection<String>
+        get() = ArmorSets.values().map { "set:${it.id}" } union ArmorSets.values()
+            .map { "shard:${it.id}" } union Tiers.values().map { "crystal:${it.id}" }
 
-public class CommandGive extends Subcommand {
-    /**
-     * The cached names.
-     */
-    private static final List<String> ITEM_NAMES = new ArrayList<>();
+    private val slots: Collection<String>
+        get() = ArmorSlot.values().map { it.name.lowercase() }.toMutableList().apply { add("full") }
 
-    /**
-     * The cached slots.
-     */
-    private static final List<String> SLOTS = new ArrayList<>();
+    private val tiers: Collection<String>
+        get() = Tiers.values().map { it.id }
 
-    /**
-     * The cached tiers.
-     */
-    private static final List<String> TIERS = new ArrayList<>();
+    private val numbers = listOf(
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "10",
+        "32",
+        "64"
+    )
 
-    /**
-     * The cached numbers.
-     */
-    private static final List<String> NUMBERS = Arrays.asList(
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "10",
-            "32",
-            "64"
-    );
-
-    /**
-     * Instantiate a new /eagive command handler.
-     *
-     * @param plugin The plugin for the commands to listen for.
-     */
-    public CommandGive(@NotNull final EcoPlugin plugin) {
-        super(plugin, "give", "ecoarmor.command.give", false);
-        reload();
-    }
-
-    /**
-     * Called on reload.
-     */
-    @ConfigUpdater
-    public static void reload() {
-        ITEM_NAMES.clear();
-        ITEM_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "set:" + armorSet.getId()).collect(Collectors.toList()));
-        ITEM_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "shard:" + armorSet.getId()).collect(Collectors.toList()));
-        ITEM_NAMES.addAll(Tiers.values().stream().map(crystal -> "crystal:" + crystal.getId()).collect(Collectors.toList()));
-        SLOTS.addAll(Arrays.stream(ArmorSlot.values()).map(slot -> slot.name().toLowerCase()).collect(Collectors.toList()));
-        SLOTS.add("full");
-        TIERS.addAll(Tiers.values().stream().map(Tier::getId).collect(Collectors.toList()));
-    }
-
-    @Override
-    public CommandHandler getHandler() {
-        return (sender, args) -> {
-
+    override fun getHandler(): CommandHandler {
+        return CommandHandler { sender: CommandSender, args: List<String> ->
             if (args.isEmpty()) {
-                sender.sendMessage(this.getPlugin().getLangYml().getMessage("needs-player"));
-                return;
+                sender.sendMessage(plugin.langYml.getMessage("needs-player"))
+                return@CommandHandler
             }
 
-            if (args.size() == 1) {
-                sender.sendMessage(this.getPlugin().getLangYml().getMessage("needs-item"));
-                return;
+            if (args.size == 1) {
+                sender.sendMessage(plugin.langYml.getMessage("needs-item"))
+                return@CommandHandler
             }
 
-            String recieverName = args.get(0);
-            Player reciever = Bukkit.getPlayer(recieverName);
+            val recieverName = args[0]
+            val reciever = Bukkit.getPlayer(recieverName)
 
             if (reciever == null) {
-                sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-player"));
-                return;
+                sender.sendMessage(plugin.langYml.getMessage("invalid-player"))
+                return@CommandHandler
             }
 
-            String fullItemKey = args.get(1);
+            val fullItemKey = args[1]
 
             if (!fullItemKey.contains(":")) {
-                sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
-                return;
+                sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
+                return@CommandHandler
             }
-            String[] fullItemSplit = fullItemKey.split(":");
-            if (fullItemSplit.length == 1) {
-                sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
-                return;
+
+            val fullItemSplit = fullItemKey.split(":").toTypedArray()
+
+            if (fullItemSplit.size == 1) {
+                sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
+                return@CommandHandler
             }
-            String itemNamespace = fullItemSplit[0];
-            String itemKey = fullItemSplit[1];
 
-            List<ItemStack> items = new ArrayList<>();
-            int amount = 1;
+            val itemNamespace = fullItemSplit[0]
+            val itemKey = fullItemSplit[1]
+            val toGive = mutableListOf<ItemStack>()
+            var amount = 1
 
-            if (itemNamespace.equalsIgnoreCase("set")) {
-                ArmorSet set = ArmorSets.getByID(itemKey);
+            if (itemNamespace.equals("set", ignoreCase = true)) {
+                val set = ArmorSets.getByID(itemKey)
+
                 if (set == null) {
-                    sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
-                    return;
+                    sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
+                    return@CommandHandler
                 }
 
-                String message = this.getPlugin().getLangYml().getMessage("give-success");
-                message = message.replace("%item%", set.getId() + " Set").replace("%recipient%", reciever.getName());
-                sender.sendMessage(message);
+                var message = plugin.langYml.getMessage("give-success")
 
-                boolean advanced = false;
+                message = message.replace("%item%", set.id + " Set").replace("%recipient%", reciever.name)
 
-                Tier tier = null;
+                sender.sendMessage(message)
 
-                List<ArmorSlot> slots = new ArrayList<>();
-
-                if (args.size() >= 3) {
-                    ArmorSlot slot = ArmorSlot.getSlot(args.get(2));
-
+                var advanced = false
+                var tier: Tier? = null
+                val slots = mutableListOf<ArmorSlot>()
+                if (args.size >= 3) {
+                    val slot = getSlot(args[2])
                     if (slot == null) {
-                        if (!args.get(2).equalsIgnoreCase("full")) {
-                            sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
-                            return;
+                        if (!args[2].equals("full", ignoreCase = true)) {
+                            sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
+                            return@CommandHandler
                         }
                     }
-
                     if (slot == null) {
-                        slots.addAll(Arrays.asList(ArmorSlot.values()));
+                        slots.addAll(ArmorSlot.values())
                     } else {
-                        slots.add(slot);
+                        slots.add(slot)
                     }
                 } else {
-                    slots.addAll(Arrays.asList(ArmorSlot.values()));
+                    slots.addAll(ArmorSlot.values())
                 }
-
-                if (args.size() >= 4) {
-                    advanced = Boolean.parseBoolean(args.get(3));
+                if (args.size >= 4) {
+                    advanced = args[3].toBoolean()
                 }
-
-                if (args.size() >= 5) {
-                    tier = Tiers.getByID(args.get(4));
+                if (args.size >= 5) {
+                    tier = Tiers.getByID(args[4])
                 }
-
-                if (args.size() >= 6) {
-                    try {
-                        amount = Integer.parseInt(args.get(5));
-                    } catch (NumberFormatException ignored) {
-                        // do nothing
-                    }
+                if (args.size >= 6) {
+                    amount = args[5].toIntOrNull() ?: amount
                 }
-
-                for (ArmorSlot slot : slots) {
-                    items.add(advanced ? set.getAdvancedItemStack(slot) : set.getItemStack(slot));
+                for (slot in slots) {
+                    toGive.add(if (advanced) set.getAdvancedItemStack(slot) else set.getItemStack(slot))
                 }
-
-                for (ItemStack item : new ArrayList<>(items)) {
-                    Tier currTear = tier != null ? tier: set.getDefaultTier(ArmorSlot.getSlot(item));
-                    items.remove(item);
-                    ArmorUtils.setTier(item, currTear);
-                    items.add(item);
+                for (item in ArrayList(toGive)) {
+                    val currTear = tier ?: set.getDefaultTier(getSlot(item))
+                    toGive.remove(item)
+                    ArmorUtils.setTier(item, currTear)
+                    toGive.add(item)
                 }
             }
-
-            if (itemNamespace.equalsIgnoreCase("crystal")) {
-                Tier tier = Tiers.getByID(itemKey);
+            if (itemNamespace.equals("crystal", ignoreCase = true)) {
+                val tier = Tiers.getByID(itemKey)
                 if (tier == null) {
-                    sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
-                    return;
+                    sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
+                    return@CommandHandler
                 }
-
-                String message = this.getPlugin().getLangYml().getMessage("give-success");
-                message = message.replace("%item%", tier.getCrystal().getItemMeta().getDisplayName()).replace("%recipient%", reciever.getName());
-                sender.sendMessage(message);
-                items.add(tier.getCrystal());
-
-                if (args.size() >= 3) {
-                    try {
-                        amount = Integer.parseInt(args.get(2));
-                    } catch (NumberFormatException ignored) {
-                        // do nothing
-                    }
+                var message = plugin.langYml.getMessage("give-success")
+                message =
+                    message.replace("%item%", tier.crystal.itemMeta!!.displayName).replace("%recipient%", reciever.name)
+                sender.sendMessage(message)
+                toGive.add(tier.crystal)
+                if (args.size >= 3) {
+                    amount = args[2].toIntOrNull() ?: amount
                 }
             }
-
-            if (itemNamespace.equalsIgnoreCase("shard")) {
-                ArmorSet set = ArmorSets.getByID(itemKey);
+            if (itemNamespace.equals("shard", ignoreCase = true)) {
+                val set = ArmorSets.getByID(itemKey)
                 if (set == null) {
-                    sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
-                    return;
+                    sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
+                    return@CommandHandler
                 }
-
-                String message = this.getPlugin().getLangYml().getMessage("give-success");
-                message = message.replace("%item%", set.getAdvancementShardItem().getItemMeta().getDisplayName()).replace("%recipient%", reciever.getName());
-                sender.sendMessage(message);
-                items.add(set.getAdvancementShardItem());
-
-                if (args.size() >= 3) {
-                    try {
-                        amount = Integer.parseInt(args.get(2));
-                    } catch (NumberFormatException ignored) {
-                        // do nothing
-                    }
+                var message = plugin.langYml.getMessage("give-success")
+                message = message.replace("%item%", set.advancementShardItem.itemMeta!!.displayName)
+                    .replace("%recipient%", reciever.name)
+                sender.sendMessage(message)
+                toGive.add(set.advancementShardItem)
+                if (args.size >= 3) {
+                    amount = args[2].toIntOrNull() ?: amount
                 }
             }
-
-            if (items.isEmpty()) {
-                sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
-                return;
+            if (toGive.isEmpty()) {
+                sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
+                return@CommandHandler
             }
-
-            for (ItemStack item : items) {
-                item.setAmount(amount);
-                reciever.getInventory().addItem(item);
+            for (item in toGive) {
+                item.amount = amount
+                reciever.inventory.addItem(item)
             }
-        };
+        }
     }
 
-    @Override
-    public TabCompleteHandler getTabCompleter() {
-        return (sender, args) -> {
-
-            List<String> completions = new ArrayList<>();
-
+    override fun getTabCompleter(): TabCompleteHandler {
+        return TabCompleteHandler { _, args ->
+            val completions = mutableListOf<String>()
             if (args.isEmpty()) {
                 // Currently, this case is not ever reached
-                return ITEM_NAMES;
+                return@TabCompleteHandler items.toList()
             }
-
-            if (args.size() == 1) {
-                StringUtil.copyPartialMatches(args.get(0), Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList()), completions);
-                return completions;
+            if (args.size == 1) {
+                StringUtil.copyPartialMatches(
+                    args[0],
+                    Bukkit.getOnlinePlayers().stream().map { obj: Player -> obj.name }
+                        .collect(Collectors.toList()),
+                    completions)
+                return@TabCompleteHandler completions
             }
-
-            if (args.size() == 2) {
-                StringUtil.copyPartialMatches(args.get(1), ITEM_NAMES, completions);
-
-                Collections.sort(completions);
-                return completions;
+            if (args.size == 2) {
+                StringUtil.copyPartialMatches(args[1], items, completions)
+                completions.sort()
+                return@TabCompleteHandler completions
             }
-
-            if (args.get(1).startsWith("set:")) {
-                if (args.size() == 3) {
-                    StringUtil.copyPartialMatches(args.get(2), SLOTS, completions);
-
-                    Collections.sort(completions);
-                    return completions;
+            if (args[1].startsWith("set:")) {
+                if (args.size == 3) {
+                    StringUtil.copyPartialMatches(args[2], slots, completions)
+                    completions.sort()
+                    return@TabCompleteHandler completions
                 }
-
-                if (args.size() == 4) {
-                    StringUtil.copyPartialMatches(args.get(3), Arrays.asList("true", "false"), completions);
-
-                    Collections.sort(completions);
-                    return completions;
+                if (args.size == 4) {
+                    StringUtil.copyPartialMatches(args[3], listOf("true", "false"), completions)
+                    completions.sort()
+                    return@TabCompleteHandler completions
                 }
-
-                if (args.size() == 5) {
-                    StringUtil.copyPartialMatches(args.get(4), TIERS, completions);
-
-                    Collections.sort(completions);
-                    return completions;
+                if (args.size == 5) {
+                    StringUtil.copyPartialMatches(args[4], tiers, completions)
+                    completions.sort()
+                    return@TabCompleteHandler completions
                 }
-
-                if (args.size() == 6) {
-                    StringUtil.copyPartialMatches(args.get(5), NUMBERS, completions);
-
-                    return completions;
+                if (args.size == 6) {
+                    StringUtil.copyPartialMatches(args[5], numbers, completions)
+                    return@TabCompleteHandler completions
                 }
             } else {
-                if (args.size() == 3) {
-                    StringUtil.copyPartialMatches(args.get(2), NUMBERS, completions);
-
-                    return completions;
+                if (args.size == 3) {
+                    StringUtil.copyPartialMatches(args[2], numbers, completions)
+                    return@TabCompleteHandler completions
                 }
             }
-
-            return new ArrayList<>(0);
-        };
+            ArrayList(0)
+        }
     }
 }

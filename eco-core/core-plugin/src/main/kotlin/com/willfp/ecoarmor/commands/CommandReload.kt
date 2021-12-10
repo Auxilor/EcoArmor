@@ -1,26 +1,14 @@
-package com.willfp.ecoarmor.commands;
+package com.willfp.ecoarmor.commands
 
+import com.willfp.eco.core.EcoPlugin
+import com.willfp.eco.core.command.CommandHandler
+import com.willfp.eco.core.command.impl.Subcommand
 
-import com.willfp.eco.core.EcoPlugin;
-import com.willfp.eco.core.command.CommandHandler;
-import com.willfp.eco.core.command.impl.Subcommand;
-import org.jetbrains.annotations.NotNull;
-
-public class CommandReload extends Subcommand {
-    /**
-     * Instantiate a new command handler.
-     *
-     * @param plugin The plugin for the commands to listen for.
-     */
-    public CommandReload(@NotNull final EcoPlugin plugin) {
-        super(plugin, "reload", "ecoarmor.command.reload", false);
-    }
-
-    @Override
-    public CommandHandler getHandler() {
-        return (sender, args) -> {
-            this.getPlugin().reload();
-            sender.sendMessage(this.getPlugin().getLangYml().getMessage("reloaded"));
-        };
+class CommandReload(plugin: EcoPlugin) : Subcommand(plugin, "reload", "ecoarmor.command.reload", false) {
+    override fun getHandler(): CommandHandler {
+        return CommandHandler { sender, _ ->
+            plugin.reload()
+            sender.sendMessage(plugin.langYml.getMessage("reloaded"))
+        }
     }
 }

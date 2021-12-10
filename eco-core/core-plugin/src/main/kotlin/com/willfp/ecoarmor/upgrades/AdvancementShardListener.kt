@@ -1,87 +1,55 @@
-package com.willfp.ecoarmor.upgrades.listeners;
+package com.willfp.ecoarmor.upgrades
 
+import com.willfp.eco.core.EcoPlugin
+import com.willfp.ecoarmor.sets.ArmorSets
+import com.willfp.ecoarmor.sets.util.ArmorUtils
+import org.bukkit.GameMode
+import org.bukkit.Material
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.inventory.ItemStack
+import org.bukkit.persistence.PersistentDataType
 
-import com.willfp.eco.core.EcoPlugin;
-import com.willfp.eco.core.PluginDependent;
-import com.willfp.ecoarmor.sets.ArmorSet;
-import com.willfp.ecoarmor.sets.ArmorSets;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.NotNull;
-
-public class AdvancementShardListener extends PluginDependent<EcoPlugin> implements Listener {
-    /**
-     * Create new listeners for dragging crystals onto items.
-     *
-     * @param plugin The plugin to listen for.
-     */
-    public AdvancementShardListener(@NotNull final EcoPlugin plugin) {
-        super(plugin);
-    }
-
-    /**
-     * Listen for inventory click event.
-     *
-     * @param event The event to handle.
-     */
+class AdvancementShardListener(private val plugin: EcoPlugin) : Listener {
     @EventHandler
-    public void onDrag(@NotNull final InventoryClickEvent event) {
-        if (event.getWhoClicked().getGameMode() == GameMode.CREATIVE) {
-            return;
+    fun onDrag(event: InventoryClickEvent) {
+        if (event.whoClicked.gameMode == GameMode.CREATIVE) {
+            return
+        }
+        val current = event.currentItem ?: return
+        val cursor = event.cursor ?: return
+
+        val cursorMeta = cursor.itemMeta ?: return
+
+        val shardSet = cursorMeta.persistentDataContainer.get(
+            plugin.namespacedKeyFactory.create("advancement-shard"),
+            PersistentDataType.STRING
+        ) ?: return
+
+        val set = ArmorUtils.getSetOnItem(current) ?: return
+
+        if (ArmorSets.getByID(shardSet)?.id != set.id) {
+            return
         }
 
-        ItemStack current = event.getCurrentItem();
-        ItemStack cursor = event.getCursor();
-
-        if (current == null || cursor == null) {
-            return;
-        }
-
-        ItemMeta cursorMeta = cursor.getItemMeta();
-
-        if (cursorMeta == null) {
-            return;
-        }
-
-        String shardSet = cursorMeta.getPersistentDataContainer().get(this.getPlugin().getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING);
-
-        if (shardSet == null) {
-            return;
-        }
-
-        ArmorSet set = ArmorUtils.getSetOnItem(current);
-
-        if (set == null) {
-            return;
-        }
-
-        if (!ArmorSets.getByID(shardSet).getId().equals(set.getId())) {
-            return;
-        }
-
-        if (current.getType() == Material.AIR) {
-            return;
+        if (current.type == Material.AIR) {
+            return
         }
 
         if (ArmorUtils.isAdvanced(current)) {
-            return;
+            return
         }
 
-        ArmorUtils.setAdvanced(current, true);
+        ArmorUtils.setAdvanced(current, true)
 
-        if (cursor.getAmount() > 1) {
-            cursor.setAmount(cursor.getAmount() - 1);
-            event.getWhoClicked().setItemOnCursor(cursor);
+        if (cursor.amount > 1) {
+            cursor.amount -= 1
+            event.whoClicked.setItemOnCursor(cursor)
         } else {
-            event.getWhoClicked().setItemOnCursor(new ItemStack(Material.AIR));
+            event.whoClicked.setItemOnCursor(ItemStack(Material.AIR))
         }
-        event.setCancelled(true);
+
+        event.isCancelled = true
     }
 }
