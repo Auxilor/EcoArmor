@@ -5,7 +5,6 @@ import com.willfp.eco.core.command.CommandHandler;
 import com.willfp.eco.core.command.TabCompleteHandler;
 import com.willfp.eco.core.command.impl.Subcommand;
 import com.willfp.eco.core.config.updating.ConfigUpdater;
-import com.willfp.eco.core.display.Display;
 import com.willfp.ecoarmor.sets.ArmorSet;
 import com.willfp.ecoarmor.sets.ArmorSets;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
@@ -18,7 +17,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.DataInput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -71,12 +69,12 @@ public class CommandGive extends Subcommand {
     @ConfigUpdater
     public static void reload() {
         ITEM_NAMES.clear();
-        ITEM_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "set:" + armorSet.getName()).collect(Collectors.toList()));
-        ITEM_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "shard:" + armorSet.getName()).collect(Collectors.toList()));
-        ITEM_NAMES.addAll(Tiers.values().stream().map(crystal -> "crystal:" + crystal.getName()).collect(Collectors.toList()));
+        ITEM_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "set:" + armorSet.getId()).collect(Collectors.toList()));
+        ITEM_NAMES.addAll(ArmorSets.values().stream().map(armorSet -> "shard:" + armorSet.getId()).collect(Collectors.toList()));
+        ITEM_NAMES.addAll(Tiers.values().stream().map(crystal -> "crystal:" + crystal.getId()).collect(Collectors.toList()));
         SLOTS.addAll(Arrays.stream(ArmorSlot.values()).map(slot -> slot.name().toLowerCase()).collect(Collectors.toList()));
         SLOTS.add("full");
-        TIERS.addAll(Tiers.values().stream().map(Tier::getName).collect(Collectors.toList()));
+        TIERS.addAll(Tiers.values().stream().map(Tier::getId).collect(Collectors.toList()));
     }
 
     @Override
@@ -119,14 +117,14 @@ public class CommandGive extends Subcommand {
             int amount = 1;
 
             if (itemNamespace.equalsIgnoreCase("set")) {
-                ArmorSet set = ArmorSets.getByName(itemKey);
+                ArmorSet set = ArmorSets.getByID(itemKey);
                 if (set == null) {
                     sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
                     return;
                 }
 
                 String message = this.getPlugin().getLangYml().getMessage("give-success");
-                message = message.replace("%item%", set.getName() + " Set").replace("%recipient%", reciever.getName());
+                message = message.replace("%item%", set.getId() + " Set").replace("%recipient%", reciever.getName());
                 sender.sendMessage(message);
 
                 boolean advanced = false;
@@ -159,7 +157,7 @@ public class CommandGive extends Subcommand {
                 }
 
                 if (args.size() >= 5) {
-                    tier = Tiers.getByName(args.get(4));
+                    tier = Tiers.getByID(args.get(4));
                 }
 
                 if (args.size() >= 6) {
@@ -183,7 +181,7 @@ public class CommandGive extends Subcommand {
             }
 
             if (itemNamespace.equalsIgnoreCase("crystal")) {
-                Tier tier = Tiers.getByName(itemKey);
+                Tier tier = Tiers.getByID(itemKey);
                 if (tier == null) {
                     sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
                     return;
@@ -204,7 +202,7 @@ public class CommandGive extends Subcommand {
             }
 
             if (itemNamespace.equalsIgnoreCase("shard")) {
-                ArmorSet set = ArmorSets.getByName(itemKey);
+                ArmorSet set = ArmorSets.getByID(itemKey);
                 if (set == null) {
                     sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-item"));
                     return;

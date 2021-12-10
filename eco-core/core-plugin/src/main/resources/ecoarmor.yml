@@ -1,5 +1,5 @@
 sets:
-  - name: reaper
+  - id: reaper
     conditions: []
     effects:
       - id: damage_multiplier
@@ -43,19 +43,10 @@ sets:
       - ecoarmor:set_reaper_boots
       - prismarine_shard
     helmet:
-      enchants:
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_helmet
-      leatherColor: "#303030"
+      item: leather_helmet color:#303030
       name: "&cReaper Helmet"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Helmet"
       effectiveDurability: 2048
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&c&lREAPER SET BONUS"
         - "&8» &cDeal 25% more damage"
@@ -76,19 +67,10 @@ sets:
         - nether_star
         - air
     chestplate:
-      enchants:
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_chestplate
-      leatherColor: "#303030"
+      item: leather_chestplate color:#303030
       name: "&cReaper Chestplate"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Chestplate"
       effectiveDurability: 2048
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&c&lREAPER SET BONUS"
         - "&8» &cDeal 25% more damage"
@@ -109,16 +91,10 @@ sets:
         - nether_star
         - air
     elytra:
-      enchants:
-        - id: unbreaking
-          level: 3
-      material: elytra
+      item: elytra
       name: "&cReaper Elytra"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Elytra"
       effectiveDurability: 2048
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&c&lREAPER SET BONUS"
         - "&8» &cDeal 25% more damage"
@@ -139,19 +115,10 @@ sets:
         - nether_star
         - air
     leggings:
-      enchants:
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_leggings
-      leatherColor: "#303030"
+      item: leather_leggings color:#303030
       name: "&cReaper Leggings"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Leggings"
       effectiveDurability: 2048
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&c&lREAPER SET BONUS"
         - "&8» &cDeal 25% more damage"
@@ -172,19 +139,10 @@ sets:
         - nether_star
         - air
     boots:
-      enchants:
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_boots
-      leatherColor: "#303030"
+      item: leather_boots color:#303030
       name: "&cReaper Boots"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Boots"
       effectiveDurability: 2048
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&c&lREAPER SET BONUS"
         - "&8» &cDeal 25% more damage"
@@ -204,7 +162,7 @@ sets:
         - air
         - nether_star
         - air
-  - name: slayer
+  - id: slayer
     conditions: []
     effects:
       - id: damage_multiplier
@@ -258,21 +216,10 @@ sets:
       - ecoarmor:set_slayer_boots
       - prismarine_shard
     helmet:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_helmet
-      leatherColor: "#750909"
+      item: leather_helmet color:#750909
       name: "&4Slayer Helmet"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&4 Slayer Helmet"
       effectiveDurability: 768
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&4&lSLAYER SET BONUS"
         - "&8» &4Deal 50% more damage to bosses"
@@ -294,21 +241,11 @@ sets:
         - ecoitems:armor_core ? nether_star
         - obsidian
     chestplate:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_chestplate
+      item: leather_chestplate color:#750909
       leatherColor: "#750909"
       name: "&4Slayer Chestplate"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&4 Slayer Chestplate"
       effectiveDurability: 1024
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&4&lSLAYER SET BONUS"
         - "&8» &4Deal 50% more damage to bosses"
@@ -330,20 +267,10 @@ sets:
         - ecoitems:armor_core ? nether_star
         - obsidian
     elytra:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: elytra
+      item: elytra
       name: "&4Slayer Elytra"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19> &4Slayer Elytra"
       effectiveDurability: 1024
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&4&lSLAYER SET BONUS"
         - "&8» &4Deal 50% more damage to bosses"
@@ -365,21 +292,10 @@ sets:
         - ecoitems:armor_core ? nether_star
         - obsidian
     leggings:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_leggings
-      leatherColor: "#750909"
+      item: leather_leggings color:#750909
       name: "&4Slayer Leggings"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&4 Slayer Leggings"
       effectiveDurability: 1024
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&4&lSLAYER SET BONUS"
         - "&8» &4Deal 50% more damage to bosses"
@@ -401,21 +317,10 @@ sets:
         - ecoitems:armor_core ? nether_star
         - obsidian
     boots:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_boots
-      leatherColor: "#750909"
+      item: leather_boots color:#750909
       name: "&4Slayer Boots"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&4 Slayer Boots"
       effectiveDurability: 1024
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&4&lSLAYER SET BONUS"
         - "&8» &4Deal 50% more damage to bosses"
@@ -436,7 +341,7 @@ sets:
         - obsidian
         - ecoitems:armor_core ? nether_star
         - obsidian
-  - name: angelic
+  - id: angelic
     conditions: []
     effects:
       - id: bonus_health
@@ -484,21 +389,10 @@ sets:
       - ecoarmor:set_angelic_boots
       - prismarine_shard
     helmet:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_helmet
-      leatherColor: "#bd15a9"
+      item: leather_helmet color:#bd15a9
       name: "&5Angelic Helmet"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Helmet"
       effectiveDurability: 768
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&5&lANGELIC SET BONUS"
         - "&8» &dGain 10 more hearts"
@@ -521,21 +415,10 @@ sets:
         - ecoitems:armor_core ? enchanted_book mending:1
         - gold_block
     chestplate:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_chestplate
-      leatherColor: "#bd15a9"
+      item: leather_chestplate color:#bd15a9
       name: "&5Angelic Chestplate"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Chestplate"
       effectiveDurability: 1024
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&5&lANGELIC SET BONUS"
         - "&8» &dGain 10 more hearts"
@@ -558,20 +441,10 @@ sets:
         - ecoitems:armor_core ? enchanted_book mending:1
         - gold_block
     elytra:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: elytra
+      item: elytra
       name: "&5Angelic Elytra"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Elytra"
       effectiveDurability: 1024
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&5&lANGELIC SET BONUS"
         - "&8» &dGain 10 more hearts"
@@ -594,21 +467,11 @@ sets:
         - ecoitems:armor_core ? enchanted_book mending:1
         - gold_block
     leggings:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_leggings
+      item: leather_leggings color:#bd15a9
       leatherColor: "#bd15a9"
       name: "&5Angelic Leggings"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Leggings"
       effectiveDurability: 1024
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&5&lANGELIC SET BONUS"
         - "&8» &dGain 10 more hearts"
@@ -631,21 +494,11 @@ sets:
         - ecoitems:armor_core ? enchanted_book mending:1
         - gold_block
     boots:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_boots
+      item: leather_boots color:#bd15a9
       leatherColor: "#bd15a9"
       name: "&5Angelic Boots"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Boots"
       effectiveDurability: 1024
-      unbreakable: false
-      flags: []
-      customModeldata: -1
       lore:
         - "&5&lANGELIC SET BONUS"
         - "&8» &dGain 10 more hearts"
@@ -667,7 +520,7 @@ sets:
         - gold_block
         - ecoitems:armor_core ? enchanted_book mending:1
         - gold_block
-  - name: huntress
+  - id: huntress
     conditions: []
     effects:
       - id: damage_multiplier
@@ -721,21 +574,10 @@ sets:
       - ecoarmor:set_huntress_boots
       - prismarine_shard
     helmet:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_helmet
-      leatherColor: "#97fbfc"
+      item: leather_helmet color:#96fbfc
       name: "&bHuntress Helmet"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Helmet"
       effectiveDurability: 1024
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&b&lHUNTRESS SET BONUS"
         - "&8» &bDeal 2.5x trident damage"
@@ -765,14 +607,10 @@ sets:
           level: 4
         - id: unbreaking
           level: 3
-      material: leather_chestplate
-      leatherColor: "#97fbfc"
+      item: leather_chestplate color:#97fbfc
       name: "&bHuntress Chestplate"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Chestplate"
       effectiveDurability: 2048
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&b&lHUNTRESS SET BONUS"
         - "&8» &bDeal 2.5x trident damage"
@@ -795,20 +633,10 @@ sets:
         - enchanted_book power:5
         - spectral_arrow
     elytra:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: elytra
+      item: elytra
       name: "&bHuntress Elytra"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Elytra"
       effectiveDurability: 2048
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&b&lHUNTRESS SET BONUS"
         - "&8» &bDeal 2.5x trident damage"
@@ -831,21 +659,10 @@ sets:
         - enchanted_book power:5
         - spectral_arrow
     leggings:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_leggings
-      leatherColor: "#97fbfc"
+      item: leather_leggings color:#97fbfc
       name: "&bHuntress Leggings"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Leggings"
       effectiveDurability: 2048
-      unbreakable: false
-      flags: []
-      customModelData: -1
       lore:
         - "&b&lHUNTRESS SET BONUS"
         - "&8» &bDeal 2.5x trident damage"
@@ -868,21 +685,10 @@ sets:
         - enchanted_book power:5
         - spectral_arrow
     boots:
-      enchants:
-        - id: evasion
-          level: 3
-        - id: protection
-          level: 4
-        - id: unbreaking
-          level: 3
-      material: leather_boots
-      leatherColor: "#97fbfc"
+      item: leather_boots color:#97fbfc
       name: "&bHuntress Boots"
       advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Boots"
       effectiveDurability: 2048
-      unbreakable: false
-      flags: []
-      customModeldata: -1
       lore:
         - "&b&lHUNTRESS SET BONUS"
         - "&8» &bDeal 2.5x trident damage"
@@ -905,7 +711,7 @@ sets:
         - enchanted_book power:5
         - spectral_arrow
 tiers:
-  - name: default
+  - id: default
     display: "&8&lDEFAULT"
     requiresTiers: []
     crystal:
@@ -967,7 +773,7 @@ tiers:
         attackSpeedPercentage: 0
         attackDamagePercentage: 0
         attackKnockbackPercentage: 0
-  - name: iron
+  - id: iron
     display: "&7&lIRON"
     requiresTiers:
       - default
@@ -1032,7 +838,7 @@ tiers:
         attackSpeedPercentage: 0
         attackDamagePercentage: 0
         attackKnockbackPercentage: 0
-  - name: diamond
+  - id: diamond
     display: "&b&lDIAMOND"
     requiresTiers:
       - iron
@@ -1097,7 +903,7 @@ tiers:
         attackSpeedPercentage: 0
         attackDamagePercentage: 0
         attackKnockbackPercentage: 0
-  - name: netherite
+  - id: netherite
     display: "&c&lNETHERITE"
     requiresTiers:
       - diamond
@@ -1162,7 +968,7 @@ tiers:
         attackSpeedPercentage: 0
         attackDamagePercentage: 0
         attackKnockbackPercentage: 0
-  - name: manyullyn
+  - id: manyullyn
     display: "&d&k!!&r <GRADIENT:f953c6>&lMANYULLYN</GRADIENT:b91d73>&r &d&k!!&r"
     requiresTiers:
       - netherite
@@ -1227,7 +1033,7 @@ tiers:
         attackSpeedPercentage: 0
         attackDamagePercentage: 0
         attackKnockbackPercentage: 0
-  - name: cobalt
+  - id: cobalt
     display: "&#0047ab&lCOBALT"
     requiresTiers:
       - iron
@@ -1292,7 +1098,7 @@ tiers:
         attackSpeedPercentage: -10
         attackDamagePercentage: 0
         attackKnockbackPercentage: 10
-  - name: osmium
+  - id: osmium
     display: "&b&k!!&r <GRADIENT:c7f1ff>&lOSMIUM</GRADIENT:5c92ff>&r &b&k!!"
     requiresTiers:
       - cobalt
@@ -1357,7 +1163,7 @@ tiers:
         attackSpeedPercentage: -15
         attackDamagePercentage: 5
         attackKnockbackPercentage: 25
-  - name: exotic
+  - id: exotic
     display: "&6&k!!&r <GRADIENT:f79d00>&lEXOTIC</GRADIENT:64f38c>&r &6&k!!&r"
     requiresTiers:
       - netherite
@@ -1422,7 +1228,7 @@ tiers:
         attackSpeedPercentage: 10
         attackDamagePercentage: -5
         attackKnockbackPercentage: -20
-  - name: ancient
+  - id: ancient
     display: "&6&k!!&r <GRADIENT:ffb347>&lANCIENT</GRADIENT:ffcc33>&r &6&k!!&r"
     requiresTiers: []
     crystal:
@@ -1484,7 +1290,7 @@ tiers:
         attackSpeedPercentage: 5
         attackDamagePercentage: 0
         attackKnockbackPercentage: 0
-  - name: mythic
+  - id: mythic
     display: "&1&k!!&r <GRADIENT:00c6ff>&lMYTHIC</GRADIENT:0072ff>&r &1&k!!&r"
     requiresTiers: []
     crystal:

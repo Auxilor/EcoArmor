@@ -7,10 +7,7 @@ import com.willfp.eco.core.items.CustomItem;
 import com.willfp.eco.core.items.Items;
 import com.willfp.eco.core.items.builder.ItemBuilder;
 import com.willfp.eco.core.items.builder.ItemStackBuilder;
-import com.willfp.eco.core.items.builder.LeatherArmorBuilder;
-import com.willfp.eco.core.items.builder.SkullBuilder;
 import com.willfp.eco.core.recipe.Recipes;
-import com.willfp.ecoarmor.EcoArmorPlugin;
 import com.willfp.ecoarmor.sets.meta.ArmorSlot;
 import com.willfp.ecoarmor.sets.util.ArmorUtils;
 import com.willfp.ecoarmor.upgrades.Tier;
@@ -23,8 +20,6 @@ import com.willfp.libreforge.effects.Effects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -59,7 +54,7 @@ public class ArmorSet {
      * The name of the set.
      */
     @Getter
-    private final String name;
+    private final String id;
 
     /**
      * The advanced holder.
@@ -72,15 +67,6 @@ public class ArmorSet {
      */
     @Getter
     private final Holder regularHolder;
-
-    /**
-     * The base64 texture of a skull used as a helmet.
-     * <p>
-     * Null if no skull.
-     */
-    @Getter
-    @Nullable
-    private String skullBase64;
 
     /**
      * Items in set.
@@ -108,11 +94,11 @@ public class ArmorSet {
                     @NotNull final EcoPlugin plugin) {
         this.config = config;
         this.plugin = plugin;
-        this.name = config.getString("name");
+        this.id = config.getString("id");
 
         Set<ConfiguredCondition> conditions = new HashSet<>();
         for (Config cfg : this.getConfig().getSubsections("conditions")) {
-            ConfiguredCondition conf = Conditions.compile(cfg, "Armor Set " + this.name);
+            ConfiguredCondition conf = Conditions.compile(cfg, "Armor Set " + this.id);
             if (conf != null) {
                 conditions.add(conf);
             }
@@ -120,7 +106,7 @@ public class ArmorSet {
 
         Set<ConfiguredEffect> effects = new HashSet<>();
         for (Config cfg : this.getConfig().getSubsections("effects")) {
-            ConfiguredEffect conf = Effects.compile(cfg, "Armor Set " + this.name);
+            ConfiguredEffect conf = Effects.compile(cfg, "Armor Set " + this.id);
             if (conf != null) {
                 effects.add(conf);
             }
@@ -128,7 +114,7 @@ public class ArmorSet {
 
         Set<ConfiguredEffect> advancedEffects = new HashSet<>();
         for (Config cfg : this.getConfig().getSubsections("advancedEffects")) {
-            ConfiguredEffect conf = Effects.compile(cfg, "Armor Set " + this.name + " (Advanced)");
+            ConfiguredEffect conf = Effects.compile(cfg, "Armor Set " + this.id + " (Advanced)");
             if (conf != null) {
                 advancedEffects.add(conf);
             }
@@ -160,18 +146,18 @@ public class ArmorSet {
                 .addEnchantment(Enchantment.DURABILITY, 3)
                 .addItemFlag(ItemFlag.HIDE_ENCHANTS)
                 .addLoreLines(shardLore)
-                .writeMetaKey(this.getPlugin().getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING, name)
+                .writeMetaKey(this.getPlugin().getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING, id)
                 .build();
 
         if (this.getConfig().getBool("shardCraftable")) {
             Recipes.createAndRegisterRecipe(this.getPlugin(),
-                    this.getName() + "_shard",
+                    this.getId() + "_shard",
                     shard,
                     this.getConfig().getStrings("shardRecipe"));
         }
 
         new CustomItem(
-                this.getPlugin().getNamespacedKeyFactory().create("shard_" + name.toLowerCase()),
+                this.getPlugin().getNamespacedKeyFactory().create("shard_" + id.toLowerCase()),
                 test -> this.equals(ArmorUtils.getShardSet(test)),
                 shard
         ).register();
@@ -182,25 +168,8 @@ public class ArmorSet {
     private ItemStack construct(@NotNull final ArmorSlot slot,
                                 @NotNull final Config slotConfig,
                                 final boolean advanced) {
-        Material material = Material.getMaterial(slotConfig.getString("material").toUpperCase());
-
-        assert material != null;
-
-        ItemBuilder builder;
-
-        builder = switch (material) {
-            case PLAYER_HEAD -> new SkullBuilder();
-            case LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS -> new LeatherArmorBuilder(material);
-            default -> new ItemStackBuilder(material);
-        };
-
-        builder.setDisplayName(advanced ? slotConfig.getString("advancedName") : slotConfig.getString("name"))
-                .addItemFlag(
-                        slotConfig.getStrings("flags").stream()
-                                .map(s -> ItemFlag.valueOf(s.toUpperCase()))
-                                .toArray(ItemFlag[]::new)
-                )
-                .setUnbreakable(slotConfig.getBool("unbreakable"))
+        ItemBuilder builder = new ItemStackBuilder(Items.lookup(slotConfig.getString("item")).getItem())
+                .setDisplayName(advanced ? slotConfig.getString("advancedName") : slotConfig.getString("name"))
                 .addLoreLines(slotConfig.getStrings("lore").stream().map(s -> Display.PREFIX + s).collect(Collectors.toList()))
                 .addLoreLines(() -> {
                     if (advanced) {
@@ -209,43 +178,12 @@ public class ArmorSet {
                         return null;
                     }
                 })
-                .setCustomModelData(() -> {
-                    int data = slotConfig.getInt("customModelData");
-                    return data != -1 ? data : null;
-                })
                 .setDisplayName(() -> advanced ? slotConfig.getString("advancedName") : slotConfig.getString("name"));
-
-
-        if (builder instanceof SkullBuilder skullBuilder) {
-            this.skullBase64 = slotConfig.getString("skullTexture");
-            skullBuilder.setSkullTexture(skullBase64);
-        }
-
-        if (builder instanceof LeatherArmorBuilder leatherArmorBuilder) {
-            String colorString = slotConfig.getString("leatherColor");
-            java.awt.Color awtColor = java.awt.Color.decode(colorString);
-            leatherArmorBuilder.setColor(awtColor);
-            builder.addItemFlag(ItemFlag.HIDE_DYE);
-        }
-
-
-        Map<Enchantment, Integer> enchants = new HashMap<>();
-
-        for (Config enchantSection : slotConfig.getSubsections("enchants")) {
-            Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(enchantSection.getString("id")));
-            if (enchantment == null) {
-                continue;
-            }
-            int level = enchantSection.getInt("level");
-            enchants.put(enchantment, level);
-        }
-
-        enchants.forEach(builder::addEnchantment);
 
         builder.writeMetaKey(
                 this.getPlugin().getNamespacedKeyFactory().create("set"),
                 PersistentDataType.STRING,
-                name
+                id
         ).writeMetaKey(
                 this.getPlugin().getNamespacedKeyFactory().create("effective-durability"),
                 PersistentDataType.INTEGER,
@@ -255,16 +193,16 @@ public class ArmorSet {
         ItemStack itemStack = builder.build();
 
         ArmorUtils.setAdvanced(itemStack, advanced);
-        Tier defaultTier = Tiers.getByName(slotConfig.getString("defaultTier"));
+        Tier defaultTier = Tiers.getByID(slotConfig.getString("defaultTier"));
         if (defaultTier == null) {
-            Bukkit.getLogger().warning("Default tier specified in " + this.name + " " + slot.name().toLowerCase() + " is invalid! Defaulting to 'default'");
+            Bukkit.getLogger().warning("Default tier specified in " + this.id + " " + slot.name().toLowerCase() + " is invalid! Defaulting to 'default'");
             ArmorUtils.setTier(itemStack, Tiers.getDefaultTier());
         } else {
             ArmorUtils.setTier(itemStack, defaultTier);
         }
 
         if (advanced) {
-            new CustomItem(this.getPlugin().getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + slot.name().toLowerCase() + "_advanced"), test -> {
+            new CustomItem(this.getPlugin().getNamespacedKeyFactory().create("set_" + id.toLowerCase() + "_" + slot.name().toLowerCase() + "_advanced"), test -> {
                 if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
                     return false;
                 }
@@ -278,7 +216,7 @@ public class ArmorSet {
                 return Objects.equals(this, ArmorUtils.getSetOnItem(test));
             }, itemStack).register();
         } else {
-            new CustomItem(this.getPlugin().getNamespacedKeyFactory().create("set_" + name.toLowerCase() + "_" + slot.name().toLowerCase()), test -> {
+            new CustomItem(this.getPlugin().getNamespacedKeyFactory().create("set_" + id.toLowerCase() + "_" + slot.name().toLowerCase()), test -> {
                 if (ArmorSlot.getSlot(test) != ArmorSlot.getSlot(itemStack)) {
                     return false;
                 }
@@ -317,7 +255,7 @@ public class ArmorSet {
 
             Recipes.createAndRegisterRecipe(
                     this.getPlugin(),
-                    this.getName() + "_" + slot.name().toLowerCase(),
+                    this.getId() + "_" + slot.name().toLowerCase(),
                     formattedOut,
                     slotConfig.getStrings("recipe")
             );
@@ -352,8 +290,8 @@ public class ArmorSet {
      */
     public Tier getDefaultTier(@Nullable final ArmorSlot slot) {
         if (slot == null) return Tiers.getDefaultTier();
-        Tier tier = Tiers.getByName(this.config.getSubsection(slot.name().toLowerCase()).getString("defaultTier"));
-        return tier != null ? tier: Tiers.getDefaultTier();
+        Tier tier = Tiers.getByID(this.config.getSubsection(slot.name().toLowerCase()).getString("defaultTier"));
+        return tier != null ? tier : Tiers.getDefaultTier();
     }
 
     @Override
@@ -366,18 +304,18 @@ public class ArmorSet {
             return false;
         }
 
-        return this.name.equals(set.name);
+        return this.id.equals(set.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.name);
+        return Objects.hash(this.id);
     }
 
     @Override
     public String toString() {
         return "ArmorSet{"
-                + this.name
+                + this.id
                 + "}";
     }
 }

@@ -32,7 +32,7 @@ public class Tier extends PluginDependent<EcoPlugin> {
      * The tier name.
      */
     @Getter
-    private final String name;
+    private final String id;
 
     /**
      * The config of the crystal.
@@ -84,7 +84,7 @@ public class Tier extends PluginDependent<EcoPlugin> {
     public Tier(@NotNull final Config config,
                 @NotNull final EcoPlugin plugin) {
         super(plugin);
-        this.name = config.getString("name");
+        this.id = config.getString("id");
         this.config = config;
 
         Tiers.addNewTier(this);
@@ -104,7 +104,7 @@ public class Tier extends PluginDependent<EcoPlugin> {
         ItemMeta outMeta = out.getItemMeta();
         assert outMeta != null;
         PersistentDataContainer container = outMeta.getPersistentDataContainer();
-        container.set(key, PersistentDataType.STRING, name);
+        container.set(key, PersistentDataType.STRING, id);
 
         outMeta.setDisplayName(this.getConfig().getString("crystal.name"));
 
@@ -131,7 +131,7 @@ public class Tier extends PluginDependent<EcoPlugin> {
         }
 
         new CustomItem(
-                this.getPlugin().getNamespacedKeyFactory().create("crystal_" + name.toLowerCase()),
+                this.getPlugin().getNamespacedKeyFactory().create("crystal_" + id.toLowerCase()),
                 test -> this.equals(ArmorUtils.getCrystalTier(test)),
                 out
         ).register();
@@ -139,12 +139,12 @@ public class Tier extends PluginDependent<EcoPlugin> {
         if (this.isCraftable()) {
             ItemStack recipeOut = out.clone();
             recipeOut.setAmount(this.getConfig().getInt("crystal.giveAmount"));
-            ShapedCraftingRecipe.Builder builder = ShapedCraftingRecipe.builder(this.getPlugin(), "upgrade_crystal_" + name)
+            ShapedCraftingRecipe.Builder builder = ShapedCraftingRecipe.builder(this.getPlugin(), "upgrade_crystal_" + id)
                     .setOutput(recipeOut);
 
             List<String> recipeStrings = this.getConfig().getStrings("crystal.recipe");
 
-            new CustomItem(this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal_" + name), test -> {
+            new CustomItem(this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal_" + id), test -> {
                 if (test == null) {
                     return false;
                 }
@@ -169,7 +169,7 @@ public class Tier extends PluginDependent<EcoPlugin> {
      * @return The tiers, or a blank list if always available.
      */
     public List<Tier> getRequiredTiersForApplication() {
-        return requiredTiersForApplication.stream().map(Tiers::getByName).filter(Objects::nonNull).collect(Collectors.toList());
+        return requiredTiersForApplication.stream().map(Tiers::getByID).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     @Override
@@ -182,11 +182,11 @@ public class Tier extends PluginDependent<EcoPlugin> {
         }
 
         Tier tier = (Tier) o;
-        return Objects.equals(getName(), tier.getName());
+        return Objects.equals(this.getId(), tier.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName());
+        return Objects.hash(this.getId());
     }
 }

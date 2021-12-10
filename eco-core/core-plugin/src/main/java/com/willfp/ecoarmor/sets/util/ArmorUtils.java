@@ -61,7 +61,7 @@ public class ArmorUtils {
             return null;
         }
 
-        return ArmorSets.getByName(setName);
+        return ArmorSets.getByID(setName);
     }
 
     /**
@@ -151,7 +151,7 @@ public class ArmorUtils {
     @Nullable
     public static Tier getCrystalTier(@NotNull final ItemMeta meta) {
         if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING)) {
-            return Tiers.getByName(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING));
+            return Tiers.getByID(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING));
         }
 
         return null;
@@ -194,7 +194,7 @@ public class ArmorUtils {
         }
 
         if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING)) {
-            return Tiers.getByName(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING));
+            return Tiers.getByID(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING));
         }
 
         return null;
@@ -218,7 +218,7 @@ public class ArmorUtils {
             return;
         }
 
-        meta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, tier.getName());
+        meta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, tier.getId());
 
         ArmorSlot slot = ArmorSlot.getSlot(itemStack);
 
@@ -391,6 +391,6 @@ public class ArmorUtils {
             return null;
         }
 
-        return ArmorSets.getByName(shardSet);
+        return ArmorSets.getByID(shardSet);
     }
 }

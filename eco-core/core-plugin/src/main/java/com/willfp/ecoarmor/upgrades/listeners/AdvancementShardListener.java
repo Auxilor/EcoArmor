@@ -62,7 +62,7 @@ public class AdvancementShardListener extends PluginDependent<EcoPlugin> impleme
             return;
         }
 
-        if (!ArmorSets.getByName(shardSet).getName().equals(set.getName())) {
+        if (!ArmorSets.getByID(shardSet).getId().equals(set.getId())) {
             return;
         }
 

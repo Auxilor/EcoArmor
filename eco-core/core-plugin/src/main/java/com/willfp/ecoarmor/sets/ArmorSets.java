@@ -18,7 +18,7 @@ public class ArmorSets {
     /**
      * Registered armor sets.
      */
-    private static final BiMap<String, ArmorSet> BY_NAME = HashBiMap.create();
+    private static final BiMap<String, ArmorSet> BY_ID = HashBiMap.create();
 
     /**
      * Get all registered {@link ArmorSet}s.
@@ -26,18 +26,18 @@ public class ArmorSets {
      * @return A list of all {@link ArmorSet}s.
      */
     public static List<ArmorSet> values() {
-        return ImmutableList.copyOf(BY_NAME.values());
+        return ImmutableList.copyOf(BY_ID.values());
     }
 
     /**
-     * Get {@link ArmorSet} matching name.
+     * Get {@link ArmorSet} matching ID.
      *
      * @param name The name to search for.
      * @return The matching {@link ArmorSet}, or null if not found.
      */
     @Nullable
-    public static ArmorSet getByName(@NotNull final String name) {
-        return BY_NAME.get(name);
+    public static ArmorSet getByID(@NotNull final String name) {
+        return BY_ID.get(name);
     }
 
     /**
@@ -62,8 +62,8 @@ public class ArmorSets {
      * @param set The {@link ArmorSet} to add.
      */
     public static void addNewSet(@NotNull final ArmorSet set) {
-        BY_NAME.remove(set.getName());
-        BY_NAME.put(set.getName(), set);
+        BY_ID.remove(set.getId());
+        BY_ID.put(set.getId(), set);
     }
 
     /**
@@ -72,6 +72,6 @@ public class ArmorSets {
      * @param set The {@link ArmorSet} to remove.
      */
     public static void removeSet(@NotNull final ArmorSet set) {
-        BY_NAME.remove(set.getName());
+        BY_ID.remove(set.getId());
     }
 }
