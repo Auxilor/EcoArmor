@@ -16,6 +16,7 @@ object Tiers {
     /**
      * Default tier.
      */
+    @JvmStatic
     lateinit var defaultTier: Tier
 
     /**

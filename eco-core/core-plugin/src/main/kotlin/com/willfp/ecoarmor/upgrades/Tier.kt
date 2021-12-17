@@ -1,7 +1,6 @@
 package com.willfp.ecoarmor.upgrades
 
 import com.willfp.eco.core.EcoPlugin
-import com.willfp.eco.core.PluginDependent
 import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.items.CustomItem
@@ -18,7 +17,7 @@ import java.util.*
 class Tier(
     private val config: Config,
     plugin: EcoPlugin
-) : PluginDependent<EcoPlugin?>(plugin) {
+) {
     /**
      * The tier name.
      */
@@ -135,9 +134,6 @@ class Tier(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
         if (other !is Tier) {
             return false
         }
@@ -148,3 +144,13 @@ class Tier(
         return Objects.hash(this.id)
     }
 }
+
+data class TierProperties(
+    val armor: Int,
+    val toughness: Int,
+    val knockback: Int,
+    val speed: Int,
+    val attackSpeed: Int,
+    val attackDamage: Int,
+    val attackKnockback: Int
+)
