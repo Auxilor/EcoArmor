@@ -1,6 +1,5 @@
 package com.willfp.ecoarmor.sets
 
-import com.willfp.ecoarmor.sets.util.ArmorUtils
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener

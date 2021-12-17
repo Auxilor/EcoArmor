@@ -7,7 +7,7 @@ import com.willfp.eco.core.command.impl.Subcommand
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
-import com.willfp.ecoarmor.sets.util.ArmorUtils
+import com.willfp.ecoarmor.sets.ArmorUtils
 import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
 import org.bukkit.Bukkit

@@ -2,7 +2,7 @@ package com.willfp.ecoarmor.upgrades
 
 import com.willfp.eco.core.EcoPlugin
 import com.willfp.ecoarmor.sets.ArmorSets
-import com.willfp.ecoarmor.sets.util.ArmorUtils
+import com.willfp.ecoarmor.sets.ArmorUtils
 import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.event.EventHandler

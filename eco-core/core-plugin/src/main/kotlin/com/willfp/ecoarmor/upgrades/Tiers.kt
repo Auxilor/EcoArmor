@@ -1,59 +1,53 @@
-package com.willfp.ecoarmor.upgrades;
+package com.willfp.ecoarmor.upgrades
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.ImmutableList;
-import com.willfp.eco.core.config.interfaces.Config;
-import com.willfp.eco.core.config.updating.ConfigUpdater;
-import com.willfp.ecoarmor.EcoArmorPlugin;
-import lombok.Getter;
-import lombok.experimental.UtilityClass;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.BiMap
+import com.google.common.collect.HashBiMap
+import com.google.common.collect.ImmutableList
+import com.willfp.eco.core.config.updating.ConfigUpdater
+import com.willfp.ecoarmor.EcoArmorPlugin
+import com.willfp.ecoarmor.EcoArmorPlugin.Companion.instance
 
-import java.util.List;
-
-@UtilityClass
-public class Tiers {
+object Tiers {
     /**
      * Registered tiers.
      */
-    private static final BiMap<String, Tier> BY_ID = HashBiMap.create();
+    private val BY_ID: BiMap<String?, Tier> = HashBiMap.create()
 
     /**
      * Default tier.
      */
-    @Getter
-    private static Tier defaultTier;
+    lateinit var defaultTier: Tier
 
     /**
-     * Get {@link Tiers} matching ID.
+     * Get [Tiers] matching ID.
      *
      * @param name The name to search for.
-     * @return The matching {@link Tiers}, or null if not found.
+     * @return The matching [Tiers], or null if not found.
      */
-    @Nullable
-    public static Tier getByID(@Nullable final String name) {
-        return BY_ID.get(name);
+    @JvmStatic
+    fun getByID(name: String?): Tier? {
+        return BY_ID[name]
     }
 
     /**
-     * Get all registered {@link Tiers}s.
+     * Get all registered [Tiers]s.
      *
-     * @return A list of all {@link Tiers}s.
+     * @return A list of all [Tiers]s.
      */
-    public static List<Tier> values() {
-        return ImmutableList.copyOf(BY_ID.values());
+    @JvmStatic
+    fun values(): List<Tier> {
+        return ImmutableList.copyOf(BY_ID.values)
     }
 
     /**
-     * Add new {@link Tier} to EcoArmor.
+     * Add new [Tier] to EcoArmor.
      *
-     * @param tier The {@link Tier} to add.
+     * @param tier The [Tier] to add.
      */
-    public static void addNewTier(@NotNull final Tier tier) {
-        BY_ID.remove(tier.getId());
-        BY_ID.put(tier.getId(), tier);
+    @JvmStatic
+    fun addNewTier(tier: Tier) {
+        BY_ID.remove(tier.id)
+        BY_ID[tier.id] = tier
     }
 
     /**
@@ -62,17 +56,16 @@ public class Tiers {
      * @param plugin Instance of EcoArmor.
      */
     @ConfigUpdater
-    public static void reload(@NotNull final EcoArmorPlugin plugin) {
-        BY_ID.clear();
-
-        for (Config tierConfig : plugin.getEcoArmorYml().getSubsections("tiers")) {
-            new Tier(tierConfig, plugin);
+    @JvmStatic
+    fun reload(plugin: EcoArmorPlugin) {
+        BY_ID.clear()
+        for (tierConfig in plugin.ecoArmorYml.getSubsections("tiers")) {
+            Tier(tierConfig, plugin)
         }
-
-        defaultTier = Tiers.getByID("default");
+        defaultTier = getByID("default")!!
     }
 
-    static {
-        reload(EcoArmorPlugin.getInstance());
+    init {
+        reload(instance)
     }
 }

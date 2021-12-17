@@ -1,33 +1,23 @@
-package com.willfp.ecoarmor.sets.util;
+package com.willfp.ecoarmor.sets
 
-import com.willfp.ecoarmor.EcoArmorPlugin;
-import com.willfp.ecoarmor.sets.ArmorSet;
-import com.willfp.ecoarmor.sets.ArmorSets;
-import com.willfp.ecoarmor.sets.ArmorSlot;
-import com.willfp.ecoarmor.upgrades.Tier;
-import com.willfp.ecoarmor.upgrades.Tiers;
-import com.willfp.libreforge.Holder;
-import lombok.experimental.UtilityClass;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import com.willfp.ecoarmor.EcoArmorPlugin.Companion.instance
+import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
+import com.willfp.ecoarmor.upgrades.Tier
+import com.willfp.ecoarmor.upgrades.Tiers
+import com.willfp.libreforge.Holder
+import org.bukkit.attribute.Attribute
+import org.bukkit.attribute.AttributeModifier
+import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.ItemMeta
+import org.bukkit.persistence.PersistentDataType
+import java.util.*
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-@UtilityClass
-public class ArmorUtils {
+object ArmorUtils {
     /**
      * Instance of EcoArmor.
      */
-    private static final EcoArmorPlugin PLUGIN = EcoArmorPlugin.getInstance();
+    private val PLUGIN = instance
 
     /**
      * Get armor set on an item.
@@ -35,15 +25,10 @@ public class ArmorUtils {
      * @param itemStack The itemStack to check.
      * @return The set, or null if no set is found.
      */
-    @Nullable
-    public ArmorSet getSetOnItem(@NotNull final ItemStack itemStack) {
-        ItemMeta meta = itemStack.getItemMeta();
-
-        if (meta == null) {
-            return null;
-        }
-
-        return getSetOnItem(meta);
+    @JvmStatic
+    fun getSetOnItem(itemStack: ItemStack): ArmorSet? {
+        val meta = itemStack.itemMeta ?: return null
+        return getSetOnItem(meta)
     }
 
     /**
@@ -52,16 +37,15 @@ public class ArmorUtils {
      * @param meta The itemStack to check.
      * @return The set, or null if no set is found.
      */
-    @Nullable
-    public ArmorSet getSetOnItem(@NotNull final ItemMeta meta) {
-        PersistentDataContainer container = meta.getPersistentDataContainer();
-        String setName = container.get(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING);
-
-        if (setName == null) {
-            return null;
-        }
-
-        return ArmorSets.getByID(setName);
+    @JvmStatic
+    fun getSetOnItem(meta: ItemMeta): ArmorSet? {
+        val container = meta.persistentDataContainer
+        val setName = container.get(
+            PLUGIN.namespacedKeyFactory.create("set"),
+            PersistentDataType.STRING
+        )
+            ?: return null
+        return ArmorSets.getByID(setName)
     }
 
     /**
@@ -70,15 +54,14 @@ public class ArmorUtils {
      * @param player The player to check.
      * @return The holder, or null if not found.
      */
-    @Nullable
-    public Holder getActiveSet(@NotNull final Player player) {
-        ArmorSet armorSet = getSetOnPlayer(player);
-        boolean advanced = isWearingAdvanced(player);
-
-        if (armorSet != null) {
-            return advanced ? armorSet.getAdvancedHoler() : armorSet.getRegularHolder();
+    @JvmStatic
+    fun getActiveSet(player: Player): Holder? {
+        val armorSet = getSetOnPlayer(player)
+        val advanced = isWearingAdvanced(player)
+        return if (armorSet != null) {
+            if (advanced) armorSet.advancedHolder else armorSet.regularHolder
         } else {
-            return null;
+            null
         }
     }
 
@@ -88,41 +71,29 @@ public class ArmorUtils {
      * @param player The player to check.
      * @return The set, or null if no full set is worn.
      */
-    @Nullable
-    public ArmorSet getSetOnPlayer(@NotNull final Player player) {
-        List<ArmorSet> found = new ArrayList<>();
-
-        for (ItemStack itemStack : player.getInventory().getArmorContents()) {
+    @JvmStatic
+    fun getSetOnPlayer(player: Player): ArmorSet? {
+        val found: MutableList<ArmorSet> = ArrayList()
+        for (itemStack in player.inventory.armorContents) {
             if (itemStack == null) {
-                continue;
+                continue
             }
-
-            ArmorSet set = getSetOnItem(itemStack);
-
-            if (set == null) {
-                continue;
-            }
-
-            found.add(set);
+            val set = getSetOnItem(itemStack) ?: continue
+            found.add(set)
         }
-
-        if (found.size() < 4) {
-            return null;
+        if (found.size < 4) {
+            return null
         }
-
-        boolean allEqual = true;
-        for (ArmorSet set : found) {
-            if (!set.equals(found.get(0))) {
-                allEqual = false;
-                break;
+        var allEqual = true
+        for (set in found) {
+            if (set != found[0]) {
+                allEqual = false
+                break
             }
         }
-
-        if (allEqual) {
-            return found.get(0);
-        }
-
-        return null;
+        return if (allEqual) {
+            found[0]
+        } else null
     }
 
     /**
@@ -131,15 +102,10 @@ public class ArmorUtils {
      * @param itemStack The item to check.
      * @return The found tier, or null.
      */
-    @Nullable
-    public static Tier getCrystalTier(@NotNull final ItemStack itemStack) {
-        ItemMeta meta = itemStack.getItemMeta();
-
-        if (meta == null) {
-            return null;
-        }
-
-        return getCrystalTier(meta);
+    @JvmStatic
+    fun getCrystalTier(itemStack: ItemStack): Tier? {
+        val meta = itemStack.itemMeta ?: return null
+        return getCrystalTier(meta)
     }
 
     /**
@@ -148,13 +114,22 @@ public class ArmorUtils {
      * @param meta The item to check.
      * @return The found tier, or null.
      */
-    @Nullable
-    public static Tier getCrystalTier(@NotNull final ItemMeta meta) {
-        if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING)) {
-            return Tiers.getByID(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("upgrade_crystal"), PersistentDataType.STRING));
-        }
-
-        return null;
+    @JvmStatic
+    fun getCrystalTier(meta: ItemMeta): Tier? {
+        return if (meta.persistentDataContainer.has(
+                PLUGIN.namespacedKeyFactory.create(
+                    "upgrade_crystal"
+                ), PersistentDataType.STRING
+            )
+        ) {
+            Tiers.getByID(
+                meta.persistentDataContainer.get(
+                    PLUGIN.namespacedKeyFactory.create(
+                        "upgrade_crystal"
+                    ), PersistentDataType.STRING
+                )
+            )
+        } else null
     }
 
     /**
@@ -163,21 +138,15 @@ public class ArmorUtils {
      * @param itemStack The item to check.
      * @return The found tier, or null if not found.
      */
-    @Nullable
-    public static Tier getTier(@NotNull final ItemStack itemStack) {
-        ItemMeta meta = itemStack.getItemMeta();
-
-        if (meta == null) {
-            return null;
-        }
-
-        Tier tier = getTier(meta);
-
-        if (getSetOnItem(meta) != null && tier == null) {
-            setTier(itemStack, Tiers.getDefaultTier());
-            return Tiers.getDefaultTier();
+    @JvmStatic
+    fun getTier(itemStack: ItemStack): Tier? {
+        val meta = itemStack.itemMeta ?: return null
+        val tier = getTier(meta)
+        return if (getSetOnItem(meta) != null && tier == null) {
+            setTier(itemStack, Tiers.getDefaultTier())
+            Tiers.getDefaultTier()
         } else {
-            return tier;
+            tier
         }
     }
 
@@ -187,17 +156,25 @@ public class ArmorUtils {
      * @param meta The item to check.
      * @return The found tier, or null if not found.
      */
-    @Nullable
-    public static Tier getTier(@NotNull final ItemMeta meta) {
+    @JvmStatic
+    fun getTier(meta: ItemMeta): Tier? {
         if (getSetOnItem(meta) == null) {
-            return null;
+            return null
         }
-
-        if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING)) {
-            return Tiers.getByID(meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING));
-        }
-
-        return null;
+        return if (meta.persistentDataContainer.has(
+                PLUGIN.namespacedKeyFactory.create(
+                    "tier"
+                ), PersistentDataType.STRING
+            )
+        ) {
+            Tiers.getByID(
+                meta.persistentDataContainer.get(
+                    PLUGIN.namespacedKeyFactory.create(
+                        "tier"
+                    ), PersistentDataType.STRING
+                )
+            )
+        } else null
     }
 
     /**
@@ -206,85 +183,124 @@ public class ArmorUtils {
      * @param itemStack The item to check.
      * @param tier      The tier to set.
      */
-    public static void setTier(@NotNull final ItemStack itemStack,
-                               @NotNull final Tier tier) {
-        ItemMeta meta = itemStack.getItemMeta();
-
-        if (meta == null) {
-            return;
+    @JvmStatic
+    fun setTier(
+        itemStack: ItemStack,
+        tier: Tier
+    ) {
+        val meta = itemStack.itemMeta ?: return
+        if (!meta.persistentDataContainer.has(
+                PLUGIN.namespacedKeyFactory.create("set"),
+                PersistentDataType.STRING
+            )
+        ) {
+            return
         }
-
-        if (!meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("set"), PersistentDataType.STRING)) {
-            return;
-        }
-
-        meta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("tier"), PersistentDataType.STRING, tier.getId());
-
-        ArmorSlot slot = ArmorSlot.getSlot(itemStack);
-
-        if (slot == null) {
-            return;
-        }
-
-        int armor = tier.getProperties().get(slot).armor();
-        int toughness = tier.getProperties().get(slot).toughness();
-        int knockback = tier.getProperties().get(slot).knockback();
-        int speed = tier.getProperties().get(slot).speed();
-        int attackSpeed = tier.getProperties().get(slot).attackSpeed();
-        int attackDamage = tier.getProperties().get(slot).attackDamage();
-        int attackKnockback = tier.getProperties().get(slot).attackKnockback();
-        meta.removeAttributeModifier(Attribute.GENERIC_ARMOR);
-        meta.removeAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS);
-        meta.removeAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
-        meta.removeAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED);
-        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
-        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
-        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_KNOCKBACK);
-
+        meta.persistentDataContainer.set(
+            PLUGIN.namespacedKeyFactory.create("tier"),
+            PersistentDataType.STRING,
+            tier.id
+        )
+        val slot = getSlot(itemStack) ?: return
+        val armor = tier.properties[slot]!!.armor()
+        val toughness = tier.properties[slot]!!.toughness()
+        val knockback = tier.properties[slot]!!.knockback()
+        val speed = tier.properties[slot]!!.speed()
+        val attackSpeed = tier.properties[slot]!!.attackSpeed()
+        val attackDamage = tier.properties[slot]!!.attackDamage()
+        val attackKnockback = tier.properties[slot]!!.attackKnockback()
+        meta.removeAttributeModifier(Attribute.GENERIC_ARMOR)
+        meta.removeAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS)
+        meta.removeAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE)
+        meta.removeAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED)
+        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED)
+        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE)
+        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_KNOCKBACK)
         if (armor > 0) {
             meta.addAttributeModifier(
-                    Attribute.GENERIC_ARMOR,
-                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-armor", armor, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot())
-            );
+                Attribute.GENERIC_ARMOR,
+                AttributeModifier(
+                    UUID.randomUUID(),
+                    "ecoarmor-armor",
+                    armor.toDouble(),
+                    AttributeModifier.Operation.ADD_NUMBER,
+                    slot.slot
+                )
+            )
         }
         if (toughness > 0) {
             meta.addAttributeModifier(
-                    Attribute.GENERIC_ARMOR_TOUGHNESS,
-                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-toughness", toughness, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot())
-            );
+                Attribute.GENERIC_ARMOR_TOUGHNESS,
+                AttributeModifier(
+                    UUID.randomUUID(),
+                    "ecoarmor-toughness",
+                    toughness.toDouble(),
+                    AttributeModifier.Operation.ADD_NUMBER,
+                    slot.slot
+                )
+            )
         }
         if (knockback > 0) {
             meta.addAttributeModifier(
-                    Attribute.GENERIC_KNOCKBACK_RESISTANCE,
-                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-knockback", (double) knockback / 10, AttributeModifier.Operation.ADD_NUMBER, slot.getSlot())
-            );
+                Attribute.GENERIC_KNOCKBACK_RESISTANCE,
+                AttributeModifier(
+                    UUID.randomUUID(),
+                    "ecoarmor-knockback",
+                    knockback.toDouble() / 10,
+                    AttributeModifier.Operation.ADD_NUMBER,
+                    slot.slot
+                )
+            )
         }
         if (speed != 0) {
             meta.addAttributeModifier(
-                    Attribute.GENERIC_MOVEMENT_SPEED,
-                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-speed", (double) speed / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot())
-            );
+                Attribute.GENERIC_MOVEMENT_SPEED,
+                AttributeModifier(
+                    UUID.randomUUID(),
+                    "ecoarmor-speed",
+                    speed.toDouble() / 100,
+                    AttributeModifier.Operation.ADD_SCALAR,
+                    slot.slot
+                )
+            )
         }
         if (attackSpeed != 0) {
             meta.addAttributeModifier(
-                    Attribute.GENERIC_ATTACK_SPEED,
-                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackspeed", (double) attackSpeed / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot())
-            );
+                Attribute.GENERIC_ATTACK_SPEED,
+                AttributeModifier(
+                    UUID.randomUUID(),
+                    "ecoarmor-attackspeed",
+                    attackSpeed.toDouble() / 100,
+                    AttributeModifier.Operation.ADD_SCALAR,
+                    slot.slot
+                )
+            )
         }
         if (attackDamage != 0) {
             meta.addAttributeModifier(
-                    Attribute.GENERIC_ATTACK_DAMAGE,
-                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackdamage", (double) attackDamage / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot())
-            );
+                Attribute.GENERIC_ATTACK_DAMAGE,
+                AttributeModifier(
+                    UUID.randomUUID(),
+                    "ecoarmor-attackdamage",
+                    attackDamage.toDouble() / 100,
+                    AttributeModifier.Operation.ADD_SCALAR,
+                    slot.slot
+                )
+            )
         }
         if (attackKnockback != 0) {
             meta.addAttributeModifier(
-                    Attribute.GENERIC_ATTACK_KNOCKBACK,
-                    new AttributeModifier(UUID.randomUUID(), "ecoarmor-attackknockback", (double) attackKnockback / 100, AttributeModifier.Operation.ADD_SCALAR, slot.getSlot())
-            );
+                Attribute.GENERIC_ATTACK_KNOCKBACK,
+                AttributeModifier(
+                    UUID.randomUUID(),
+                    "ecoarmor-attackknockback",
+                    attackKnockback.toDouble() / 100,
+                    AttributeModifier.Operation.ADD_SCALAR,
+                    slot.slot
+                )
+            )
         }
-
-        itemStack.setItemMeta(meta);
+        itemStack.itemMeta = meta
     }
 
     /**
@@ -293,22 +309,20 @@ public class ArmorUtils {
      * @param player The player to check.
      * @return If advanced.
      */
-    public static boolean isWearingAdvanced(@NotNull final Player player) {
+    @JvmStatic
+    fun isWearingAdvanced(player: Player): Boolean {
         if (getSetOnPlayer(player) == null) {
-            return false;
+            return false
         }
-
-        for (ItemStack itemStack : player.getInventory().getArmorContents()) {
+        for (itemStack in player.inventory.armorContents) {
             if (itemStack == null) {
-                return false;
+                return false
             }
-
             if (!isAdvanced(itemStack)) {
-                return false;
+                return false
             }
         }
-
-        return true;
+        return true
     }
 
     /**
@@ -317,14 +331,10 @@ public class ArmorUtils {
      * @param itemStack The item to check.
      * @return If advanced.
      */
-    public static boolean isAdvanced(@NotNull final ItemStack itemStack) {
-        ItemMeta meta = itemStack.getItemMeta();
-
-        if (meta == null) {
-            return false;
-        }
-
-        return isAdvanced(meta);
+    @JvmStatic
+    fun isAdvanced(itemStack: ItemStack): Boolean {
+        val meta = itemStack.itemMeta ?: return false
+        return isAdvanced(meta)
     }
 
     /**
@@ -333,12 +343,18 @@ public class ArmorUtils {
      * @param meta The item to check.
      * @return If advanced.
      */
-    public static boolean isAdvanced(@NotNull final ItemMeta meta) {
-        if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER)) {
-            return meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER) == 1;
-        }
-
-        return false;
+    @JvmStatic
+    fun isAdvanced(meta: ItemMeta): Boolean {
+        return if (meta.persistentDataContainer.has(
+                PLUGIN.namespacedKeyFactory.create("advanced"),
+                PersistentDataType.INTEGER
+            )
+        ) {
+            meta.persistentDataContainer.get(
+                PLUGIN.namespacedKeyFactory.create("advanced"),
+                PersistentDataType.INTEGER
+            ) == 1
+        } else false
     }
 
     /**
@@ -347,17 +363,18 @@ public class ArmorUtils {
      * @param itemStack The item to set.
      * @param advanced  If the item should be advanced.
      */
-    public static void setAdvanced(@NotNull final ItemStack itemStack,
-                                   final boolean advanced) {
-        ItemMeta meta = itemStack.getItemMeta();
-
-        if (meta == null) {
-            return;
-        }
-
-        meta.getPersistentDataContainer().set(PLUGIN.getNamespacedKeyFactory().create("advanced"), PersistentDataType.INTEGER, advanced ? 1 : 0);
-
-        itemStack.setItemMeta(meta);
+    @JvmStatic
+    fun setAdvanced(
+        itemStack: ItemStack,
+        advanced: Boolean
+    ) {
+        val meta = itemStack.itemMeta ?: return
+        meta.persistentDataContainer.set(
+            PLUGIN.namespacedKeyFactory.create("advanced"),
+            PersistentDataType.INTEGER,
+            if (advanced) 1 else 0
+        )
+        itemStack.itemMeta = meta
     }
 
     /**
@@ -366,15 +383,10 @@ public class ArmorUtils {
      * @param itemStack The item to check.
      * @return The set, or null if not a shard.
      */
-    @Nullable
-    public static ArmorSet getShardSet(@NotNull final ItemStack itemStack) {
-        ItemMeta meta = itemStack.getItemMeta();
-
-        if (meta == null) {
-            return null;
-        }
-
-        return getShardSet(meta);
+    @JvmStatic
+    fun getShardSet(itemStack: ItemStack): ArmorSet? {
+        val meta = itemStack.itemMeta ?: return null
+        return getShardSet(meta)
     }
 
     /**
@@ -383,14 +395,14 @@ public class ArmorUtils {
      * @param meta The item to check.
      * @return The set, or null if not a shard.
      */
-    @Nullable
-    public static ArmorSet getShardSet(@NotNull final ItemMeta meta) {
-        String shardSet = meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("advancement-shard"), PersistentDataType.STRING);
-
-        if (shardSet == null) {
-            return null;
-        }
-
-        return ArmorSets.getByID(shardSet);
+    @JvmStatic
+    fun getShardSet(meta: ItemMeta): ArmorSet? {
+        val shardSet = meta.persistentDataContainer.get(
+            PLUGIN.namespacedKeyFactory.create(
+                "advancement-shard"
+            ), PersistentDataType.STRING
+        )
+            ?: return null
+        return ArmorSets.getByID(shardSet)
     }
 }

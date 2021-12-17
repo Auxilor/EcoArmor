@@ -1,77 +1,72 @@
-package com.willfp.ecoarmor.sets;
+package com.willfp.ecoarmor.sets
 
+import com.google.common.collect.BiMap
+import com.google.common.collect.HashBiMap
+import com.google.common.collect.ImmutableList
+import com.willfp.eco.core.config.updating.ConfigUpdater
+import com.willfp.ecoarmor.EcoArmorPlugin
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.ImmutableList;
-import com.willfp.eco.core.config.interfaces.Config;
-import com.willfp.eco.core.config.updating.ConfigUpdater;
-import com.willfp.ecoarmor.EcoArmorPlugin;
-import lombok.experimental.UtilityClass;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-
-@UtilityClass
-public class ArmorSets {
+object ArmorSets {
     /**
      * Registered armor sets.
      */
-    private static final BiMap<String, ArmorSet> BY_ID = HashBiMap.create();
+    private val BY_ID: BiMap<String, ArmorSet> = HashBiMap.create()
 
     /**
-     * Get all registered {@link ArmorSet}s.
+     * Get all registered [ArmorSet]s.
      *
-     * @return A list of all {@link ArmorSet}s.
+     * @return A list of all [ArmorSet]s.
      */
-    public static List<ArmorSet> values() {
-        return ImmutableList.copyOf(BY_ID.values());
+    @JvmStatic
+    fun values(): List<ArmorSet> {
+        return ImmutableList.copyOf(BY_ID.values)
     }
 
     /**
-     * Get {@link ArmorSet} matching ID.
+     * Get [ArmorSet] matching ID.
      *
      * @param name The name to search for.
-     * @return The matching {@link ArmorSet}, or null if not found.
+     * @return The matching [ArmorSet], or null if not found.
      */
-    @Nullable
-    public static ArmorSet getByID(@NotNull final String name) {
-        return BY_ID.get(name);
+    @JvmStatic
+    fun getByID(name: String): ArmorSet? {
+        return BY_ID[name]
     }
 
     /**
-     * Update all {@link ArmorSet}s.
+     * Update all [ArmorSet]s.
      *
      * @param plugin Instance of EcoArmor.
      */
     @ConfigUpdater
-    public static void update(@NotNull final EcoArmorPlugin plugin) {
-        for (ArmorSet set : values()) {
-            removeSet(set);
+    @JvmStatic
+    fun update(plugin: EcoArmorPlugin) {
+        for (set in values()) {
+            removeSet(set)
         }
-
-        for (Config setConfig : plugin.getEcoArmorYml().getSubsections("sets")) {
-            new ArmorSet(setConfig, plugin);
+        for (setConfig in plugin.ecoArmorYml.getSubsections("sets")) {
+            ArmorSet(setConfig!!, plugin)
         }
     }
 
     /**
-     * Add new {@link ArmorSet} to EcoArmor.
+     * Add new [ArmorSet] to EcoArmor.
      *
-     * @param set The {@link ArmorSet} to add.
+     * @param set The [ArmorSet] to add.
      */
-    public static void addNewSet(@NotNull final ArmorSet set) {
-        BY_ID.remove(set.getId());
-        BY_ID.put(set.getId(), set);
+    @JvmStatic
+    fun addNewSet(set: ArmorSet) {
+        BY_ID.remove(set.id)
+        BY_ID[set.id] = set
     }
 
     /**
-     * Remove {@link ArmorSet} from EcoArmor.
+     * Remove [ArmorSet] from EcoArmor.
      *
-     * @param set The {@link ArmorSet} to remove.
+     * @param set The [ArmorSet] to remove.
      */
-    public static void removeSet(@NotNull final ArmorSet set) {
-        BY_ID.remove(set.getId());
+    @JvmStatic
+    fun removeSet(set: ArmorSet) {
+        BY_ID.remove(set.id)
     }
 }

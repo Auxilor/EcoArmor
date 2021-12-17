@@ -1,113 +1,91 @@
-package com.willfp.ecoarmor;
+package com.willfp.ecoarmor
 
-import com.willfp.eco.core.EcoPlugin;
-import com.willfp.eco.core.command.impl.PluginCommand;
-import com.willfp.eco.core.display.DisplayModule;
-import com.willfp.eco.core.integrations.IntegrationLoader;
-import com.willfp.ecoarmor.commands.CommandEcoarmor;
-import com.willfp.ecoarmor.config.EcoArmorYml;
-import com.willfp.ecoarmor.display.ArmorDisplay;
-import com.willfp.ecoarmor.sets.ArmorSets;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
-import com.willfp.ecoarmor.sets.EffectiveDurabilityListener;
-import com.willfp.ecoarmor.sets.PreventSkullPlaceListener;
-import com.willfp.ecoarmor.upgrades.Tiers;
-import com.willfp.ecoarmor.upgrades.AdvancementShardListener;
-import com.willfp.ecoarmor.upgrades.CrystalListener;
-import com.willfp.ecoarmor.util.DiscoverRecipeListener;
-import com.willfp.ecoarmor.util.EffectListener;
-import com.willfp.libreforge.Holder;
-import com.willfp.libreforge.LibReforge;
-import lombok.Getter;
-import org.bukkit.event.Listener;
-import org.jetbrains.annotations.Nullable;
+import com.willfp.eco.core.EcoPlugin
+import com.willfp.eco.core.command.impl.PluginCommand
+import com.willfp.eco.core.display.DisplayModule
+import com.willfp.eco.core.integrations.IntegrationLoader
+import com.willfp.ecoarmor.commands.CommandEcoarmor
+import com.willfp.ecoarmor.config.EcoArmorYml
+import com.willfp.ecoarmor.display.ArmorDisplay
+import com.willfp.ecoarmor.sets.ArmorSets
+import com.willfp.ecoarmor.sets.ArmorUtils
+import com.willfp.ecoarmor.sets.EffectiveDurabilityListener
+import com.willfp.ecoarmor.sets.PreventSkullPlaceListener
+import com.willfp.ecoarmor.upgrades.AdvancementShardListener
+import com.willfp.ecoarmor.upgrades.CrystalListener
+import com.willfp.ecoarmor.upgrades.Tiers
+import com.willfp.ecoarmor.util.DiscoverRecipeListener
+import com.willfp.ecoarmor.util.EffectListener
+import com.willfp.libreforge.LibReforge.disable
+import com.willfp.libreforge.LibReforge.enable
+import com.willfp.libreforge.LibReforge.getIntegrationLoaders
+import com.willfp.libreforge.LibReforge.init
+import com.willfp.libreforge.LibReforge.registerHolderProvider
+import com.willfp.libreforge.LibReforge.reload
+import org.bukkit.event.Listener
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+class EcoArmorPlugin : EcoPlugin(687, 10002, "&c") {
+    val ecoArmorYml: EcoArmorYml
 
-@SuppressWarnings("unused")
-public class EcoArmorPlugin extends EcoPlugin {
-    /**
-     * Instance of EcoArmor.
-     */
-    @Getter
-    private static EcoArmorPlugin instance;
-
-    /**
-     * ecoarmor.yml.
-     */
-    @Getter
-    private final EcoArmorYml ecoArmorYml;
-
-    /**
-     * Internal constructor called by bukkit on plugin load.
-     */
-    public EcoArmorPlugin() {
-        super(687, 10002, "&c");
-        instance = this;
-
-        this.ecoArmorYml = new EcoArmorYml(this);
-
-        LibReforge.init(this);
-        LibReforge.registerHolderProvider(player -> {
-            Holder active = ArmorUtils.getActiveSet(player);
+    init {
+        instance = this
+        ecoArmorYml = EcoArmorYml(this)
+        init(this)
+        registerHolderProvider { player ->
+            val active = ArmorUtils.getActiveSet(player)
             if (active == null) {
-                return Collections.emptyList();
+                emptyList()
             } else {
-                return Collections.singletonList(active);
+                listOf(active)
             }
-        });
+        }
     }
 
-    @Override
-    protected void handleEnable() {
-        LibReforge.enable(this);
+    override fun handleEnable() {
+        enable(this)
     }
 
-    @Override
-    protected void handleDisable() {
-        LibReforge.disable(this);
+    override fun handleDisable() {
+        disable(this)
     }
 
-    @Override
-    protected void handleReload() {
-        this.getLogger().info(Tiers.values().size() + " Tiers Loaded");
-        this.getLogger().info(ArmorSets.values().size() + " Sets Loaded");
-        LibReforge.reload(this);
+    override fun handleReload() {
+        logger.info(Tiers.values().size.toString() + " Tiers Loaded")
+        logger.info(ArmorSets.values().size.toString() + " Sets Loaded")
+        reload(this)
     }
 
-    @Override
-    protected List<PluginCommand> loadPluginCommands() {
-        return Arrays.asList(
-                new CommandEcoarmor(this)
-        );
+    override fun loadPluginCommands(): List<PluginCommand> {
+        return listOf(
+            CommandEcoarmor(this)
+        )
     }
 
-    @Override
-    protected List<Listener> loadListeners() {
-        return Arrays.asList(
-                new CrystalListener(this),
-                new AdvancementShardListener(this),
-                new EffectiveDurabilityListener(this),
-                new DiscoverRecipeListener(this),
-                new PreventSkullPlaceListener(),
-                new EffectListener()
-        );
+    override fun loadListeners(): List<Listener> {
+        return listOf(
+            CrystalListener(this),
+            AdvancementShardListener(this),
+            EffectiveDurabilityListener(this),
+            DiscoverRecipeListener(this),
+            PreventSkullPlaceListener(),
+            EffectListener()
+        )
     }
 
-    @Override
-    protected List<IntegrationLoader> loadIntegrationLoaders() {
-        return LibReforge.getIntegrationLoaders();
+    override fun loadIntegrationLoaders(): List<IntegrationLoader> {
+        return getIntegrationLoaders()
     }
 
-    @Override
-    protected @Nullable DisplayModule createDisplayModule() {
-        return new ArmorDisplay(this);
+    override fun createDisplayModule(): DisplayModule {
+        return ArmorDisplay(this)
     }
 
-    @Override
-    public String getMinimumEcoVersion() {
-        return "6.15.0";
+    override fun getMinimumEcoVersion(): String {
+        return "6.17.0"
+    }
+
+    companion object {
+        @JvmStatic
+        lateinit var instance: EcoArmorPlugin
     }
 }

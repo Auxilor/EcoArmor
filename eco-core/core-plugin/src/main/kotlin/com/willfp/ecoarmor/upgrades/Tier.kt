@@ -1,192 +1,153 @@
-package com.willfp.ecoarmor.upgrades;
+package com.willfp.ecoarmor.upgrades
 
-import com.willfp.eco.core.EcoPlugin;
-import com.willfp.eco.core.PluginDependent;
-import com.willfp.eco.core.config.interfaces.Config;
-import com.willfp.eco.core.display.Display;
-import com.willfp.eco.core.items.CustomItem;
-import com.willfp.eco.core.items.Items;
-import com.willfp.eco.core.recipe.recipes.ShapedCraftingRecipe;
-import com.willfp.eco.util.StringUtils;
-import com.willfp.ecoarmor.sets.ArmorSlot;
-import com.willfp.ecoarmor.sets.util.ArmorUtils;
-import lombok.AccessLevel;
-import lombok.Getter;
-import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import com.willfp.eco.core.EcoPlugin
+import com.willfp.eco.core.PluginDependent
+import com.willfp.eco.core.config.interfaces.Config
+import com.willfp.eco.core.display.Display
+import com.willfp.eco.core.items.CustomItem
+import com.willfp.eco.core.items.Items
+import com.willfp.eco.core.recipe.recipes.ShapedCraftingRecipe
+import com.willfp.eco.util.StringUtils
+import com.willfp.ecoarmor.sets.ArmorSlot
+import com.willfp.ecoarmor.sets.ArmorUtils.getCrystalTier
+import org.bukkit.inventory.ItemStack
+import org.bukkit.persistence.PersistentDataType
+import java.util.*
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-public class Tier extends PluginDependent<EcoPlugin> {
+class Tier(
+    config: Config,
+    plugin: EcoPlugin
+) : PluginDependent<EcoPlugin?>(plugin) {
     /**
      * The tier name.
      */
-    @Getter
-    private final String id;
+    val id: String
 
     /**
      * The config of the crystal.
      */
-    @Getter(AccessLevel.PRIVATE)
-    private final Config config;
+    val config: Config
 
     /**
      * The display name of the crystal.
      */
-    @Getter
-    private String displayName;
+    val displayName: String
 
     /**
      * The names of the tiers required for application.
      */
-    private List<String> requiredTiersForApplication;
+    private val requiredTiersForApplication: List<String>
 
     /**
      * If the crafting recipe is enabled.
      */
-    @Getter
-    private boolean craftable;
+    val craftable: Boolean
 
     /**
      * The ItemStack of the crystal.
      */
-    @Getter
-    private ItemStack crystal;
+    val crystal: ItemStack
 
     /**
      * The crafting recipe to make the crystal.
      */
-    @Getter
-    private ShapedCraftingRecipe crystalRecipe;
+    val crystalRecipe: ShapedCraftingRecipe?
 
     /**
      * Item properties.
      */
-    @Getter
-    private final Map<ArmorSlot, TierProperties> properties = new HashMap<>();
+    val properties: MutableMap<ArmorSlot, TierProperties> = EnumMap(ArmorSlot::class.java)
 
     /**
      * Create a new Tier.
-     *
-     * @param config The config of the tier.
-     * @param plugin Instance of EcoArmor.
      */
-    public Tier(@NotNull final Config config,
-                @NotNull final EcoPlugin plugin) {
-        super(plugin);
-        this.id = config.getString("id");
-        this.config = config;
-
-        Tiers.addNewTier(this);
-        this.update();
-    }
-
-    /**
-     * Update the tracker's crafting recipe.
-     */
-    public void update() {
-        this.craftable = this.getConfig().getBool("crystal.craftable");
-        this.displayName = this.getConfig().getString("display");
-        this.requiredTiersForApplication = this.getConfig().getStrings("requiresTiers");
-        NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal");
-
-        ItemStack out = Items.lookup(this.getPlugin().getConfigYml().getString("upgrade-crystal-material").toLowerCase()).getItem();
-        ItemMeta outMeta = out.getItemMeta();
-        assert outMeta != null;
-        PersistentDataContainer container = outMeta.getPersistentDataContainer();
-        container.set(key, PersistentDataType.STRING, id);
-
-        outMeta.setDisplayName(this.getConfig().getString("crystal.name"));
-
-        List<String> lore = new ArrayList<>();
-        for (String loreLine : this.getConfig().getStrings("crystal.lore")) {
-            lore.add(Display.PREFIX + StringUtils.format(loreLine));
+    init {
+        id = config.getString("id")
+        this.config = config
+        Tiers.addNewTier(this)
+        
+        craftable = this.config.getBool("crystal.craftable")
+        displayName = this.config.getString("display")
+        requiredTiersForApplication = this.config.getStrings("requiresTiers")
+        val key = plugin.namespacedKeyFactory.create("upgrade_crystal")
+        val out =
+            Items.lookup(plugin.configYml.getString("upgrade-crystal-material").lowercase(Locale.getDefault())).item
+        val outMeta = out.itemMeta!!
+        val container = outMeta.persistentDataContainer
+        container.set(key, PersistentDataType.STRING, id)
+        outMeta.displayName = this.config.getString("crystal.name")
+        val lore: MutableList<String> = ArrayList()
+        for (loreLine in this.config.getStrings("crystal.lore")) {
+            lore.add(Display.PREFIX + StringUtils.format(loreLine!!))
         }
-        outMeta.setLore(lore);
-
-        out.setItemMeta(outMeta);
-        out.setAmount(1); // who knows
-        this.crystal = out;
-
-        for (ArmorSlot slot : ArmorSlot.values()) {
-            properties.put(slot, new TierProperties(
-                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".armor"),
-                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".toughness"),
-                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".knockbackResistance"),
-                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".speedPercentage"),
-                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".attackSpeedPercentage"),
-                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".attackDamagePercentage"),
-                    this.getConfig().getInt("properties." + slot.name().toLowerCase() + ".attackKnockbackPercentage")
-            ));
+        outMeta.lore = lore
+        out.itemMeta = outMeta
+        out.amount = 1 // who knows
+        crystal = out
+        for (slot in ArmorSlot.values()) {
+            properties[slot] = TierProperties(
+                this.config.getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".armor"),
+                this.config.getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".toughness"),
+                this.config
+                    .getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".knockbackResistance"),
+                this.config.getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".speedPercentage"),
+                this.config
+                    .getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".attackSpeedPercentage"),
+                this.config
+                    .getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".attackDamagePercentage"),
+                this.config
+                    .getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".attackKnockbackPercentage")
+            )
         }
-
-        new CustomItem(
-                this.getPlugin().getNamespacedKeyFactory().create("crystal_" + id.toLowerCase()),
-                test -> this.equals(ArmorUtils.getCrystalTier(test)),
-                out
-        ).register();
-
-        if (this.isCraftable()) {
-            ItemStack recipeOut = out.clone();
-            recipeOut.setAmount(this.getConfig().getInt("crystal.giveAmount"));
-            ShapedCraftingRecipe.Builder builder = ShapedCraftingRecipe.builder(this.getPlugin(), "upgrade_crystal_" + id)
-                    .setOutput(recipeOut);
-
-            List<String> recipeStrings = this.getConfig().getStrings("crystal.recipe");
-
-            new CustomItem(this.getPlugin().getNamespacedKeyFactory().create("upgrade_crystal_" + id), test -> {
+        CustomItem(
+            plugin.namespacedKeyFactory.create("crystal_" + id.lowercase(Locale.getDefault())),
+            { test: ItemStack? -> this == getCrystalTier(test!!) },
+            out
+        ).register()
+        if (this.craftable) {
+            val recipeOut = out.clone()
+            recipeOut.amount = this.config.getInt("crystal.giveAmount")
+            val builder = ShapedCraftingRecipe.builder(plugin, "upgrade_crystal_$id")
+                .setOutput(recipeOut)
+            val recipeStrings: List<String> = this.config.getStrings("crystal.recipe")
+            CustomItem(plugin.namespacedKeyFactory.create("upgrade_crystal_$id"), { test: ItemStack? ->
                 if (test == null) {
-                    return false;
+                    return@CustomItem false
                 }
-                if (ArmorUtils.getCrystalTier(test) == null) {
-                    return false;
+                if (getCrystalTier(test) == null) {
+                    return@CustomItem false
                 }
-                return this.equals(ArmorUtils.getCrystalTier(test));
-            }, out).register();
-
-            for (int i = 0; i < 9; i++) {
-                builder.setRecipePart(i, Items.lookup(recipeStrings.get(i)));
+                this == getCrystalTier(test)
+            }, out).register()
+            for (i in 0..8) {
+                builder.setRecipePart(i, Items.lookup(recipeStrings[i]))
             }
-
-            this.crystalRecipe = builder.build();
-            this.crystalRecipe.register();
+            crystalRecipe = builder.build()
+            crystalRecipe.register()
+        } else {
+            crystalRecipe = null
         }
     }
-
     /**
      * Get the required tiers for application.
      *
      * @return The tiers, or a blank list if always available.
      */
-    public List<Tier> getRequiredTiersForApplication() {
-        return requiredTiersForApplication.stream().map(Tiers::getByID).filter(Objects::nonNull).collect(Collectors.toList());
+    fun getRequiredTiersForApplication(): List<Tier> {
+        return requiredTiersForApplication.mapNotNull { Tiers.getByID(it) }
     }
 
-    @Override
-    public boolean equals(@Nullable final Object o) {
-        if (this == o) {
-            return true;
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
         }
-        if (!(o instanceof Tier)) {
-            return false;
+        if (other !is Tier) {
+            return false
         }
-
-        Tier tier = (Tier) o;
-        return Objects.equals(this.getId(), tier.getId());
+        return this.id == other.id
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.getId());
+    override fun hashCode(): Int {
+        return Objects.hash(this.id)
     }
 }
