@@ -24,7 +24,6 @@ permissions:
     default: op
     children:
       ecoarmor.command.*: true
-      ecoarmor.noflydisable: true
   ecoarmor.command.*:
     description: All commands
     default: op
@@ -38,9 +37,6 @@ permissions:
     default: op
   ecoarmor.command.give:
     description: Allows the use of /ecoarmor give
-    default: op
-  ecoarmor.noflydisable:
-    description: Prevents losing fly.
     default: op
   ecoarmor.command.ecoarmor:
     description: Allows the user of /ecoarmor.
