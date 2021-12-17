@@ -10,6 +10,7 @@ import com.willfp.eco.core.recipe.recipes.ShapedCraftingRecipe
 import com.willfp.eco.util.StringUtils
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getCrystalTier
+import com.willfp.ecoarmor.util.NotNullMap
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
@@ -56,7 +57,7 @@ class Tier(
     /**
      * Item properties.
      */
-    val properties: MutableMap<ArmorSlot, TierProperties> = EnumMap(ArmorSlot::class.java)
+    val properties: NotNullMap<ArmorSlot, TierProperties> = NotNullMap(EnumMap(ArmorSlot::class.java))
 
     /**
      * Create a new Tier.
