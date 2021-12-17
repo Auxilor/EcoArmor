@@ -27,21 +27,23 @@ sets:
       - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
       - "&8» &6Take 10% less damage"
       - "&8&oRequires full set to be worn"
-    advancementShardName: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &cReaper"
-    advancementShardLore:
-      - "&8Drop this onto &cReaper Armor"
-      - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
-    shardCraftable: false
-    shardRecipe:
-      - prismarine_shard
-      - ecoarmor:set_reaper_helmet
-      - prismarine_shard
-      - ecoarmor:set_reaper_chestplate
-      - nether_star
-      - ecoarmor:set_reaper_leggings
-      - prismarine_shard
-      - ecoarmor:set_reaper_boots
-      - prismarine_shard
+    shard:
+      item: prismarine_shard unbreaking:1 hide_enchants
+      name: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &cReaper"
+      lore:
+        - "&8Drop this onto &cReaper Armor"
+        - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+      craftable: false
+      recipe:
+        - prismarine_shard
+        - ecoarmor:set_reaper_helmet
+        - prismarine_shard
+        - ecoarmor:set_reaper_chestplate
+        - nether_star
+        - ecoarmor:set_reaper_leggings
+        - prismarine_shard
+        - ecoarmor:set_reaper_boots
+        - prismarine_shard
     helmet:
       item: leather_helmet color:#303030 hide_dye
       name: "&cReaper Helmet"
@@ -200,21 +202,23 @@ sets:
       - "&8» &4Take 20% less damage"
       - "&8» &4Deal 2x damage to bosses"
       - "&8&oRequires full set to be worn"
-    advancementShardName: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &4Slayer"
-    advancementShardLore:
-      - "&8Drop this onto &4Slayer Armor"
-      - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
-    shardCraftable: false
-    shardRecipe:
-      - prismarine_shard
-      - ecoarmor:set_slayer_helmet
-      - prismarine_shard
-      - ecoarmor:set_slayer_chestplate
-      - nether_star
-      - ecoarmor:set_slayer_leggings
-      - prismarine_shard
-      - ecoarmor:set_slayer_boots
-      - prismarine_shard
+    shard:
+      item: prismarine_shard unbreaking:1 hide_enchants
+      name: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &4Slayer"
+      lore:
+        - "&8Drop this onto &4Slayer Armor"
+        - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+      craftable: false
+      recipe:
+        - prismarine_shard
+        - ecoarmor:set_slayer_helmet
+        - prismarine_shard
+        - ecoarmor:set_slayer_chestplate
+        - nether_star
+        - ecoarmor:set_slayer_leggings
+        - prismarine_shard
+        - ecoarmor:set_slayer_boots
+        - prismarine_shard
     helmet:
       item: leather_helmet color:#750909 hide_dye
       name: "&4Slayer Helmet"
@@ -373,21 +377,23 @@ sets:
       - "&8» &dGet 20 more hearts"
       - "&8» &dReduce hunger loss by 50%"
       - "&8&oRequires full set to be worn"
-    advancementShardName: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &5Angelic"
-    advancementShardLore:
-      - "&8Drop this onto &5Angelic Armor"
-      - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
-    shardCraftable: false
-    shardRecipe:
-      - prismarine_shard
-      - ecoarmor:set_angelic_helmet
-      - prismarine_shard
-      - ecoarmor:set_angelic_chestplate
-      - nether_star
-      - ecoarmor:set_angelic_leggings
-      - prismarine_shard
-      - ecoarmor:set_angelic_boots
-      - prismarine_shard
+    shard:
+      item: prismarine_shard unbreaking:1 hide_enchants
+      name: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &5Angelic"
+      lore:
+        - "&8Drop this onto &5Angelic Armor"
+        - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+      craftable: false
+      recipe:
+        - prismarine_shard
+        - ecoarmor:set_angelic_helmet
+        - prismarine_shard
+        - ecoarmor:set_angelic_chestplate
+        - nether_star
+        - ecoarmor:set_angelic_leggings
+        - prismarine_shard
+        - ecoarmor:set_angelic_boots
+        - prismarine_shard
     helmet:
       item: leather_helmet color:#bd15a9 hide_dye
       name: "&5Angelic Helmet"
@@ -556,21 +562,23 @@ sets:
       - "&8» &bDeal 1.75x bow damage"
       - "&8» &bNo melee damage penalty"
       - "&8&oRequires full set to be worn"
-    advancementShardName: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &bHuntress"
-    advancementShardLore:
-      - "&8Drop this onto &bHuntress Armor"
-      - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
-    shardCraftable: false
-    shardRecipe:
-      - prismarine_shard
-      - ecoarmor:set_huntress_helmet
-      - prismarine_shard
-      - ecoarmor:set_huntress_chestplate
-      - nether_star
-      - ecoarmor:set_huntress_leggings
-      - prismarine_shard
-      - ecoarmor:set_huntress_boots
-      - prismarine_shard
+    shard:
+      item: prismarine_shard unbreaking:1 hide_enchants
+      name: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &bHuntress"
+      lore:
+        - "&8Drop this onto &bHuntress Armor"
+        - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+      craftable: false
+      recipe:
+        - prismarine_shard
+        - ecoarmor:set_huntress_helmet
+        - prismarine_shard
+        - ecoarmor:set_huntress_chestplate
+        - nether_star
+        - ecoarmor:set_huntress_leggings
+        - prismarine_shard
+        - ecoarmor:set_huntress_boots
+        - prismarine_shard
     helmet:
       item: leather_helmet color:#96fbfc hide_dye
       name: "&bHuntress Helmet"
@@ -706,8 +714,9 @@ tiers:
     display: "&8&lDEFAULT"
     requiresTiers: []
     crystal:
-      craftable: false
+      item: end_crystal
       name: "&8Default Upgrade Crystal"
+      craftable: false
       recipe:
         - air
         - leather
@@ -769,8 +778,9 @@ tiers:
     requiresTiers:
       - default
     crystal:
-      craftable: true
+      item: end_crystal
       name: "&7Iron Upgrade Crystal"
+      craftable: true
       recipe:
         - air
         - iron_block
@@ -834,8 +844,9 @@ tiers:
     requiresTiers:
       - iron
     crystal:
-      craftable: true
+      item: end_crystal
       name: "&bDiamond Upgrade Crystal"
+      craftable: true
       recipe:
         - air
         - diamond_block
@@ -899,8 +910,9 @@ tiers:
     requiresTiers:
       - diamond
     crystal:
-      craftable: true
+      item: end_crystal
       name: "&cNetherite Upgrade Crystal"
+      craftable: true
       recipe:
         - air
         - netherite_ingot
@@ -964,8 +976,9 @@ tiers:
     requiresTiers:
       - netherite
     crystal:
-      craftable: true
+      item: end_crystal
       name: "<GRADIENT:f953c6>Manyullyn Upgrade Crystal</GRADIENT:b91d73>"
+      craftable: true
       recipe:
         - ecoarmor:upgrade_crystal_netherite
         - enchanted_golden_apple
@@ -1029,8 +1042,9 @@ tiers:
     requiresTiers:
       - iron
     crystal:
-      craftable: true
+      item: end_crystal
       name: "&#0047abCobalt Upgrade Crystal"
+      craftable: true
       recipe:
         - air
         - obsidian
@@ -1094,8 +1108,9 @@ tiers:
     requiresTiers:
       - cobalt
     crystal:
-      craftable: true
+      item: end_crystal
       name: "<GRADIENT:c7f1ff>Osmium upgrade crystal</GRADIENT:5c92ff>"
+      craftable: true
       recipe:
         - air
         - netherite_block
@@ -1159,8 +1174,9 @@ tiers:
     requiresTiers:
       - netherite
     crystal:
-      craftable: true
+      item: end_crystal
       name: "<GRADIENT:f79d00>Exotic Upgrade Crystal</GRADIENT:64f38c>"
+      craftable: true
       recipe:
         - ecoarmor:upgrade_crystal_netherite
         - turtle_egg
@@ -1223,8 +1239,9 @@ tiers:
     display: "&6&k!!&r <GRADIENT:ffb347>&lANCIENT</GRADIENT:ffcc33>&r &6&k!!&r"
     requiresTiers: []
     crystal:
-      craftable: false
+      item: end_crystal
       name: "<GRADIENT:ffb347>Ancient Upgrade Crystal</GRADIENT:ffcc33>"
+      craftable: false
       recipe:
         - air
         - netherite_block
@@ -1285,8 +1302,9 @@ tiers:
     display: "&1&k!!&r <GRADIENT:00c6ff>&lMYTHIC</GRADIENT:0072ff>&r &1&k!!&r"
     requiresTiers: []
     crystal:
-      craftable: false
+      item: end_crystal
       name: "<GRADIENT:00c6ff>Mythic Upgrade Crystal</GRADIENT:0072ff>"
+      craftable: false
       recipe:
         - air
         - netherite_block

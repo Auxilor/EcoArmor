@@ -64,8 +64,7 @@ class Tier(
         displayName = this.config.getString("display")
         requiredTiersForApplication = this.config.getStrings("requiresTiers")
         val key = plugin.namespacedKeyFactory.create("upgrade_crystal")
-        val out =
-            Items.lookup(plugin.configYml.getString("upgrade-crystal-material").lowercase(Locale.getDefault())).item
+        val out = Items.lookup(this.config.getString("crystal.item")).item
         val outMeta = out.itemMeta!!
         val container = outMeta.persistentDataContainer
         container.set(key, PersistentDataType.STRING, id)

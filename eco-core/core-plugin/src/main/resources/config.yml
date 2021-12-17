@@ -5,9 +5,6 @@
 
 discover-recipes: true # If all recipes should be automatically discovered.
 
-advancement-shard-material: prismarine_shard # The material for advancement shards.
-upgrade-crystal-material: end_crystal # The material for upgrade crystals.
-
 cooldown:
   in-actionbar: true
   sound:

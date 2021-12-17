@@ -23,8 +23,6 @@ import com.willfp.libreforge.conditions.ConfiguredCondition
 import com.willfp.libreforge.effects.ConfiguredEffect
 import com.willfp.libreforge.effects.Effects
 import org.bukkit.Bukkit
-import org.bukkit.enchantments.Enchantment
-import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
@@ -103,23 +101,21 @@ class ArmorSet(
     }
 
     private fun constructShard(): ItemStack {
-        val shardLore = config.getStrings("advancementShardLore")
+        val shardLore = config.getStrings("shard.lore")
         shardLore.replaceAll { Display.PREFIX + it }
         val shard = ItemStackBuilder(
-            Items.lookup(plugin.configYml.getString("advancement-shard-material"))
+            Items.lookup(config.getString("shard.item"))
         )
-            .setDisplayName(config.getString("advancementShardName"))
-            .addEnchantment(Enchantment.DURABILITY, 3)
-            .addItemFlag(ItemFlag.HIDE_ENCHANTS)
+            .setDisplayName(config.getString("shard.name"))
             .addLoreLines(shardLore)
             .writeMetaKey(plugin.namespacedKeyFactory.create("advancement-shard"), PersistentDataType.STRING, id)
             .build()
-        if (config.getBool("shardCraftable")) {
+        if (config.getBool("shard.craftable")) {
             Recipes.createAndRegisterRecipe(
                 plugin,
                 id + "_shard",
                 shard,
-                config.getStrings("shardRecipe")
+                config.getStrings("shard.recipe")
             )
         }
         CustomItem(

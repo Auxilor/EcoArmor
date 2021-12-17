@@ -1,6 +1,5 @@
 package com.willfp.ecoarmor.upgrades
 
-import com.willfp.eco.core.EcoPlugin
 import com.willfp.ecoarmor.sets.ArmorUtils
 import org.bukkit.GameMode
 import org.bukkit.Material
@@ -10,7 +9,7 @@ import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
-class CrystalListener(private val plugin: EcoPlugin) : Listener {
+class CrystalListener : Listener {
     @EventHandler
     fun onDrag(event: InventoryClickEvent) {
         if (event.whoClicked.gameMode == GameMode.CREATIVE) {

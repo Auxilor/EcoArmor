@@ -57,7 +57,7 @@ class EcoArmorPlugin : EcoPlugin(687, 10002, "&c") {
 
     override fun loadListeners(): List<Listener> {
         return listOf(
-            CrystalListener(this),
+            CrystalListener(),
             AdvancementShardListener(this),
             EffectiveDurabilityListener(this),
             DiscoverRecipeListener(this),
