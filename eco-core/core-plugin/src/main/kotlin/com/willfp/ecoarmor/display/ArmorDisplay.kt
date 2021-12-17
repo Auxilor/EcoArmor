@@ -53,6 +53,7 @@ class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LO
 
         val tier = ArmorUtils.getTier(meta) ?: return
         val lore = FastItemStack.wrap(slotStack).lore.map { it.replace("%tier%", tier.displayName) }.toMutableList()
+        slotMeta.addItemFlags(*slotMeta.itemFlags.toTypedArray())
 
         if (meta.hasLore()) {
             lore.addAll(fis.lore)
