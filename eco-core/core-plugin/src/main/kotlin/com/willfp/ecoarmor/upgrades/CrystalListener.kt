@@ -30,7 +30,7 @@ class CrystalListener(private val plugin: EcoPlugin) : Listener {
         }
         val previousTier = ArmorUtils.getTier(current)
         var allowed = false
-        val prereq = crystalTier.requiredTiersForApplication
+        val prereq = crystalTier.getRequiredTiersForApplication()
         if (prereq.isEmpty() || prereq.contains(previousTier)) {
             allowed = true
         }

@@ -143,8 +143,8 @@ object ArmorUtils {
         val meta = itemStack.itemMeta ?: return null
         val tier = getTier(meta)
         return if (getSetOnItem(meta) != null && tier == null) {
-            setTier(itemStack, Tiers.getDefaultTier())
-            Tiers.getDefaultTier()
+            setTier(itemStack, Tiers.defaultTier)
+            Tiers.defaultTier
         } else {
             tier
         }
@@ -202,13 +202,13 @@ object ArmorUtils {
             tier.id
         )
         val slot = getSlot(itemStack) ?: return
-        val armor = tier.properties[slot]!!.armor()
-        val toughness = tier.properties[slot]!!.toughness()
-        val knockback = tier.properties[slot]!!.knockback()
-        val speed = tier.properties[slot]!!.speed()
-        val attackSpeed = tier.properties[slot]!!.attackSpeed()
-        val attackDamage = tier.properties[slot]!!.attackDamage()
-        val attackKnockback = tier.properties[slot]!!.attackKnockback()
+        val armor = tier.properties[slot]!!.armor
+        val toughness = tier.properties[slot]!!.toughness
+        val knockback = tier.properties[slot]!!.knockback
+        val speed = tier.properties[slot]!!.speed
+        val attackSpeed = tier.properties[slot]!!.attackSpeed
+        val attackDamage = tier.properties[slot]!!.attackDamage
+        val attackKnockback = tier.properties[slot]!!.attackKnockback
         meta.removeAttributeModifier(Attribute.GENERIC_ARMOR)
         meta.removeAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS)
         meta.removeAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE)

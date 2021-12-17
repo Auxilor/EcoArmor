@@ -219,9 +219,9 @@ class ArmorSet(
     ) {
         if (slotConfig.getBool("craftable")) {
             val formattedOut = out.clone()
-            val meta = formattedOut.itemMeta!!
-            assert(meta.lore != null)
-            val lore = meta.lore.map { it.replace("%tier%", Tiers.defaultTier.displayName) }
+            val meta = formattedOut.itemMeta ?: return
+            val metaLore = meta.lore ?: emptyList()
+            val lore = metaLore.map { it.replace("%tier%", Tiers.defaultTier.displayName) }
             meta.lore = lore
             formattedOut.itemMeta = meta
             Recipes.createAndRegisterRecipe(

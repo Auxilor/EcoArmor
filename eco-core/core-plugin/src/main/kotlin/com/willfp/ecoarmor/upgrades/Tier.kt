@@ -75,7 +75,8 @@ class Tier(
         val outMeta = out.itemMeta!!
         val container = outMeta.persistentDataContainer
         container.set(key, PersistentDataType.STRING, id)
-        outMeta.displayName = this.config.getString("crystal.name")
+        @Suppress("UsePropertyAccessSyntax")
+        outMeta.setDisplayName(this.config.getString("crystal.name"))
         val lore: MutableList<String> = ArrayList()
         for (loreLine in this.config.getStrings("crystal.lore")) {
             lore.add(Display.PREFIX + StringUtils.format(loreLine!!))
