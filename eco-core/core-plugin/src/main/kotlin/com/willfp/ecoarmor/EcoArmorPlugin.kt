@@ -17,12 +17,7 @@ import com.willfp.ecoarmor.upgrades.CrystalListener
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.DiscoverRecipeListener
 import com.willfp.ecoarmor.util.EffectListener
-import com.willfp.libreforge.LibReforge.disable
-import com.willfp.libreforge.LibReforge.enable
-import com.willfp.libreforge.LibReforge.getIntegrationLoaders
-import com.willfp.libreforge.LibReforge.init
-import com.willfp.libreforge.LibReforge.registerHolderProvider
-import com.willfp.libreforge.LibReforge.reload
+import com.willfp.libreforge.LibReforge
 import org.bukkit.event.Listener
 
 class EcoArmorPlugin : EcoPlugin(687, 10002, "&c") {
@@ -31,22 +26,22 @@ class EcoArmorPlugin : EcoPlugin(687, 10002, "&c") {
     init {
         instance = this
         ecoArmorYml = EcoArmorYml(this)
-        init(this)
-        registerHolderProvider { ListUtils.toSingletonList(ArmorUtils.getActiveSet(it)) }
+        LibReforge.init(this)
+        LibReforge.registerHolderProvider { ListUtils.toSingletonList(ArmorUtils.getActiveSet(it)) }
     }
 
     override fun handleEnable() {
-        enable(this)
+        LibReforge.enable(this)
     }
 
     override fun handleDisable() {
-        disable(this)
+        LibReforge.disable(this)
     }
 
     override fun handleReload() {
         logger.info(Tiers.values().size.toString() + " Tiers Loaded")
         logger.info(ArmorSets.values().size.toString() + " Sets Loaded")
-        reload(this)
+        LibReforge.reload(this)
     }
 
     override fun loadPluginCommands(): List<PluginCommand> {
@@ -67,7 +62,7 @@ class EcoArmorPlugin : EcoPlugin(687, 10002, "&c") {
     }
 
     override fun loadIntegrationLoaders(): List<IntegrationLoader> {
-        return getIntegrationLoaders()
+        return LibReforge.getIntegrationLoaders()
     }
 
     override fun createDisplayModule(): DisplayModule {
