@@ -3,8 +3,6 @@
 # by Auxilor
 #
 
-use-json: false # false = ecoarmor.yml, true = ecoarmor.json
-
 discover-recipes: true # If all recipes should be automatically discovered.
 
 advancement-shard-material: prismarine_shard # The material for advancement shards.
