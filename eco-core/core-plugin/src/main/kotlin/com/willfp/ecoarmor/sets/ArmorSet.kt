@@ -165,7 +165,7 @@ class ArmorSet(
         if (defaultTier == null) {
             Bukkit.getLogger()
                 .warning("Default tier specified in " + id + " " + slot.name.lowercase(Locale.getDefault()) + " is invalid! Defaulting to 'default'")
-            setTier(itemStack, Tiers.getDefaultTier())
+            setTier(itemStack, Tiers.defaultTier)
         } else {
             setTier(itemStack, defaultTier)
         }
@@ -221,7 +221,7 @@ class ArmorSet(
             val formattedOut = out.clone()
             val meta = formattedOut.itemMeta!!
             assert(meta.lore != null)
-            val lore = meta.lore.map { it.replace("%tier%", Tiers.getDefaultTier().displayName) }
+            val lore = meta.lore.map { it.replace("%tier%", Tiers.defaultTier.displayName) }
             meta.lore = lore
             formattedOut.itemMeta = meta
             Recipes.createAndRegisterRecipe(
@@ -239,8 +239,8 @@ class ArmorSet(
      * @param slot The slot.
      * @return The item.
      */
-    fun getItemStack(slot: ArmorSlot): ItemStack? {
-        return items[slot]
+    fun getItemStack(slot: ArmorSlot): ItemStack {
+        return items[slot]!!
     }
 
     /**
@@ -249,8 +249,8 @@ class ArmorSet(
      * @param slot The slot.
      * @return The item.
      */
-    fun getAdvancedItemStack(slot: ArmorSlot): ItemStack? {
-        return advancedItems[slot]
+    fun getAdvancedItemStack(slot: ArmorSlot): ItemStack {
+        return advancedItems[slot]!!
     }
 
     /**
@@ -260,9 +260,9 @@ class ArmorSet(
      * @return The tier.
      */
     fun getDefaultTier(slot: ArmorSlot?): Tier {
-        if (slot == null) return Tiers.getDefaultTier()
+        if (slot == null) return Tiers.defaultTier
         val tier = Tiers.getByID(config.getSubsection(slot.name.lowercase()).getString("defaultTier"))
-        return tier ?: Tiers.getDefaultTier()
+        return tier ?: Tiers.defaultTier
     }
 
     override fun equals(other: Any?): Boolean {
