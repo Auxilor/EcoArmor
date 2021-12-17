@@ -16,6 +16,7 @@ import com.willfp.ecoarmor.sets.ArmorUtils.setAdvanced
 import com.willfp.ecoarmor.sets.ArmorUtils.setTier
 import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
+import com.willfp.ecoarmor.util.notNullMapOf
 import com.willfp.libreforge.Holder
 import com.willfp.libreforge.conditions.Conditions
 import com.willfp.libreforge.conditions.ConfiguredCondition
@@ -51,12 +52,12 @@ class ArmorSet(
     /**
      * Items in set.
      */
-    private val items: MutableMap<ArmorSlot, ItemStack> = EnumMap(ArmorSlot::class.java)
+    private val items = notNullMapOf<ArmorSlot, ItemStack>()
 
     /**
      * Items in advanced set.
      */
-    private val advancedItems: MutableMap<ArmorSlot, ItemStack> = EnumMap(ArmorSlot::class.java)
+    private val advancedItems = notNullMapOf<ArmorSlot, ItemStack>()
 
     /**
      * Advancement shard item.
@@ -88,8 +89,8 @@ class ArmorSet(
                 advancedEffects.add(conf)
             }
         }
-        regularHolder = RegularHolder(conditions, effects)
-        advancedHolder = AdvancedHolder(conditions, advancedEffects)
+        regularHolder = SimpleHolder(conditions, effects)
+        advancedHolder = SimpleHolder(conditions, advancedEffects)
         ArmorSets.addNewSet(this)
         for (slot in ArmorSlot.values()) {
             val item = construct(slot, config.getSubsection(slot.name.lowercase(Locale.getDefault())), false)
@@ -105,9 +106,7 @@ class ArmorSet(
         val shardLore = config.getStrings("advancementShardLore")
         shardLore.replaceAll { Display.PREFIX + it }
         val shard = ItemStackBuilder(
-            Items.lookup(
-                plugin.configYml.getString("advancement-shard-material").lowercase(Locale.getDefault())
-            ).item
+            Items.lookup(plugin.configYml.getString("advancement-shard-material"))
         )
             .setDisplayName(config.getString("advancementShardName"))
             .addEnchantment(Enchantment.DURABILITY, 3)
@@ -240,7 +239,7 @@ class ArmorSet(
      * @return The item.
      */
     fun getItemStack(slot: ArmorSlot): ItemStack {
-        return items[slot]!!
+        return items[slot]
     }
 
     /**
@@ -250,7 +249,7 @@ class ArmorSet(
      * @return The item.
      */
     fun getAdvancedItemStack(slot: ArmorSlot): ItemStack {
-        return advancedItems[slot]!!
+        return advancedItems[slot]
     }
 
     /**
@@ -260,16 +259,12 @@ class ArmorSet(
      * @return The tier.
      */
     fun getDefaultTier(slot: ArmorSlot?): Tier {
-        if (slot == null) return Tiers.defaultTier
+        slot ?: return Tiers.defaultTier
         val tier = Tiers.getByID(config.getSubsection(slot.name.lowercase()).getString("defaultTier"))
         return tier ?: Tiers.defaultTier
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
         if (other !is ArmorSet) {
             return false
         }
@@ -287,3 +282,8 @@ class ArmorSet(
                 + "}")
     }
 }
+
+class SimpleHolder(
+    override val conditions: Set<ConfiguredCondition>,
+    override val effects: Set<ConfiguredEffect>
+) : Holder

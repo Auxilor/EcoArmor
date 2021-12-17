@@ -10,24 +10,19 @@ import com.willfp.eco.core.recipe.recipes.ShapedCraftingRecipe
 import com.willfp.eco.util.StringUtils
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getCrystalTier
-import com.willfp.ecoarmor.util.NotNullMap
+import com.willfp.ecoarmor.util.notNullMapOf
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
 
 class Tier(
-    config: Config,
+    private val config: Config,
     plugin: EcoPlugin
 ) : PluginDependent<EcoPlugin?>(plugin) {
     /**
      * The tier name.
      */
-    val id: String
-
-    /**
-     * The config of the crystal.
-     */
-    val config: Config
+    val id = config.getString("id")
 
     /**
      * The display name of the crystal.
@@ -57,16 +52,14 @@ class Tier(
     /**
      * Item properties.
      */
-    val properties: NotNullMap<ArmorSlot, TierProperties> = NotNullMap(EnumMap(ArmorSlot::class.java))
+    val properties = notNullMapOf<ArmorSlot, TierProperties>()
 
     /**
      * Create a new Tier.
      */
     init {
-        id = config.getString("id")
-        this.config = config
         Tiers.addNewTier(this)
-        
+
         craftable = this.config.getBool("crystal.craftable")
         displayName = this.config.getString("display")
         requiredTiersForApplication = this.config.getStrings("requiresTiers")
@@ -101,11 +94,13 @@ class Tier(
                     .getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".attackKnockbackPercentage")
             )
         }
+
         CustomItem(
             plugin.namespacedKeyFactory.create("crystal_" + id.lowercase(Locale.getDefault())),
             { test: ItemStack? -> this == getCrystalTier(test!!) },
             out
         ).register()
+
         if (this.craftable) {
             val recipeOut = out.clone()
             recipeOut.amount = this.config.getInt("crystal.giveAmount")
@@ -130,6 +125,7 @@ class Tier(
             crystalRecipe = null
         }
     }
+
     /**
      * Get the required tiers for application.
      *

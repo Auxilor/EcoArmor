@@ -4,6 +4,7 @@ import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.command.impl.PluginCommand
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.integrations.IntegrationLoader
+import com.willfp.eco.util.ListUtils
 import com.willfp.ecoarmor.commands.CommandEcoarmor
 import com.willfp.ecoarmor.config.EcoArmorYml
 import com.willfp.ecoarmor.display.ArmorDisplay
@@ -31,14 +32,7 @@ class EcoArmorPlugin : EcoPlugin(687, 10002, "&c") {
         instance = this
         ecoArmorYml = EcoArmorYml(this)
         init(this)
-        registerHolderProvider { player ->
-            val active = ArmorUtils.getActiveSet(player)
-            if (active == null) {
-                emptyList()
-            } else {
-                listOf(active)
-            }
-        }
+        registerHolderProvider { ListUtils.toSingletonList(ArmorUtils.getActiveSet(it)) }
     }
 
     override fun handleEnable() {
