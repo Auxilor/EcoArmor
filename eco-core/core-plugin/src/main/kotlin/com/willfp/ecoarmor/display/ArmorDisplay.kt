@@ -59,7 +59,9 @@ class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LO
             lore.addAll(fis.lore)
         }
 
-        meta.setDisplayName(slotMeta.displayName)
+        if (this.plugin.configYml.getBool("update-item-names")) {
+            meta.setDisplayName(slotMeta.displayName)
+        }
 
         if (meta is LeatherArmorMeta && slotMeta is LeatherArmorMeta) {
             meta.setColor(slotMeta.color)

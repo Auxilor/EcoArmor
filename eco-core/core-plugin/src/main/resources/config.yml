@@ -4,6 +4,7 @@
 #
 
 discover-recipes: true # If all recipes should be automatically discovered.
+update-item-names: true # If item names should be updated to match config (disable to allow renaming armor pieces in anvils)
 
 cooldown:
   in-actionbar: true
