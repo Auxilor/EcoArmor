@@ -60,7 +60,7 @@ class Tier(
         Tiers.addNewTier(this)
 
         craftable = this.config.getBool("crystal.craftable")
-        displayName = this.config.getString("display")
+        displayName = this.config.getFormattedString("display")
         requiredTiersForApplication = this.config.getStrings("requiresTiers")
         val key = plugin.namespacedKeyFactory.create("upgrade_crystal")
         val out = Items.lookup(this.config.getString("crystal.item")).item
@@ -68,7 +68,7 @@ class Tier(
         val container = outMeta.persistentDataContainer
         container.set(key, PersistentDataType.STRING, id)
         @Suppress("UsePropertyAccessSyntax")
-        outMeta.setDisplayName(this.config.getString("crystal.name"))
+        outMeta.setDisplayName(this.config.getFormattedString("crystal.name"))
         val lore: MutableList<String> = ArrayList()
         for (loreLine in this.config.getStrings("crystal.lore")) {
             lore.add(Display.PREFIX + StringUtils.format(loreLine!!))
