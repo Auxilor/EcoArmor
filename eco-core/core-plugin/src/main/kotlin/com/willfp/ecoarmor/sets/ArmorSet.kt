@@ -106,7 +106,7 @@ class ArmorSet(
         val shard = ItemStackBuilder(
             Items.lookup(config.getString("shard.item"))
         )
-            .setDisplayName(config.getString("shard.name"))
+            .setDisplayName(config.getFormattedString("shard.name"))
             .addLoreLines(shardLore)
             .writeMetaKey(plugin.namespacedKeyFactory.create("advancement-shard"), PersistentDataType.STRING, id)
             .build()
@@ -132,19 +132,19 @@ class ArmorSet(
         advanced: Boolean
     ): ItemStack {
         val builder: ItemBuilder = ItemStackBuilder(Items.lookup(slotConfig.getString("item")).item)
-            .setDisplayName(if (advanced) slotConfig.getString("advancedName") else slotConfig.getString("name"))
-            .addLoreLines(slotConfig.getStrings("lore").stream().map { s: String -> Display.PREFIX + s }
+            .setDisplayName(if (advanced) slotConfig.getFormattedString("advancedName") else slotConfig.getFormattedString("name"))
+            .addLoreLines(slotConfig.getFormattedStrings("lore").stream().map { s: String -> Display.PREFIX + s }
                 .collect(Collectors.toList()))
             .addLoreLines {
                 if (advanced) {
-                    return@addLoreLines config.getStrings("advancedLore").stream()
+                    return@addLoreLines config.getFormattedStrings("advancedLore").stream()
                         .map { s: String -> Display.PREFIX + s }
                         .collect(Collectors.toList())
                 } else {
                     return@addLoreLines null
                 }
             }
-            .setDisplayName { if (advanced) slotConfig.getString("advancedName") else slotConfig.getString("name") }
+            .setDisplayName { if (advanced) slotConfig.getFormattedString("advancedName") else slotConfig.getFormattedString("name") }
         builder.writeMetaKey(
             plugin.namespacedKeyFactory.create("set"),
             PersistentDataType.STRING,
