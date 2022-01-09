@@ -10,6 +10,8 @@ depend:
 softdepend:
   - EcoSkills
   - AureliumSkills
+  - Jobs
+  - mcMMO
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:1.6.0
 
