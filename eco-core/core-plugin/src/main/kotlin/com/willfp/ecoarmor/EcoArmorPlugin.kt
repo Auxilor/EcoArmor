@@ -20,7 +20,7 @@ import com.willfp.ecoarmor.util.EffectListener
 import com.willfp.libreforge.LibReforge
 import org.bukkit.event.Listener
 
-class EcoArmorPlugin : EcoPlugin(687, 10002, "&c") {
+class EcoArmorPlugin : EcoPlugin(687, 10002, "&c", true) {
     val ecoArmorYml: EcoArmorYml
 
     init {
