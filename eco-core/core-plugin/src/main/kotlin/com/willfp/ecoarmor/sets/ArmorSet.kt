@@ -29,7 +29,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 class ArmorSet(
-    private val config: Config,
+    val config: Config,
     private val plugin: EcoPlugin
 ) {
     /**
