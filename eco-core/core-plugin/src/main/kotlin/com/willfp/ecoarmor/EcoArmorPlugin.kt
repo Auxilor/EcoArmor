@@ -1,9 +1,7 @@
 package com.willfp.ecoarmor
 
-import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.command.impl.PluginCommand
 import com.willfp.eco.core.display.DisplayModule
-import com.willfp.eco.core.integrations.IntegrationLoader
 import com.willfp.eco.util.ListUtils
 import com.willfp.ecoarmor.commands.CommandEcoarmor
 import com.willfp.ecoarmor.config.EcoArmorYml
@@ -17,31 +15,22 @@ import com.willfp.ecoarmor.upgrades.CrystalListener
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.DiscoverRecipeListener
 import com.willfp.ecoarmor.util.EffectListener
-import com.willfp.libreforge.LibReforge
+import com.willfp.libreforge.LibReforgePlugin
 import org.bukkit.event.Listener
 
-class EcoArmorPlugin : EcoPlugin(687, 10002, "&c") {
+class EcoArmorPlugin : LibReforgePlugin(687, 10002, "&c") {
     val ecoArmorYml: EcoArmorYml
 
     init {
         instance = this
         ecoArmorYml = EcoArmorYml(this)
-        LibReforge.init(this)
-        LibReforge.registerHolderProvider { ListUtils.toSingletonList(ArmorUtils.getActiveSet(it)) }
+        registerHolderProvider { ListUtils.toSingletonList(ArmorUtils.getActiveSet(it)) }
     }
 
-    override fun handleEnable() {
-        LibReforge.enable(this)
-    }
 
-    override fun handleDisable() {
-        LibReforge.disable(this)
-    }
-
-    override fun handleReload() {
+    override fun handleReloadAdditional() {
         logger.info(Tiers.values().size.toString() + " Tiers Loaded")
         logger.info(ArmorSets.values().size.toString() + " Sets Loaded")
-        LibReforge.reload(this)
     }
 
     override fun loadPluginCommands(): List<PluginCommand> {
@@ -61,16 +50,12 @@ class EcoArmorPlugin : EcoPlugin(687, 10002, "&c") {
         )
     }
 
-    override fun loadIntegrationLoaders(): List<IntegrationLoader> {
-        return LibReforge.getIntegrationLoaders()
-    }
-
     override fun createDisplayModule(): DisplayModule {
         return ArmorDisplay(this)
     }
 
     override fun getMinimumEcoVersion(): String {
-        return "6.17.0"
+        return "6.19.0"
     }
 
     companion object {
