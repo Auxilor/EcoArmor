@@ -16,6 +16,7 @@ import com.willfp.ecoarmor.sets.ArmorUtils.setAdvanced
 import com.willfp.ecoarmor.sets.ArmorUtils.setTier
 import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
+import com.willfp.ecoarmor.util.PlayableSound
 import com.willfp.ecoarmor.util.notNullMapOf
 import com.willfp.libreforge.Holder
 import com.willfp.libreforge.conditions.Conditions
@@ -23,13 +24,14 @@ import com.willfp.libreforge.conditions.ConfiguredCondition
 import com.willfp.libreforge.effects.ConfiguredEffect
 import com.willfp.libreforge.effects.Effects
 import org.bukkit.Bukkit
+import org.bukkit.Sound
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
 import java.util.stream.Collectors
 
 class ArmorSet(
-    private val config: Config,
+    val config: Config,
     private val plugin: EcoPlugin
 ) {
     /**
@@ -61,6 +63,39 @@ class ArmorSet(
      * Advancement shard item.
      */
     val advancementShardItem: ItemStack
+
+    /*
+    * Equip Sound
+     */
+    val equipSound = if (config.getBool("sounds.equip.enabled")) {
+        PlayableSound(
+            Sound.valueOf(config.getString("sounds.equip.sound").uppercase()),
+            config.getDouble("sounds.equip.volume"),
+            config.getDouble("sounds.equip.pitch")
+        )
+    } else null
+
+    /*
+    * Advanced equip Sound
+     */
+    val advancedEquipSound = if (config.getBool("sounds.equip.enabled")) {
+        PlayableSound(
+            Sound.valueOf(config.getString("sounds.equip.sound").uppercase()),
+            config.getDouble("sounds.equip.volume"),
+            config.getDouble("sounds.equip.pitch")
+        )
+    } else null
+
+    /*
+    * Unequip Sound
+     */
+    val unequipSound = if (config.getBool("sounds.equip.enabled")) {
+        PlayableSound(
+            Sound.valueOf(config.getString("sounds.equip.sound").uppercase()),
+            config.getDouble("sounds.equip.volume"),
+            config.getDouble("sounds.equip.pitch")
+        )
+    } else null
 
     /**
      * Create a new Armor Set.
@@ -132,7 +167,11 @@ class ArmorSet(
         advanced: Boolean
     ): ItemStack {
         val builder: ItemBuilder = ItemStackBuilder(Items.lookup(slotConfig.getString("item")).item)
-            .setDisplayName(if (advanced) slotConfig.getFormattedString("advancedName") else slotConfig.getFormattedString("name"))
+            .setDisplayName(
+                if (advanced) slotConfig.getFormattedString("advancedName") else slotConfig.getFormattedString(
+                    "name"
+                )
+            )
             .addLoreLines(slotConfig.getFormattedStrings("lore").stream().map { s: String -> Display.PREFIX + s }
                 .collect(Collectors.toList()))
             .addLoreLines {
@@ -144,7 +183,11 @@ class ArmorSet(
                     return@addLoreLines null
                 }
             }
-            .setDisplayName { if (advanced) slotConfig.getFormattedString("advancedName") else slotConfig.getFormattedString("name") }
+            .setDisplayName {
+                if (advanced) slotConfig.getFormattedString("advancedName") else slotConfig.getFormattedString(
+                    "name"
+                )
+            }
         builder.writeMetaKey(
             plugin.namespacedKeyFactory.create("set"),
             PersistentDataType.STRING,
