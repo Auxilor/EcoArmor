@@ -22,6 +22,22 @@ sets:
           multiplier: 0.9
         triggers:
           - take_damage
+    sounds:
+      equip:
+        enabled: false
+        sound: ""
+        volume: 1
+        pitch: 1
+      advancedEquip:
+        enabled: false
+        sound: ""
+        volume: 1
+        pitch: 1
+      unequip:
+        enabled: false
+        sound: ""
+        volume: 1
+        pitch: 1
     advancedLore:
       - ''
       - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
@@ -196,6 +212,22 @@ sets:
           - trident_attack
         filters:
           onlyBosses: true
+    sounds:
+      equip:
+        enabled: false
+        sound: ""
+        volume: 1
+        pitch: 1
+      advancedEquip:
+        enabled: false
+        sound: ""
+        volume: 1
+        pitch: 1
+      unequip:
+        enabled: false
+        sound: ""
+        volume: 1
+        pitch: 1
     advancedLore:
       - ''
       - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
@@ -371,6 +403,22 @@ sets:
         args:
           effect: regeneration
           level: 1
+    sounds:
+      equip:
+        enabled: false
+        sound: ""
+        volume: 1
+        pitch: 1
+      advancedEquip:
+        enabled: false
+        sound: ""
+        volume: 1
+        pitch: 1
+      unequip:
+        enabled: false
+        sound: ""
+        volume: 1
+        pitch: 1
     advancedLore:
       - ''
       - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
@@ -553,8 +601,22 @@ sets:
           multiplier: 1.75
         triggers:
           - bow_attack
-    potionEffects: []
-    advancedPotionEffects: []
+    sounds:
+      equip:
+        enabled: false
+        sound: ""
+        volume: 1
+        pitch: 1
+      advancedEquip:
+        enabled: false
+        sound: ""
+        volume: 1
+        pitch: 1
+      unequip:
+        enabled: false
+        sound: ""
+        volume: 1
+        pitch: 1
     advancedLore:
       - ''
       - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
