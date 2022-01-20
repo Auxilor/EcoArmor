@@ -27,7 +27,8 @@ import org.bukkit.Bukkit
 import org.bukkit.Sound
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import java.util.*
+import java.util.Locale
+import java.util.Objects
 import java.util.stream.Collectors
 
 class ArmorSet(
@@ -166,28 +167,33 @@ class ArmorSet(
         slotConfig: Config,
         advanced: Boolean
     ): ItemStack {
-        val builder: ItemBuilder = ItemStackBuilder(Items.lookup(slotConfig.getString("item")).item)
-            .setDisplayName(
+        val builder: ItemBuilder = ItemStackBuilder(Items.lookup(slotConfig.getString("item")).item).apply {
+            setDisplayName(
                 if (advanced) slotConfig.getFormattedString("advancedName") else slotConfig.getFormattedString(
                     "name"
                 )
             )
-            .addLoreLines(slotConfig.getFormattedStrings("lore").stream().map { s: String -> Display.PREFIX + s }
-                .collect(Collectors.toList()))
-            .addLoreLines {
-                if (advanced) {
-                    return@addLoreLines config.getFormattedStrings("advancedLore").stream()
-                        .map { s: String -> Display.PREFIX + s }
-                        .collect(Collectors.toList())
-                } else {
-                    return@addLoreLines null
+            val defaultLore = slotConfig.getFormattedStrings("lore").stream().map { s: String -> Display.PREFIX + s }
+                .collect(Collectors.toList())
+            val advancedLore = config.getFormattedStrings("advancedLore").stream()
+                .map { s: String -> Display.PREFIX + s }
+                .collect(Collectors.toList())
+
+            if (advanced) {
+                if (!config.getBool("advanced-lore-only")) {
+                    addLoreLines(defaultLore)
                 }
+                addLoreLines(advancedLore)
+            } else {
+                addLoreLines(defaultLore)
             }
-            .setDisplayName {
+
+            setDisplayName {
                 if (advanced) slotConfig.getFormattedString("advancedName") else slotConfig.getFormattedString(
                     "name"
                 )
             }
+        }
         builder.writeMetaKey(
             plugin.namespacedKeyFactory.create("set"),
             PersistentDataType.STRING,
