@@ -16,6 +16,7 @@ import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.DiscoverRecipeListener
 import com.willfp.ecoarmor.util.EffectListener
 import com.willfp.libreforge.LibReforgePlugin
+import com.willfp.libreforge.chains.EffectChains
 import org.bukkit.event.Listener
 
 class EcoArmorPlugin : LibReforgePlugin(687, 10002, "&c") {
@@ -27,6 +28,11 @@ class EcoArmorPlugin : LibReforgePlugin(687, 10002, "&c") {
         registerHolderProvider { ListUtils.toSingletonList(ArmorUtils.getActiveSet(it)) }
     }
 
+    override fun handleEnableAdditional() {
+        ecoArmorYml.getSubsections("chains").mapNotNull {
+            EffectChains.compile(it, "Effect Chains")
+        }
+    }
 
     override fun handleReloadAdditional() {
         logger.info(Tiers.values().size.toString() + " Tiers Loaded")
