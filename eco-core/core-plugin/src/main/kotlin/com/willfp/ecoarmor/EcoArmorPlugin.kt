@@ -28,12 +28,6 @@ class EcoArmorPlugin : LibReforgePlugin(687, 10002, "&c") {
         registerHolderProvider { ListUtils.toSingletonList(ArmorUtils.getActiveSet(it)) }
     }
 
-    override fun handleEnableAdditional() {
-        ecoArmorYml.getSubsections("chains").mapNotNull {
-            EffectChains.compile(it, "Effect Chains")
-        }
-    }
-
     override fun handleReloadAdditional() {
         logger.info(Tiers.values().size.toString() + " Tiers Loaded")
         logger.info(ArmorSets.values().size.toString() + " Sets Loaded")

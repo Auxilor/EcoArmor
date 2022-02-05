@@ -5,6 +5,7 @@ import com.google.common.collect.HashBiMap
 import com.google.common.collect.ImmutableList
 import com.willfp.eco.core.config.updating.ConfigUpdater
 import com.willfp.ecoarmor.EcoArmorPlugin
+import com.willfp.libreforge.chains.EffectChains
 
 object ArmorSets {
     /**
@@ -41,6 +42,9 @@ object ArmorSets {
     @ConfigUpdater
     @JvmStatic
     fun update(plugin: EcoArmorPlugin) {
+        plugin.ecoArmorYml.getSubsections("chains").mapNotNull {
+            EffectChains.compile(it, "Effect Chains")
+        }
         for (set in values()) {
             removeSet(set)
         }
