@@ -13,6 +13,8 @@ softdepend:
   - Jobs
   - mcMMO
   - Vault
+  - DeluxeSellwands
+  - ShopGUIPlus
 
 commands:
   ecoarmor:
