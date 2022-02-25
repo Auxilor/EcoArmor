@@ -46,7 +46,7 @@ class EcoArmorPlugin : LibReforgePlugin(687, 10002, "&c") {
             EffectiveDurabilityListener(this),
             DiscoverRecipeListener(this),
             PreventSkullPlaceListener(),
-            EffectListener()
+            EffectListener(this)
         )
     }
 

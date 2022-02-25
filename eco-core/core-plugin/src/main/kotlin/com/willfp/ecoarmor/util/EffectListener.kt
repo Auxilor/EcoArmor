@@ -3,18 +3,28 @@ package com.willfp.ecoarmor.util
 import com.willfp.eco.core.events.ArmorChangeEvent
 import com.willfp.ecoarmor.sets.ArmorSet
 import com.willfp.ecoarmor.sets.ArmorUtils
+import com.willfp.libreforge.LibReforgePlugin
 import com.willfp.libreforge.updateEffects
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.inventory.ItemStack
 
-class EffectListener : Listener {
+class EffectListener(
+    private val plugin: LibReforgePlugin
+) : Listener {
     @EventHandler
     fun armorEquipListener(event: ArmorChangeEvent) {
         val player = event.player
 
         player.updateEffects()
+    }
+
+    @EventHandler
+    fun armorEquipListener(event: PlayerRespawnEvent) {
+        val player = event.player
+        plugin.scheduler.run { player.updateEffects() }
     }
 
     @EventHandler
