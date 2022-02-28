@@ -8,21 +8,35 @@ import com.willfp.libreforge.updateEffects
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerChangedWorldEvent
 import org.bukkit.event.player.PlayerRespawnEvent
+import org.bukkit.event.player.PlayerTeleportEvent
 import org.bukkit.inventory.ItemStack
 
 class EffectListener(
     private val plugin: LibReforgePlugin
 ) : Listener {
     @EventHandler
-    fun armorEquipListener(event: ArmorChangeEvent) {
+    fun onArmorChange(event: ArmorChangeEvent) {
         val player = event.player
 
         player.updateEffects()
     }
 
     @EventHandler
-    fun armorEquipListener(event: PlayerRespawnEvent) {
+    fun onRespawn(event: PlayerRespawnEvent) {
+        val player = event.player
+        plugin.scheduler.run { player.updateEffects() }
+    }
+
+    @EventHandler
+    fun onTeleport(event: PlayerTeleportEvent) {
+        val player = event.player
+        plugin.scheduler.run { player.updateEffects() }
+    }
+
+    @EventHandler
+    fun onWorldChange(event: PlayerChangedWorldEvent) {
         val player = event.player
         plugin.scheduler.run { player.updateEffects() }
     }
