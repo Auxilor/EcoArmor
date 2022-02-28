@@ -180,7 +180,7 @@ class ArmorSet(
                 .collect(Collectors.toList())
 
             if (advanced) {
-                if (!config.getBool("advanced-lore-only")) {
+                if (!plugin.configYml.getBool("advanced-lore-only")) {
                     addLoreLines(defaultLore)
                 }
                 addLoreLines(advancedLore)
