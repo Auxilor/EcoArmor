@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://i.imgur.com/qREHelp.png" alt="EcoArmor logo" width="256">
+  <img src="https://i.imgur.com/fpfxi6F.png" alt="EcoArmor logo" width="256">
   <br>
 </h1>
 
