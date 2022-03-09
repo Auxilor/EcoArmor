@@ -223,7 +223,7 @@ class ArmorSet(
                     if (getSlot(test) !== getSlot(itemStack)) {
                         return@CustomItem false
                     }
-                    if (!isAdvanced(itemStack)) {
+                    if (!isAdvanced(test)) {
                         return@CustomItem false
                     }
                     if (getSetOnItem(test) == null) {
@@ -243,7 +243,7 @@ class ArmorSet(
                     if (getSlot(test) !== getSlot(itemStack)) {
                         return@CustomItem false
                     }
-                    if (isAdvanced(itemStack)) {
+                    if (isAdvanced(test)) {
                         return@CustomItem false
                     }
                     if (getSetOnItem(test) == null) {
