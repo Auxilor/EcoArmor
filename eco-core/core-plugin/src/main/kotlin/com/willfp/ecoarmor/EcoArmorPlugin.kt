@@ -2,21 +2,19 @@ package com.willfp.ecoarmor
 
 import com.willfp.eco.core.command.impl.PluginCommand
 import com.willfp.eco.core.display.DisplayModule
+import com.willfp.eco.core.items.Items
 import com.willfp.eco.util.ListUtils
 import com.willfp.ecoarmor.commands.CommandEcoarmor
 import com.willfp.ecoarmor.config.EcoArmorYml
 import com.willfp.ecoarmor.display.ArmorDisplay
-import com.willfp.ecoarmor.sets.ArmorSets
-import com.willfp.ecoarmor.sets.ArmorUtils
-import com.willfp.ecoarmor.sets.EffectiveDurabilityListener
-import com.willfp.ecoarmor.sets.PreventSkullPlaceListener
+import com.willfp.ecoarmor.sets.*
 import com.willfp.ecoarmor.upgrades.AdvancementShardListener
 import com.willfp.ecoarmor.upgrades.CrystalListener
+import com.willfp.ecoarmor.upgrades.TierArgParser
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.DiscoverRecipeListener
 import com.willfp.ecoarmor.util.EffectListener
 import com.willfp.libreforge.LibReforgePlugin
-import com.willfp.libreforge.chains.EffectChains
 import org.bukkit.event.Listener
 
 class EcoArmorPlugin : LibReforgePlugin(687, 10002, "&c") {
@@ -25,6 +23,7 @@ class EcoArmorPlugin : LibReforgePlugin(687, 10002, "&c") {
     init {
         instance = this
         ecoArmorYml = EcoArmorYml(this)
+        Items.registerArgParser(TierArgParser())
         registerHolderProvider { ListUtils.toSingletonList(ArmorUtils.getActiveSet(it)) }
     }
 

@@ -20,6 +20,15 @@ class EffectListener(
     fun onArmorChange(event: ArmorChangeEvent) {
         val player = event.player
 
+        for (itemStack in player.inventory.armorContents) {
+            if (itemStack == null) {
+                continue
+            }
+
+            val tier = ArmorUtils.getTier(itemStack) ?: continue
+            ArmorUtils.setTier(itemStack, tier)
+        }
+
         player.updateEffects()
     }
 

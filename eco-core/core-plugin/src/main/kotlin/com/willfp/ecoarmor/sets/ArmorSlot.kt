@@ -21,15 +21,8 @@ enum class ArmorSlot(
             }
             val material = itemStack.type
             val split = material.name.lowercase(Locale.getDefault()).split("_").toTypedArray()
-            val name = split[split.size - 1]
-            return when (name) {
-                "helmet", "head" -> HELMET
-                "chestplate" -> CHESTPLATE
-                "elytra" -> ELYTRA
-                "leggings" -> LEGGINGS
-                "boots" -> BOOTS
-                else -> null
-            }
+
+            return getSlot(split[split.size - 1])
         }
 
         @JvmStatic

@@ -189,18 +189,7 @@ object ArmorUtils {
         tier: Tier
     ) {
         val meta = itemStack.itemMeta ?: return
-        if (!meta.persistentDataContainer.has(
-                PLUGIN.namespacedKeyFactory.create("set"),
-                PersistentDataType.STRING
-            )
-        ) {
-            return
-        }
-        meta.persistentDataContainer.set(
-            PLUGIN.namespacedKeyFactory.create("tier"),
-            PersistentDataType.STRING,
-            tier.id
-        )
+        setTierKey(meta, tier)
         val slot = getSlot(itemStack) ?: return
         val armor = tier.properties[slot].armor
         val toughness = tier.properties[slot].toughness
@@ -300,7 +289,33 @@ object ArmorUtils {
                 )
             )
         }
+
         itemStack.itemMeta = meta
+    }
+
+    /**
+     * Set tier on item.
+     *
+     * @param meta The item to check.
+     * @param tier      The tier to set.
+     */
+    @JvmStatic
+    fun setTierKey(
+        meta: ItemMeta,
+        tier: Tier
+    ) {
+        if (!meta.persistentDataContainer.has(
+                PLUGIN.namespacedKeyFactory.create("set"),
+                PersistentDataType.STRING
+            )
+        ) {
+            return
+        }
+        meta.persistentDataContainer.set(
+            PLUGIN.namespacedKeyFactory.create("tier"),
+            PersistentDataType.STRING,
+            tier.id
+        )
     }
 
     /**
