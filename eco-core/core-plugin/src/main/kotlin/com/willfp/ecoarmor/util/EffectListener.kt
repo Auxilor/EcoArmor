@@ -6,8 +6,10 @@ import com.willfp.ecoarmor.sets.ArmorUtils
 import com.willfp.libreforge.LibReforgePlugin
 import com.willfp.libreforge.updateEffects
 import org.bukkit.Material
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.entity.EntityResurrectEvent
 import org.bukkit.event.player.PlayerChangedWorldEvent
 import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.event.player.PlayerTeleportEvent
@@ -35,6 +37,13 @@ class EffectListener(
     @EventHandler
     fun onRespawn(event: PlayerRespawnEvent) {
         val player = event.player
+        plugin.scheduler.run { player.updateEffects() }
+    }
+
+    @EventHandler
+    fun onTotem(event: EntityResurrectEvent) {
+        val player = event.entity as? Player ?: return
+
         plugin.scheduler.run { player.updateEffects() }
     }
 
