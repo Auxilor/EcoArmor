@@ -32,4 +32,10 @@ class TierArgParser : LookupArgParser {
             tier == ArmorUtils.getTier(testMeta)
         }
     }
+
+    override fun serializeBack(meta: ItemMeta): String? {
+        val tier = ArmorUtils.getTier(meta) ?: return null
+
+        return "tier:${tier.id}"
+    }
 }

@@ -7,7 +7,10 @@ import com.willfp.eco.util.ListUtils
 import com.willfp.ecoarmor.commands.CommandEcoarmor
 import com.willfp.ecoarmor.config.EcoArmorYml
 import com.willfp.ecoarmor.display.ArmorDisplay
-import com.willfp.ecoarmor.sets.*
+import com.willfp.ecoarmor.sets.ArmorSets
+import com.willfp.ecoarmor.sets.ArmorUtils
+import com.willfp.ecoarmor.sets.EffectiveDurabilityListener
+import com.willfp.ecoarmor.sets.PreventSkullPlaceListener
 import com.willfp.ecoarmor.upgrades.AdvancementShardListener
 import com.willfp.ecoarmor.upgrades.CrystalListener
 import com.willfp.ecoarmor.upgrades.TierArgParser
@@ -54,7 +57,7 @@ class EcoArmorPlugin : LibReforgePlugin(687, 10002, "&c") {
     }
 
     override fun getMinimumEcoVersion(): String {
-        return "6.19.0"
+        return "6.31.0"
     }
 
     companion object {
