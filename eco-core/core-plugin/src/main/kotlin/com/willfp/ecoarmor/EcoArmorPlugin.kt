@@ -5,7 +5,6 @@ import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.items.Items
 import com.willfp.eco.util.ListUtils
 import com.willfp.ecoarmor.commands.CommandEcoarmor
-import com.willfp.ecoarmor.conditions.ConditionIsWearingSet
 import com.willfp.ecoarmor.config.EcoArmorYml
 import com.willfp.ecoarmor.display.ArmorDisplay
 import com.willfp.ecoarmor.sets.ArmorSets
@@ -58,14 +57,11 @@ class EcoArmorPlugin : LibReforgePlugin(687, 10002, "&c") {
     }
 
     override fun getMinimumEcoVersion(): String {
-        return "6.31.0"
+        return "6.35.1"
     }
 
     companion object {
         @JvmStatic
         lateinit var instance: EcoArmorPlugin
-
-        @JvmStatic
-        val IS_WEARING_SET = ConditionIsWearingSet()
     }
 }
