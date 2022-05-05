@@ -79,22 +79,22 @@ class ArmorSet(
     /*
     * Advanced equip Sound
      */
-    val advancedEquipSound = if (config.getBool("sounds.equip.enabled")) {
+    val advancedEquipSound = if (config.getBool("sounds.advancedEquip.enabled")) {
         PlayableSound(
-            Sound.valueOf(config.getString("sounds.equip.sound").uppercase()),
-            config.getDouble("sounds.equip.volume"),
-            config.getDouble("sounds.equip.pitch")
+            Sound.valueOf(config.getString("sounds.advancedEquip.sound").uppercase()),
+            config.getDouble("sounds.advancedEquip.volume"),
+            config.getDouble("sounds.advancedEquip.pitch")
         )
     } else null
 
     /*
     * Unequip Sound
      */
-    val unequipSound = if (config.getBool("sounds.equip.enabled")) {
+    val unequipSound = if (config.getBool("sounds.unequip.enabled")) {
         PlayableSound(
-            Sound.valueOf(config.getString("sounds.equip.sound").uppercase()),
-            config.getDouble("sounds.equip.volume"),
-            config.getDouble("sounds.equip.pitch")
+            Sound.valueOf(config.getString("sounds.unequip.sound").uppercase()),
+            config.getDouble("sounds.unequip.volume"),
+            config.getDouble("sounds.unequip.pitch")
         )
     } else null
 
