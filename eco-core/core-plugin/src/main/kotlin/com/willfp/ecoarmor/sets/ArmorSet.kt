@@ -27,8 +27,7 @@ import org.bukkit.Bukkit
 import org.bukkit.Sound
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import java.util.Locale
-import java.util.Objects
+import java.util.*
 import java.util.stream.Collectors
 
 class ArmorSet(
@@ -123,8 +122,8 @@ class ArmorSet(
                 advancedEffects.add(conf)
             }
         }
-        regularHolder = SimpleHolder(conditions, effects)
-        advancedHolder = SimpleHolder(conditions, advancedEffects)
+        regularHolder = SimpleHolder(conditions, effects, id)
+        advancedHolder = SimpleHolder(conditions, advancedEffects, "${id}_advanced")
         ArmorSets.addNewSet(this)
         for (slot in ArmorSlot.values()) {
             val item = construct(slot, config.getSubsection(slot.name.lowercase(Locale.getDefault())), false)
@@ -332,5 +331,6 @@ class ArmorSet(
 
 class SimpleHolder(
     override val conditions: Set<ConfiguredCondition>,
-    override val effects: Set<ConfiguredEffect>
+    override val effects: Set<ConfiguredEffect>,
+    override val id: String?
 ) : Holder
