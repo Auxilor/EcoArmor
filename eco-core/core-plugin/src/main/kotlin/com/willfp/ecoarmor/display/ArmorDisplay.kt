@@ -6,12 +6,14 @@ import com.willfp.eco.core.display.DisplayPriority
 import com.willfp.eco.core.fast.FastItemStack
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.LeatherArmorMeta
 
 class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LOWEST) {
     override fun display(
         itemStack: ItemStack,
+        player: Player?,
         vararg args: Any
     ) {
         val meta = itemStack.itemMeta ?: return
@@ -57,6 +59,17 @@ class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LO
 
         if (meta.hasLore()) {
             lore.addAll(fis.lore)
+        }
+
+        if (player != null) {
+            lore.add("")
+            lore.addAll(
+                if (ArmorUtils.isAdvanced(meta)) {
+                    set.advancedHolder.getNotMetLines(player)
+                } else {
+                    set.regularHolder.getNotMetLines(player)
+                }
+            )
         }
 
         if (this.plugin.configYml.getBool("update-item-names")) {

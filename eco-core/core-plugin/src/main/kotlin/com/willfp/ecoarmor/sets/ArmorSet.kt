@@ -332,5 +332,5 @@ class ArmorSet(
 class SimpleHolder(
     override val conditions: Set<ConfiguredCondition>,
     override val effects: Set<ConfiguredEffect>,
-    override val id: String?
+    override val id: String
 ) : Holder
