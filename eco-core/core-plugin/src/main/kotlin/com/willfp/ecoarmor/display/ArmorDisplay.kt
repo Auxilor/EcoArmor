@@ -62,14 +62,16 @@ class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LO
         }
 
         if (player != null) {
-            lore.add("")
-            lore.addAll(
-                if (ArmorUtils.isAdvanced(meta)) {
-                    set.advancedHolder.getNotMetLines(player)
-                } else {
-                    set.regularHolder.getNotMetLines(player)
-                }
-            )
+            val lines = if (ArmorUtils.isAdvanced(meta)) {
+                set.advancedHolder.getNotMetLines(player)
+            } else {
+                set.regularHolder.getNotMetLines(player)
+            }
+
+            if (lines.isNotEmpty()) {
+                lore.add("")
+                lore.addAll(lines)
+            }
         }
 
         if (this.plugin.configYml.getBool("update-item-names")) {
