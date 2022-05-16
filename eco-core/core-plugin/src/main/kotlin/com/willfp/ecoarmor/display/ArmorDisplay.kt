@@ -1,6 +1,7 @@
 package com.willfp.ecoarmor.display
 
 import com.willfp.eco.core.EcoPlugin
+import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.display.DisplayPriority
 import com.willfp.eco.core.fast.FastItemStack
@@ -63,9 +64,9 @@ class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LO
 
         if (player != null) {
             val lines = if (ArmorUtils.isAdvanced(meta)) {
-                set.advancedHolder.getNotMetLines(player)
+                set.advancedHolder.getNotMetLines(player).map { Display.PREFIX + it }
             } else {
-                set.regularHolder.getNotMetLines(player)
+                set.regularHolder.getNotMetLines(player).map { Display.PREFIX + it }
             }
 
             if (lines.isNotEmpty()) {
