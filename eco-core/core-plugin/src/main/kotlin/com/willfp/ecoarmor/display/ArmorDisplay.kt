@@ -70,7 +70,7 @@ class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LO
             }
 
             if (lines.isNotEmpty()) {
-                lore.add("")
+                lore.add(Display.PREFIX)
                 lore.addAll(lines)
             }
         }
