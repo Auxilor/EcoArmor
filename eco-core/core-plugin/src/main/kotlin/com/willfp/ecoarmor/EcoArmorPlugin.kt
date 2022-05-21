@@ -28,6 +28,7 @@ class EcoArmorPlugin : LibReforgePlugin() {
         ecoArmorYml = EcoArmorYml(this)
         Items.registerArgParser(TierArgParser())
         registerHolderProvider { ListUtils.toSingletonList(ArmorUtils.getActiveSet(it)) }
+        registerHolderProvider { ArmorUtils.getSlotHolders(it) }
     }
 
     override fun handleReloadAdditional() {

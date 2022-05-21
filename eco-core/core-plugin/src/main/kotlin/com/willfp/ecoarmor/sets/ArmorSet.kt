@@ -55,9 +55,19 @@ class ArmorSet(
     private val items = notNullMapOf<ArmorSlot, ItemStack>()
 
     /**
+     * Holders in set.
+     */
+    private val slotHolders = notNullMapOf<ArmorSlot, Holder>()
+
+    /**
      * Items in advanced set.
      */
     private val advancedItems = notNullMapOf<ArmorSlot, ItemStack>()
+
+    /**
+     * Holders in advanced set.
+     */
+    private val advancedSlotHolders = notNullMapOf<ArmorSlot, Holder>()
 
     /**
      * Advancement shard item.
@@ -126,11 +136,32 @@ class ArmorSet(
         advancedHolder = SimpleHolder(conditions, advancedEffects, "${id}_advanced")
         ArmorSets.addNewSet(this)
         for (slot in ArmorSlot.values()) {
-            val item = construct(slot, config.getSubsection(slot.name.lowercase(Locale.getDefault())), false)
+            val slotConfig = config.getSubsection(slot.name.lowercase(Locale.getDefault()))
+            val item = construct(slot, slotConfig, false)
             items[slot] = item
-            constructRecipe(slot, config.getSubsection(slot.name.lowercase(Locale.getDefault())), item)
-            val advancedItem = construct(slot, config.getSubsection(slot.name.lowercase(Locale.getDefault())), true)
+            constructRecipe(slot, slotConfig, item)
+            val advancedItem = construct(slot, slotConfig, true)
             advancedItems[slot] = advancedItem
+
+            slotHolders[slot] = SimpleHolder(
+                slotConfig.getSubsections("conditions").mapNotNull {
+                    Conditions.compile(it, "Armor Set $id - $slot")
+                }.toSet(),
+                slotConfig.getSubsections("effects").mapNotNull {
+                    Effects.compile(it, "Armor Set $id - $slot")
+                }.toSet(),
+                "${id}_${slot.name.lowercase()}"
+            )
+
+            advancedSlotHolders[slot] = SimpleHolder(
+                slotConfig.getSubsections("conditions").mapNotNull {
+                    Conditions.compile(it, "Armor Set $id - $slot")
+                }.toSet(),
+                slotConfig.getSubsections("advancedEffects").mapNotNull {
+                    Effects.compile(it, "Armor Set $id - $slot (Advanced)")
+                }.toSet(),
+                "${id}_${slot.name.lowercase()}_advanced"
+            )
         }
         advancementShardItem = constructShard()
     }
@@ -308,6 +339,17 @@ class ArmorSet(
         slot ?: return Tiers.defaultTier
         val tier = Tiers.getByID(config.getSubsection(slot.name.lowercase()).getString("defaultTier"))
         return tier ?: Tiers.defaultTier
+    }
+
+    fun getSpecificHolder(itemStack: ItemStack): Holder? {
+        val slot = getSlot(itemStack) ?: return null
+        val advanced = isAdvanced(itemStack)
+
+        return if (advanced) {
+            advancedSlotHolders[slot]
+        } else {
+            slotHolders[slot]
+        }
     }
 
     override fun equals(other: Any?): Boolean {

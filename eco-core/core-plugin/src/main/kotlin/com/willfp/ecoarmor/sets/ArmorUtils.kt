@@ -66,6 +66,30 @@ object ArmorUtils {
     }
 
     /**
+     * Get active holder for a player.
+     *
+     * @param player The player to check.
+     * @return The holder, or null if not found.
+     */
+    @JvmStatic
+    fun getSlotHolders(player: Player): Iterable<Holder> {
+        val holders = mutableListOf<Holder>()
+
+        for (itemStack in player.inventory.armorContents) {
+            if (itemStack == null) {
+                continue
+            }
+
+            val set = getSetOnItem(itemStack) ?: continue
+            val holder = set.getSpecificHolder(itemStack) ?: continue
+
+            holders.add(holder)
+        }
+
+        return holders
+    }
+
+    /**
      * Get armor set that player is wearing.
      *
      * @param player The player to check.
