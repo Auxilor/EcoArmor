@@ -63,11 +63,18 @@ class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LO
         }
 
         if (player != null) {
-            val lines = if (ArmorUtils.isAdvanced(meta)) {
+            val lines = mutableListOf<String>()
+
+            lines.addAll(if (ArmorUtils.isAdvanced(meta)) {
                 set.advancedHolder.getNotMetLines(player).map { Display.PREFIX + it }
             } else {
                 set.regularHolder.getNotMetLines(player).map { Display.PREFIX + it }
-            }
+            })
+
+            lines.addAll(
+                set.getSpecificHolder(itemStack)?.getNotMetLines(player)?.map { Display.PREFIX + it }
+                ?: emptyList()
+            )
 
             if (lines.isNotEmpty()) {
                 lore.add(Display.PREFIX)
