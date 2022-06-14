@@ -8,11 +8,17 @@ load: STARTUP
 depend:
   - eco
 softdepend:
-  - EcoSkills
   - AureliumSkills
   - Jobs
   - mcMMO
   - Vault
+  - TMMobcoins
+  - EcoEnchants
+  - EcoBosses
+  - Talismans
+  - EcoItems
+  - EcoSkills
+  - Boosters
 
 commands:
   ecoarmor:

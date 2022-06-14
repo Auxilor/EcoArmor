@@ -20,7 +20,7 @@ import com.willfp.ecoarmor.util.EffectListener
 import com.willfp.libreforge.LibReforgePlugin
 import org.bukkit.event.Listener
 
-class EcoArmorPlugin : LibReforgePlugin(687, 10002, "&c") {
+class EcoArmorPlugin : LibReforgePlugin() {
     val ecoArmorYml: EcoArmorYml
 
     init {
@@ -28,6 +28,7 @@ class EcoArmorPlugin : LibReforgePlugin(687, 10002, "&c") {
         ecoArmorYml = EcoArmorYml(this)
         Items.registerArgParser(TierArgParser())
         registerHolderProvider { ListUtils.toSingletonList(ArmorUtils.getActiveSet(it)) }
+        registerHolderProvider { ArmorUtils.getSlotHolders(it) }
     }
 
     override fun handleReloadAdditional() {
