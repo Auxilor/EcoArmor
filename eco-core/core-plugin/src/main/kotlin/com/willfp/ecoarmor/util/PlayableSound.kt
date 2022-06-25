@@ -5,7 +5,7 @@ import org.bukkit.entity.Player
 
 class PlayableSound(
     private val sound: Sound,
-    val volume: Double,
+    private val volume: Double,
     private val pitch: Double
 ) {
     fun play(player: Player) {

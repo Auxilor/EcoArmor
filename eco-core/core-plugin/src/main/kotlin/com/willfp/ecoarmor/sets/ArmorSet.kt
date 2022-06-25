@@ -31,7 +31,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 class ArmorSet(
-    val config: Config,
+    private val config: Config,
     private val plugin: EcoPlugin
 ) {
     /**
@@ -365,9 +365,7 @@ class ArmorSet(
     }
 
     override fun toString(): String {
-        return ("ArmorSet{"
-                + id
-                + "}")
+        return "ArmorSet{$id}"
     }
 }
 
