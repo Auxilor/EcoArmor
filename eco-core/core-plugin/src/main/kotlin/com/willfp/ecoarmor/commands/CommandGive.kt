@@ -2,7 +2,6 @@ package com.willfp.ecoarmor.commands
 
 import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.command.impl.Subcommand
-import com.willfp.eco.core.display.Display
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
@@ -160,7 +159,7 @@ class CommandGive(plugin: EcoPlugin) : Subcommand(plugin, "give", "ecoarmor.comm
             sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
             return
         }
-        for (item in toGive.map { Display.display(it.clone(), reciever) }) {
+        for (item in toGive) {
             item.amount = amount
             reciever.inventory.addItem(item)
         }
