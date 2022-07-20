@@ -118,6 +118,7 @@ class ArmorSet(
                 conditions.add(conf)
             }
         }
+
         val effects: MutableSet<ConfiguredEffect> = HashSet()
         for (cfg in config.getSubsections("effects")) {
             val conf = Effects.compile(cfg, "Armor Set $id")
@@ -125,6 +126,7 @@ class ArmorSet(
                 effects.add(conf)
             }
         }
+
         val advancedEffects: MutableSet<ConfiguredEffect> = HashSet()
         for (cfg in config.getSubsections("advancedEffects")) {
             val conf = Effects.compile(cfg, "Armor Set $id (Advanced)")
@@ -132,9 +134,12 @@ class ArmorSet(
                 advancedEffects.add(conf)
             }
         }
+
         regularHolder = SimpleHolder(conditions, effects, id)
         advancedHolder = SimpleHolder(conditions, advancedEffects, "${id}_advanced")
+
         ArmorSets.addNewSet(this)
+
         for (slot in ArmorSlot.values()) {
             val slotConfig = config.getSubsection(slot.name.lowercase(Locale.getDefault()))
             val item = construct(slot, slotConfig, false)
@@ -145,20 +150,20 @@ class ArmorSet(
 
             slotHolders[slot] = SimpleHolder(
                 slotConfig.getSubsections("conditions").mapNotNull {
-                    Conditions.compile(it, "Armor Set $id - $slot")
+                    Conditions.compile(it, "Armor Set $id - ${slot.name}")
                 }.toSet(),
                 slotConfig.getSubsections("effects").mapNotNull {
-                    Effects.compile(it, "Armor Set $id - $slot")
+                    Effects.compile(it, "Armor Set $id - ${slot.name}")
                 }.toSet(),
                 "${id}_${slot.name.lowercase()}"
             )
 
             advancedSlotHolders[slot] = SimpleHolder(
                 slotConfig.getSubsections("conditions").mapNotNull {
-                    Conditions.compile(it, "Armor Set $id - $slot")
+                    Conditions.compile(it, "Armor Set $id - ${slot.name}")
                 }.toSet(),
                 slotConfig.getSubsections("advancedEffects").mapNotNull {
-                    Effects.compile(it, "Armor Set $id - $slot (Advanced)")
+                    Effects.compile(it, "Armor Set $id - ${slot.name} (Advanced)")
                 }.toSet(),
                 "${id}_${slot.name.lowercase()}_advanced"
             )

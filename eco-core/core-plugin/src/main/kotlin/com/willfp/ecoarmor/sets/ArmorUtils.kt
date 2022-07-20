@@ -66,6 +66,26 @@ object ArmorUtils {
     }
 
     /**
+     * Get all active armor holders for a player.
+     *
+     * @param player The player.
+     * @return The holders.
+     */
+    fun getActiveHolders(player: Player): Iterable<Holder> {
+        val holders = mutableListOf<Holder>()
+
+        val set = getActiveSet(player)
+
+        if (set != null) {
+            holders.add(set)
+        }
+
+        holders.addAll(getSlotHolders(player))
+
+        return holders
+    }
+
+    /**
      * Get active holder for a player.
      *
      * @param player The player to check.

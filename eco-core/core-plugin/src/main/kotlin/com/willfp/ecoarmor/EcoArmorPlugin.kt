@@ -3,7 +3,6 @@ package com.willfp.ecoarmor
 import com.willfp.eco.core.command.impl.PluginCommand
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.items.Items
-import com.willfp.eco.util.ListUtils
 import com.willfp.ecoarmor.commands.CommandEcoarmor
 import com.willfp.ecoarmor.config.EcoArmorYml
 import com.willfp.ecoarmor.display.ArmorDisplay
@@ -27,8 +26,7 @@ class EcoArmorPlugin : LibReforgePlugin() {
         instance = this
         ecoArmorYml = EcoArmorYml(this)
         Items.registerArgParser(TierArgParser())
-        registerHolderProvider { ListUtils.toSingletonList(ArmorUtils.getActiveSet(it)) }
-        registerHolderProvider { ArmorUtils.getSlotHolders(it) }
+        registerHolderProvider { ArmorUtils.getActiveHolders(it) }
     }
 
     override fun handleReloadAdditional() {
