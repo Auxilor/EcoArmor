@@ -111,29 +111,17 @@ class ArmorSet(
      * Create a new Armor Set.
      */
     init {
-        val conditions: MutableSet<ConfiguredCondition> = HashSet()
-        for (cfg in config.getSubsections("conditions")) {
-            val conf = Conditions.compile(cfg, "Armor Set $id")
-            if (conf != null) {
-                conditions.add(conf)
-            }
-        }
+        val conditions = config.getSubsections("conditions").mapNotNull {
+            Conditions.compile(it, "Armor Set $id")
+        }.toSet()
 
-        val effects: MutableSet<ConfiguredEffect> = HashSet()
-        for (cfg in config.getSubsections("effects")) {
-            val conf = Effects.compile(cfg, "Armor Set $id")
-            if (conf != null) {
-                effects.add(conf)
-            }
-        }
+        val effects = config.getSubsections("effects").mapNotNull {
+            Effects.compile(it, "Armor Set $id")
+        }.toSet()
 
-        val advancedEffects: MutableSet<ConfiguredEffect> = HashSet()
-        for (cfg in config.getSubsections("advancedEffects")) {
-            val conf = Effects.compile(cfg, "Armor Set $id (Advanced)")
-            if (conf != null) {
-                advancedEffects.add(conf)
-            }
-        }
+        val advancedEffects = config.getSubsections("advancedEffects").mapNotNull {
+            Effects.compile(it, "Armor Set $id (Advanced)")
+        }.toSet()
 
         regularHolder = SimpleHolder(conditions, effects, id)
         advancedHolder = SimpleHolder(conditions, advancedEffects, "${id}_advanced")
@@ -168,6 +156,7 @@ class ArmorSet(
                 "${id}_${slot.name.lowercase()}_advanced"
             )
         }
+
         advancementShardItem = constructShard()
     }
 
