@@ -1,10 +1,12 @@
 package com.willfp.ecoarmor.sets
 
 import com.willfp.ecoarmor.EcoArmorPlugin.Companion.instance
+import com.willfp.ecoarmor.events.HolderProvideEvent
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.libreforge.Holder
+import org.bukkit.Bukkit
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.entity.Player
@@ -76,11 +78,14 @@ object ArmorUtils {
 
         val set = getActiveSet(player)
 
-        if (set != null) {
-            holders.add(set)
-        }
+        val event = HolderProvideEvent(player, set, getSlotHolders(player))
 
-        holders.addAll(getSlotHolders(player))
+        Bukkit.getPluginManager().callEvent(event)
+
+        if (!event.isCancelled) {
+            event.set?.let { holders.add(it) }
+            holders.addAll(event.holders.values)
+        }
 
         return holders
     }
@@ -92,8 +97,8 @@ object ArmorUtils {
      * @return The holder, or null if not found.
      */
     @JvmStatic
-    fun getSlotHolders(player: Player): Iterable<Holder> {
-        val holders = mutableListOf<Holder>()
+    fun getSlotHolders(player: Player): MutableMap<ItemStack, Holder> {
+        val holders = mutableMapOf<ItemStack, Holder>()
 
         for (itemStack in player.inventory.armorContents) {
             if (itemStack == null) {
@@ -103,7 +108,7 @@ object ArmorUtils {
             val set = getSetOnItem(itemStack) ?: continue
             val holder = set.getSpecificHolder(itemStack) ?: continue
 
-            holders.add(holder)
+            holders[itemStack] = holder
         }
 
         return holders
