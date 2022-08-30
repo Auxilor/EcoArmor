@@ -1,0 +1,66 @@
+id: diamond
+display: "&b&lDIAMOND"
+requiresTiers:
+  - iron
+crystal:
+  item: end_crystal
+  name: "&bDiamond Upgrade Crystal"
+  craftable: true
+  recipe:
+    - air
+    - diamond_block
+    - air
+    - diamond_block
+    - ecoarmor:upgrade_crystal_iron
+    - diamond_block
+    - air
+    - diamond_block
+    - air
+  giveAmount: 1
+  lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&b&lDIAMOND"
+    - ''
+    - "&8&oRequires the armor to already have Iron tier"
+properties:
+  helmet:
+    armor: 3
+    toughness: 2
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  chestplate:
+    armor: 8
+    toughness: 2
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  elytra:
+    armor: 3
+    toughness: 0
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  leggings:
+    armor: 6
+    toughness: 2
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  boots:
+    armor: 3
+    toughness: 2
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0

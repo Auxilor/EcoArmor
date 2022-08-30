@@ -3,9 +3,11 @@ package com.willfp.ecoarmor.sets
 import com.google.common.collect.BiMap
 import com.google.common.collect.HashBiMap
 import com.google.common.collect.ImmutableList
+import com.willfp.eco.core.config.ConfigType
+import com.willfp.eco.core.config.TransientConfig
 import com.willfp.eco.core.config.updating.ConfigUpdater
 import com.willfp.ecoarmor.EcoArmorPlugin
-import com.willfp.libreforge.chains.EffectChains
+import java.io.File
 
 object ArmorSets {
     /**
@@ -42,14 +44,18 @@ object ArmorSets {
     @ConfigUpdater
     @JvmStatic
     fun update(plugin: EcoArmorPlugin) {
-        plugin.ecoArmorYml.getSubsections("chains").mapNotNull {
-            EffectChains.compile(it, "Effect Chains")
-        }
         for (set in values()) {
             removeSet(set)
         }
-        for (setConfig in plugin.ecoArmorYml.getSubsections("sets")) {
-            ArmorSet(setConfig!!, plugin)
+
+        for ((id, config) in plugin.fetchConfigs("sets")) {
+            ArmorSet(id, config, plugin)
+        }
+
+        val ecoArmorYml = TransientConfig(File(plugin.dataFolder, "ecoarmor.yml"), ConfigType.YAML)
+
+        for (setConfig in ecoArmorYml.getSubsections("sets")) {
+            ArmorSet(setConfig.getString("id"), setConfig, plugin)
         }
     }
 

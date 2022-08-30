@@ -15,14 +15,10 @@ import org.bukkit.persistence.PersistentDataType
 import java.util.*
 
 class Tier(
+    val id: String,
     private val config: Config,
     plugin: EcoPlugin
 ) {
-    /**
-     * The tier name.
-     */
-    val id = config.getString("id")
-
     /**
      * The display name of the crystal.
      */

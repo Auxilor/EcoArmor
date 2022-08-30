@@ -1,0 +1,66 @@
+id: cobalt
+display: "&#0047ab&lCOBALT"
+requiresTiers:
+  - iron
+crystal:
+  item: end_crystal
+  name: "&#0047abCobalt Upgrade Crystal"
+  craftable: true
+  recipe:
+    - air
+    - obsidian
+    - air
+    - obsidian
+    - ecoarmor:upgrade_crystal_iron
+    - obsidian
+    - air
+    - obsidian
+    - air
+  giveAmount: 1
+  lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&#0047ab&lCOBALT"
+    - ''
+    - "&8&oRequires the armor to already have Iron tier"
+properties:
+  helmet:
+    armor: 3
+    toughness: 4
+    knockbackResistance: 1
+    speedPercentage: -10
+    attackSpeedPercentage: -10
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 10
+  chestplate:
+    armor: 8
+    toughness: 4
+    knockbackResistance: 1
+    speedPercentage: -10
+    attackSpeedPercentage: -10
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 10
+  elytra:
+    armor: 6
+    toughness: 2
+    knockbackResistance: 1
+    speedPercentage: -10
+    attackSpeedPercentage: -10
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 10
+  leggings:
+    armor: 6
+    toughness: 4
+    knockbackResistance: 1
+    speedPercentage: -10
+    attackSpeedPercentage: -1
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 10
+  boots:
+    armor: 3
+    toughness: 4
+    knockbackResistance: 1
+    speedPercentage: -10
+    attackSpeedPercentage: -10
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 10

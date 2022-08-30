@@ -1,0 +1,212 @@
+conditions: []
+effects:
+  - id: damage_multiplier
+    args:
+      multiplier: 0.85
+    triggers:
+      - melee_attack
+  - id: damage_multiplier
+    args:
+      multiplier: 2.5
+    triggers:
+      - trident_attack
+  - id: damage_multiplier
+    args:
+      multiplier: 1.5
+    triggers:
+      - bow_attack
+advancedEffects:
+  - id: damage_multiplier
+    args:
+      multiplier: 3.5
+    triggers:
+      - trident_attack
+  - id: damage_multiplier
+    args:
+      multiplier: 1.75
+    triggers:
+      - bow_attack
+sounds:
+  equip:
+    enabled: false
+    sound: ""
+    volume: 1
+    pitch: 1
+  advancedEquip:
+    enabled: false
+    sound: ""
+    volume: 1
+    pitch: 1
+  unequip:
+    enabled: false
+    sound: ""
+    volume: 1
+    pitch: 1
+advancedLore:
+  - ''
+  - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
+  - "&8» &bDeal 3.5x trident damage"
+  - "&8» &bDeal 1.75x bow damage"
+  - "&8» &bNo melee damage penalty"
+  - "&8&oRequires full set to be worn"
+shard:
+  item: prismarine_shard unbreaking:1 hide_enchants
+  name: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &bHuntress"
+  lore:
+    - "&8Drop this onto &bHuntress Armor"
+    - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+  craftable: false
+  recipe:
+    - prismarine_shard
+    - ecoarmor:set_huntress_helmet
+    - prismarine_shard
+    - ecoarmor:set_huntress_chestplate
+    - nether_star
+    - ecoarmor:set_huntress_leggings
+    - prismarine_shard
+    - ecoarmor:set_huntress_boots
+    - prismarine_shard
+helmet:
+  item: leather_helmet color:#96fbfc hide_dye
+  name: "&bHuntress Helmet"
+  advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Helmet"
+  effectiveDurability: 1024
+  effects: []
+  advancedEffects: []
+  conditions: []
+  lore:
+    - "&b&lHUNTRESS SET BONUS"
+    - "&8» &bDeal 2.5x trident damage"
+    - "&8» &bDeal 1.5x bow damage"
+    - "&8» &bDeal 15% less melee damage damage"
+    - "&8&oRequires full set to be worn"
+    - ''
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
+  defaultTier: default
+  recipe:
+    - ecoitems:armor_core ? crossbow
+    - trident
+    - ecoitems:armor_core ? crossbow
+    - air
+    - iron_helmet
+    - air
+    - spectral_arrow
+    - enchanted_book power:5
+    - spectral_arrow
+chestplate:
+  item: leather_chestplate color:#97fbfc hide_dye
+  name: "&bHuntress Chestplate"
+  advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Chestplate"
+  effectiveDurability: 2048
+  effects: []
+  conditions: []
+  lore:
+    - "&b&lHUNTRESS SET BONUS"
+    - "&8» &bDeal 2.5x trident damage"
+    - "&8» &bDeal 1.5x bow damage"
+    - "&8» &bDeal 15% less melee damage damage"
+    - "&8&oRequires full set to be worn"
+    - ''
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
+  defaultTier: default
+  recipe:
+    - ecoitems:armor_core ? crossbow
+    - trident
+    - ecoitems:armor_core ? crossbow
+    - air
+    - iron_chestplate
+    - air
+    - spectral_arrow
+    - enchanted_book power:5
+    - spectral_arrow
+elytra:
+  item: elytra
+  name: "&bHuntress Elytra"
+  advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Elytra"
+  effectiveDurability: 2048
+  effects: []
+  advancedEffects: []
+  conditions: []
+  lore:
+    - "&b&lHUNTRESS SET BONUS"
+    - "&8» &bDeal 2.5x trident damage"
+    - "&8» &bDeal 1.5x bow damage"
+    - "&8» &bDeal 15% less melee damage damage"
+    - "&8&oRequires full set to be worn"
+    - ''
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
+  defaultTier: default
+  recipe:
+    - ecoitems:armor_core ? crossbow
+    - trident
+    - ecoitems:armor_core ? crossbow
+    - air
+    - feather
+    - air
+    - spectral_arrow
+    - enchanted_book power:5
+    - spectral_arrow
+leggings:
+  item: leather_leggings color:#97fbfc hide_dye
+  name: "&bHuntress Leggings"
+  advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Leggings"
+  effectiveDurability: 2048
+  effects: []
+  advancedEffects: []
+  conditions: []
+  lore:
+    - "&b&lHUNTRESS SET BONUS"
+    - "&8» &bDeal 2.5x trident damage"
+    - "&8» &bDeal 1.5x bow damage"
+    - "&8» &bDeal 15% less melee damage damage"
+    - "&8&oRequires full set to be worn"
+    - ''
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
+  defaultTier: default
+  recipe:
+    - ecoitems:armor_core ? crossbow
+    - trident
+    - ecoitems:armor_core ? crossbow
+    - air
+    - iron_leggings
+    - air
+    - spectral_arrow
+    - enchanted_book power:5
+    - spectral_arrow
+boots:
+  item: leather_boots color:#97fbfc hide_dye
+  name: "&bHuntress Boots"
+  advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&b Huntress Boots"
+  effectiveDurability: 2048
+  effects: []
+  advancedEffects: []
+  conditions: []
+  lore:
+    - "&b&lHUNTRESS SET BONUS"
+    - "&8» &bDeal 2.5x trident damage"
+    - "&8» &bDeal 1.5x bow damage"
+    - "&8» &bDeal 15% less melee damage damage"
+    - "&8&oRequires full set to be worn"
+    - ''
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
+  defaultTier: default
+  recipe:
+    - ecoitems:armor_core ? crossbow
+    - trident
+    - ecoitems:armor_core ? crossbow
+    - air
+    - iron_boots
+    - air
+    - spectral_arrow
+    - enchanted_book power:5
+    - spectral_arrow

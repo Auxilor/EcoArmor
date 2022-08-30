@@ -1,0 +1,66 @@
+id: exotic
+display: "&6&k!!&r <GRADIENT:f79d00>&lEXOTIC</GRADIENT:64f38c>&r &6&k!!&r"
+requiresTiers:
+  - netherite
+crystal:
+  item: end_crystal
+  name: "<GRADIENT:f79d00>Exotic Upgrade Crystal</GRADIENT:64f38c>"
+  craftable: true
+  recipe:
+    - ecoarmor:upgrade_crystal_netherite
+    - turtle_egg
+    - ecoarmor:upgrade_crystal_netherite
+    - turtle_egg
+    - ecoarmor:upgrade_crystal_cobalt
+    - turtle_egg
+    - ecoarmor:upgrade_crystal_netherite
+    - turtle_egg
+    - ecoarmor:upgrade_crystal_netherite
+  giveAmount: 1
+  lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&6&k!!&r <GRADIENT:f79d00>&lEXOTIC</GRADIENT:64f38c>&r &6&k!!&r"
+    - ''
+    - "&8&oRequires the armor to already have Netherite tier"
+properties:
+  helmet:
+    armor: 3
+    toughness: 2
+    knockbackResistance: 0
+    speedPercentage: 5
+    attackSpeedPercentage: 10
+    attackDamagePercentage: -5
+    attackKnockbackPercentage: -20
+  chestplate:
+    armor: 8
+    toughness: 2
+    knockbackResistance: 0
+    speedPercentage: 5
+    attackSpeedPercentage: 10
+    attackDamagePercentage: -5
+    attackKnockbackPercentage: -20
+  elytra:
+    armor: 3
+    toughness: 0
+    knockbackResistance: 0
+    speedPercentage: 5
+    attackSpeedPercentage: 10
+    attackDamagePercentage: -5
+    attackKnockbackPercentage: -20
+  leggings:
+    armor: 6
+    toughness: 2
+    knockbackResistance: 0
+    speedPercentage: 5
+    attackSpeedPercentage: 10
+    attackDamagePercentage: -5
+    attackKnockbackPercentage: -20
+  boots:
+    armor: 3
+    toughness: 2
+    knockbackResistance: 0
+    speedPercentage: 5
+    attackSpeedPercentage: 10
+    attackDamagePercentage: -5
+    attackKnockbackPercentage: -20

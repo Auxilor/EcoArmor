@@ -1,0 +1,63 @@
+id: ancient
+display: "&6&k!!&r <GRADIENT:ffb347>&lANCIENT</GRADIENT:ffcc33>&r &6&k!!&r"
+requiresTiers: []
+crystal:
+  item: end_crystal
+  name: "<GRADIENT:ffb347>Ancient Upgrade Crystal</GRADIENT:ffcc33>"
+  craftable: false
+  recipe:
+    - air
+    - netherite_block
+    - air
+    - netherite_block
+    - ecoarmor:upgrade_crystal_cobalt
+    - netherite_block
+    - air
+    - netherite_block
+    - air
+  giveAmount: 1
+  lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&6&k!!&r <GRADIENT:ffb347>&lANCIENT</GRADIENT:ffcc33>&r &6&k!!&r"
+properties:
+  helmet:
+    armor: 3
+    toughness: 5
+    knockbackResistance: 0
+    speedPercentage: 5
+    attackSpeedPercentage: 5
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  chestplate:
+    armor: 8
+    toughness: 5
+    knockbackResistance: 0
+    speedPercentage: 5
+    attackSpeedPercentage: 5
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  elytra:
+    armor: 3
+    toughness: 5
+    knockbackResistance: 0
+    speedPercentage: 5
+    attackSpeedPercentage: 5
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  leggings:
+    armor: 6
+    toughness: 6
+    knockbackResistance: 0
+    speedPercentage: 5
+    attackSpeedPercentage: 5
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  boots:
+    armor: 3
+    toughness: 6
+    knockbackResistance: 0
+    speedPercentage: 5
+    attackSpeedPercentage: 5
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0

@@ -1,0 +1,63 @@
+id: default
+display: "&8&lDEFAULT"
+requiresTiers: []
+crystal:
+  item: end_crystal
+  name: "&8Default Upgrade Crystal"
+  craftable: false
+  recipe:
+    - air
+    - leather
+    - air
+    - leather
+    - leather_chestplate
+    - leather
+    - air
+    - leather
+    - air
+  giveAmount: 1
+  lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&8&lDEFAULT"
+properties:
+  helmet:
+    armor: 1
+    toughness: 0
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  chestplate:
+    armor: 3
+    toughness: 0
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  elytra:
+    armor: 0
+    toughness: 0
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedpercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  leggings:
+    armor: 2
+    toughness: 0
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  boots:
+    armor: 1
+    toughness: 0
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0

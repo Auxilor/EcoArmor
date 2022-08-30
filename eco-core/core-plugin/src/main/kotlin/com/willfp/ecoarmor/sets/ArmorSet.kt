@@ -31,14 +31,10 @@ import java.util.*
 import java.util.stream.Collectors
 
 class ArmorSet(
+    val id: String,
     val config: Config,
     private val plugin: EcoPlugin
 ) {
-    /**
-     * The name of the set.
-     */
-    val id: String = config.getString("id")
-
     /**
      * The advanced holder.
      */

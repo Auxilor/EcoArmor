@@ -1,0 +1,66 @@
+id: iron
+display: "&7&lIRON"
+requiresTiers:
+  - default
+crystal:
+  item: end_crystal
+  name: "&7Iron Upgrade Crystal"
+  craftable: true
+  recipe:
+    - air
+    - iron_block
+    - air
+    - iron_block
+    - leather_chestplate
+    - iron_block
+    - air
+    - iron_block
+    - air
+  giveAmount: 1
+  lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&7&lIRON"
+    - ''
+    - "&8&oRequires the armor to already have default tier"
+properties:
+  helmet:
+    armor: 2
+    toughness: 0
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  chestplate:
+    armor: 6
+    toughness: 0
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  elytra:
+    armor: 2
+    toughness: 0
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  leggings:
+    armor: 5
+    toughness: 0
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  boots:
+    armor: 2
+    toughness: 0
+    knockbackResistance: 0
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0

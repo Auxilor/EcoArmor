@@ -1,0 +1,209 @@
+conditions: []
+effects:
+  - id: bonus_health
+    args:
+      health: 10
+  - id: damage_multiplier
+    args:
+      multiplier: 0.9
+    triggers:
+      - melee_attack
+  - id: permanent_potion_effect
+    args:
+      effect: regeneration
+      level: 1
+advancedEffects:
+  - id: bonus_health
+    args:
+      health: 20
+  - id: hunger_multiplier
+    args:
+      multiplier: 0.5
+  - id: permanent_potion_effect
+    args:
+      effect: regeneration
+      level: 1
+sounds:
+  equip:
+    enabled: false
+    sound: ""
+    volume: 1
+    pitch: 1
+  advancedEquip:
+    enabled: false
+    sound: ""
+    volume: 1
+    pitch: 1
+  unequip:
+    enabled: false
+    sound: ""
+    volume: 1
+    pitch: 1
+advancedLore:
+  - ''
+  - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
+  - "&8» &dGet 20 more hearts"
+  - "&8» &dReduce hunger loss by 50%"
+  - "&8&oRequires full set to be worn"
+shard:
+  item: prismarine_shard unbreaking:1 hide_enchants
+  name: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &5Angelic"
+  lore:
+    - "&8Drop this onto &5Angelic Armor"
+    - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
+  craftable: false
+  recipe:
+    - prismarine_shard
+    - ecoarmor:set_angelic_helmet
+    - prismarine_shard
+    - ecoarmor:set_angelic_chestplate
+    - nether_star
+    - ecoarmor:set_angelic_leggings
+    - prismarine_shard
+    - ecoarmor:set_angelic_boots
+    - prismarine_shard
+helmet:
+  item: leather_helmet color:#bd15a9 hide_dye
+  name: "&5Angelic Helmet"
+  advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Helmet"
+  effectiveDurability: 768
+  effects: []
+  advancedEffects: []
+  conditions: []
+  lore:
+    - "&5&lANGELIC SET BONUS"
+    - "&8» &dGain 10 more hearts"
+    - "&8» &dPermanent regeneration"
+    - "&8» &dDeal 10% less melee damage"
+    - "&8&oRequires full set to be worn"
+    - ''
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
+  defaultTier: default
+  recipe:
+    - netherite_block
+    - ecoitems:enchanted_ender_eye ? netherite_ingot
+    - diamond_block
+    - air
+    - golden_helmet
+    - air
+    - gold_block
+    - ecoitems:armor_core ? enchanted_book mending:1
+    - gold_block
+chestplate:
+  item: leather_chestplate color:#bd15a9 hide_dye
+  name: "&5Angelic Chestplate"
+  advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Chestplate"
+  effectiveDurability: 1024
+  effects: []
+  advancedEffects: []
+  conditions: []
+  lore:
+    - "&5&lANGELIC SET BONUS"
+    - "&8» &dGain 10 more hearts"
+    - "&8» &dPermanent regeneration"
+    - "&8» &dDeal 10% less melee damage"
+    - "&8&oRequires full set to be worn"
+    - ''
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
+  defaultTier: default
+  recipe:
+    - netherite_block
+    - ecoitems:enchanted_ender_eye ? netherite_ingot
+    - diamond_block
+    - air
+    - golden_chestplate
+    - air
+    - gold_block
+    - ecoitems:armor_core ? enchanted_book mending:1
+    - gold_block
+elytra:
+  item: elytra
+  name: "&5Angelic Elytra"
+  advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Elytra"
+  effectiveDurability: 1024
+  effects: []
+  advancedEffects: []
+  conditions: []
+  lore:
+    - "&5&lANGELIC SET BONUS"
+    - "&8» &dGain 10 more hearts"
+    - "&8» &dPermanent regeneration"
+    - "&8» &dDeal 10% less melee damage"
+    - "&8&oRequires full set to be worn"
+    - ''
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
+  defaultTier: default
+  recipe:
+    - netherite_block
+    - ecoitems:enchanted_ender_eye ? netherite_ingot
+    - diamond_block
+    - air
+    - elytra
+    - air
+    - gold_block
+    - ecoitems:armor_core ? enchanted_book mending:1
+    - gold_block
+leggings:
+  item: leather_leggings color:#bd15a9 hide_dye
+  name: "&5Angelic Leggings"
+  advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Leggings"
+  effectiveDurability: 1024
+  effects: []
+  advancedEffects: []
+  conditions: []
+  lore:
+    - "&5&lANGELIC SET BONUS"
+    - "&8» &dGain 10 more hearts"
+    - "&8» &dPermanent regeneration"
+    - "&8» &dDeal 10% less melee damage"
+    - "&8&oRequires full set to be worn"
+    - ''
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
+  defaultTier: default
+  recipe:
+    - netherite_block
+    - ecoitems:enchanted_ender_eye ? netherite_ingot
+    - diamond_block
+    - air
+    - golden_leggings
+    - air
+    - gold_block
+    - ecoitems:armor_core ? enchanted_book mending:1
+    - gold_block
+boots:
+  item: leather_boots color:#bd15a9 hide_dye
+  name: "&5Angelic Boots"
+  advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&5 Angelic Boots"
+  effectiveDurability: 1024
+  effects: []
+  advancedEffects: []
+  conditions: []
+  lore:
+    - "&5&lANGELIC SET BONUS"
+    - "&8» &dGain 10 more hearts"
+    - "&8» &dPermanent regeneration"
+    - "&8» &dDeal 10% less melee damage"
+    - "&8&oRequires full set to be worn"
+    - ''
+    - "&fTier: %tier%"
+    - "&8&oUpgrade with an Upgrade Crystal"
+  craftable: true
+  defaultTier: default
+  recipe:
+    - netherite_block
+    - ecoitems:enchanted_ender_eye ? netherite_ingot
+    - diamond_block
+    - air
+    - golden_boots
+    - air
+    - gold_block
+    - ecoitems:armor_core ? enchanted_book mending:1
+    - gold_block

@@ -3,9 +3,12 @@ package com.willfp.ecoarmor.upgrades
 import com.google.common.collect.BiMap
 import com.google.common.collect.HashBiMap
 import com.google.common.collect.ImmutableList
+import com.willfp.eco.core.config.ConfigType
+import com.willfp.eco.core.config.TransientConfig
 import com.willfp.eco.core.config.updating.ConfigUpdater
 import com.willfp.ecoarmor.EcoArmorPlugin
 import com.willfp.ecoarmor.EcoArmorPlugin.Companion.instance
+import java.io.File
 
 object Tiers {
     /**
@@ -60,9 +63,17 @@ object Tiers {
     @JvmStatic
     fun reload(plugin: EcoArmorPlugin) {
         BY_ID.clear()
-        for (tierConfig in plugin.ecoArmorYml.getSubsections("tiers")) {
-            Tier(tierConfig, plugin)
+
+        for ((id, config) in plugin.fetchConfigs("tiers")) {
+            Tier(id, config, plugin)
         }
+
+        val ecoArmorYml = TransientConfig(File(plugin.dataFolder, "ecoarmor.yml"), ConfigType.YAML)
+
+        for (config in ecoArmorYml.getSubsections("tiers")) {
+            Tier(config.getString("id"), config, plugin)
+        }
+
         defaultTier = getByID("default")!!
     }
 

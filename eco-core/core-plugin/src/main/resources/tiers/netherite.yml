@@ -1,0 +1,66 @@
+id: netherite
+display: "&c&lNETHERITE"
+requiresTiers:
+  - diamond
+crystal:
+  item: end_crystal
+  name: "&cNetherite Upgrade Crystal"
+  craftable: true
+  recipe:
+    - air
+    - netherite_ingot
+    - air
+    - netherite_ingot
+    - ecoarmor:upgrade_crystal_diamond
+    - netherite_ingot
+    - air
+    - netherite_ingot
+    - air
+  giveAmount: 1
+  lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&c&lNETHERITE"
+    - ''
+    - "&8&oRequires the armor to already have Diamond tier"
+properties:
+  helmet:
+    armor: 3
+    toughness: 3
+    knockbackResistance: 1
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  chestplate:
+    armor: 8
+    toughness: 3
+    knockbackResistance: 1
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  elytra:
+    armor: 3
+    toughness: 0
+    knockbackResistance: 1
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  leggings:
+    armor: 6
+    toughness: 3
+    knockbackResistance: 1
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0
+  boots:
+    armor: 3
+    toughness: 3
+    knockbackResistance: 1
+    speedPercentage: 0
+    attackSpeedPercentage: 0
+    attackDamagePercentage: 0
+    attackKnockbackPercentage: 0

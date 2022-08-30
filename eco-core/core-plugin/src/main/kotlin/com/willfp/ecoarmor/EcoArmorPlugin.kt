@@ -4,7 +4,6 @@ import com.willfp.eco.core.command.impl.PluginCommand
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.items.Items
 import com.willfp.ecoarmor.commands.CommandEcoarmor
-import com.willfp.ecoarmor.config.EcoArmorYml
 import com.willfp.ecoarmor.display.ArmorDisplay
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorUtils
@@ -20,13 +19,15 @@ import com.willfp.libreforge.LibReforgePlugin
 import org.bukkit.event.Listener
 
 class EcoArmorPlugin : LibReforgePlugin() {
-    val ecoArmorYml: EcoArmorYml
-
     init {
         instance = this
-        ecoArmorYml = EcoArmorYml(this)
         Items.registerArgParser(TierArgParser())
         registerHolderProvider { ArmorUtils.getActiveHolders(it) }
+    }
+
+    override fun handleEnableAdditional() {
+        this.copyConfigs("sets")
+        this.copyConfigs("tiers")
     }
 
     override fun handleReloadAdditional() {

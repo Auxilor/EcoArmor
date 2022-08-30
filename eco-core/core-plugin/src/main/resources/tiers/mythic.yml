@@ -1,0 +1,63 @@
+id: mythic
+display: "&1&k!!&r <GRADIENT:00c6ff>&lMYTHIC</GRADIENT:0072ff>&r &1&k!!&r"
+requiresTiers: []
+crystal:
+  item: end_crystal
+  name: "<GRADIENT:00c6ff>Mythic Upgrade Crystal</GRADIENT:0072ff>"
+  craftable: false
+  recipe:
+    - air
+    - netherite_block
+    - air
+    - netherite_block
+    - ecoarmor:upgrade_crystal_cobalt
+    - netherite_block
+    - air
+    - netherite_block
+    - air
+  giveAmount: 1
+  lore:
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&1&k!!&r <GRADIENT:00c6ff>&lMYTHIC</GRADIENT:0072ff>&r &1&k!!&r"
+properties:
+  helmet:
+    armor: 3
+    toughness: 7
+    knockbackResistance: 0
+    speedPercentage: 7
+    attackSpeedPercentage: 8
+    attackDamagePercentage: 2
+    attackKnockbackPercentage: 2
+  chestplate:
+    armor: 8
+    toughness: 7
+    knockbackResistance: 0
+    speedPercentage: 7
+    attackSpeedPercentage: 8
+    attackDamagePercentage: 2
+    attackKnockbackPercentage: 2
+  elytra:
+    armor: 3
+    toughness: 7
+    knockbackResistance: 0
+    speedPercentage: 7
+    attackSpeedPercentage: 8
+    attackDamagePercentage: 2
+    attackKnockbackPercentage: 2
+  leggings:
+    armor: 6
+    toughness: 7
+    knockbackResistance: 0
+    speedPercentage: 7
+    attackSpeedPercentage: 8
+    attackDamagePercentage: 2
+    attackKnockbackPercentage: 2
+  boots:
+    armor: 3
+    toughness: 7
+    knockbackResistance: 0
+    speedPercentage: 7
+    attackSpeedPercentage: 8
+    attackDamagePercentage: 2
+    attackKnockbackPercentage: 2
