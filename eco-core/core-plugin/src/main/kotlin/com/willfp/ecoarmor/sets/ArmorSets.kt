@@ -7,6 +7,7 @@ import com.willfp.eco.core.config.ConfigType
 import com.willfp.eco.core.config.TransientConfig
 import com.willfp.eco.core.config.updating.ConfigUpdater
 import com.willfp.ecoarmor.EcoArmorPlugin
+import com.willfp.ecoarmor.upgrades.Tiers
 import java.io.File
 
 object ArmorSets {
@@ -44,6 +45,8 @@ object ArmorSets {
     @ConfigUpdater
     @JvmStatic
     fun update(plugin: EcoArmorPlugin) {
+        Tiers.reload(plugin)
+
         for (set in values()) {
             removeSet(set)
         }
