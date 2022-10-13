@@ -61,7 +61,7 @@ object Tiers {
     internal fun reload(plugin: EcoArmorPlugin) {
         BY_ID.clear()
 
-        for ((id, config) in plugin.fetchConfigs("tiers")) {
+        for ((id, config) in plugin.fetchConfigs("tiers", dontShare = true)) {
             Tier(id, config, plugin)
         }
 
