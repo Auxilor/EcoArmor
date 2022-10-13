@@ -38,12 +38,20 @@ permissions:
       ecoarmor.command.reload: true
       ecoarmor.command.ecoarmor: true
       ecoarmor.command.give: true
+      ecoarmor.command.import: true
+      ecoarmor.command.export: true
 
   ecoarmor.command.reload:
     description: Allows reloading the config
     default: op
   ecoarmor.command.give:
     description: Allows the use of /ecoarmor give
+    default: op
+  ecoarmor.command.import:
+    description: Allows the use of /ecoarmor import
+    default: op
+  ecoarmor.command.export:
+    description: Allows the use of /ecoarmor export
     default: op
   ecoarmor.command.ecoarmor:
     description: Allows the user of /ecoarmor.
