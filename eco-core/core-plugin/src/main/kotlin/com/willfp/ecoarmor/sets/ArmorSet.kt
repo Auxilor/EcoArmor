@@ -27,7 +27,8 @@ import org.bukkit.Bukkit
 import org.bukkit.Sound
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import java.util.*
+import java.util.Locale
+import java.util.Objects
 import java.util.stream.Collectors
 
 class ArmorSet(
@@ -35,39 +36,25 @@ class ArmorSet(
     val config: Config,
     private val plugin: EcoPlugin
 ) {
-    /**
-     * The advanced holder.
-     */
+    /** The advanced holder. */
     val advancedHolder: Holder
 
-    /**
-     * The regular holder.
-     */
+    /** The regular holder. */
     val regularHolder: Holder
 
-    /**
-     * Items in set.
-     */
+    /** Items in set. */
     private val items = notNullMapOf<ArmorSlot, ItemStack>()
 
-    /**
-     * Holders in set.
-     */
+    /** Holders in set. */
     private val slotHolders = notNullMapOf<ArmorSlot, Holder>()
 
-    /**
-     * Items in advanced set.
-     */
+    /** Items in advanced set. */
     private val advancedItems = notNullMapOf<ArmorSlot, ItemStack>()
 
-    /**
-     * Holders in advanced set.
-     */
+    /** Holders in advanced set. */
     private val advancedSlotHolders = notNullMapOf<ArmorSlot, Holder>()
 
-    /**
-     * Advancement shard item.
-     */
+    /** Advancement shard item. */
     val advancementShardItem: ItemStack
 
     /*
@@ -103,21 +90,22 @@ class ArmorSet(
         )
     } else null
 
-    /**
-     * Create a new Armor Set.
-     */
+    /** Create a new Armor Set. */
     init {
-        val conditions = config.getSubsections("conditions").mapNotNull {
-            Conditions.compile(it, "Armor Set $id")
-        }.toSet()
+        val conditions = Conditions.compile(
+            config.getSubsections("conditions"),
+            "Armor Set $id"
+        )
 
-        val effects = config.getSubsections("effects").mapNotNull {
-            Effects.compile(it, "Armor Set $id")
-        }.toSet()
+        val effects = Effects.compile(
+            config.getSubsections("effects"),
+            "Armor Set $id"
+        )
 
-        val advancedEffects = config.getSubsections("advancedEffects").mapNotNull {
-            Effects.compile(it, "Armor Set $id (Advanced)")
-        }.toSet()
+        val advancedEffects = Effects.compile(
+            config.getSubsections("advancedEffects"),
+            "Armor Set $id (advanced)"
+        )
 
         regularHolder = SimpleHolder(conditions, effects, id)
         advancedHolder = SimpleHolder(conditions, advancedEffects, "${id}_advanced")
@@ -133,22 +121,26 @@ class ArmorSet(
             advancedItems[slot] = advancedItem
 
             slotHolders[slot] = SimpleHolder(
-                slotConfig.getSubsections("conditions").mapNotNull {
-                    Conditions.compile(it, "Armor Set $id - ${slot.name}")
-                }.toSet(),
-                slotConfig.getSubsections("effects").mapNotNull {
-                    Effects.compile(it, "Armor Set $id - ${slot.name}")
-                }.toSet(),
+                Conditions.compile(
+                    slotConfig.getSubsections("conditions"),
+                    "Armor Set $id - ${slot.name}"
+                ),
+                Effects.compile(
+                    slotConfig.getSubsections("effects"),
+                    "Armor Set $id - ${slot.name}"
+                ),
                 "${id}_${slot.name.lowercase()}"
             )
 
             advancedSlotHolders[slot] = SimpleHolder(
-                slotConfig.getSubsections("conditions").mapNotNull {
-                    Conditions.compile(it, "Armor Set $id - ${slot.name}")
-                }.toSet(),
-                slotConfig.getSubsections("advancedEffects").mapNotNull {
-                    Effects.compile(it, "Armor Set $id - ${slot.name} (Advanced)")
-                }.toSet(),
+                Conditions.compile(
+                    slotConfig.getSubsections("conditions"),
+                    "Armor Set $id - ${slot.name}"
+                ),
+                Effects.compile(
+                    slotConfig.getSubsections("advancedEffects"),
+                    "Armor Set $id - ${slot.name} (Advanced)"
+                ),
                 "${id}_${slot.name.lowercase()}_advanced"
             )
         }
