@@ -4,7 +4,7 @@ import com.google.common.collect.BiMap
 import com.google.common.collect.HashBiMap
 import com.google.common.collect.ImmutableList
 import com.willfp.eco.core.config.ConfigType
-import com.willfp.eco.core.config.TransientConfig
+import com.willfp.eco.core.config.readConfig
 import com.willfp.ecoarmor.EcoArmorPlugin
 import com.willfp.ecoarmor.EcoArmorPlugin.Companion.instance
 import java.io.File
@@ -65,7 +65,7 @@ object Tiers {
             Tier(id, config, plugin)
         }
 
-        val ecoArmorYml = TransientConfig(File(plugin.dataFolder, "ecoarmor.yml"), ConfigType.YAML)
+        val ecoArmorYml = File(plugin.dataFolder, "ecoarmor.yml").readConfig(ConfigType.YAML)
 
         for (config in ecoArmorYml.getSubsections("tiers")) {
             Tier(config.getString("id"), config, plugin)
