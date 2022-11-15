@@ -6,6 +6,7 @@
 discover-recipes: true # If all recipes should be automatically discovered.
 update-item-names: true # If item names should be updated to match config (disable to allow renaming armor pieces in anvils)
 advanced-lore-only: false # If advanced armor should only show the advanced lore
+update-leather-colors: true # If leather armor should be updated to match config
 
 cooldown:
   in-actionbar: true
