@@ -86,7 +86,8 @@ class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LO
             meta.setDisplayName(slotMeta.displayName)
         }
 
-        if (meta is LeatherArmorMeta && slotMeta is LeatherArmorMeta) {
+        if (meta is LeatherArmorMeta && slotMeta is LeatherArmorMeta
+            && this.plugin.configYml.getBool("update-leather-colors")) {
             meta.setColor(slotMeta.color)
         }
 
