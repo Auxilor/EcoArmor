@@ -20,19 +20,20 @@ enum class ArmorSlot(
                 return null
             }
             val material = itemStack.type
-            val split = material.name.lowercase(Locale.getDefault()).split("_").toTypedArray()
 
-            return getSlot(split[split.size - 1])
+            return getSlot(material.name)
         }
 
         @JvmStatic
         fun getSlot(name: String): ArmorSlot? {
-            return when (name.lowercase(Locale.getDefault())) {
-                "helmet" -> HELMET
-                "chestplate" -> CHESTPLATE
-                "elytra" -> ELYTRA
-                "leggings" -> LEGGINGS
-                "boots" -> BOOTS
+            return when {
+                name.contains("HELMET", true) || name.contains("HEAD", true)
+                        || name.contains("SKULL", true)
+                        || name.contains("PUMPKIN", true) -> HELMET
+                name.contains("CHESTPLATE", true) -> CHESTPLATE
+                name.contains("ELYTRA", true) -> ELYTRA
+                name.contains("LEGGINGS", true) -> LEGGINGS
+                name.contains("BOOTS", true) -> BOOTS
                 else -> null
             }
         }
