@@ -1,19 +1,12 @@
 package com.willfp.ecoarmor.sets
 
-import com.google.common.collect.BiMap
-import com.google.common.collect.HashBiMap
 import com.google.common.collect.ImmutableList
-import com.willfp.eco.core.config.ConfigType
 import com.willfp.eco.core.config.interfaces.Config
-import com.willfp.eco.core.config.readConfig
-import com.willfp.eco.core.config.updating.ConfigUpdater
 import com.willfp.eco.core.registry.Registry
 import com.willfp.ecoarmor.EcoArmorPlugin
-import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.libreforge.loader.LibreforgePlugin
 import com.willfp.libreforge.loader.configs.ConfigCategory
 import com.willfp.libreforge.loader.configs.LegacyLocation
-import java.io.File
 
 object ArmorSets : ConfigCategory("set", "sets") {
     /**
@@ -22,9 +15,8 @@ object ArmorSets : ConfigCategory("set", "sets") {
     private val registry = Registry<ArmorSet>()
 
     override val legacyLocation = LegacyLocation(
-        "ecoarmor",
-        "sets",
-        emptyList()
+        "ecoarmor.yml",
+        "sets"
     )
 
     /**

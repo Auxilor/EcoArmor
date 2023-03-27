@@ -1,16 +1,12 @@
 package com.willfp.ecoarmor.upgrades
 
 import com.google.common.collect.ImmutableList
-import com.willfp.eco.core.config.ConfigType
 import com.willfp.eco.core.config.interfaces.Config
-import com.willfp.eco.core.config.readConfig
 import com.willfp.eco.core.registry.Registry
 import com.willfp.ecoarmor.EcoArmorPlugin
-import com.willfp.ecoarmor.EcoArmorPlugin.Companion.instance
 import com.willfp.libreforge.loader.LibreforgePlugin
 import com.willfp.libreforge.loader.configs.ConfigCategory
 import com.willfp.libreforge.loader.configs.LegacyLocation
-import java.io.File
 
 object Tiers : ConfigCategory("tier", "tiers") {
     /**
@@ -21,9 +17,8 @@ object Tiers : ConfigCategory("tier", "tiers") {
     override val supportsSharing = false
 
     override val legacyLocation = LegacyLocation(
-        "ecoarmor",
-        "tiers",
-        emptyList()
+        "ecoarmor.yml",
+        "tiers"
     )
 
     /**
