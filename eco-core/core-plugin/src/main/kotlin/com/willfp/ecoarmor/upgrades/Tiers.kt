@@ -1,19 +1,28 @@
 package com.willfp.ecoarmor.upgrades
 
-import com.google.common.collect.BiMap
-import com.google.common.collect.HashBiMap
 import com.google.common.collect.ImmutableList
 import com.willfp.eco.core.config.ConfigType
+import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.eco.core.config.readConfig
+import com.willfp.eco.core.registry.Registry
 import com.willfp.ecoarmor.EcoArmorPlugin
 import com.willfp.ecoarmor.EcoArmorPlugin.Companion.instance
+import com.willfp.libreforge.loader.LibreforgePlugin
+import com.willfp.libreforge.loader.configs.ConfigCategory
+import com.willfp.libreforge.loader.configs.LegacyLocation
 import java.io.File
 
-object Tiers {
+object Tiers : ConfigCategory("tier", "tiers") {
     /**
      * Registered tiers.
      */
-    private val BY_ID: BiMap<String?, Tier> = HashBiMap.create()
+    private val registry = Registry<Tier>()
+
+    override val legacyLocation = LegacyLocation(
+        "ecoarmor",
+        "tiers",
+        emptyList()
+    )
 
     /**
      * Default tier.
@@ -29,7 +38,11 @@ object Tiers {
      */
     @JvmStatic
     fun getByID(name: String?): Tier? {
-        return BY_ID[name]
+        if (name == null) {
+            return null
+        }
+
+        return registry[name]
     }
 
     /**
@@ -39,42 +52,18 @@ object Tiers {
      */
     @JvmStatic
     fun values(): List<Tier> {
-        return ImmutableList.copyOf(BY_ID.values)
+        return ImmutableList.copyOf(registry.values())
     }
 
-    /**
-     * Add new [Tier] to EcoArmor.
-     *
-     * @param tier The [Tier] to add.
-     */
-    @JvmStatic
-    fun addNewTier(tier: Tier) {
-        BY_ID.remove(tier.id)
-        BY_ID[tier.id] = tier
+    override fun clear(plugin: LibreforgePlugin) {
+        registry.clear()
     }
 
-    /**
-     * Update.
-     *
-     * @param plugin Instance of EcoArmor.
-     */
-    internal fun reload(plugin: EcoArmorPlugin) {
-        BY_ID.clear()
+    override fun acceptConfig(plugin: LibreforgePlugin, id: String, config: Config) {
+        registry.register(Tier(id, config, plugin as EcoArmorPlugin))
+    }
 
-        for ((id, config) in plugin.fetchConfigs("tiers", dontShare = true)) {
-            Tier(id, config, plugin)
-        }
-
-        val ecoArmorYml = File(plugin.dataFolder, "ecoarmor.yml").readConfig(ConfigType.YAML)
-
-        for (config in ecoArmorYml.getSubsections("tiers")) {
-            Tier(config.getString("id"), config, plugin)
-        }
-
+    override fun afterReload(plugin: LibreforgePlugin) {
         defaultTier = getByID("default")!!
-    }
-
-    init {
-        reload(instance)
     }
 }

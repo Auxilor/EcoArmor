@@ -132,6 +132,7 @@ class CommandGive(plugin: EcoPlugin) : Subcommand(plugin, "give", "ecoarmor.comm
                 return
             }
             var message = plugin.langYml.getMessage("give-success")
+            @Suppress("DEPRECATION")
             message =
                 message.replace("%item%", tier.crystal.itemMeta!!.displayName).replace("%recipient%", reciever.name)
             sender.sendMessage(message)
@@ -147,6 +148,7 @@ class CommandGive(plugin: EcoPlugin) : Subcommand(plugin, "give", "ecoarmor.comm
                 return
             }
             var message = plugin.langYml.getMessage("give-success")
+            @Suppress("DEPRECATION")
             message = message.replace("%item%", set.advancementShardItem.itemMeta!!.displayName)
                 .replace("%recipient%", reciever.name)
             sender.sendMessage(message)

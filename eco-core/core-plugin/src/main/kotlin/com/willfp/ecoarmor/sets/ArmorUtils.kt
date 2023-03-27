@@ -5,6 +5,9 @@ import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.libreforge.Holder
+import com.willfp.libreforge.ItemProvidedHolder
+import com.willfp.libreforge.ProvidedHolder
+import com.willfp.libreforge.SimpleProvidedHolder
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.entity.Player
@@ -71,13 +74,13 @@ object ArmorUtils {
      * @param player The player.
      * @return The holders.
      */
-    fun getActiveHolders(player: Player): Iterable<Holder> {
-        val holders = mutableListOf<Holder>()
+    fun getActiveHolders(player: Player): Collection<ProvidedHolder> {
+        val holders = mutableListOf<ProvidedHolder>()
 
         val set = getActiveSet(player)
 
         if (set != null) {
-            holders.add(set)
+            holders.add(SimpleProvidedHolder(set))
         }
 
         holders.addAll(getSlotHolders(player))
@@ -91,9 +94,8 @@ object ArmorUtils {
      * @param player The player to check.
      * @return The holder, or null if not found.
      */
-    @JvmStatic
-    fun getSlotHolders(player: Player): Iterable<Holder> {
-        val holders = mutableListOf<Holder>()
+    private fun getSlotHolders(player: Player): Collection<ItemProvidedHolder> {
+        val holders = mutableListOf<ItemProvidedHolder>()
 
         for (itemStack in player.inventory.armorContents) {
             if (itemStack == null) {
@@ -103,7 +105,7 @@ object ArmorUtils {
             val set = getSetOnItem(itemStack) ?: continue
             val holder = set.getSpecificHolder(itemStack) ?: continue
 
-            holders.add(holder)
+            holders.add(ItemProvidedHolder(holder, itemStack))
         }
 
         return holders

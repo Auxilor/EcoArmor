@@ -66,14 +66,14 @@ class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LO
             val lines = mutableListOf<String>()
 
             lines.addAll(if (ArmorUtils.isAdvanced(meta)) {
-                set.advancedHolder.getNotMetLines(player).map { Display.PREFIX + it }
+                set.advancedHolder.conditions.getNotMetLines(player).map { Display.PREFIX + it }
             } else {
-                set.regularHolder.getNotMetLines(player).map { Display.PREFIX + it }
+                set.regularHolder.conditions.getNotMetLines(player).map { Display.PREFIX + it }
             })
 
             lines.addAll(
-                set.getSpecificHolder(itemStack)?.getNotMetLines(player)?.map { Display.PREFIX + it }
-                ?: emptyList()
+                set.getSpecificHolder(itemStack)?.conditions?.getNotMetLines(player)?.map { Display.PREFIX + it }
+                    ?: emptyList()
             )
 
             if (lines.isNotEmpty()) {
@@ -83,11 +83,13 @@ class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LO
         }
 
         if (this.plugin.configYml.getBool("update-item-names")) {
+            @Suppress("DEPRECATION")
             meta.setDisplayName(slotMeta.displayName)
         }
 
         if (meta is LeatherArmorMeta && slotMeta is LeatherArmorMeta
-            && this.plugin.configYml.getBool("update-leather-colors")) {
+            && this.plugin.configYml.getBool("update-leather-colors")
+        ) {
             meta.setColor(slotMeta.color)
         }
 

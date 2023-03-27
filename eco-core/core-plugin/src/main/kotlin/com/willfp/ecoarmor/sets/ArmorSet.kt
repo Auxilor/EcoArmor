@@ -8,6 +8,7 @@ import com.willfp.eco.core.items.Items
 import com.willfp.eco.core.items.builder.ItemBuilder
 import com.willfp.eco.core.items.builder.ItemStackBuilder
 import com.willfp.eco.core.recipe.Recipes
+import com.willfp.eco.core.registry.Registrable
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getSetOnItem
 import com.willfp.ecoarmor.sets.ArmorUtils.getShardSet
@@ -19,9 +20,9 @@ import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.PlayableSound
 import com.willfp.ecoarmor.util.notNullMapOf
 import com.willfp.libreforge.Holder
+import com.willfp.libreforge.SimpleHolder
+import com.willfp.libreforge.ViolationContext
 import com.willfp.libreforge.conditions.Conditions
-import com.willfp.libreforge.conditions.ConfiguredCondition
-import com.willfp.libreforge.effects.ConfiguredEffect
 import com.willfp.libreforge.effects.Effects
 import org.bukkit.Bukkit
 import org.bukkit.Sound
@@ -35,7 +36,7 @@ class ArmorSet(
     val id: String,
     val config: Config,
     private val plugin: EcoPlugin
-) {
+) : Registrable {
     /** The advanced holder. */
     val advancedHolder: Holder
 
@@ -94,23 +95,21 @@ class ArmorSet(
     init {
         val conditions = Conditions.compile(
             config.getSubsections("conditions"),
-            "Armor Set $id"
+            ViolationContext(plugin, "Armor Set $id")
         )
 
         val effects = Effects.compile(
             config.getSubsections("effects"),
-            "Armor Set $id"
+            ViolationContext(plugin, "Armor Set $id")
         )
 
         val advancedEffects = Effects.compile(
             config.getSubsections("advancedEffects"),
-            "Armor Set $id (advanced)"
+            ViolationContext(plugin, "Armor Set $id (advanced)")
         )
 
-        regularHolder = SimpleHolder(conditions, effects, id)
-        advancedHolder = SimpleHolder(conditions, advancedEffects, "${id}_advanced")
-
-        ArmorSets.addNewSet(this)
+        regularHolder = SimpleHolder(plugin.namespacedKeyFactory.create(id), effects, conditions)
+        advancedHolder = SimpleHolder(plugin.namespacedKeyFactory.create("${id}_advanced"), advancedEffects, conditions)
 
         for (slot in ArmorSlot.values()) {
             val slotConfig = config.getSubsection(slot.name.lowercase(Locale.getDefault()))
@@ -121,27 +120,31 @@ class ArmorSet(
             advancedItems[slot] = advancedItem
 
             slotHolders[slot] = SimpleHolder(
-                Conditions.compile(
-                    slotConfig.getSubsections("conditions"),
-                    "Armor Set $id - ${slot.name}"
-                ),
+                plugin.createNamespacedKey("${id}_${slot.name.lowercase()}"),
                 Effects.compile(
                     slotConfig.getSubsections("effects"),
-                    "Armor Set $id - ${slot.name}"
+                    ViolationContext(plugin, "Armor Set $id)")
+                        .with(slot.name.lowercase())
                 ),
-                "${id}_${slot.name.lowercase()}"
+                Conditions.compile(
+                    slotConfig.getSubsections("conditions"),
+                    ViolationContext(plugin, "Armor Set $id)")
+                        .with(slot.name.lowercase())
+                )
             )
 
             advancedSlotHolders[slot] = SimpleHolder(
-                Conditions.compile(
-                    slotConfig.getSubsections("conditions"),
-                    "Armor Set $id - ${slot.name}"
-                ),
+                plugin.createNamespacedKey("${id}_${slot.name.lowercase()}_advanced"),
                 Effects.compile(
                     slotConfig.getSubsections("advancedEffects"),
-                    "Armor Set $id - ${slot.name} (Advanced)"
+                    ViolationContext(plugin, "Armor Set $id (advanced)")
+                        .with(slot.name.lowercase())
                 ),
-                "${id}_${slot.name.lowercase()}_advanced"
+                Conditions.compile(
+                    slotConfig.getSubsections("conditions"),
+                    ViolationContext(plugin, "Armor Set $id (advanced)")
+                        .with(slot.name.lowercase())
+                )
             )
         }
 
@@ -268,6 +271,7 @@ class ArmorSet(
         return itemStack
     }
 
+    @Suppress("DEPRECATION")
     private fun constructRecipe(
         slot: ArmorSlot,
         slotConfig: Config,
@@ -334,6 +338,10 @@ class ArmorSet(
         }
     }
 
+    override fun getID(): String {
+        return this.id
+    }
+
     override fun equals(other: Any?): Boolean {
         if (other !is ArmorSet) {
             return false
@@ -352,9 +360,3 @@ class ArmorSet(
                 + "}")
     }
 }
-
-class SimpleHolder(
-    override val conditions: Set<ConfiguredCondition>,
-    override val effects: Set<ConfiguredEffect>,
-    override val id: String
-) : Holder

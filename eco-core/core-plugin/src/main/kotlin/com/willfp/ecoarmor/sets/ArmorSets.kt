@@ -4,17 +4,28 @@ import com.google.common.collect.BiMap
 import com.google.common.collect.HashBiMap
 import com.google.common.collect.ImmutableList
 import com.willfp.eco.core.config.ConfigType
+import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.eco.core.config.readConfig
 import com.willfp.eco.core.config.updating.ConfigUpdater
+import com.willfp.eco.core.registry.Registry
 import com.willfp.ecoarmor.EcoArmorPlugin
 import com.willfp.ecoarmor.upgrades.Tiers
+import com.willfp.libreforge.loader.LibreforgePlugin
+import com.willfp.libreforge.loader.configs.ConfigCategory
+import com.willfp.libreforge.loader.configs.LegacyLocation
 import java.io.File
 
-object ArmorSets {
+object ArmorSets : ConfigCategory("set", "sets") {
     /**
      * Registered armor sets.
      */
-    private val BY_ID: BiMap<String, ArmorSet> = HashBiMap.create()
+    private val registry = Registry<ArmorSet>()
+
+    override val legacyLocation = LegacyLocation(
+        "ecoarmor",
+        "sets",
+        emptyList()
+    )
 
     /**
      * Get all registered [ArmorSet]s.
@@ -23,7 +34,7 @@ object ArmorSets {
      */
     @JvmStatic
     fun values(): List<ArmorSet> {
-        return ImmutableList.copyOf(BY_ID.values)
+        return ImmutableList.copyOf(registry.values())
     }
 
     /**
@@ -34,52 +45,14 @@ object ArmorSets {
      */
     @JvmStatic
     fun getByID(name: String): ArmorSet? {
-        return BY_ID[name]
+        return registry[name]
     }
 
-    /**
-     * Update all [ArmorSet]s.
-     *
-     * @param plugin Instance of EcoArmor.
-     */
-    @ConfigUpdater
-    @JvmStatic
-    fun update(plugin: EcoArmorPlugin) {
-        Tiers.reload(plugin)
-
-        for (set in values()) {
-            removeSet(set)
-        }
-
-        for ((id, config) in plugin.fetchConfigs("sets")) {
-            ArmorSet(id, config, plugin)
-        }
-
-        val ecoArmorYml = File(plugin.dataFolder, "ecoarmor.yml").readConfig(ConfigType.YAML)
-
-        for (setConfig in ecoArmorYml.getSubsections("sets")) {
-            ArmorSet(setConfig.getString("id"), setConfig, plugin)
-        }
+    override fun clear(plugin: LibreforgePlugin) {
+        registry.clear()
     }
 
-    /**
-     * Add new [ArmorSet] to EcoArmor.
-     *
-     * @param set The [ArmorSet] to add.
-     */
-    @JvmStatic
-    fun addNewSet(set: ArmorSet) {
-        BY_ID.remove(set.id)
-        BY_ID[set.id] = set
-    }
-
-    /**
-     * Remove [ArmorSet] from EcoArmor.
-     *
-     * @param set The [ArmorSet] to remove.
-     */
-    @JvmStatic
-    fun removeSet(set: ArmorSet) {
-        BY_ID.remove(set.id)
+    override fun acceptConfig(plugin: LibreforgePlugin, id: String, config: Config) {
+        registry.register(ArmorSet(id, config, plugin as EcoArmorPlugin))
     }
 }

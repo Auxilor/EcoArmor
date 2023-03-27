@@ -1,23 +1,13 @@
-name: EcoArmor
-version: ${projectVersion}
+name: ${pluginName}
+version: ${version}
 main: com.willfp.ecoarmor.EcoArmorPlugin
-api-version: 1.16
+api-version: 1.17
 authors: [ Auxilor ]
 website: willfp.com
 depend:
   - eco
 softdepend:
-  - AureliumSkills
-  - Jobs
-  - mcMMO
-  - Vault
-  - TMMobcoins
-  - EcoEnchants
-  - EcoBosses
-  - Talismans
-  - EcoItems
-  - EcoSkills
-  - Boosters
+  - libreforge
 
 commands:
   ecoarmor:
@@ -37,20 +27,12 @@ permissions:
       ecoarmor.command.reload: true
       ecoarmor.command.ecoarmor: true
       ecoarmor.command.give: true
-      ecoarmor.command.import: true
-      ecoarmor.command.export: true
 
   ecoarmor.command.reload:
     description: Allows reloading the config
     default: op
   ecoarmor.command.give:
     description: Allows the use of /ecoarmor give
-    default: op
-  ecoarmor.command.import:
-    description: Allows the use of /ecoarmor import
-    default: op
-  ecoarmor.command.export:
-    description: Allows the use of /ecoarmor export
     default: op
   ecoarmor.command.ecoarmor:
     description: Allows the user of /ecoarmor.
