@@ -18,6 +18,8 @@ object Tiers : ConfigCategory("tier", "tiers") {
      */
     private val registry = Registry<Tier>()
 
+    override val supportsSharing = false
+
     override val legacyLocation = LegacyLocation(
         "ecoarmor",
         "tiers",
