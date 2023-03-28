@@ -5,6 +5,7 @@ import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.items.Items
 import com.willfp.ecoarmor.commands.CommandEcoArmor
 import com.willfp.ecoarmor.display.ArmorDisplay
+import com.willfp.ecoarmor.libreforge.ConditionIsWearingSet
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorUtils
 import com.willfp.ecoarmor.sets.EffectiveDurabilityListener
@@ -14,6 +15,7 @@ import com.willfp.ecoarmor.upgrades.CrystalListener
 import com.willfp.ecoarmor.upgrades.TierArgParser
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.DiscoverRecipeListener
+import com.willfp.libreforge.conditions.Conditions
 import com.willfp.libreforge.loader.LibreforgePlugin
 import com.willfp.libreforge.loader.configs.ConfigCategory
 import com.willfp.libreforge.registerHolderProvider
@@ -26,6 +28,8 @@ class EcoArmorPlugin : LibreforgePlugin() {
     }
 
     override fun handleEnable() {
+        Conditions.register(ConditionIsWearingSet)
+
         registerHolderProvider { ArmorUtils.getActiveHolders(it) }
     }
 

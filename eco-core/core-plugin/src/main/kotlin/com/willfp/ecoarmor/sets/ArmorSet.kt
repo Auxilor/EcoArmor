@@ -18,12 +18,12 @@ import com.willfp.ecoarmor.sets.ArmorUtils.setTier
 import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.PlayableSound
-import com.willfp.ecoarmor.util.notNullMapOf
 import com.willfp.libreforge.Holder
 import com.willfp.libreforge.SimpleHolder
 import com.willfp.libreforge.ViolationContext
 import com.willfp.libreforge.conditions.Conditions
 import com.willfp.libreforge.effects.Effects
+import com.willfp.libreforge.notNullMapOf
 import org.bukkit.Bukkit
 import org.bukkit.Sound
 import org.bukkit.inventory.ItemStack
