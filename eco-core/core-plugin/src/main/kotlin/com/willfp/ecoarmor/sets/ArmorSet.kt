@@ -24,6 +24,7 @@ import com.willfp.libreforge.ViolationContext
 import com.willfp.libreforge.conditions.Conditions
 import com.willfp.libreforge.effects.Effects
 import com.willfp.libreforge.notNullMapOf
+import com.willfp.libreforge.notNullMutableMapOf
 import org.bukkit.Bukkit
 import org.bukkit.Sound
 import org.bukkit.inventory.ItemStack
@@ -44,16 +45,16 @@ class ArmorSet(
     val regularHolder: Holder
 
     /** Items in set. */
-    private val items = notNullMapOf<ArmorSlot, ItemStack>()
+    private val items = notNullMutableMapOf<ArmorSlot, ItemStack>()
 
     /** Holders in set. */
-    private val slotHolders = notNullMapOf<ArmorSlot, Holder>()
+    private val slotHolders = notNullMutableMapOf<ArmorSlot, Holder>()
 
     /** Items in advanced set. */
-    private val advancedItems = notNullMapOf<ArmorSlot, ItemStack>()
+    private val advancedItems = notNullMutableMapOf<ArmorSlot, ItemStack>()
 
     /** Holders in advanced set. */
-    private val advancedSlotHolders = notNullMapOf<ArmorSlot, Holder>()
+    private val advancedSlotHolders = notNullMutableMapOf<ArmorSlot, Holder>()
 
     /** Advancement shard item. */
     val advancementShardItem: ItemStack

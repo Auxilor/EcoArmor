@@ -11,6 +11,7 @@ import com.willfp.eco.util.StringUtils
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getCrystalTier
 import com.willfp.libreforge.notNullMapOf
+import com.willfp.libreforge.notNullMutableMapOf
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
@@ -50,7 +51,7 @@ class Tier(
     /**
      * Item properties.
      */
-    val properties = notNullMapOf<ArmorSlot, TierProperties>()
+    val properties = notNullMutableMapOf<ArmorSlot, TierProperties>()
 
     /**
      * Create a new Tier.
