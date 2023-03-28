@@ -23,13 +23,16 @@ class EcoArmorPlugin : LibreforgePlugin() {
     init {
         instance = this
         Items.registerArgParser(TierArgParser())
+    }
+
+    override fun handleEnable() {
         registerHolderProvider { ArmorUtils.getActiveHolders(it) }
     }
 
     override fun loadConfigCategories(): List<ConfigCategory> {
         return listOf(
-            ArmorSets,
-            Tiers
+            Tiers,
+            ArmorSets
         )
     }
 
