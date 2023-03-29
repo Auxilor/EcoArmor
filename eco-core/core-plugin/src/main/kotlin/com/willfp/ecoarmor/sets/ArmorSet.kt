@@ -19,6 +19,8 @@ import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.PlayableSound
 import com.willfp.libreforge.Holder
+import com.willfp.libreforge.ItemProvidedHolder
+import com.willfp.libreforge.ProvidedHolder
 import com.willfp.libreforge.SimpleHolder
 import com.willfp.libreforge.ViolationContext
 import com.willfp.libreforge.conditions.Conditions
@@ -328,14 +330,14 @@ class ArmorSet(
         return tier ?: Tiers.defaultTier
     }
 
-    fun getSpecificHolder(itemStack: ItemStack): Holder? {
+    fun getSpecificHolder(itemStack: ItemStack): ProvidedHolder? {
         val slot = getSlot(itemStack) ?: return null
         val advanced = isAdvanced(itemStack)
 
         return if (advanced) {
-            advancedSlotHolders[slot]
+            ItemProvidedHolder(advancedSlotHolders[slot], itemStack)
         } else {
-            slotHolders[slot]
+            ItemProvidedHolder(slotHolders[slot], itemStack)
         }
     }
 

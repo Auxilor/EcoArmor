@@ -7,6 +7,7 @@ import com.willfp.eco.core.display.DisplayPriority
 import com.willfp.eco.core.fast.FastItemStack
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils
+import com.willfp.libreforge.SimpleProvidedHolder
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.LeatherArmorMeta
@@ -66,13 +67,21 @@ class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LO
             val lines = mutableListOf<String>()
 
             lines.addAll(if (ArmorUtils.isAdvanced(meta)) {
-                set.advancedHolder.conditions.getNotMetLines(player).map { Display.PREFIX + it }
+                set.advancedHolder.conditions
+                    .getNotMetLines(player, SimpleProvidedHolder(set.advancedHolder))
+                    .map { Display.PREFIX + it }
             } else {
-                set.regularHolder.conditions.getNotMetLines(player).map { Display.PREFIX + it }
+                set.regularHolder.conditions
+                    .getNotMetLines(player, SimpleProvidedHolder(set.regularHolder))
+                    .map { Display.PREFIX + it }
             })
 
+            // Lovely.
+            val specificHolder = set.getSpecificHolder(itemStack)
             lines.addAll(
-                set.getSpecificHolder(itemStack)?.conditions?.getNotMetLines(player)?.map { Display.PREFIX + it }
+                specificHolder?.holder?.conditions
+                    ?.getNotMetLines(player, specificHolder)
+                    ?.map { Display.PREFIX + it }
                     ?: emptyList()
             )
 
