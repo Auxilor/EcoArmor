@@ -330,7 +330,7 @@ class ArmorSet(
         return tier ?: Tiers.defaultTier
     }
 
-    fun getSpecificHolder(itemStack: ItemStack): ProvidedHolder? {
+    fun getSpecificHolder(itemStack: ItemStack): ItemProvidedHolder? {
         val slot = getSlot(itemStack) ?: return null
         val advanced = isAdvanced(itemStack)
 

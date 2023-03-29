@@ -105,7 +105,7 @@ object ArmorUtils {
             val set = getSetOnItem(itemStack) ?: continue
             val holder = set.getSpecificHolder(itemStack) ?: continue
 
-            holders.add(ItemProvidedHolder(holder, itemStack))
+            holders.add(holder)
         }
 
         return holders
