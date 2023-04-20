@@ -27,9 +27,11 @@ class EcoArmorPlugin : LibreforgePlugin() {
         Items.registerArgParser(TierArgParser())
     }
 
-    override fun handleEnable() {
+    override fun handleLoad() {
         Conditions.register(ConditionIsWearingSet)
+    }
 
+    override fun handleEnable() {
         registerHolderProvider { ArmorUtils.getActiveHolders(it) }
     }
 
