@@ -119,8 +119,19 @@ object ArmorUtils {
      */
     @JvmStatic
     fun getSetOnPlayer(player: Player): ArmorSet? {
+        return getSetOn(player.inventory.armorContents.toList())
+    }
+
+    /**
+     * Get armor set that player is wearing.
+     *
+     * @param items The items to check.
+     * @return The set, or null if no full set is worn.
+     */
+    @JvmStatic
+    fun getSetOn(items: List<ItemStack?>): ArmorSet? {
         val found: MutableList<ArmorSet> = ArrayList()
-        for (itemStack in player.inventory.armorContents) {
+        for (itemStack in items) {
             if (itemStack == null) {
                 continue
             }
@@ -372,10 +383,21 @@ object ArmorUtils {
      */
     @JvmStatic
     fun isWearingAdvanced(player: Player): Boolean {
-        if (getSetOnPlayer(player) == null) {
+        return isWearingAdvanced(player.inventory.armorContents.toList())
+    }
+
+    /**
+     * Get if player is wearing advanced set.
+     *
+     * @param items The items to check.
+     * @return If advanced.
+     */
+    @JvmStatic
+    fun isWearingAdvanced(items: List<ItemStack?>): Boolean {
+        if (getSetOn(items) == null) {
             return false
         }
-        for (itemStack in player.inventory.armorContents) {
+        for (itemStack in items) {
             if (itemStack == null) {
                 return false
             }

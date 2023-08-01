@@ -3,13 +3,11 @@ package com.willfp.ecoarmor
 import com.willfp.eco.core.command.impl.PluginCommand
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.items.Items
+import com.willfp.ecoarmor.api.PlayerArmorSetEventListeners
 import com.willfp.ecoarmor.commands.CommandEcoArmor
 import com.willfp.ecoarmor.display.ArmorDisplay
 import com.willfp.ecoarmor.libreforge.ConditionIsWearingSet
-import com.willfp.ecoarmor.sets.ArmorSets
-import com.willfp.ecoarmor.sets.ArmorUtils
-import com.willfp.ecoarmor.sets.EffectiveDurabilityListener
-import com.willfp.ecoarmor.sets.PreventSkullPlaceListener
+import com.willfp.ecoarmor.sets.*
 import com.willfp.ecoarmor.upgrades.AdvancementShardListener
 import com.willfp.ecoarmor.upgrades.CrystalListener
 import com.willfp.ecoarmor.upgrades.TierArgParser
@@ -54,7 +52,9 @@ class EcoArmorPlugin : LibreforgePlugin() {
             AdvancementShardListener(this),
             EffectiveDurabilityListener(this),
             DiscoverRecipeListener(this),
-            PreventSkullPlaceListener()
+            PreventSkullPlaceListener(),
+            PlayerArmorSetEventListeners(),
+            ArmorSetEquipSoundListeners()
         )
     }
 
