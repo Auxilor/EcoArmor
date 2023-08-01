@@ -2,7 +2,6 @@ package com.willfp.ecoarmor.sets
 
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
-import java.util.*
 
 enum class ArmorSlot(
     val slot: EquipmentSlot
@@ -29,6 +28,7 @@ enum class ArmorSlot(
             return when {
                 name.contains("HELMET", true) || name.contains("HEAD", true)
                         || name.contains("SKULL", true)
+                        || name.contains("PAPER", true)
                         || name.contains("PUMPKIN", true) -> HELMET
                 name.contains("CHESTPLATE", true) -> CHESTPLATE
                 name.contains("ELYTRA", true) -> ELYTRA
