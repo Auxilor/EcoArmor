@@ -1,4 +1,4 @@
-package com.willfp.ecoarmor.api
+package com.willfp.ecoarmor.sets
 
 import com.willfp.eco.core.events.ArmorChangeEvent
 import com.willfp.ecoarmor.api.event.PlayerArmorSetEquipEvent
@@ -8,7 +8,8 @@ import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
-class PlayerArmorSetEventListeners: Listener {
+class PlayerArmorSetEventListeners : Listener {
+    // disgusting
     @EventHandler
     fun handle(event: ArmorChangeEvent) {
         val setBefore = ArmorUtils.getSetOn(event.before)
@@ -16,7 +17,9 @@ class PlayerArmorSetEventListeners: Listener {
         val setAfter = ArmorUtils.getSetOn(event.after)
         val advancedAfter = ArmorUtils.isWearingAdvanced(event.after)
 
-        if (setBefore == setAfter && advancedBefore == advancedAfter) return
+        if (setBefore == setAfter && advancedBefore == advancedAfter) {
+            return
+        }
 
         if (setBefore != null) {
             Bukkit.getPluginManager().callEvent(

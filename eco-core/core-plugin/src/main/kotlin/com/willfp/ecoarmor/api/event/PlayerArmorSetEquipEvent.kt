@@ -4,8 +4,11 @@ import com.willfp.ecoarmor.sets.ArmorSet
 import org.bukkit.entity.Player
 import org.bukkit.event.HandlerList
 
-class PlayerArmorSetEquipEvent(who: Player, override val set: ArmorSet,
-                               override val advanced: Boolean): PlayerArmorSetEvent(who, set, advanced) {
+class PlayerArmorSetEquipEvent(
+    who: Player,
+    override val set: ArmorSet,
+    override val advanced: Boolean
+) : PlayerArmorSetEvent(who, set, advanced) {
     override fun getHandlers(): HandlerList {
         return handlerList
     }
