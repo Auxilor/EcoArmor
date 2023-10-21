@@ -169,7 +169,8 @@ class ArmorSet(
                 plugin,
                 id + "_shard",
                 shard,
-                config.getStrings("shard.recipe")
+                config.getStrings("shard.recipe"),
+                config.getStringOrNull("shard.crafting-permission")
             )
         }
         CustomItem(
@@ -292,7 +293,8 @@ class ArmorSet(
                     plugin,
                     id + "_" + slot.name.lowercase(Locale.getDefault()),
                     formattedOut,
-                    slotConfig.getStrings("recipe")
+                    slotConfig.getStrings("recipe"),
+                    slotConfig.getStringOrNull("crafting-permission")
                 )
             }
         }
