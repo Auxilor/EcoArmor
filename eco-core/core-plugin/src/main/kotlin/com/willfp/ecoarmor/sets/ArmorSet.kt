@@ -115,7 +115,7 @@ class ArmorSet(
         advancedHolder = SimpleHolder(plugin.namespacedKeyFactory.create("${id}_advanced"), advancedEffects, conditions)
 
         for (slot in ArmorSlot.values()) {
-            val slotConfig = config.getSubsection(slot.name.lowercase(Locale.getDefault()))
+            val slotConfig = config.getSubsection(slot.name.lowercase(Locale.ENGLISH))
             val item = construct(slot, slotConfig, false)
             items[slot] = item
             constructRecipe(slot, slotConfig, item)
