@@ -67,20 +67,18 @@ class ArmorDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.LO
             val lines = mutableListOf<String>()
 
             lines.addAll(if (ArmorUtils.isAdvanced(meta)) {
-                set.advancedHolder.conditions
-                    .getNotMetLines(player, SimpleProvidedHolder(set.advancedHolder))
+                SimpleProvidedHolder(set.advancedHolder)
+                    .getNotMetLines(player)
                     .map { Display.PREFIX + it }
             } else {
-                set.regularHolder.conditions
-                    .getNotMetLines(player, SimpleProvidedHolder(set.regularHolder))
+                SimpleProvidedHolder(set.regularHolder)
+                    .getNotMetLines(player)
                     .map { Display.PREFIX + it }
             })
 
             // Lovely.
-            val specificHolder = set.getSpecificHolder(itemStack)
             lines.addAll(
-                specificHolder?.holder?.conditions
-                    ?.getNotMetLines(player, specificHolder)
+                set.getSpecificHolder(itemStack)?.getNotMetLines(player)
                     ?.map { Display.PREFIX + it }
                     ?: emptyList()
             )
