@@ -17,10 +17,13 @@ import com.willfp.ecoarmor.upgrades.CrystalListener
 import com.willfp.ecoarmor.upgrades.TierArgParser
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.DiscoverRecipeListener
+import com.willfp.libreforge.SimpleProvidedHolder
 import com.willfp.libreforge.conditions.Conditions
 import com.willfp.libreforge.loader.LibreforgePlugin
 import com.willfp.libreforge.loader.configs.ConfigCategory
 import com.willfp.libreforge.registerHolderProvider
+import com.willfp.libreforge.registerSpecificHolderProvider
+import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 
 class EcoArmorPlugin : LibreforgePlugin() {
@@ -34,7 +37,9 @@ class EcoArmorPlugin : LibreforgePlugin() {
     }
 
     override fun handleEnable() {
-        registerHolderProvider { ArmorUtils.getActiveHolders(it) }
+        registerSpecificHolderProvider<Player> {
+            ArmorUtils.getActiveHolders(it)
+        }
     }
 
     override fun loadConfigCategories(): List<ConfigCategory> {
