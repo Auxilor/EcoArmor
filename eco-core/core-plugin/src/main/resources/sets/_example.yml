@@ -54,6 +54,7 @@ shard:
     - "&8Drop this onto &cReaper Armor"
     - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
   craftable: false
+  crafting-permission: "permission" # (Optional: Require a permission to craft this item) 
   recipe:
     - prismarine_shard
     - ecoarmor:set_reaper_helmet
@@ -80,6 +81,7 @@ helmet:
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
+  crafting-permission: "permission" # (Optional: Require a permission to craft this item)
   defaultTier: default
   recipe:
     - ecoitems:armor_core ? air
@@ -107,6 +109,7 @@ chestplate:
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
+  crafting-permission: "permission" # (Optional: Require a permission to craft this item) # (Optional: Require a permission to craft this item)
   defaultTier: default
   recipe:
     - ecoitems:armor_core ? air
@@ -125,6 +128,7 @@ elytra:
   effectiveDurability: 2048
   effects: []
   advancedEffects: []
+  crafting-permission: "permission" # (Optional: Require a permission to craft this item)
   conditions: []
   lore:
     - "&c&lREAPER SET BONUS"
@@ -161,6 +165,7 @@ leggings:
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
+  crafting-permission: "permission" # (Optional: Require a permission to craft this item)
   defaultTier: default
   recipe:
     - ecoitems:armor_core ? air
@@ -188,6 +193,7 @@ boots:
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
+  crafting-permission: "permission" # (Optional: Require a permission to craft this item)
   defaultTier: default
   recipe:
     - ecoitems:armor_core ? air
