@@ -4,7 +4,6 @@
 # including in subfolders if you want to organize your tier configs
 # _example.yml is not loaded.
 
-id: netherite
 display: "&c&lNETHERITE" # The display in-game
 requiresTiers: # If this tier requires a prior tier
   - diamond # Tier ID
