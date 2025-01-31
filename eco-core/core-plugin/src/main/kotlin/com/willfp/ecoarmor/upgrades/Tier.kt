@@ -5,6 +5,7 @@ import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.items.CustomItem
 import com.willfp.eco.core.items.Items
+import com.willfp.eco.core.recipe.Recipes
 import com.willfp.eco.core.recipe.recipes.ShapedCraftingRecipe
 import com.willfp.eco.core.registry.Registrable
 import com.willfp.eco.util.StringUtils
@@ -42,11 +43,6 @@ class Tier(
      * The ItemStack of the crystal.
      */
     val crystal: ItemStack
-
-    /**
-     * The crafting recipe to make the crystal.
-     */
-    val crystalRecipe: ShapedCraftingRecipe?
 
     /**
      * Item properties.
@@ -98,28 +94,17 @@ class Tier(
         ).register()
 
         if (this.craftable) {
-            val recipeOut = out.clone()
-            recipeOut.amount = this.config.getInt("crystal.giveAmount")
-            val builder = ShapedCraftingRecipe.builder(plugin, "upgrade_crystal_$id")
-                .setOutput(recipeOut)
-            val recipeStrings: List<String> = this.config.getStrings("crystal.recipe")
-            CustomItem(plugin.namespacedKeyFactory.create("upgrade_crystal_$id"), { test: ItemStack? ->
-                if (test == null) {
-                    return@CustomItem false
-                }
-                if (getCrystalTier(test) == null) {
-                    return@CustomItem false
-                }
-                this == getCrystalTier(test)
-            }, out).register()
-            for (i in 0..8) {
-                builder.setRecipePart(i, Items.lookup(recipeStrings[i]))
+            val recipeOut = out.clone().apply {
+                amount = config.getInt("crystal.giveAmount")
             }
-            crystalRecipe = builder.build()
-            crystalRecipe.register()
-        } else {
-            crystalRecipe = null
-        }
+            Recipes.createAndRegisterRecipe(
+                plugin,
+                "upgrade_crystal_$id",
+                recipeOut,
+                config.getStrings("crystal.recipe"),
+                config.getStringOrNull("crystal.crafting-permission")
+            )
+        } else null
     }
 
     /**

@@ -4,15 +4,22 @@
 # including in subfolders if you want to organize your tier configs
 # _example.yml is not loaded.
 
-id: netherite
-display: "&c&lNETHERITE"
-requiresTiers:
-  - diamond
+display: "&c&lNETHERITE" # The display in-game
+requiresTiers: # If this tier requires a prior tier
+  - diamond # Tier ID
+  - iron
 crystal:
-  item: end_crystal
-  name: "&cNetherite Upgrade Crystal"
-  craftable: true
-  recipe:
+  item: end_crystal # The crystal item, read more here: https://plugins.auxilor.io/all-plugins/the-item-lookup-system
+  name: "&cNetherite Upgrade Crystal" # The name shown in-game.
+  lore: # The lore shown in-game. Set to `lore: []` to remove lore.
+    - "&8Drop this onto an armor piece"
+    - "&8to set its tier to:"
+    - "&c&lNETHERITE"
+    - ''
+    - "&8&oRequires the armor to already have Diamond tier"
+  craftable: true # If the armor piece is craftable
+  crafting-permission: "permission" # (Optional) The permission required to craft this recipe.
+  recipe: # The recipe, read here for more: https://plugins.auxilor.io/all-plugins/the-item-lookup-system#crafting-recipes
     - air
     - netherite_ingot
     - air
@@ -22,22 +29,16 @@ crystal:
     - air
     - netherite_ingot
     - air
-  giveAmount: 1
-  lore:
-    - "&8Drop this onto an armor piece"
-    - "&8to set its tier to:"
-    - "&c&lNETHERITE"
-    - ''
-    - "&8&oRequires the armor to already have Diamond tier"
+  giveAmount: 1 # Optional, set the amount of items to give in the recipe
 properties:
   helmet:
-    armor: 3
-    toughness: 3
-    knockbackResistance: 1
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    armor: 3 # The armor attribute
+    toughness: 3 # the toughness attribute
+    knockbackResistance: 1 # The knockback resistance attribute
+    speedPercentage: 0 # The movement speed attribute
+    attackSpeedPercentage: 0 # The attack speed attribute
+    attackDamagePercentage: 0 # The damage attribute
+    attackKnockbackPercentage: 0 # The knockback attribute
   chestplate:
     armor: 8
     toughness: 3
@@ -69,4 +70,4 @@ properties:
     speedPercentage: 0
     attackSpeedPercentage: 0
     attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    attackKnockbackPercentage: 0: 0
