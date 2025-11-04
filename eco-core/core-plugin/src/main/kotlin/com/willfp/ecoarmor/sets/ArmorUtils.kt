@@ -138,19 +138,14 @@ object ArmorUtils {
             val set = getSetOnItem(itemStack) ?: continue
             found.add(set)
         }
-        if (found.size < 4) {
-            return null
-        }
-        var allEqual = true
-        for (set in found) {
-            if (set != found[0]) {
-                allEqual = false
-                break
+        if (found.isEmpty()) return null
+        val grouped = found.groupingBy { it }.eachCount()
+        for ((set, count) in grouped) {
+            if (count >= set.setRequirements) {
+                return set
             }
         }
-        return if (allEqual) {
-            found[0]
-        } else null
+        return null
     }
 
     /**
