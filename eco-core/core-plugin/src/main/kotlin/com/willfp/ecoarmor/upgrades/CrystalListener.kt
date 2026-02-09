@@ -9,7 +9,7 @@ import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
-class CrystalListener : Listener {
+object CrystalListener : Listener {
     @EventHandler
     fun onDrag(event: InventoryClickEvent) {
         if (event.whoClicked.gameMode == GameMode.CREATIVE) {

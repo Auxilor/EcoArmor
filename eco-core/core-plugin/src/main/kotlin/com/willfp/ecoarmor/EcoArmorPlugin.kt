@@ -17,18 +17,19 @@ import com.willfp.ecoarmor.upgrades.CrystalListener
 import com.willfp.ecoarmor.upgrades.TierArgParser
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.DiscoverRecipeListener
-import com.willfp.libreforge.SimpleProvidedHolder
 import com.willfp.libreforge.conditions.Conditions
 import com.willfp.libreforge.loader.LibreforgePlugin
 import com.willfp.libreforge.loader.configs.ConfigCategory
-import com.willfp.libreforge.registerHolderProvider
 import com.willfp.libreforge.registerSpecificHolderProvider
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 
+internal lateinit var plugin: EcoArmorPlugin
+    private set
+
 class EcoArmorPlugin : LibreforgePlugin() {
     init {
-        instance = this
+        plugin = this
         Items.registerArgParser(TierArgParser())
     }
 
@@ -51,28 +52,24 @@ class EcoArmorPlugin : LibreforgePlugin() {
 
     override fun loadPluginCommands(): List<PluginCommand> {
         return listOf(
-            CommandEcoArmor(this)
+            CommandEcoArmor
         )
     }
 
     override fun loadListeners(): List<Listener> {
         return listOf(
-            CrystalListener(),
-            AdvancementShardListener(this),
-            EffectiveDurabilityListener(this),
-            DiscoverRecipeListener(this),
-            PreventSkullPlaceListener(),
-            PlayerArmorSetEventListeners(),
-            ArmorSetEquipSoundListeners()
+            CrystalListener,
+            AdvancementShardListener,
+            EffectiveDurabilityListener,
+            DiscoverRecipeListener,
+            PreventSkullPlaceListener,
+            PlayerArmorSetEventListeners,
+            ArmorSetEquipSoundListeners
         )
     }
 
+    @Suppress("OVERRIDE_DEPRECATION")
     override fun createDisplayModule(): DisplayModule {
-        return ArmorDisplay(this)
-    }
-
-    companion object {
-        @JvmStatic
-        lateinit var instance: EcoArmorPlugin
+        return ArmorDisplay
     }
 }

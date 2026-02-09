@@ -1,6 +1,6 @@
 package com.willfp.ecoarmor.sets
 
-import com.willfp.ecoarmor.EcoArmorPlugin.Companion.instance
+import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
@@ -17,10 +17,6 @@ import org.bukkit.persistence.PersistentDataType
 import java.util.*
 
 object ArmorUtils {
-    /**
-     * Instance of EcoArmor.
-     */
-    private val PLUGIN = instance
 
     /**
      * Get armor set on an item.
@@ -44,7 +40,7 @@ object ArmorUtils {
     fun getSetOnItem(meta: ItemMeta): ArmorSet? {
         val container = meta.persistentDataContainer
         val setName = container.get(
-            PLUGIN.namespacedKeyFactory.create("set"),
+            plugin.namespacedKeyFactory.create("set"),
             PersistentDataType.STRING
         )
             ?: return null
@@ -169,14 +165,14 @@ object ArmorUtils {
     @JvmStatic
     fun getCrystalTier(meta: ItemMeta): Tier? {
         return if (meta.persistentDataContainer.has(
-                PLUGIN.namespacedKeyFactory.create(
+                plugin.namespacedKeyFactory.create(
                     "upgrade_crystal"
                 ), PersistentDataType.STRING
             )
         ) {
             Tiers.getByID(
                 meta.persistentDataContainer.get(
-                    PLUGIN.namespacedKeyFactory.create(
+                    plugin.namespacedKeyFactory.create(
                         "upgrade_crystal"
                     ), PersistentDataType.STRING
                 )
@@ -214,14 +210,14 @@ object ArmorUtils {
             return null
         }
         return if (meta.persistentDataContainer.has(
-                PLUGIN.namespacedKeyFactory.create(
+                plugin.namespacedKeyFactory.create(
                     "tier"
                 ), PersistentDataType.STRING
             )
         ) {
             Tiers.getByID(
                 meta.persistentDataContainer.get(
-                    PLUGIN.namespacedKeyFactory.create(
+                    plugin.namespacedKeyFactory.create(
                         "tier"
                     ), PersistentDataType.STRING
                 )
@@ -357,14 +353,14 @@ object ArmorUtils {
         tier: Tier
     ) {
         if (!meta.persistentDataContainer.has(
-                PLUGIN.namespacedKeyFactory.create("set"),
+                plugin.namespacedKeyFactory.create("set"),
                 PersistentDataType.STRING
             )
         ) {
             return
         }
         meta.persistentDataContainer.set(
-            PLUGIN.namespacedKeyFactory.create("tier"),
+            plugin.namespacedKeyFactory.create("tier"),
             PersistentDataType.STRING,
             tier.id
         )
@@ -424,12 +420,12 @@ object ArmorUtils {
     @JvmStatic
     fun isAdvanced(meta: ItemMeta): Boolean {
         return if (meta.persistentDataContainer.has(
-                PLUGIN.namespacedKeyFactory.create("advanced"),
+                plugin.namespacedKeyFactory.create("advanced"),
                 PersistentDataType.INTEGER
             )
         ) {
             meta.persistentDataContainer.get(
-                PLUGIN.namespacedKeyFactory.create("advanced"),
+                plugin.namespacedKeyFactory.create("advanced"),
                 PersistentDataType.INTEGER
             ) == 1
         } else false
@@ -448,7 +444,7 @@ object ArmorUtils {
     ) {
         val meta = itemStack.itemMeta ?: return
         meta.persistentDataContainer.set(
-            PLUGIN.namespacedKeyFactory.create("advanced"),
+            plugin.namespacedKeyFactory.create("advanced"),
             PersistentDataType.INTEGER,
             if (advanced) 1 else 0
         )
@@ -476,7 +472,7 @@ object ArmorUtils {
     @JvmStatic
     fun getShardSet(meta: ItemMeta): ArmorSet? {
         val shardSet = meta.persistentDataContainer.get(
-            PLUGIN.namespacedKeyFactory.create(
+            plugin.namespacedKeyFactory.create(
                 "advancement-shard"
             ), PersistentDataType.STRING
         )

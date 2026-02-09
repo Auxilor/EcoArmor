@@ -3,7 +3,6 @@ package com.willfp.ecoarmor.upgrades
 import com.google.common.collect.ImmutableList
 import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.eco.core.registry.Registry
-import com.willfp.ecoarmor.EcoArmorPlugin
 import com.willfp.libreforge.loader.LibreforgePlugin
 import com.willfp.libreforge.loader.configs.ConfigCategory
 import com.willfp.libreforge.loader.configs.LegacyLocation
@@ -57,7 +56,7 @@ object Tiers : ConfigCategory("tier", "tiers") {
     }
 
     override fun acceptConfig(plugin: LibreforgePlugin, id: String, config: Config) {
-        registry.register(Tier(id, config, plugin as EcoArmorPlugin))
+        registry.register(Tier(id, config))
     }
 
     override fun afterReload(plugin: LibreforgePlugin) {

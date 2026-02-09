@@ -1,6 +1,6 @@
 package com.willfp.ecoarmor.upgrades
 
-import com.willfp.eco.core.EcoPlugin
+import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorUtils
 import org.bukkit.GameMode
@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-class AdvancementShardListener(private val plugin: EcoPlugin) : Listener {
+object AdvancementShardListener : Listener {
     @EventHandler
     fun onDrag(event: InventoryClickEvent) {
         if (event.whoClicked.gameMode == GameMode.CREATIVE) {

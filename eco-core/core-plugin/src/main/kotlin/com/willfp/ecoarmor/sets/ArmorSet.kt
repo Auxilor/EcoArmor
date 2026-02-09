@@ -1,6 +1,5 @@
 package com.willfp.ecoarmor.sets
 
-import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.items.CustomItem
@@ -9,6 +8,7 @@ import com.willfp.eco.core.items.builder.ItemBuilder
 import com.willfp.eco.core.items.builder.ItemStackBuilder
 import com.willfp.eco.core.recipe.Recipes
 import com.willfp.eco.core.registry.Registrable
+import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getSetOnItem
 import com.willfp.ecoarmor.sets.ArmorUtils.getShardSet
@@ -20,12 +20,10 @@ import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.PlayableSound
 import com.willfp.libreforge.Holder
 import com.willfp.libreforge.ItemProvidedHolder
-import com.willfp.libreforge.ProvidedHolder
 import com.willfp.libreforge.SimpleHolder
 import com.willfp.libreforge.ViolationContext
 import com.willfp.libreforge.conditions.Conditions
 import com.willfp.libreforge.effects.Effects
-import com.willfp.libreforge.notNullMapOf
 import com.willfp.libreforge.notNullMutableMapOf
 import org.bukkit.Bukkit
 import org.bukkit.Sound
@@ -37,8 +35,7 @@ import java.util.stream.Collectors
 
 class ArmorSet(
     val id: String,
-    val config: Config,
-    private val plugin: EcoPlugin
+    val config: Config
 ) : Registrable {
     /** The advanced holder. */
     val advancedHolder: Holder
@@ -116,7 +113,7 @@ class ArmorSet(
         regularHolder = SimpleHolder(plugin.namespacedKeyFactory.create(id), effects, conditions)
         advancedHolder = SimpleHolder(plugin.namespacedKeyFactory.create("${id}_advanced"), advancedEffects, conditions)
 
-        for (slot in ArmorSlot.values()) {
+        for (slot in ArmorSlot.entries) {
             val slotConfig = config.getSubsection(slot.name.lowercase(Locale.ENGLISH))
             val item = construct(slot, slotConfig, false)
             items[slot] = item

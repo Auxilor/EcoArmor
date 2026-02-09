@@ -1,13 +1,13 @@
 package com.willfp.ecoarmor.sets
 
-import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.util.NumberUtils
+import com.willfp.ecoarmor.plugin
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerItemDamageEvent
 import org.bukkit.persistence.PersistentDataType
 
-class EffectiveDurabilityListener(private val plugin: EcoPlugin) : Listener {
+object EffectiveDurabilityListener : Listener {
     @EventHandler
     fun listener(event: PlayerItemDamageEvent) {
         val itemStack = event.item
