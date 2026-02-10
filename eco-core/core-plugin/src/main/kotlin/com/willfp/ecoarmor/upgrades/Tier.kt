@@ -72,18 +72,32 @@ class Tier(
         out.amount = 1 // who knows
         crystal = out
         for (slot in ArmorSlot.values()) {
+            val path = "properties.${slot.name.lowercase(Locale.getDefault())}"
+
             properties[slot] = TierProperties(
-                this.config.getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".armor"),
-                this.config.getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".toughness"),
-                this.config
-                    .getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".knockbackResistance"),
-                this.config.getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".speedPercentage"),
-                this.config
-                    .getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".attackSpeedPercentage"),
-                this.config
-                    .getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".attackDamagePercentage"),
-                this.config
-                    .getInt("properties." + slot.name.lowercase(Locale.getDefault()) + ".attackKnockbackPercentage")
+                armor = config.getIntOrNull("$path.armor"),
+                toughness = config.getIntOrNull("$path.toughness"),
+                knockbackResistance = config.getIntOrNull("$path.knockbackResistance")
+                    ?: config.getIntOrNull("$path.knockback"),
+                speedPercentage = config.getIntOrNull("$path.speedPercentage")
+                    ?: config.getIntOrNull("$path.speedPercentage"),
+                attackSpeedPercentage = config.getIntOrNull("$path.attackSpeedPercentage"),
+                attackDamagePercentage = config.getIntOrNull("$path.attackDamagePercentage"),
+                attackKnockbackPercentage = config.getIntOrNull("$path.attackKnockbackPercentage"),
+                maxHealth = config.getIntOrNull("$path.maxHealth"),
+                attackDamageFlat = config.getIntOrNull("$path.attackDamageFlat"),
+                attackSpeedFlat = config.getIntOrNull("$path.attackSpeedFlat"),
+                jumpStrength = config.getIntOrNull("$path.jumpStrength"),
+                gravityPercentage = config.getIntOrNull("$path.gravityPercentage"),
+                burningTimePercentage = config.getIntOrNull("$path.burningTimePercentage"),
+                explosionKnockbackResistance = config.getIntOrNull("$path.explosionKnockbackResistance"),
+                oxygenBonus = config.getIntOrNull("$path.oxygenBonus"),
+                movementEfficiency = config.getIntOrNull("$path.movementEfficiency"),
+                safeFallDistance = config.getIntOrNull("$path.safeFallDistance"),
+                entityInteractionRangePercentage = config.getIntOrNull("$path.entityReachPercentage")
+                    ?: config.getIntOrNull("$path.entityInteractionRangePercentage"),
+                blockInteractionRangePercentage = config.getIntOrNull("$path.blockReachPercentage")
+                    ?: config.getIntOrNull("$path.blockInteractionRangePercentage")
             )
         }
 
@@ -104,7 +118,7 @@ class Tier(
                 config.getStrings("crystal.recipe"),
                 config.getStringOrNull("crystal.crafting-permission")
             )
-        } else null
+        }
     }
 
     /**
@@ -133,11 +147,23 @@ class Tier(
 }
 
 data class TierProperties(
-    val armor: Int,
-    val toughness: Int,
-    val knockback: Int,
-    val speed: Int,
-    val attackSpeed: Int,
-    val attackDamage: Int,
-    val attackKnockback: Int
+    val armor: Int? = null,                           // flat armor points (e.g. 3)
+    val toughness: Int? = null,                       // flat toughness (e.g. 2)
+    val knockbackResistance: Int? = null,             // 0-100 for %
+    val speedPercentage: Int? = null,                 // e.g. 10 = +10% speed
+    val attackSpeedPercentage: Int? = null,           // e.g. 15 = +15% attack speed
+    val attackDamagePercentage: Int? = null,          // e.g. 20 = +20% damage
+    val attackKnockbackPercentage: Int? = null,       // e.g. 30 = +30% knockback
+    val maxHealth: Int? = null,                       // flat extra hearts × 2 (e.g. 4 = +2 hearts)
+    val attackDamageFlat: Int? = null,                // flat extra damage (e.g. 2 = +1 heart per hit)
+    val attackSpeedFlat: Int? = null,                 // flat attack speed bonus
+    val jumpStrength: Int? = null,                    // % jump height boost (e.g. 20 = +20%)
+    val gravityPercentage: Int? = null,               // e.g. -30 = 30% less gravity (floatier), +50 = heavier
+    val burningTimePercentage: Int? = null,           // e.g. -50 = 50% less burn time, +100 = double burn
+    val explosionKnockbackResistance: Int? = null,    // 0-100 for %
+    val oxygenBonus: Int? = null,                     // extra ticks of breath (e.g. 300 = +15 seconds)
+    val movementEfficiency: Int? = null,              // 0-100 for % less slow in soul sand/honey/etc.
+    val safeFallDistance: Int? = null,                // flat extra blocks safe to fall (e.g. 5 = safe from 8 blocks total)
+    val entityInteractionRangePercentage: Int? = null,// e.g. 20 = +20% reach for attacking/interacting entities
+    val blockInteractionRangePercentage: Int? = null  // e.g. 15 = +15% block reach
 )

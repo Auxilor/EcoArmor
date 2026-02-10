@@ -243,104 +243,71 @@ object ArmorUtils {
         val meta = itemStack.itemMeta ?: return
         setTierKey(meta, tier)
         val slot = getSlot(itemStack) ?: return
-        val armor = tier.properties[slot].armor
-        val toughness = tier.properties[slot].toughness
-        val knockback = tier.properties[slot].knockback
-        val speed = tier.properties[slot].speed
-        val attackSpeed = tier.properties[slot].attackSpeed
-        val attackDamage = tier.properties[slot].attackDamage
-        val attackKnockback = tier.properties[slot].attackKnockback
-        meta.removeAttributeModifier(Attribute.GENERIC_ARMOR)
-        meta.removeAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS)
-        meta.removeAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE)
-        meta.removeAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED)
-        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED)
-        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE)
-        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_KNOCKBACK)
-        if (armor > 0) {
-            meta.addAttributeModifier(
-                Attribute.GENERIC_ARMOR,
-                AttributeModifier(
-                    UUID.randomUUID(),
-                    "ecoarmor-armor",
-                    armor.toDouble(),
-                    AttributeModifier.Operation.ADD_NUMBER,
-                    slot.slot
+
+        val props = tier.properties[slot] ?: return
+
+        meta.removeAttributeModifier(Attribute.ARMOR)
+        meta.removeAttributeModifier(Attribute.ARMOR_TOUGHNESS)
+        meta.removeAttributeModifier(Attribute.KNOCKBACK_RESISTANCE)
+        meta.removeAttributeModifier(Attribute.MOVEMENT_SPEED)
+        meta.removeAttributeModifier(Attribute.ATTACK_SPEED)
+        meta.removeAttributeModifier(Attribute.ATTACK_DAMAGE)
+        meta.removeAttributeModifier(Attribute.ATTACK_KNOCKBACK)
+        meta.removeAttributeModifier(Attribute.MAX_HEALTH)
+        meta.removeAttributeModifier(Attribute.JUMP_STRENGTH)
+        meta.removeAttributeModifier(Attribute.GRAVITY)
+        meta.removeAttributeModifier(Attribute.BURNING_TIME)
+        meta.removeAttributeModifier(Attribute.EXPLOSION_KNOCKBACK_RESISTANCE)
+        meta.removeAttributeModifier(Attribute.OXYGEN_BONUS)
+        meta.removeAttributeModifier(Attribute.MOVEMENT_EFFICIENCY)
+        meta.removeAttributeModifier(Attribute.SAFE_FALL_DISTANCE)
+        meta.removeAttributeModifier(Attribute.ENTITY_INTERACTION_RANGE)
+        meta.removeAttributeModifier(Attribute.BLOCK_INTERACTION_RANGE)
+
+        @Suppress("DEPRECATION")
+        fun addModifier(
+            attr: Attribute,
+            value: Int?,
+            op: AttributeModifier.Operation,
+            scaler: (Int) -> Double = { it.toDouble() }
+        ) {
+            value?.takeIf { it != 0 }?.let { v ->
+                meta.addAttributeModifier(
+                    attr,
+                    AttributeModifier(
+                        UUID.randomUUID(),
+                        "ecoarmor-${attr.key.key()}-${slot.name.lowercase(Locale.getDefault())}",
+                        scaler(v),
+                        op,
+                        slot.slot
+                    )
                 )
-            )
+            }
         }
-        if (toughness > 0) {
-            meta.addAttributeModifier(
-                Attribute.GENERIC_ARMOR_TOUGHNESS,
-                AttributeModifier(
-                    UUID.randomUUID(),
-                    "ecoarmor-toughness",
-                    toughness.toDouble(),
-                    AttributeModifier.Operation.ADD_NUMBER,
-                    slot.slot
-                )
-            )
-        }
-        if (knockback > 0) {
-            meta.addAttributeModifier(
-                Attribute.GENERIC_KNOCKBACK_RESISTANCE,
-                AttributeModifier(
-                    UUID.randomUUID(),
-                    "ecoarmor-knockback",
-                    knockback.toDouble() / 10,
-                    AttributeModifier.Operation.ADD_NUMBER,
-                    slot.slot
-                )
-            )
-        }
-        if (speed != 0) {
-            meta.addAttributeModifier(
-                Attribute.GENERIC_MOVEMENT_SPEED,
-                AttributeModifier(
-                    UUID.randomUUID(),
-                    "ecoarmor-speed",
-                    speed.toDouble() / 100,
-                    AttributeModifier.Operation.ADD_SCALAR,
-                    slot.slot
-                )
-            )
-        }
-        if (attackSpeed != 0) {
-            meta.addAttributeModifier(
-                Attribute.GENERIC_ATTACK_SPEED,
-                AttributeModifier(
-                    UUID.randomUUID(),
-                    "ecoarmor-attackspeed",
-                    attackSpeed.toDouble() / 100,
-                    AttributeModifier.Operation.ADD_SCALAR,
-                    slot.slot
-                )
-            )
-        }
-        if (attackDamage != 0) {
-            meta.addAttributeModifier(
-                Attribute.GENERIC_ATTACK_DAMAGE,
-                AttributeModifier(
-                    UUID.randomUUID(),
-                    "ecoarmor-attackdamage",
-                    attackDamage.toDouble() / 100,
-                    AttributeModifier.Operation.ADD_SCALAR,
-                    slot.slot
-                )
-            )
-        }
-        if (attackKnockback != 0) {
-            meta.addAttributeModifier(
-                Attribute.GENERIC_ATTACK_KNOCKBACK,
-                AttributeModifier(
-                    UUID.randomUUID(),
-                    "ecoarmor-attackknockback",
-                    attackKnockback.toDouble() / 100,
-                    AttributeModifier.Operation.ADD_SCALAR,
-                    slot.slot
-                )
-            )
-        }
+
+        addModifier(Attribute.ARMOR, props.armor, AttributeModifier.Operation.ADD_NUMBER)
+        addModifier(Attribute.ARMOR_TOUGHNESS, props.toughness, AttributeModifier.Operation.ADD_NUMBER)
+        addModifier(Attribute.MAX_HEALTH, props.maxHealth, AttributeModifier.Operation.ADD_NUMBER)
+        addModifier(Attribute.ATTACK_DAMAGE, props.attackDamageFlat, AttributeModifier.Operation.ADD_NUMBER)
+        addModifier(Attribute.ATTACK_SPEED, props.attackSpeedFlat, AttributeModifier.Operation.ADD_NUMBER)
+        addModifier(Attribute.SAFE_FALL_DISTANCE, props.safeFallDistance, AttributeModifier.Operation.ADD_NUMBER)
+        addModifier(Attribute.OXYGEN_BONUS, props.oxygenBonus, AttributeModifier.Operation.ADD_NUMBER)
+
+        val pctScaler: (Int) -> Double = { it / 100.0 }
+        addModifier(Attribute.MOVEMENT_SPEED, props.speedPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.ATTACK_SPEED, props.attackSpeedPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.ATTACK_DAMAGE, props.attackDamagePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.ATTACK_KNOCKBACK, props.attackKnockbackPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.JUMP_STRENGTH, props.jumpStrength, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.GRAVITY, props.gravityPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.BURNING_TIME, props.burningTimePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.MOVEMENT_EFFICIENCY, props.movementEfficiency, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.ENTITY_INTERACTION_RANGE, props.entityInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.BLOCK_INTERACTION_RANGE, props.blockInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+
+        val fracScaler: (Int) -> Double = { it / 100.0 }
+        addModifier(Attribute.KNOCKBACK_RESISTANCE, props.knockbackResistance, AttributeModifier.Operation.ADD_NUMBER, fracScaler)
+        addModifier(Attribute.EXPLOSION_KNOCKBACK_RESISTANCE, props.explosionKnockbackResistance, AttributeModifier.Operation.ADD_NUMBER, fracScaler)
 
         itemStack.itemMeta = meta
     }
