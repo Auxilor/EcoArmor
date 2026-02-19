@@ -2,7 +2,6 @@ package com.willfp.ecoarmor.sets
 
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
-import java.util.*
 
 enum class ArmorSlot(
     val slot: EquipmentSlot

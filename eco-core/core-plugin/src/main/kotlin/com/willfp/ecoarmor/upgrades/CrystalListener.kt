@@ -10,6 +10,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
 object CrystalListener : Listener {
+    @Suppress("USELESS_ELVIS")
     @EventHandler
     fun onDrag(event: InventoryClickEvent) {
         if (event.whoClicked.gameMode == GameMode.CREATIVE) {
@@ -38,7 +39,7 @@ object CrystalListener : Listener {
         }
         ArmorUtils.setTier(current, crystalTier)
         if (cursor.amount > 1) {
-            cursor.amount = cursor.amount - 1
+            cursor.amount -= 1
             event.whoClicked.setItemOnCursor(cursor)
         } else {
             event.whoClicked.setItemOnCursor(ItemStack(Material.AIR))

@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
 object AdvancementShardListener : Listener {
+    @Suppress("USELESS_ELVIS")
     @EventHandler
     fun onDrag(event: InventoryClickEvent) {
         if (event.whoClicked.gameMode == GameMode.CREATIVE) {

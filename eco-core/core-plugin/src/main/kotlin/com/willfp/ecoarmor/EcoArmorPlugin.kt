@@ -21,7 +21,7 @@ import com.willfp.libreforge.conditions.Conditions
 import com.willfp.libreforge.loader.LibreforgePlugin
 import com.willfp.libreforge.loader.configs.ConfigCategory
 import com.willfp.libreforge.registerSpecificHolderProvider
-import org.bukkit.entity.Player
+import org.bukkit.entity.LivingEntity
 import org.bukkit.event.Listener
 
 internal lateinit var plugin: EcoArmorPlugin
@@ -38,7 +38,7 @@ class EcoArmorPlugin : LibreforgePlugin() {
     }
 
     override fun handleEnable() {
-        registerSpecificHolderProvider<Player> {
+        registerSpecificHolderProvider<LivingEntity> {
             ArmorUtils.getActiveHolders(it)
         }
     }

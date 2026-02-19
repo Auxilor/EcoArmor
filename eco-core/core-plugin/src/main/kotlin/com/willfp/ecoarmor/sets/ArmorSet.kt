@@ -33,6 +33,7 @@ import java.util.Locale
 import java.util.Objects
 import java.util.stream.Collectors
 
+@Suppress("DEPRECATION")
 class ArmorSet(
     val id: String,
     val config: Config
@@ -287,7 +288,7 @@ class ArmorSet(
             val lore = metaLore.map { it.replace("%tier%", Tiers.defaultTier.displayName) }
             meta.lore = lore
             formattedOut.itemMeta = meta
-            plugin.scheduler.run {
+            plugin.scheduler.runTask {
                 Recipes.createAndRegisterRecipe(
                     plugin,
                     id + "_" + slot.name.lowercase(Locale.getDefault()),

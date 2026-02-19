@@ -10,6 +10,7 @@ import com.willfp.libreforge.ProvidedHolder
 import com.willfp.libreforge.SimpleProvidedHolder
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
@@ -52,11 +53,24 @@ object ArmorUtils {
      *
      * @param player The player to check.
      * @return The holder, or null if not found.
+     * @deprecated Use getActiveSet(entity: LivingEntity) instead.
      */
+    @Deprecated("Use getActiveSet(entity: LivingEntity) instead.")
     @JvmStatic
     fun getActiveSet(player: Player): Holder? {
-        val armorSet = getSetOnPlayer(player)
-        val advanced = isWearingAdvanced(player)
+        return getActiveSet(player as LivingEntity)
+    }
+
+    /**
+     * Get active holder for an entity.
+     *
+     * @param entity The entity to check.
+     * @return The holder, or null if not found.
+     */
+    @JvmStatic
+    fun getActiveSet(entity: LivingEntity): Holder? {
+        val armorSet = getSetOnEntity(entity)
+        val advanced = isWearingAdvanced(entity)
         return if (armorSet != null) {
             if (advanced) armorSet.advancedHolder else armorSet.regularHolder
         } else {
@@ -69,17 +83,29 @@ object ArmorUtils {
      *
      * @param player The player.
      * @return The holders.
+     * @deprecated Use getActiveHolders(entity: LivingEntity) instead.
      */
+    @Deprecated("Use getActiveHolders(entity: LivingEntity) instead.")
     fun getActiveHolders(player: Player): Collection<ProvidedHolder> {
+        return getActiveHolders(player as LivingEntity)
+    }
+
+    /**
+     * Get all active armor holders for an entity.
+     *
+     * @param entity The player.
+     * @return The holders.
+     */
+    fun getActiveHolders(entity: LivingEntity): Collection<ProvidedHolder> {
         val holders = mutableListOf<ProvidedHolder>()
 
-        val set = getActiveSet(player)
+        val set = getActiveSet(entity)
 
         if (set != null) {
             holders.add(SimpleProvidedHolder(set))
         }
 
-        holders.addAll(getSlotHolders(player))
+        holders.addAll(getSlotHolders(entity))
 
         return holders
     }
@@ -89,11 +115,25 @@ object ArmorUtils {
      *
      * @param player The player to check.
      * @return The holder, or null if not found.
+     * @deprecated Use getSlotHolders(entity: LivingEntity) instead.
      */
+    @Deprecated("Use getSlotHolders(entity: LivingEntity) instead.")
     private fun getSlotHolders(player: Player): Collection<ItemProvidedHolder> {
+        return getSlotHolders(player as LivingEntity)
+    }
+
+    /**
+     * Get active holder for an entity.
+     *
+     * @param entity The entity to check.
+     * @return The holder, or null if not found.
+     */
+    private fun getSlotHolders(entity: LivingEntity): Collection<ItemProvidedHolder> {
         val holders = mutableListOf<ItemProvidedHolder>()
 
-        for (itemStack in player.inventory.armorContents) {
+        val equipment = entity.equipment?.armorContents ?: return holders
+
+        for (itemStack in equipment) {
             if (itemStack == null) {
                 continue
             }
@@ -112,10 +152,24 @@ object ArmorUtils {
      *
      * @param player The player to check.
      * @return The set, or null if no full set is worn.
+     * @deprecated Use getSetOnEntity(entity: LivingEntity) instead.
      */
+    @Deprecated("Use getSetOnEntity(entity: LivingEntity) instead.")
     @JvmStatic
     fun getSetOnPlayer(player: Player): ArmorSet? {
-        return getSetOn(player.inventory.armorContents.toList())
+        return getSetOnEntity(player as LivingEntity)
+    }
+
+    /**
+     * Get armor set that entity is wearing.
+     *
+     * @param entity The entity to check.
+     * @return The set, or null if no full set is worn.
+     */
+    @JvmStatic
+    fun getSetOnEntity(entity: LivingEntity): ArmorSet? {
+        val equipment = entity.equipment?.armorContents?.toList() ?: return null
+        return getSetOn(equipment)
     }
 
     /**
@@ -231,6 +285,7 @@ object ArmorUtils {
      * @param itemStack The item to check.
      * @param tier      The tier to set.
      */
+    @Suppress("USELESS_ELVIS")
     @JvmStatic
     fun setTier(
         itemStack: ItemStack,
@@ -291,19 +346,64 @@ object ArmorUtils {
 
         val pctScaler: (Int) -> Double = { it / 100.0 }
         addModifier(Attribute.MOVEMENT_SPEED, props.speedPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.ATTACK_SPEED, props.attackSpeedPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.ATTACK_DAMAGE, props.attackDamagePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.ATTACK_KNOCKBACK, props.attackKnockbackPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(
+            Attribute.ATTACK_SPEED,
+            props.attackSpeedPercentage,
+            AttributeModifier.Operation.ADD_SCALAR,
+            pctScaler
+        )
+        addModifier(
+            Attribute.ATTACK_DAMAGE,
+            props.attackDamagePercentage,
+            AttributeModifier.Operation.ADD_SCALAR,
+            pctScaler
+        )
+        addModifier(
+            Attribute.ATTACK_KNOCKBACK,
+            props.attackKnockbackPercentage,
+            AttributeModifier.Operation.ADD_SCALAR,
+            pctScaler
+        )
         addModifier(Attribute.JUMP_STRENGTH, props.jumpStrength, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
         addModifier(Attribute.GRAVITY, props.gravityPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.BURNING_TIME, props.burningTimePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.MOVEMENT_EFFICIENCY, props.movementEfficiency, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.ENTITY_INTERACTION_RANGE, props.entityInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.BLOCK_INTERACTION_RANGE, props.blockInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(
+            Attribute.BURNING_TIME,
+            props.burningTimePercentage,
+            AttributeModifier.Operation.ADD_SCALAR,
+            pctScaler
+        )
+        addModifier(
+            Attribute.MOVEMENT_EFFICIENCY,
+            props.movementEfficiency,
+            AttributeModifier.Operation.ADD_SCALAR,
+            pctScaler
+        )
+        addModifier(
+            Attribute.ENTITY_INTERACTION_RANGE,
+            props.entityInteractionRangePercentage,
+            AttributeModifier.Operation.ADD_SCALAR,
+            pctScaler
+        )
+        addModifier(
+            Attribute.BLOCK_INTERACTION_RANGE,
+            props.blockInteractionRangePercentage,
+            AttributeModifier.Operation.ADD_SCALAR,
+            pctScaler
+        )
 
         val fracScaler: (Int) -> Double = { it / 100.0 }
-        addModifier(Attribute.KNOCKBACK_RESISTANCE, props.knockbackResistance, AttributeModifier.Operation.ADD_NUMBER, fracScaler)
-        addModifier(Attribute.EXPLOSION_KNOCKBACK_RESISTANCE, props.explosionKnockbackResistance, AttributeModifier.Operation.ADD_NUMBER, fracScaler)
+        addModifier(
+            Attribute.KNOCKBACK_RESISTANCE,
+            props.knockbackResistance,
+            AttributeModifier.Operation.ADD_NUMBER,
+            fracScaler
+        )
+        addModifier(
+            Attribute.EXPLOSION_KNOCKBACK_RESISTANCE,
+            props.explosionKnockbackResistance,
+            AttributeModifier.Operation.ADD_NUMBER,
+            fracScaler
+        )
 
         itemStack.itemMeta = meta
     }
@@ -338,10 +438,24 @@ object ArmorUtils {
      *
      * @param player The player to check.
      * @return If advanced.
+     * @deprecated Use isWearingAdvanced(entity: LivingEntity) instead.
      */
+    @Deprecated("Use isWearingAdvanced(entity: LivingEntity) instead.")
     @JvmStatic
     fun isWearingAdvanced(player: Player): Boolean {
-        return isWearingAdvanced(player.inventory.armorContents.toList())
+        return isWearingAdvanced(player as LivingEntity)
+    }
+
+    /**
+     * Get if entity is wearing advanced set.
+     *
+     * @param entity The entity to check.
+     * @return If advanced.
+     */
+    @JvmStatic
+    fun isWearingAdvanced(entity: LivingEntity): Boolean {
+        val equipment = entity.equipment?.armorContents?.toList() ?: return false
+        return isWearingAdvanced(equipment)
     }
 
     /**
