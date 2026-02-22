@@ -63,6 +63,13 @@ class ArmorSet(
 
     val setRequirements = config.getIntOrNull("amount_for_set") ?: 4
 
+    val amountForHalfSet: Int? = config.getIntOrNull("amountForHalfSet")
+
+    val fullSetDisablesHalfSet: Boolean =
+        if (config.has("fullSetDisablesHalfSet")) config.getBool("fullSetDisablesHalfSet") else true
+
+    var halfSetHolder: Holder? = null
+
     /*
     * Equip Sound
      */
@@ -115,6 +122,16 @@ class ArmorSet(
 
         regularHolder = SimpleHolder(plugin.namespacedKeyFactory.create(id), effects, conditions)
         advancedHolder = SimpleHolder(plugin.namespacedKeyFactory.create("${id}_advanced"), advancedEffects, conditions)
+
+        halfSetHolder = run {
+            val req = amountForHalfSet ?: return@run null
+            val halfEffects = Effects.compile(
+                config.getSubsections("halfSetEffects"),
+                ViolationContext(plugin, "Armor Set $id (half-set)")
+            )
+            if (halfEffects.isEmpty()) return@run null
+            SimpleHolder(plugin.namespacedKeyFactory.create("${id}_half_set"), halfEffects, conditions)
+        }
 
         for (slot in ArmorSlot.values()) {
             val slotConfig = config.getSubsection(slot.name.lowercase(Locale.ENGLISH))

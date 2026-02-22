@@ -76,11 +76,21 @@ object ArmorUtils {
      */
     fun getActiveHolders(player: Player): Collection<ProvidedHolder> {
         val holders = mutableListOf<ProvidedHolder>()
+        val armor = player.inventory.armorContents.toList()
 
-        val set = getActiveSet(player)
+        val fullSet = getSetOn(armor)
+        val activeHolder = getActiveSet(player)
+        if (activeHolder != null) {
+            holders.add(SimpleProvidedHolder(activeHolder))
+        }
 
-        if (set != null) {
-            holders.add(SimpleProvidedHolder(set))
+        val halfSet = getHalfSetOn(armor)
+        val halfHolder = halfSet?.halfSetHolder
+        if (halfHolder != null) {
+            val suppressedByFull = fullSet != null && halfSet == fullSet && halfSet.fullSetDisablesHalfSet
+            if (!suppressedByFull) {
+                holders.add(SimpleProvidedHolder(halfHolder))
+            }
         }
 
         holders.addAll(getSlotHolders(player))
@@ -144,6 +154,22 @@ object ArmorUtils {
             if (count >= set.setRequirements) {
                 return set
             }
+        }
+        return null
+    }
+
+    fun getHalfSetOn(items: List<ItemStack?>): ArmorSet? {
+        val found = mutableListOf<ArmorSet>()
+        for (itemStack in items) {
+            if (itemStack == null) continue
+            val set = getSetOnItem(itemStack) ?: continue
+            found.add(set)
+        }
+        if (found.isEmpty()) return null
+        val grouped = found.groupingBy { it }.eachCount()
+        for ((set, count) in grouped) {
+            val req = set.amountForHalfSet ?: continue
+            if (count >= req) return set
         }
         return null
     }
