@@ -38,7 +38,7 @@ import java.util.stream.Collectors
 class ArmorSet(
     val id: String,
     val config: Config,
-    private val plugin: EcoPlugin
+    val plugin: EcoPlugin
 ) : Registrable {
     /** The advanced holder. */
     val advancedHolder: Holder
@@ -62,39 +62,6 @@ class ArmorSet(
     val advancementShardItem: ItemStack
 
     val setRequirements = config.getIntOrNull("amount_for_set") ?: 4
-
-    /*
-    * Equip Sound
-     */
-    val equipSound = if (config.getBool("sounds.equip.enabled")) {
-        PlayableSound(
-            Sound.valueOf(config.getString("sounds.equip.sound").uppercase()),
-            config.getDouble("sounds.equip.volume"),
-            config.getDouble("sounds.equip.pitch")
-        )
-    } else null
-
-    /*
-    * Advanced equip Sound
-     */
-    val advancedEquipSound = if (config.getBool("sounds.advancedEquip.enabled")) {
-        PlayableSound(
-            Sound.valueOf(config.getString("sounds.advancedEquip.sound").uppercase()),
-            config.getDouble("sounds.advancedEquip.volume"),
-            config.getDouble("sounds.advancedEquip.pitch")
-        )
-    } else null
-
-    /*
-    * Unequip Sound
-     */
-    val unequipSound = if (config.getBool("sounds.unequip.enabled")) {
-        PlayableSound(
-            Sound.valueOf(config.getString("sounds.unequip.sound").uppercase()),
-            config.getDouble("sounds.unequip.volume"),
-            config.getDouble("sounds.unequip.pitch")
-        )
-    } else null
 
     /** Create a new Armor Set. */
     init {

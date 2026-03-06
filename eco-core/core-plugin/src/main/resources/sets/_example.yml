@@ -37,16 +37,19 @@ sounds:
     sound: "" # The sound to play, sounds: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
     volume: 1
     pitch: 1
+    category: "" # The sound category, categories: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/SoundCategory.html
   advancedEquip:
     enabled: false # If a sound should play when advanced armor is equipped.
     sound: "" # The sound to play, sounds: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
     volume: 1
     pitch: 1
+    category: "" # The sound category, categories: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/SoundCategory.html
   unequip:
     enabled: false # If a sound should play when armor is unequipped.
     sound: "" # The sound to play, sounds: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
     volume: 1
     pitch: 1
+    category: "" # The sound category, categories: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/SoundCategory.html
 
 advancedLore: # Lore to be added to the armor piece when it has been advanced.
   - ''
