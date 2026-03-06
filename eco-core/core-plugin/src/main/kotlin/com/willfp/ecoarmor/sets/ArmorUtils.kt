@@ -1,6 +1,8 @@
 package com.willfp.ecoarmor.sets
 
 import com.willfp.ecoarmor.EcoArmorPlugin.Companion.instance
+import com.willfp.ecoarmor.api.event.PlayerArmorSetEquipEvent
+import com.willfp.ecoarmor.api.event.PlayerArmorSetUnequipEvent
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
@@ -21,6 +23,11 @@ object ArmorUtils {
      * Instance of EcoArmor.
      */
     private val PLUGIN = instance
+
+    /**
+     * Cache of sets on players.
+     */
+    private val setCache = mutableMapOf<Player, ArmorSet?>()
 
     /**
      * Get armor set on an item.
@@ -84,6 +91,33 @@ object ArmorUtils {
         }
 
         holders.addAll(getSlotHolders(player))
+
+        val oldSet = setCache[player]
+
+        PLUGIN.logger.info { "Getting holders set ${oldSet?.id} -> ${set?.armorSet?.id} for player $player" }
+
+        if (oldSet != set?.armorSet) {
+            if (oldSet != null) {
+                PLUGIN.server.pluginManager.callEvent(
+                    PlayerArmorSetUnequipEvent(
+                        player,
+                        oldSet,
+                        isWearingAdvanced(player)
+                    )
+                )
+            }
+            set?.armorSet?.let {
+                    PLUGIN.server.pluginManager.callEvent(
+                        PlayerArmorSetEquipEvent(
+                            player,
+                            it,
+                            isWearingAdvanced(player)
+                        )
+                    )
+            }
+
+            setCache[player] = set?.armorSet
+        }
 
         return holders
     }
@@ -451,3 +485,6 @@ object ArmorUtils {
         return ArmorSets.getByID(shardSet)
     }
 }
+
+val Holder.armorSet: ArmorSet?
+    get() = ArmorSets.getByID(this.id.key.removeSuffix("_advanced"))
