@@ -3,7 +3,6 @@ package com.willfp.ecoarmor.sets
 import com.willfp.eco.core.events.ArmorChangeEvent
 import com.willfp.ecoarmor.api.event.PlayerArmorSetEquipEvent
 import com.willfp.ecoarmor.api.event.PlayerArmorSetUnequipEvent
-import com.willfp.ecoarmor.sets.ArmorUtils
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

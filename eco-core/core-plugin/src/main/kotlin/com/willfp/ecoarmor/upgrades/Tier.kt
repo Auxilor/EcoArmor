@@ -6,12 +6,10 @@ import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.items.CustomItem
 import com.willfp.eco.core.items.Items
 import com.willfp.eco.core.recipe.Recipes
-import com.willfp.eco.core.recipe.recipes.ShapedCraftingRecipe
 import com.willfp.eco.core.registry.Registrable
 import com.willfp.eco.util.StringUtils
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getCrystalTier
-import com.willfp.libreforge.notNullMapOf
 import com.willfp.libreforge.notNullMutableMapOf
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType

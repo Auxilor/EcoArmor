@@ -1,7 +1,6 @@
 package com.willfp.ecoarmor.sets
 
 import com.willfp.eco.util.SoundConfigUtils
-import com.willfp.ecoarmor.EcoArmorPlugin
 import com.willfp.ecoarmor.api.event.PlayerArmorSetEquipEvent
 import com.willfp.ecoarmor.api.event.PlayerArmorSetUnequipEvent
 import org.bukkit.event.EventHandler
