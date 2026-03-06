@@ -25,23 +25,23 @@ advancedEffects:
       level: 1
 sounds:
   equip:
-    enabled: true
-    sound: BLOCK_ANVIL_PLACE
+    enabled: false
+    sound: ""
     volume: 1
     pitch: 1
-    category: PLAYERS
+    category: ""
   advancedEquip:
-    enabled: true
-    sound: ENTITY_PLAYER_LEVELUP
+    enabled: false
+    sound: ""
     volume: 1
     pitch: 1
-    category: PLAYERS
+    category: ""
   unequip:
-    enabled: true
-    sound: ENTITY_ITEM_BREAK
+    enabled: false
+    sound: ""
     volume: 1
     pitch: 1
-    category: PLAYERS
+    category: ""
 advancedLore:
   - ''
   - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
