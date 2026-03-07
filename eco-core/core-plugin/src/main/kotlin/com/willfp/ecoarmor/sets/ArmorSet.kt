@@ -141,7 +141,8 @@ class ArmorSet(
                     "${id}_shard",
                     shard,
                     recipeStrings,
-                    config.getStringOrNull("shard.crafting-permission")
+                    config.getStringOrNull("shard.crafting-permission"),
+                    config.getBool("shard.shapeless")
                 )
             }
         CustomItem(
