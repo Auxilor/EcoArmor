@@ -10,7 +10,7 @@ crystal:
     - diamond_block
     - air
     - diamond_block
-    - ecoarmor:upgrade_crystal_iron
+    - ecoarmor:crystal_iron
     - diamond_block
     - air
     - diamond_block
