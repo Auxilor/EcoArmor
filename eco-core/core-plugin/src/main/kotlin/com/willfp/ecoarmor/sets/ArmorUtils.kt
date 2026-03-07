@@ -94,8 +94,6 @@ object ArmorUtils {
 
         val oldSet = setCache[player]
 
-        PLUGIN.logger.info { "Getting holders set ${oldSet?.id} -> ${set?.armorSet?.id} for player $player" }
-
         if (oldSet != set?.armorSet) {
             if (oldSet != null) {
                 PLUGIN.server.pluginManager.callEvent(
