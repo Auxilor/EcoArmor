@@ -8,6 +8,7 @@ import com.willfp.eco.core.items.Items
 import com.willfp.eco.core.items.builder.ItemBuilder
 import com.willfp.eco.core.items.builder.ItemStackBuilder
 import com.willfp.eco.core.recipe.Recipes
+import com.willfp.eco.core.recipe.recipes.CraftingRecipe
 import com.willfp.eco.core.registry.Registrable
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getSetOnItem
@@ -129,15 +130,20 @@ class ArmorSet(
             .addLoreLines(shardLore)
             .writeMetaKey(plugin.namespacedKeyFactory.create("advancement-shard"), PersistentDataType.STRING, id)
             .build()
-        if (config.getBool("shard.craftable")) {
-            Recipes.createAndRegisterRecipe(
-                plugin,
-                id + "_shard",
-                shard,
-                config.getStrings("shard.recipe"),
-                config.getStringOrNull("shard.crafting-permission")
-            )
-        }
+        val shardRecipe: CraftingRecipe? = config.getBool("shard.craftable")
+            .takeIf { it }
+            ?.let {
+                val recipeStrings = config.getStrings("shard.recipe")
+                if (recipeStrings.isEmpty()) return@let null
+
+                Recipes.createAndRegisterRecipe(
+                    plugin,
+                    "${id}_shard",
+                    shard,
+                    recipeStrings,
+                    config.getStringOrNull("shard.crafting-permission")
+                )
+            }
         CustomItem(
             plugin.namespacedKeyFactory.create("shard_" + id.lowercase(Locale.getDefault())),
             { test: ItemStack? -> this == getShardSet(test!!) },
@@ -246,22 +252,27 @@ class ArmorSet(
         slotConfig: Config,
         out: ItemStack
     ) {
-        if (slotConfig.getBool("craftable")) {
-            val formattedOut = out.clone()
-            val meta = formattedOut.itemMeta ?: return
-            val metaLore = meta.lore ?: emptyList()
-            val lore = metaLore.map { it.replace("%tier%", Tiers.defaultTier.displayName) }
-            meta.lore = lore
-            formattedOut.itemMeta = meta
-            plugin.scheduler.run {
-                Recipes.createAndRegisterRecipe(
-                    plugin,
-                    id + "_" + slot.name.lowercase(Locale.getDefault()),
-                    formattedOut,
-                    slotConfig.getStrings("recipe"),
-                    slotConfig.getStringOrNull("crafting-permission")
-                )
+        if (!slotConfig.getBool("craftable")) return
+
+        val recipeStrings = slotConfig.getStrings("recipe")
+        if (recipeStrings.isEmpty()) return
+
+        val formattedOut = out.clone().apply {
+            itemMeta = itemMeta?.apply {
+                val metaLore = lore ?: emptyList()
+                lore = metaLore.map { it.replace("%tier%", Tiers.defaultTier.displayName) }
             }
+        }
+
+        plugin.scheduler.run {
+            Recipes.createAndRegisterRecipe(
+                plugin,
+                "${id}_${slot.name.lowercase(Locale.getDefault())}",
+                formattedOut,
+                recipeStrings,
+                slotConfig.getStringOrNull("crafting-permission"),
+                slotConfig.getBool("shapeless")
+            )
         }
     }
 

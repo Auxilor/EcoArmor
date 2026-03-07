@@ -6,6 +6,7 @@ import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.items.CustomItem
 import com.willfp.eco.core.items.Items
 import com.willfp.eco.core.recipe.Recipes
+import com.willfp.eco.core.recipe.recipes.CraftingRecipe
 import com.willfp.eco.core.registry.Registrable
 import com.willfp.eco.util.StringUtils
 import com.willfp.ecoarmor.sets.ArmorSlot
@@ -105,18 +106,25 @@ class Tier(
             out
         ).register()
 
-        if (this.craftable) {
-            val recipeOut = out.clone().apply {
-                amount = config.getInt("crystal.giveAmount")
+        val recipe: CraftingRecipe? = this.craftable
+            .takeIf { it }
+            ?.let {
+                val recipeStrings = config.getStrings("crystal.recipe")
+                if (recipeStrings.isEmpty()) return@let null
+
+                val recipeOut = out.clone().apply {
+                    amount = config.getInt("crystal.giveAmount")
+                }
+
+                Recipes.createAndRegisterRecipe(
+                    plugin,
+                    "upgrade_crystal_$id",
+                    recipeOut,
+                    recipeStrings,
+                    config.getStringOrNull("crystal.crafting-permission"),
+                    config.getBool("crystal.shapeless")
+                )
             }
-            Recipes.createAndRegisterRecipe(
-                plugin,
-                "upgrade_crystal_$id",
-                recipeOut,
-                config.getStrings("crystal.recipe"),
-                config.getStringOrNull("crystal.crafting-permission")
-            )
-        }
     }
 
     /**

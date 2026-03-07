@@ -65,6 +65,7 @@ shard:
     - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
   craftable: false # If the shard is craftable
   crafting-permission: "permission" # (Optional) The permission required to craft this recipe.
+  shapeless: false # (Optional) If true, the recipe will be shapeless. Default false.
   recipe: # The recipe, read here for more: https://plugins.auxilor.io/all-plugins/the-item-lookup-system#crafting-recipes
     - prismarine_shard
     - ecoarmor:set_reaper_helmet
@@ -91,6 +92,7 @@ helmet:
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true # If the armor piece is craftable
   crafting-permission: "permission" # (Optional) The permission required to craft this recipe.
+  shapeless: false # (Optional) If true, the recipe will be shapeless. Default false.
   recipe: # The recipe, read here for more: https://plugins.auxilor.io/all-plugins/the-item-lookup-system#crafting-recipes
     - ecoitems:armor_core ? air
     - nether_star
@@ -133,6 +135,7 @@ chestplate:
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
   crafting-permission: "permission"
+  shapeless: false
   recipe:
     - ecoitems:armor_core ? air
     - nether_star
@@ -164,6 +167,7 @@ elytra:
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
   crafting-permission: "permission"
+  shapeless: false
   recipe:
     - ecoitems:armor_core ? air
     - nether_star
@@ -195,6 +199,7 @@ leggings:
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
   crafting-permission: "permission"
+  shapeless: false
   recipe:
     - ecoitems:armor_core ? air
     - nether_star
@@ -226,6 +231,7 @@ boots:
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true
   crafting-permission: "permission"
+  shapeless: false
   recipe:
     - ecoitems:armor_core ? air
     - nether_star
