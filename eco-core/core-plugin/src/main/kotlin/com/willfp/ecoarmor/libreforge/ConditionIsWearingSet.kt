@@ -8,7 +8,7 @@ import com.willfp.libreforge.ProvidedHolder
 import com.willfp.libreforge.arguments
 import com.willfp.libreforge.conditions.Condition
 import com.willfp.libreforge.get
-import org.bukkit.entity.Player
+import org.bukkit.entity.LivingEntity
 
 object ConditionIsWearingSet : Condition<NoCompileData>("is_wearing_set") {
     override val arguments = arguments {
@@ -21,8 +21,8 @@ object ConditionIsWearingSet : Condition<NoCompileData>("is_wearing_set") {
         holder: ProvidedHolder,
         compileData: NoCompileData
     ): Boolean {
-        val player = dispatcher.get<Player>() ?: return false
+        val entity = dispatcher.get<LivingEntity>() ?: return false
 
-        return ArmorUtils.getSetOnPlayer(player)?.id == config.getString("set")
+        return ArmorUtils.getSetOnEntity(entity)?.id == config.getString("set")
     }
 }

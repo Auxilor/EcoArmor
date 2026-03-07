@@ -1,8 +1,8 @@
 package com.willfp.ecoarmor.sets
 
-import com.willfp.ecoarmor.EcoArmorPlugin.Companion.instance
 import com.willfp.ecoarmor.api.event.PlayerArmorSetEquipEvent
 import com.willfp.ecoarmor.api.event.PlayerArmorSetUnequipEvent
+import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
@@ -12,6 +12,7 @@ import com.willfp.libreforge.ProvidedHolder
 import com.willfp.libreforge.SimpleProvidedHolder
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
@@ -19,10 +20,6 @@ import org.bukkit.persistence.PersistentDataType
 import java.util.*
 
 object ArmorUtils {
-    /**
-     * Instance of EcoArmor.
-     */
-    private val PLUGIN = instance
 
     /**
      * Cache of sets on players.
@@ -51,7 +48,7 @@ object ArmorUtils {
     fun getSetOnItem(meta: ItemMeta): ArmorSet? {
         val container = meta.persistentDataContainer
         val setName = container.get(
-            PLUGIN.namespacedKeyFactory.create("set"),
+            plugin.namespacedKeyFactory.create("set"),
             PersistentDataType.STRING
         )
             ?: return null
@@ -63,11 +60,24 @@ object ArmorUtils {
      *
      * @param player The player to check.
      * @return The holder, or null if not found.
+     * @deprecated Use getActiveSet(entity: LivingEntity) instead.
      */
+    @Deprecated("Use getActiveSet(entity: LivingEntity) instead.")
     @JvmStatic
     fun getActiveSet(player: Player): Holder? {
-        val armorSet = getSetOnPlayer(player)
-        val advanced = isWearingAdvanced(player)
+        return getActiveSet(player as LivingEntity)
+    }
+
+    /**
+     * Get active holder for an entity.
+     *
+     * @param entity The entity to check.
+     * @return The holder, or null if not found.
+     */
+    @JvmStatic
+    fun getActiveSet(entity: LivingEntity): Holder? {
+        val armorSet = getSetOnEntity(entity)
+        val advanced = isWearingAdvanced(entity)
         return if (armorSet != null) {
             if (advanced) armorSet.advancedHolder else armorSet.regularHolder
         } else {
@@ -80,41 +90,53 @@ object ArmorUtils {
      *
      * @param player The player.
      * @return The holders.
+     * @deprecated Use getActiveHolders(entity: LivingEntity) instead.
      */
+    @Deprecated("Use getActiveHolders(entity: LivingEntity) instead.")
     fun getActiveHolders(player: Player): Collection<ProvidedHolder> {
+        return getActiveHolders(player as LivingEntity)
+    }
+
+    /**
+     * Get all active armor holders for an entity.
+     *
+     * @param entity The player.
+     * @return The holders.
+     */
+    fun getActiveHolders(entity: LivingEntity): Collection<ProvidedHolder> {
         val holders = mutableListOf<ProvidedHolder>()
 
-        val set = getActiveSet(player)
+        val set = getActiveSet(entity)
 
         if (set != null) {
             holders.add(SimpleProvidedHolder(set))
         }
 
-        holders.addAll(getSlotHolders(player))
+        holders.addAll(getSlotHolders(entity))
 
-        val oldSet = setCache[player]
+        val oldSet = setCache[entity]
 
         if (oldSet != set?.armorSet) {
             if (oldSet != null) {
-                PLUGIN.server.pluginManager.callEvent(
+                plugin.server.pluginManager.callEvent(
                     PlayerArmorSetUnequipEvent(
-                        player,
+                        entity as Player,
                         oldSet,
-                        isWearingAdvanced(player)
+                        isWearingAdvanced(entity)
                     )
                 )
             }
             set?.armorSet?.let {
-                    PLUGIN.server.pluginManager.callEvent(
+                    plugin.server.pluginManager.callEvent(
                         PlayerArmorSetEquipEvent(
-                            player,
+                            entity as Player,
                             it,
-                            isWearingAdvanced(player)
+                            isWearingAdvanced(entity)
                         )
                     )
             }
 
-            setCache[player] = set?.armorSet
+            setCache[entity as Player] = set?.armorSet
         }
 
         return holders
@@ -125,11 +147,25 @@ object ArmorUtils {
      *
      * @param player The player to check.
      * @return The holder, or null if not found.
+     * @deprecated Use getSlotHolders(entity: LivingEntity) instead.
      */
+    @Deprecated("Use getSlotHolders(entity: LivingEntity) instead.")
     private fun getSlotHolders(player: Player): Collection<ItemProvidedHolder> {
+        return getSlotHolders(player as LivingEntity)
+    }
+
+    /**
+     * Get active holder for an entity.
+     *
+     * @param entity The entity to check.
+     * @return The holder, or null if not found.
+     */
+    private fun getSlotHolders(entity: LivingEntity): Collection<ItemProvidedHolder> {
         val holders = mutableListOf<ItemProvidedHolder>()
 
-        for (itemStack in player.inventory.armorContents) {
+        val equipment = entity.equipment?.armorContents ?: return holders
+
+        for (itemStack in equipment) {
             if (itemStack == null) {
                 continue
             }
@@ -148,10 +184,24 @@ object ArmorUtils {
      *
      * @param player The player to check.
      * @return The set, or null if no full set is worn.
+     * @deprecated Use getSetOnEntity(entity: LivingEntity) instead.
      */
+    @Deprecated("Use getSetOnEntity(entity: LivingEntity) instead.")
     @JvmStatic
     fun getSetOnPlayer(player: Player): ArmorSet? {
-        return getSetOn(player.inventory.armorContents.toList())
+        return getSetOnEntity(player as LivingEntity)
+    }
+
+    /**
+     * Get armor set that entity is wearing.
+     *
+     * @param entity The entity to check.
+     * @return The set, or null if no full set is worn.
+     */
+    @JvmStatic
+    fun getSetOnEntity(entity: LivingEntity): ArmorSet? {
+        val equipment = entity.equipment?.armorContents?.toList() ?: return null
+        return getSetOn(equipment)
     }
 
     /**
@@ -201,14 +251,14 @@ object ArmorUtils {
     @JvmStatic
     fun getCrystalTier(meta: ItemMeta): Tier? {
         return if (meta.persistentDataContainer.has(
-                PLUGIN.namespacedKeyFactory.create(
+                plugin.namespacedKeyFactory.create(
                     "upgrade_crystal"
                 ), PersistentDataType.STRING
             )
         ) {
             Tiers.getByID(
                 meta.persistentDataContainer.get(
-                    PLUGIN.namespacedKeyFactory.create(
+                    plugin.namespacedKeyFactory.create(
                         "upgrade_crystal"
                     ), PersistentDataType.STRING
                 )
@@ -246,14 +296,14 @@ object ArmorUtils {
             return null
         }
         return if (meta.persistentDataContainer.has(
-                PLUGIN.namespacedKeyFactory.create(
+                plugin.namespacedKeyFactory.create(
                     "tier"
                 ), PersistentDataType.STRING
             )
         ) {
             Tiers.getByID(
                 meta.persistentDataContainer.get(
-                    PLUGIN.namespacedKeyFactory.create(
+                    plugin.namespacedKeyFactory.create(
                         "tier"
                     ), PersistentDataType.STRING
                 )
@@ -356,14 +406,14 @@ object ArmorUtils {
         tier: Tier
     ) {
         if (!meta.persistentDataContainer.has(
-                PLUGIN.namespacedKeyFactory.create("set"),
+                plugin.namespacedKeyFactory.create("set"),
                 PersistentDataType.STRING
             )
         ) {
             return
         }
         meta.persistentDataContainer.set(
-            PLUGIN.namespacedKeyFactory.create("tier"),
+            plugin.namespacedKeyFactory.create("tier"),
             PersistentDataType.STRING,
             tier.id
         )
@@ -374,10 +424,24 @@ object ArmorUtils {
      *
      * @param player The player to check.
      * @return If advanced.
+     * @deprecated Use isWearingAdvanced(entity: LivingEntity) instead.
      */
+    @Deprecated("Use isWearingAdvanced(entity: LivingEntity) instead.")
     @JvmStatic
     fun isWearingAdvanced(player: Player): Boolean {
-        return isWearingAdvanced(player.inventory.armorContents.toList())
+        return isWearingAdvanced(player as LivingEntity)
+    }
+
+    /**
+     * Get if entity is wearing advanced set.
+     *
+     * @param entity The entity to check.
+     * @return If advanced.
+     */
+    @JvmStatic
+    fun isWearingAdvanced(entity: LivingEntity): Boolean {
+        val equipment = entity.equipment?.armorContents?.toList() ?: return false
+        return isWearingAdvanced(equipment)
     }
 
     /**
@@ -423,12 +487,12 @@ object ArmorUtils {
     @JvmStatic
     fun isAdvanced(meta: ItemMeta): Boolean {
         return if (meta.persistentDataContainer.has(
-                PLUGIN.namespacedKeyFactory.create("advanced"),
+                plugin.namespacedKeyFactory.create("advanced"),
                 PersistentDataType.INTEGER
             )
         ) {
             meta.persistentDataContainer.get(
-                PLUGIN.namespacedKeyFactory.create("advanced"),
+                plugin.namespacedKeyFactory.create("advanced"),
                 PersistentDataType.INTEGER
             ) == 1
         } else false
@@ -447,7 +511,7 @@ object ArmorUtils {
     ) {
         val meta = itemStack.itemMeta ?: return
         meta.persistentDataContainer.set(
-            PLUGIN.namespacedKeyFactory.create("advanced"),
+            plugin.namespacedKeyFactory.create("advanced"),
             PersistentDataType.INTEGER,
             if (advanced) 1 else 0
         )
@@ -475,7 +539,7 @@ object ArmorUtils {
     @JvmStatic
     fun getShardSet(meta: ItemMeta): ArmorSet? {
         val shardSet = meta.persistentDataContainer.get(
-            PLUGIN.namespacedKeyFactory.create(
+            plugin.namespacedKeyFactory.create(
                 "advancement-shard"
             ), PersistentDataType.STRING
         )

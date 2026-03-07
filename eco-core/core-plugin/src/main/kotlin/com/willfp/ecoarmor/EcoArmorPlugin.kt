@@ -10,6 +10,7 @@ import com.willfp.ecoarmor.sets.ArmorSetEquipSoundListeners
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorUtils
 import com.willfp.ecoarmor.sets.EffectiveDurabilityListener
+import com.willfp.ecoarmor.sets.PlayerArmorSetEventListeners
 import com.willfp.ecoarmor.sets.PreventSkullPlaceListener
 import com.willfp.ecoarmor.upgrades.AdvancementShardListener
 import com.willfp.ecoarmor.upgrades.CrystalListener
@@ -20,12 +21,15 @@ import com.willfp.libreforge.conditions.Conditions
 import com.willfp.libreforge.loader.LibreforgePlugin
 import com.willfp.libreforge.loader.configs.ConfigCategory
 import com.willfp.libreforge.registerSpecificHolderProvider
-import org.bukkit.entity.Player
+import org.bukkit.entity.LivingEntity
 import org.bukkit.event.Listener
+
+internal lateinit var plugin: EcoArmorPlugin
+    private set
 
 class EcoArmorPlugin : LibreforgePlugin() {
     init {
-        instance = this
+        plugin = this
         Items.registerArgParser(TierArgParser())
     }
 
@@ -34,7 +38,7 @@ class EcoArmorPlugin : LibreforgePlugin() {
     }
 
     override fun handleEnable() {
-        registerSpecificHolderProvider<Player> {
+        registerSpecificHolderProvider<LivingEntity> {
             ArmorUtils.getActiveHolders(it)
         }
     }
@@ -48,27 +52,23 @@ class EcoArmorPlugin : LibreforgePlugin() {
 
     override fun loadPluginCommands(): List<PluginCommand> {
         return listOf(
-            CommandEcoArmor(this)
+            CommandEcoArmor
         )
     }
 
     override fun loadListeners(): List<Listener> {
         return listOf(
-            CrystalListener(),
-            AdvancementShardListener(this),
-            EffectiveDurabilityListener(this),
-            DiscoverRecipeListener(this),
-            PreventSkullPlaceListener(),
-            ArmorSetEquipSoundListeners()
+            CrystalListener,
+            AdvancementShardListener,
+            EffectiveDurabilityListener,
+            DiscoverRecipeListener,
+            PreventSkullPlaceListener,
+            ArmorSetEquipSoundListeners
         )
     }
 
+    @Suppress("OVERRIDE_DEPRECATION")
     override fun createDisplayModule(): DisplayModule {
-        return ArmorDisplay(this)
-    }
-
-    companion object {
-        @JvmStatic
-        lateinit var instance: EcoArmorPlugin
+        return ArmorDisplay
     }
 }
