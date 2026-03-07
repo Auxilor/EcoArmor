@@ -17,7 +17,6 @@ import com.willfp.ecoarmor.sets.ArmorUtils.setAdvanced
 import com.willfp.ecoarmor.sets.ArmorUtils.setTier
 import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
-import com.willfp.ecoarmor.util.PlayableSound
 import com.willfp.libreforge.Holder
 import com.willfp.libreforge.ItemProvidedHolder
 import com.willfp.libreforge.SimpleHolder
@@ -26,7 +25,6 @@ import com.willfp.libreforge.conditions.Conditions
 import com.willfp.libreforge.effects.Effects
 import com.willfp.libreforge.notNullMutableMapOf
 import org.bukkit.Bukkit
-import org.bukkit.Sound
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.Locale
@@ -60,39 +58,6 @@ class ArmorSet(
     val advancementShardItem: ItemStack
 
     val setRequirements = config.getIntOrNull("amount_for_set") ?: 4
-
-    /*
-    * Equip Sound
-     */
-    val equipSound = if (config.getBool("sounds.equip.enabled")) {
-        PlayableSound(
-            Sound.valueOf(config.getString("sounds.equip.sound").uppercase()),
-            config.getDouble("sounds.equip.volume"),
-            config.getDouble("sounds.equip.pitch")
-        )
-    } else null
-
-    /*
-    * Advanced equip Sound
-     */
-    val advancedEquipSound = if (config.getBool("sounds.advancedEquip.enabled")) {
-        PlayableSound(
-            Sound.valueOf(config.getString("sounds.advancedEquip.sound").uppercase()),
-            config.getDouble("sounds.advancedEquip.volume"),
-            config.getDouble("sounds.advancedEquip.pitch")
-        )
-    } else null
-
-    /*
-    * Unequip Sound
-     */
-    val unequipSound = if (config.getBool("sounds.unequip.enabled")) {
-        PlayableSound(
-            Sound.valueOf(config.getString("sounds.unequip.sound").uppercase()),
-            config.getDouble("sounds.unequip.volume"),
-            config.getDouble("sounds.unequip.pitch")
-        )
-    } else null
 
     /** Create a new Armor Set. */
     init {
@@ -288,7 +253,7 @@ class ArmorSet(
             val lore = metaLore.map { it.replace("%tier%", Tiers.defaultTier.displayName) }
             meta.lore = lore
             formattedOut.itemMeta = meta
-            plugin.scheduler.runTask {
+            plugin.scheduler.run {
                 Recipes.createAndRegisterRecipe(
                     plugin,
                     id + "_" + slot.name.lowercase(Locale.getDefault()),

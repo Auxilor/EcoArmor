@@ -29,16 +29,19 @@ sounds:
     sound: ""
     volume: 1
     pitch: 1
+    category: ""
   advancedEquip:
     enabled: false
     sound: ""
     volume: 1
     pitch: 1
+    category: ""
   unequip:
     enabled: false
     sound: ""
     volume: 1
     pitch: 1
+    category: ""
 advancedLore:
   - ''
   - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"

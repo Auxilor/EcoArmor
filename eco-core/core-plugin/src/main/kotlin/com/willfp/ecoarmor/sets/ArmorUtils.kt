@@ -1,5 +1,7 @@
 package com.willfp.ecoarmor.sets
 
+import com.willfp.ecoarmor.api.event.PlayerArmorSetEquipEvent
+import com.willfp.ecoarmor.api.event.PlayerArmorSetUnequipEvent
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.upgrades.Tier
@@ -18,6 +20,11 @@ import org.bukkit.persistence.PersistentDataType
 import java.util.*
 
 object ArmorUtils {
+
+    /**
+     * Cache of sets on players.
+     */
+    private val setCache = mutableMapOf<Player, ArmorSet?>()
 
     /**
      * Get armor set on an item.
@@ -106,6 +113,31 @@ object ArmorUtils {
         }
 
         holders.addAll(getSlotHolders(entity))
+
+        val oldSet = setCache[entity]
+
+        if (oldSet != set?.armorSet) {
+            if (oldSet != null) {
+                plugin.server.pluginManager.callEvent(
+                    PlayerArmorSetUnequipEvent(
+                        entity as Player,
+                        oldSet,
+                        isWearingAdvanced(entity)
+                    )
+                )
+            }
+            set?.armorSet?.let {
+                    plugin.server.pluginManager.callEvent(
+                        PlayerArmorSetEquipEvent(
+                            entity as Player,
+                            it,
+                            isWearingAdvanced(entity)
+                        )
+                    )
+            }
+
+            setCache[entity as Player] = set?.armorSet
+        }
 
         return holders
     }
@@ -285,7 +317,6 @@ object ArmorUtils {
      * @param itemStack The item to check.
      * @param tier      The tier to set.
      */
-    @Suppress("USELESS_ELVIS")
     @JvmStatic
     fun setTier(
         itemStack: ItemStack,
@@ -346,64 +377,19 @@ object ArmorUtils {
 
         val pctScaler: (Int) -> Double = { it / 100.0 }
         addModifier(Attribute.MOVEMENT_SPEED, props.speedPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(
-            Attribute.ATTACK_SPEED,
-            props.attackSpeedPercentage,
-            AttributeModifier.Operation.ADD_SCALAR,
-            pctScaler
-        )
-        addModifier(
-            Attribute.ATTACK_DAMAGE,
-            props.attackDamagePercentage,
-            AttributeModifier.Operation.ADD_SCALAR,
-            pctScaler
-        )
-        addModifier(
-            Attribute.ATTACK_KNOCKBACK,
-            props.attackKnockbackPercentage,
-            AttributeModifier.Operation.ADD_SCALAR,
-            pctScaler
-        )
+        addModifier(Attribute.ATTACK_SPEED, props.attackSpeedPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.ATTACK_DAMAGE, props.attackDamagePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.ATTACK_KNOCKBACK, props.attackKnockbackPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
         addModifier(Attribute.JUMP_STRENGTH, props.jumpStrength, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
         addModifier(Attribute.GRAVITY, props.gravityPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(
-            Attribute.BURNING_TIME,
-            props.burningTimePercentage,
-            AttributeModifier.Operation.ADD_SCALAR,
-            pctScaler
-        )
-        addModifier(
-            Attribute.MOVEMENT_EFFICIENCY,
-            props.movementEfficiency,
-            AttributeModifier.Operation.ADD_SCALAR,
-            pctScaler
-        )
-        addModifier(
-            Attribute.ENTITY_INTERACTION_RANGE,
-            props.entityInteractionRangePercentage,
-            AttributeModifier.Operation.ADD_SCALAR,
-            pctScaler
-        )
-        addModifier(
-            Attribute.BLOCK_INTERACTION_RANGE,
-            props.blockInteractionRangePercentage,
-            AttributeModifier.Operation.ADD_SCALAR,
-            pctScaler
-        )
+        addModifier(Attribute.BURNING_TIME, props.burningTimePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.MOVEMENT_EFFICIENCY, props.movementEfficiency, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.ENTITY_INTERACTION_RANGE, props.entityInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.BLOCK_INTERACTION_RANGE, props.blockInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
 
         val fracScaler: (Int) -> Double = { it / 100.0 }
-        addModifier(
-            Attribute.KNOCKBACK_RESISTANCE,
-            props.knockbackResistance,
-            AttributeModifier.Operation.ADD_NUMBER,
-            fracScaler
-        )
-        addModifier(
-            Attribute.EXPLOSION_KNOCKBACK_RESISTANCE,
-            props.explosionKnockbackResistance,
-            AttributeModifier.Operation.ADD_NUMBER,
-            fracScaler
-        )
+        addModifier(Attribute.KNOCKBACK_RESISTANCE, props.knockbackResistance, AttributeModifier.Operation.ADD_NUMBER, fracScaler)
+        addModifier(Attribute.EXPLOSION_KNOCKBACK_RESISTANCE, props.explosionKnockbackResistance, AttributeModifier.Operation.ADD_NUMBER, fracScaler)
 
         itemStack.itemMeta = meta
     }
@@ -561,3 +547,6 @@ object ArmorUtils {
         return ArmorSets.getByID(shardSet)
     }
 }
+
+val Holder.armorSet: ArmorSet?
+    get() = ArmorSets.getByID(this.id.key.removeSuffix("_advanced"))

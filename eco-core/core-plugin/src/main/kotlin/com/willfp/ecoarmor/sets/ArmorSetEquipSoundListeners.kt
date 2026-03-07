@@ -1,5 +1,6 @@
 package com.willfp.ecoarmor.sets
 
+import com.willfp.eco.core.sound.PlayableSound
 import com.willfp.ecoarmor.api.event.PlayerArmorSetEquipEvent
 import com.willfp.ecoarmor.api.event.PlayerArmorSetUnequipEvent
 import org.bukkit.event.EventHandler
@@ -8,13 +9,14 @@ import org.bukkit.event.Listener
 object ArmorSetEquipSoundListeners: Listener {
     @EventHandler
     fun handleEquip(event: PlayerArmorSetEquipEvent) {
-        val sound = (if (event.advanced) event.set.advancedEquipSound else event.set.equipSound) ?: return
-        sound.play(event.player)
+        val path = if (event.advanced) "sounds.advancedEquip" else "sounds.equip"
+        val player = event.player
+        PlayableSound.create(event.set.config.getSubsection(path))?.playTo(player)
     }
 
     @EventHandler
     fun handleUnequip(event: PlayerArmorSetUnequipEvent) {
-        val sound = event.set.unequipSound ?: return
-        sound.play(event.player)
+        val player = event.player
+        PlayableSound.create(event.set.config.getSubsection("sounds.unequip"))?.playTo(player)
     }
 }
