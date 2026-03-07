@@ -19,6 +19,7 @@ crystal:
     - "&8&oRequires the armor to already have Diamond tier"
   craftable: true # If the armor piece is craftable
   crafting-permission: "permission" # (Optional) The permission required to craft this recipe.
+  shapeless: false # (Optional) If true, the recipe will be shapeless. Default false.
   recipe: # The recipe, read here for more: https://plugins.auxilor.io/all-plugins/the-item-lookup-system#crafting-recipes
     - air
     - netherite_ingot
