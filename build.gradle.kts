@@ -39,7 +39,7 @@ allprojects {
     }
 
     dependencies {
-        compileOnly("com.willfp:eco:6.77.6")
+        compileOnly("com.willfp:eco:7.0.0")
         compileOnly("org.jetbrains:annotations:26.0.2")
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib:2.3.0")
     }
@@ -52,6 +52,10 @@ allprojects {
     tasks {
         shadowJar {
             relocate("com.willfp.libreforge.loader", "com.willfp.ecoarmor.libreforge.loader")
+            relocate("kotlin", "com.willfp.eco.libs.kotlin")
+            relocate("kotlin.jvm", "com.willfp.eco.libs.kotlin.jvm")
+            relocate("kotlin.coroutines", "com.willfp.eco.libs.kotlin.coroutines")
+            relocate("kotlin.reflect", "com.willfp.eco.libs.kotlin.reflect")
         }
 
         compileKotlin {
