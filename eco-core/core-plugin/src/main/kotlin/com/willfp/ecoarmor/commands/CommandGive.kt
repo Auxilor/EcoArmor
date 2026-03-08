@@ -1,7 +1,7 @@
 package com.willfp.ecoarmor.commands
 
-import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.command.impl.Subcommand
+import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
@@ -13,13 +13,18 @@ import org.bukkit.command.CommandSender
 import org.bukkit.inventory.ItemStack
 import org.bukkit.util.StringUtil
 
-class CommandGive(plugin: EcoPlugin) : Subcommand(plugin, "give", "ecoarmor.command.give", false) {
+object CommandGive : Subcommand(
+    plugin,
+    "give",
+    "ecoarmor.command.give",
+    false
+) {
     private val items: Collection<String>
         get() = ArmorSets.values().map { "set:${it.id}" } union ArmorSets.values()
             .map { "shard:${it.id}" } union Tiers.values().map { "crystal:${it.id}" }
 
     private val slots: Collection<String>
-        get() = ArmorSlot.values().map { it.name.lowercase() }.toMutableList().apply { add("full") }
+        get() = ArmorSlot.entries.map { it.name.lowercase() }.toMutableList().apply { add("full") }
 
     private val tiers: Collection<String>
         get() = Tiers.values().map { it.id }
@@ -99,12 +104,12 @@ class CommandGive(plugin: EcoPlugin) : Subcommand(plugin, "give", "ecoarmor.comm
                     }
                 }
                 if (slot == null) {
-                    slots.addAll(ArmorSlot.values())
+                    slots.addAll(ArmorSlot.entries)
                 } else {
                     slots.add(slot)
                 }
             } else {
-                slots.addAll(ArmorSlot.values())
+                slots.addAll(ArmorSlot.entries)
             }
             if (args.size >= 4) {
                 advanced = args[3].toBoolean()

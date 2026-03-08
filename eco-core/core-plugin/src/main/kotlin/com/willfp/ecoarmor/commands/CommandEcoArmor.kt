@@ -1,13 +1,18 @@
 package com.willfp.ecoarmor.commands
 
-import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.command.impl.PluginCommand
+import com.willfp.ecoarmor.plugin
 import org.bukkit.command.CommandSender
 
-class CommandEcoArmor(plugin: EcoPlugin) : PluginCommand(plugin, "ecoarmor", "ecoarmor.command.ecoarmor", false) {
+object CommandEcoArmor : PluginCommand(
+    plugin,
+    "ecoarmor",
+    "ecoarmor.command.ecoarmor",
+    false
+) {
     init {
-        addSubcommand(CommandReload(plugin))
-            .addSubcommand(CommandGive(plugin))
+        addSubcommand(CommandReload)
+            .addSubcommand(CommandGive)
     }
 
     override fun onExecute(sender: CommandSender, args: List<String>) {

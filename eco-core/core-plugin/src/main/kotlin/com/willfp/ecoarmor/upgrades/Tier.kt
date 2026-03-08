@@ -1,6 +1,5 @@
 package com.willfp.ecoarmor.upgrades
 
-import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.items.CustomItem
@@ -9,34 +8,34 @@ import com.willfp.eco.core.recipe.Recipes
 import com.willfp.eco.core.recipe.recipes.CraftingRecipe
 import com.willfp.eco.core.registry.Registrable
 import com.willfp.eco.util.StringUtils
+import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getCrystalTier
 import com.willfp.libreforge.notNullMutableMapOf
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import java.util.*
-
+import java.util.Locale
+import java.util.Objects
 
 @Suppress("DEPRECATION")
 class Tier(
     val id: String,
-    private val config: Config,
-    plugin: EcoPlugin
+    private val config: Config
 ) : Registrable {
     /**
      * The display name of the crystal.
      */
-    val displayName: String
+    val displayName: String = this.config.getFormattedString("display")
 
     /**
      * The names of the tiers required for application.
      */
-    private val requiredTiersForApplication: List<String>
+    private val requiredTiersForApplication: List<String> = this.config.getStrings("requiresTiers")
 
     /**
      * If the crafting recipe is enabled.
      */
-    val craftable: Boolean
+    val craftable: Boolean = this.config.getBool("crystal.craftable")
 
     /**
      * The ItemStack of the crystal.
@@ -52,15 +51,11 @@ class Tier(
      * Create a new Tier.
      */
     init {
-        craftable = this.config.getBool("crystal.craftable")
-        displayName = this.config.getFormattedString("display")
-        requiredTiersForApplication = this.config.getStrings("requiresTiers")
         val key = plugin.namespacedKeyFactory.create("upgrade_crystal")
         val out = Items.lookup(this.config.getString("crystal.item")).item
         val outMeta = out.itemMeta!!
         val container = outMeta.persistentDataContainer
         container.set(key, PersistentDataType.STRING, id)
-        @Suppress("UsePropertyAccessSyntax")
         outMeta.setDisplayName(this.config.getFormattedString("crystal.name"))
         val lore: MutableList<String> = ArrayList()
         for (loreLine in this.config.getStrings("crystal.lore")) {
@@ -70,7 +65,7 @@ class Tier(
         out.itemMeta = outMeta
         out.amount = 1 // who knows
         crystal = out
-        for (slot in ArmorSlot.values()) {
+        for (slot in ArmorSlot.entries) {
             val path = "properties.${slot.name.lowercase(Locale.getDefault())}"
 
             properties[slot] = TierProperties(

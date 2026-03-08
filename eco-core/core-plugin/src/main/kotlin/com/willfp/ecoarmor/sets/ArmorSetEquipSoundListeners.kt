@@ -6,7 +6,7 @@ import com.willfp.ecoarmor.api.event.PlayerArmorSetUnequipEvent
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
-class ArmorSetEquipSoundListeners: Listener {
+object ArmorSetEquipSoundListeners: Listener {
     @EventHandler
     fun handleEquip(event: PlayerArmorSetEquipEvent) {
         val path = if (event.advanced) "sounds.advancedEquip" else "sounds.equip"
