@@ -6,7 +6,7 @@ plugins {
     id("java-library")
     id("maven-publish")
     id("com.gradleup.shadow") version "9.3.1"
-    id("com.willfp.libreforge-gradle-plugin") version "1.0.3"
+    id("com.willfp.libreforge-gradle-plugin") version "2.0.0"
 }
 
 group = "com.willfp"
