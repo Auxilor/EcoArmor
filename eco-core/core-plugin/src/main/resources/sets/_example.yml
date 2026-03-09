@@ -31,6 +31,30 @@ advancedEffects:
     triggers:
       - take_damage
 
+partialEffects:
+  enabled: true
+  stacked: false
+  disabledByFull: false
+  amounts:
+    2:
+      effects:
+        - id: damage_multiplier
+          args:
+            multiplier: 1.15
+          triggers:
+            - melee_attack
+            - bow_attack
+            - trident_attack
+    3:
+      effects:
+        - id: damage_multiplier
+          args:
+            multiplier: 1.20
+          triggers:
+            - melee_attack
+            - bow_attack
+            - trident_attack
+
 sounds:
   equip:
     enabled: true # If a sound should play when armor is equipped.
