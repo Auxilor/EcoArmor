@@ -112,6 +112,32 @@ object ArmorUtils {
             holders.add(SimpleProvidedHolder(set))
         }
 
+        val equipment = entity.equipment?.armorContents?.toList() ?: emptyList()
+        val fullSet = getSetOn(equipment)
+        
+        val partialSetsWorn = getPartialSetsOn(equipment)
+        for ((partialSet, count) in partialSetsWorn) {
+            val suppressedByFull = fullSet != null && partialSet == fullSet && partialSet.fullSetDisablesPartialSet
+            if (suppressedByFull) continue
+
+            if (partialSet.partialHolders.isNotEmpty()) {
+                if (partialSet.stackedPartialSets) {
+                    for (requiredCount in partialSet.partialHolders.keys) {
+                        if (count >= requiredCount) {
+                            val holder = partialSet.partialHolders[requiredCount]
+                            if (holder != null) holders.add(SimpleProvidedHolder(holder))
+                        }
+                    }
+                } else {
+                    val highestApplicableCount = partialSet.partialHolders.keys.filter { it <= count }.maxOrNull()
+                    if (highestApplicableCount != null) {
+                        val holder = partialSet.partialHolders[highestApplicableCount]
+                        if (holder != null) holders.add(SimpleProvidedHolder(holder))
+                    }
+                }
+            }
+        }
+
         holders.addAll(getSlotHolders(entity))
 
         val oldSet = setCache[entity]
@@ -228,6 +254,24 @@ object ArmorUtils {
             }
         }
         return null
+    }
+
+    /**
+     * Get all armor sets that player is wearing a partial set of, paired with the amount they are wearing.
+     *
+     * @param items The items to check.
+     * @return A map of sets to their worn amount.
+     */
+    @JvmStatic
+    fun getPartialSetsOn(items: List<ItemStack?>): Map<ArmorSet, Int> {
+        val found = mutableListOf<ArmorSet>()
+        for (itemStack in items) {
+            if (itemStack == null) continue
+            val set = getSetOnItem(itemStack) ?: continue
+            found.add(set)
+        }
+        if (found.isEmpty()) return emptyMap()
+        return found.groupingBy { it }.eachCount()
     }
 
     /**
