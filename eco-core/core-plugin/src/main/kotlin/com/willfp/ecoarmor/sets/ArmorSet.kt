@@ -60,6 +60,17 @@ class ArmorSet(
 
     val setRequirements = config.getIntOrNull("amount_for_set") ?: 4
 
+    val partialSetEnabled: Boolean = config.getBool("partialEffects.enabled")
+
+    val stackedPartialSets: Boolean = config.getBool("partialEffects.stacked")
+
+    val fullSetDisablesPartialSet: Boolean =
+        if (config.has("partialEffects.disabledByFull")) config.getBool("partialEffects.disabledByFull")
+        else if (config.has("fullSetDisablesPartialSet")) config.getBool("fullSetDisablesPartialSet")
+        else true
+
+    val partialHolders = notNullMutableMapOf<Int, Holder>()
+
     /** Create a new Armor Set. */
     init {
         val conditions = Conditions.compile(
@@ -79,6 +90,23 @@ class ArmorSet(
 
         regularHolder = SimpleHolder(plugin.namespacedKeyFactory.create(id), effects, conditions)
         advancedHolder = SimpleHolder(plugin.namespacedKeyFactory.create("${id}_advanced"), advancedEffects, conditions)
+
+        if (partialSetEnabled) {
+            val amountsConfig = config.getSubsection("partialEffects.amounts")
+            for (key in amountsConfig.getKeys(false)) {
+                val amount = key.toIntOrNull() ?: continue
+                val amountConfig = amountsConfig.getSubsection(key)
+                
+                val partialEffects = Effects.compile(
+                    amountConfig.getSubsections("effects"),
+                    ViolationContext(plugin, "Armor Set $id (partial-set-$amount)")
+                )
+                
+                if (partialEffects.isNotEmpty()) {
+                    partialHolders[amount] = SimpleHolder(plugin.namespacedKeyFactory.create("${id}_partial_set_$amount"), partialEffects, conditions)
+                }
+            }
+        }
 
         for (slot in ArmorSlot.entries) {
             val slotConfig = config.getSubsection(slot.name.lowercase(Locale.ENGLISH))
