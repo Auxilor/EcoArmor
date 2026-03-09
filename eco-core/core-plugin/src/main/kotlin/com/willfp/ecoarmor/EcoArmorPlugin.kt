@@ -10,7 +10,6 @@ import com.willfp.ecoarmor.sets.ArmorSetEquipSoundListeners
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorUtils
 import com.willfp.ecoarmor.sets.EffectiveDurabilityListener
-import com.willfp.ecoarmor.sets.PlayerArmorSetEventListeners
 import com.willfp.ecoarmor.sets.PreventSkullPlaceListener
 import com.willfp.ecoarmor.upgrades.AdvancementShardListener
 import com.willfp.ecoarmor.upgrades.CrystalListener
