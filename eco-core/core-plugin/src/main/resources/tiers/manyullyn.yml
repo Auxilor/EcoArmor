@@ -6,15 +6,15 @@ crystal:
   name: "<GRADIENT:f953c6>Manyullyn Upgrade Crystal</GRADIENT:b91d73>"
   craftable: true
   recipe:
-    - ecoarmor:crystal_netherite
+    - ecoarmor:upgrade_crystal_netherite
     - enchanted_golden_apple
-    - ecoarmor:crystal_netherite
+    - ecoarmor:upgrade_crystal_netherite
     - enchanted_golden_apple
-    - ecoarmor:crystal_netherite
+    - ecoarmor:upgrade_crystal_netherite
     - enchanted_golden_apple
-    - ecoarmor:crystal_netherite
+    - ecoarmor:upgrade_crystal_netherite
     - enchanted_golden_apple
-    - ecoarmor:crystal_netherite
+    - ecoarmor:upgrade_crystal_netherite
   giveAmount: 1
   lore:
     - "&8Drop this onto an armor piece"

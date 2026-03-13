@@ -158,7 +158,7 @@ class ArmorSet(
             .addLoreLines(shardLore)
             .writeMetaKey(plugin.namespacedKeyFactory.create("advancement-shard"), PersistentDataType.STRING, id)
             .build()
-        val shardRecipe: CraftingRecipe? = config.getBool("shard.craftable")
+        config.getBool("shard.craftable")
             .takeIf { it }
             ?.let {
                 val recipeStrings = config.getStrings("shard.recipe")

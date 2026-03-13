@@ -6,15 +6,15 @@ crystal:
   name: "<GRADIENT:f79d00>Exotic Upgrade Crystal</GRADIENT:64f38c>"
   craftable: true
   recipe:
-    - ecoarmor:crystal_netherite
+    - ecoarmor:upgrade_crystal_netherite
     - turtle_egg
-    - ecoarmor:crystal_netherite
+    - ecoarmor:upgrade_crystal_netherite
     - turtle_egg
-    - ecoarmor:crystal_cobalt
+    - ecoarmor:upgrade_crystal_cobalt
     - turtle_egg
-    - ecoarmor:crystal_netherite
+    - ecoarmor:upgrade_crystal_netherite
     - turtle_egg
-    - ecoarmor:crystal_netherite
+    - ecoarmor:upgrade_crystal_netherite
   giveAmount: 1
   lore:
     - "&8Drop this onto an armor piece"
