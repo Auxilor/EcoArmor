@@ -55,18 +55,6 @@ object ArmorUtils {
         return ArmorSets.getByID(setName)
     }
 
-    /**
-     * Get active holder for a player.
-     *
-     * @param player The player to check.
-     * @return The holder, or null if not found.
-     * @deprecated Use getActiveSet(entity: LivingEntity) instead.
-     */
-    @Deprecated("Use getActiveSet(entity: LivingEntity) instead.")
-    @JvmStatic
-    fun getActiveSet(player: Player): Holder? {
-        return getActiveSet(player as LivingEntity)
-    }
 
     /**
      * Get active holder for an entity.
@@ -85,17 +73,6 @@ object ArmorUtils {
         }
     }
 
-    /**
-     * Get all active armor holders for a player.
-     *
-     * @param player The player.
-     * @return The holders.
-     * @deprecated Use getActiveHolders(entity: LivingEntity) instead.
-     */
-    @Deprecated("Use getActiveHolders(entity: LivingEntity) instead.")
-    fun getActiveHolders(player: Player): Collection<ProvidedHolder> {
-        return getActiveHolders(player as LivingEntity)
-    }
 
     /**
      * Get all active armor holders for an entity.
@@ -168,17 +145,6 @@ object ArmorUtils {
         return holders
     }
 
-    /**
-     * Get active holder for a player.
-     *
-     * @param player The player to check.
-     * @return The holder, or null if not found.
-     * @deprecated Use getSlotHolders(entity: LivingEntity) instead.
-     */
-    @Deprecated("Use getSlotHolders(entity: LivingEntity) instead.")
-    private fun getSlotHolders(player: Player): Collection<ItemProvidedHolder> {
-        return getSlotHolders(player as LivingEntity)
-    }
 
     /**
      * Get active holder for an entity.
@@ -205,18 +171,6 @@ object ArmorUtils {
         return holders
     }
 
-    /**
-     * Get armor set that player is wearing.
-     *
-     * @param player The player to check.
-     * @return The set, or null if no full set is worn.
-     * @deprecated Use getSetOnEntity(entity: LivingEntity) instead.
-     */
-    @Deprecated("Use getSetOnEntity(entity: LivingEntity) instead.")
-    @JvmStatic
-    fun getSetOnPlayer(player: Player): ArmorSet? {
-        return getSetOnEntity(player as LivingEntity)
-    }
 
     /**
      * Get armor set that entity is wearing.
@@ -463,18 +417,6 @@ object ArmorUtils {
         )
     }
 
-    /**
-     * Get if player is wearing advanced set.
-     *
-     * @param player The player to check.
-     * @return If advanced.
-     * @deprecated Use isWearingAdvanced(entity: LivingEntity) instead.
-     */
-    @Deprecated("Use isWearingAdvanced(entity: LivingEntity) instead.")
-    @JvmStatic
-    fun isWearingAdvanced(player: Player): Boolean {
-        return isWearingAdvanced(player as LivingEntity)
-    }
 
     /**
      * Get if entity is wearing advanced set.
