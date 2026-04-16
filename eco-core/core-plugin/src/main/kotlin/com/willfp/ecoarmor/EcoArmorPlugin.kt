@@ -40,6 +40,16 @@ class EcoArmorPlugin : LibreforgePlugin() {
         registerSpecificHolderProvider<LivingEntity> {
             ArmorUtils.getActiveHolders(it)
         }
+        // Recipes are registered on a 1-tick delay, so rebuild cache after they exist.
+        scheduler.runLater(2) {
+            DiscoverRecipeListener.reloadRecipeCache()
+        }
+    }
+
+    override fun handleReload() {
+        scheduler.runLater(2) {
+            DiscoverRecipeListener.reloadRecipeCache()
+        }
     }
 
     override fun loadConfigCategories(): List<ConfigCategory> {

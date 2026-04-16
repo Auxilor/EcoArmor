@@ -3,22 +3,35 @@ package com.willfp.ecoarmor.util
 import com.willfp.ecoarmor.plugin
 import org.bukkit.Bukkit
 import org.bukkit.Keyed
+import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
-import org.bukkit.inventory.Recipe
 
 object DiscoverRecipeListener : Listener {
+    private var cachedRecipeKeys = emptyList<NamespacedKey>()
+
+    fun reloadRecipeCache() {
+        val namespace = plugin.name.lowercase()
+        cachedRecipeKeys = buildList {
+            Bukkit.getServer().recipeIterator().forEachRemaining { recipe ->
+                if (recipe is Keyed) {
+                    val key = recipe.key
+                    if (key.namespace == namespace && !key.key.contains("displayed")) {
+                        add(key)
+                    }
+                }
+            }
+        }
+    }
+
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
         if (!plugin.configYml.getBool("discover-recipes")) {
             return
         }
-        mutableListOf<Recipe>()
-            .apply { Bukkit.getServer().recipeIterator().forEachRemaining(this::add) }
-            .filterIsInstance<Keyed>().map { it.key }
-            .filter { it.namespace == plugin.name.lowercase() }
-            .filter { !it.key.contains("displayed") }
-            .forEach { event.player.discoverRecipe(it) }
+        for (key in cachedRecipeKeys) {
+            event.player.discoverRecipe(key)
+        }
     }
 }
