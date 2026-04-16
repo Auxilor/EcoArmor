@@ -26,7 +26,23 @@ object ArmorUtils {
     /**
      * Cache of sets on players.
      */
-    private val setCache = mutableMapOf<Player, ArmorSet?>()
+    private val setCache = WeakHashMap<Player, ArmorSet?>()
+
+    /**
+     * Remove a player from the set cache. Called on quit.
+     */
+    @JvmStatic
+    fun removeFromCache(player: Player) {
+        setCache.remove(player)
+    }
+
+    /**
+     * Clear the player set cache. Called on reload/disable.
+     */
+    @JvmStatic
+    fun clearCache() {
+        setCache.clear()
+    }
 
     /**
      * Get armor set on an item.
