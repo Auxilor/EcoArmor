@@ -23,10 +23,12 @@ import java.util.*
 
 object ArmorUtils {
 
+    private data class CachedSetState(val set: ArmorSet?, val advanced: Boolean)
+
     /**
      * Cache of sets on players.
      */
-    private val setCache = WeakHashMap<Player, ArmorSet?>()
+    private val setCache = WeakHashMap<Player, CachedSetState>()
 
     /**
      * Remove a player from the set cache. Called on quit.
@@ -145,27 +147,28 @@ object ArmorUtils {
         holders.addAll(getSlotHolders(equipment, itemSets))
 
         if (entity is Player) {
-            val oldSet = setCache[entity]
+            val oldState = setCache[entity]
             val newSet = set?.armorSet
+            val newState = CachedSetState(newSet, advanced)
 
-            if (oldSet != newSet) {
+            if (oldState?.set != newSet || oldState?.advanced != advanced) {
                 // Update cache immediately so subsequent calls see correct state
-                setCache[entity] = newSet
+                setCache[entity] = newState
 
                 // Defer event firing to next tick to avoid re-entrancy from listeners
                 val player = entity
-                val wasAdvanced = advanced
+                val oldAdvanced = oldState?.advanced ?: false
                 plugin.scheduler.run {
                     if (!player.isOnline) return@run
 
-                    if (oldSet != null) {
+                    if (oldState?.set != null) {
                         plugin.server.pluginManager.callEvent(
-                            PlayerArmorSetUnequipEvent(player, oldSet, wasAdvanced)
+                            PlayerArmorSetUnequipEvent(player, oldState.set, oldAdvanced)
                         )
                     }
                     if (newSet != null) {
                         plugin.server.pluginManager.callEvent(
-                            PlayerArmorSetEquipEvent(player, newSet, wasAdvanced)
+                            PlayerArmorSetEquipEvent(player, newSet, advanced)
                         )
                     }
                 }
