@@ -58,7 +58,7 @@ class ArmorSet(
     /** Advancement shard item. */
     val advancementShardItem: ItemStack
 
-    val setRequirements = config.getIntOrNull("amount_for_set") ?: 4
+    val setRequirements = (config.getIntOrNull("amount_for_set") ?: 4).coerceIn(1, 4)
 
     val partialSetEnabled: Boolean = config.getBool("partialEffects.enabled")
 
