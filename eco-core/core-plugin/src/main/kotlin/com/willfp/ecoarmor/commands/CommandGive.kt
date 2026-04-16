@@ -86,12 +86,6 @@ object CommandGive : Subcommand(
                 return
             }
 
-            var message = plugin.langYml.getMessage("give-success")
-
-            message = message.replace("%item%", set.id + " Set").replace("%recipient%", reciever.name)
-
-            sender.sendMessage(message)
-
             var advanced = false
             var tier: Tier? = null
             val slots = mutableListOf<ArmorSlot>()
@@ -126,6 +120,11 @@ object CommandGive : Subcommand(
                 ArmorUtils.setTier(item, currTier)
                 toGive.add(item)
             }
+
+            val message = plugin.langYml.getMessage("give-success")
+                .replace("%item%", set.id + " Set")
+                .replace("%recipient%", reciever.name)
+            sender.sendMessage(message)
         }
         if (itemNamespace.equals("crystal", ignoreCase = true)) {
             val tier = Tiers.getByID(itemKey)
