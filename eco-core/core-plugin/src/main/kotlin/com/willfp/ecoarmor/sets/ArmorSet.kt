@@ -175,7 +175,7 @@ class ArmorSet(
             }
         CustomItem(
             plugin.namespacedKeyFactory.create("shard_" + id.lowercase(Locale.getDefault())),
-            { test: ItemStack? -> this == getShardSet(test!!) },
+            { test: ItemStack? -> test != null && this == getShardSet(test) },
             shard
         ).register()
         return shard
