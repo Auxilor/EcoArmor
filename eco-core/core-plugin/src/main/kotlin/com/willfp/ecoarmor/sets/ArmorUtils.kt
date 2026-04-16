@@ -144,29 +144,31 @@ object ArmorUtils {
 
         holders.addAll(getSlotHolders(equipment, itemSets))
 
-        val oldSet = setCache[entity]
+        if (entity is Player) {
+            val oldSet = setCache[entity]
 
-        if (oldSet != set?.armorSet) {
-            if (oldSet != null) {
-                plugin.server.pluginManager.callEvent(
-                    PlayerArmorSetUnequipEvent(
-                        entity as Player,
-                        oldSet,
-                        advanced
+            if (oldSet != set?.armorSet) {
+                if (oldSet != null) {
+                    plugin.server.pluginManager.callEvent(
+                        PlayerArmorSetUnequipEvent(
+                            entity,
+                            oldSet,
+                            advanced
+                        )
                     )
-                )
-            }
-            set?.armorSet?.let {
+                }
+                set?.armorSet?.let {
                     plugin.server.pluginManager.callEvent(
                         PlayerArmorSetEquipEvent(
-                            entity as Player,
+                            entity,
                             it,
                             advanced
                         )
                     )
-            }
+                }
 
-            setCache[entity as Player] = set?.armorSet
+                setCache[entity] = set?.armorSet
+            }
         }
 
         return holders
