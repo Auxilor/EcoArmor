@@ -37,12 +37,12 @@ properties:
     toughness: 3 # Armor toughness (≈3 = netherite; >12–15 per piece has little benefit)
     knockbackResistance: 1 # Knockback resist 0–100 (100 = immune; 40–60 ≈ netherite)
     speedPercentage: 0 # Move speed % (-50 to +50 recommended)
-    attackSpeedPercentage: 0 # Attack speed % (-50 to +100; very high values can feel broken)
-    attackDamagePercentage: 0 # Damage % (-50 to +100; high values trivialize combat)
+    attackSpeedPercentage: 0 # Attack speed % (-50 to +100; very high values can feel broken). Stacks with attackSpeedFlat: flat is added first, then percentage scales the total.
+    attackDamagePercentage: 0 # Damage % (-50 to +100; high values trivialize combat). Stacks with attackDamageFlat: flat is added first, then percentage scales the total.
     attackKnockbackPercentage: 0 # Knockback dealt % (-100 to +100; negative = less knockback)
     maxHealth: 0 # Extra max health (0–40 total across set; +20 = +10 hearts)
-    attackDamageFlat: 0 # Flat damage bonus (0–6; +6 ≈ Sharp V extra)
-    attackSpeedFlat: 0 # Flat attack speed (0–4; base is 4.0, +4 = double speed)
+    attackDamageFlat: 0 # Flat damage bonus (0–6; +6 ≈ Sharp V extra). Stacks with attackDamagePercentage: flat is added first, then percentage scales the total.
+    attackSpeedFlat: 0 # Flat attack speed (0–4; base is 4.0, +4 = double speed). Stacks with attackSpeedPercentage: flat is added first, then percentage scales the total.
     jumpStrength: 0 # Jump strength % (0–100; +100 ≈ double jump height)
     gravityPercentage: 0 # Gravity % (-80 to +100; negative = floatier, positive = heavier)
     burningTimePercentage: 0 # Fire duration % (-100 to +100; -100 = fire immune)
