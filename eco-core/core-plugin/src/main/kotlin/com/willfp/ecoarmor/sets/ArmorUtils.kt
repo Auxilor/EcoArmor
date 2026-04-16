@@ -146,28 +146,29 @@ object ArmorUtils {
 
         if (entity is Player) {
             val oldSet = setCache[entity]
+            val newSet = set?.armorSet
 
-            if (oldSet != set?.armorSet) {
-                if (oldSet != null) {
-                    plugin.server.pluginManager.callEvent(
-                        PlayerArmorSetUnequipEvent(
-                            entity,
-                            oldSet,
-                            advanced
-                        )
-                    )
-                }
-                set?.armorSet?.let {
-                    plugin.server.pluginManager.callEvent(
-                        PlayerArmorSetEquipEvent(
-                            entity,
-                            it,
-                            advanced
-                        )
-                    )
-                }
+            if (oldSet != newSet) {
+                // Update cache immediately so subsequent calls see correct state
+                setCache[entity] = newSet
 
-                setCache[entity] = set?.armorSet
+                // Defer event firing to next tick to avoid re-entrancy from listeners
+                val player = entity
+                val wasAdvanced = advanced
+                plugin.scheduler.run {
+                    if (!player.isOnline) return@run
+
+                    if (oldSet != null) {
+                        plugin.server.pluginManager.callEvent(
+                            PlayerArmorSetUnequipEvent(player, oldSet, wasAdvanced)
+                        )
+                    }
+                    if (newSet != null) {
+                        plugin.server.pluginManager.callEvent(
+                            PlayerArmorSetEquipEvent(player, newSet, wasAdvanced)
+                        )
+                    }
+                }
             }
         }
 
