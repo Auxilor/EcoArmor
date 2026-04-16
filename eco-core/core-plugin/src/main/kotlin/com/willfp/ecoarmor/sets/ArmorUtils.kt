@@ -83,16 +83,25 @@ object ArmorUtils {
     fun getActiveHolders(entity: LivingEntity): Collection<ProvidedHolder> {
         val holders = mutableListOf<ProvidedHolder>()
 
-        val set = getActiveSet(entity)
+        val equipment = entity.equipment?.armorContents?.toList() ?: emptyList()
+
+        // Pre-compute set lookups once for all items to avoid repeated PDC reads
+        val itemSets = equipment.map { item -> item?.let { getSetOnItem(it) } }
+
+        val fullSet = getSetOn(equipment, itemSets)
+        val advanced = isWearingAdvanced(equipment, fullSet, itemSets)
+
+        val set = if (fullSet != null) {
+            if (advanced) fullSet.advancedHolder else fullSet.regularHolder
+        } else {
+            null
+        }
 
         if (set != null) {
             holders.add(SimpleProvidedHolder(set))
         }
 
-        val equipment = entity.equipment?.armorContents?.toList() ?: emptyList()
-        val fullSet = getSetOn(equipment)
-        
-        val partialSetsWorn = getPartialSetsOn(equipment)
+        val partialSetsWorn = getPartialSetsOn(itemSets)
         for ((partialSet, count) in partialSetsWorn) {
             val suppressedByFull = fullSet != null && partialSet == fullSet && partialSet.fullSetDisablesPartialSet
             if (suppressedByFull) continue
@@ -115,7 +124,7 @@ object ArmorUtils {
             }
         }
 
-        holders.addAll(getSlotHolders(entity))
+        holders.addAll(getSlotHolders(equipment, itemSets))
 
         val oldSet = setCache[entity]
 
@@ -125,7 +134,7 @@ object ArmorUtils {
                     PlayerArmorSetUnequipEvent(
                         entity as Player,
                         oldSet,
-                        isWearingAdvanced(entity)
+                        advanced
                     )
                 )
             }
@@ -134,7 +143,7 @@ object ArmorUtils {
                         PlayerArmorSetEquipEvent(
                             entity as Player,
                             it,
-                            isWearingAdvanced(entity)
+                            advanced
                         )
                     )
             }
@@ -147,30 +156,23 @@ object ArmorUtils {
 
 
     /**
-     * Get active holder for an entity.
-     *
-     * @param entity The entity to check.
-     * @return The holder, or null if not found.
+     * Get slot holders from pre-computed item sets.
      */
-    private fun getSlotHolders(entity: LivingEntity): Collection<ItemProvidedHolder> {
+    private fun getSlotHolders(
+        equipment: List<ItemStack?>,
+        itemSets: List<ArmorSet?>
+    ): Collection<ItemProvidedHolder> {
         val holders = mutableListOf<ItemProvidedHolder>()
 
-        val equipment = entity.equipment?.armorContents ?: return holders
-
-        for (itemStack in equipment) {
-            if (itemStack == null) {
-                continue
-            }
-
-            val set = getSetOnItem(itemStack) ?: continue
+        for (i in equipment.indices) {
+            val itemStack = equipment[i] ?: continue
+            val set = itemSets[i] ?: continue
             val holder = set.getSpecificHolder(itemStack) ?: continue
-
             holders.add(holder)
         }
 
         return holders
     }
-
 
     /**
      * Get armor set that entity is wearing.
@@ -200,6 +202,18 @@ object ArmorUtils {
             val set = getSetOnItem(itemStack) ?: continue
             found.add(set)
         }
+        return findFullSet(found)
+    }
+
+    /**
+     * Get armor set from pre-computed per-item set lookups.
+     */
+    private fun getSetOn(items: List<ItemStack?>, itemSets: List<ArmorSet?>): ArmorSet? {
+        val found = itemSets.filterNotNull()
+        return findFullSet(found)
+    }
+
+    private fun findFullSet(found: List<ArmorSet>): ArmorSet? {
         if (found.isEmpty()) return null
         val grouped = found.groupingBy { it }.eachCount()
         for ((set, count) in grouped) {
@@ -224,6 +238,15 @@ object ArmorUtils {
             val set = getSetOnItem(itemStack) ?: continue
             found.add(set)
         }
+        if (found.isEmpty()) return emptyMap()
+        return found.groupingBy { it }.eachCount()
+    }
+
+    /**
+     * Get partial sets from pre-computed per-item set lookups.
+     */
+    private fun getPartialSetsOn(itemSets: List<ArmorSet?>): Map<ArmorSet, Int> {
+        val found = itemSets.filterNotNull()
         if (found.isEmpty()) return emptyMap()
         return found.groupingBy { it }.eachCount()
     }
@@ -448,6 +471,18 @@ object ArmorUtils {
             if (!isAdvanced(itemStack)) {
                 return false
             }
+        }
+        return true
+    }
+
+    /**
+     * Check advanced status using pre-computed full set and item list (avoids redundant PDC reads).
+     */
+    private fun isWearingAdvanced(items: List<ItemStack?>, fullSet: ArmorSet?, itemSets: List<ArmorSet?>): Boolean {
+        if (fullSet == null) return false
+        for (itemStack in items) {
+            if (itemStack == null) return false
+            if (!isAdvanced(itemStack)) return false
         }
         return true
     }
