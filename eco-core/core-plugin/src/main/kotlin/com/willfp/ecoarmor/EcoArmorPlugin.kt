@@ -10,6 +10,7 @@ import com.willfp.ecoarmor.sets.ArmorSetEquipSoundListeners
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorUtils
 import com.willfp.ecoarmor.sets.EffectiveDurabilityListener
+import com.willfp.ecoarmor.sets.PlayerArmorSetEventListeners
 import com.willfp.ecoarmor.sets.PreventSkullPlaceListener
 import com.willfp.ecoarmor.upgrades.AdvancementShardListener
 import com.willfp.ecoarmor.upgrades.CrystalListener
@@ -40,6 +41,17 @@ class EcoArmorPlugin : LibreforgePlugin() {
         registerSpecificHolderProvider<LivingEntity> {
             ArmorUtils.getActiveHolders(it)
         }
+        // Recipes are registered on a 1-tick delay, so rebuild cache after they exist.
+        scheduler.runLater(2) {
+            DiscoverRecipeListener.reloadRecipeCache()
+        }
+    }
+
+    override fun handleReload() {
+        ArmorUtils.clearCache()
+        scheduler.runLater(2) {
+            DiscoverRecipeListener.reloadRecipeCache()
+        }
     }
 
     override fun loadConfigCategories(): List<ConfigCategory> {
@@ -62,7 +74,8 @@ class EcoArmorPlugin : LibreforgePlugin() {
             EffectiveDurabilityListener,
             DiscoverRecipeListener,
             PreventSkullPlaceListener,
-            ArmorSetEquipSoundListeners
+            ArmorSetEquipSoundListeners,
+            PlayerArmorSetEventListeners
         )
     }
 

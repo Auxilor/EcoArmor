@@ -97,7 +97,7 @@ class Tier(
 
         CustomItem(
             plugin.namespacedKeyFactory.create("upgrade_crystal_" + id.lowercase(Locale.getDefault())),
-            { test: ItemStack? -> this == getCrystalTier(test!!) },
+            { test: ItemStack? -> test != null && this == getCrystalTier(test) },
             out
         ).register()
 

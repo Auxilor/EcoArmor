@@ -58,7 +58,7 @@ class ArmorSet(
     /** Advancement shard item. */
     val advancementShardItem: ItemStack
 
-    val setRequirements = config.getIntOrNull("amount_for_set") ?: 4
+    val setRequirements = (config.getIntOrNull("amount_for_set") ?: 4).coerceIn(1, 4)
 
     val partialSetEnabled: Boolean = config.getBool("partialEffects.enabled")
 
@@ -175,7 +175,7 @@ class ArmorSet(
             }
         CustomItem(
             plugin.namespacedKeyFactory.create("shard_" + id.lowercase(Locale.getDefault())),
-            { test: ItemStack? -> this == getShardSet(test!!) },
+            { test: ItemStack? -> test != null && this == getShardSet(test) },
             shard
         ).register()
         return shard

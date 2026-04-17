@@ -86,12 +86,6 @@ object CommandGive : Subcommand(
                 return
             }
 
-            var message = plugin.langYml.getMessage("give-success")
-
-            message = message.replace("%item%", set.id + " Set").replace("%recipient%", reciever.name)
-
-            sender.sendMessage(message)
-
             var advanced = false
             var tier: Tier? = null
             val slots = mutableListOf<ArmorSlot>()
@@ -121,14 +115,16 @@ object CommandGive : Subcommand(
                 amount = args[5].toIntOrNull() ?: amount
             }
             for (slot in slots) {
-                toGive.add(if (advanced) set.getAdvancedItemStack(slot) else set.getItemStack(slot))
-            }
-            for (item in ArrayList(toGive)) {
-                val currTear = tier ?: set.getDefaultTier(getSlot(item))
-                toGive.remove(item)
-                ArmorUtils.setTier(item, currTear)
+                val item = (if (advanced) set.getAdvancedItemStack(slot) else set.getItemStack(slot)).clone()
+                val currTier = tier ?: set.getDefaultTier(getSlot(item))
+                ArmorUtils.setTier(item, currTier)
                 toGive.add(item)
             }
+
+            val message = plugin.langYml.getMessage("give-success")
+                .replace("%item%", set.id + " Set")
+                .replace("%recipient%", reciever.name)
+            sender.sendMessage(message)
         }
         if (itemNamespace.equals("crystal", ignoreCase = true)) {
             val tier = Tiers.getByID(itemKey)
@@ -141,7 +137,7 @@ object CommandGive : Subcommand(
             message =
                 message.replace("%item%", tier.crystal.itemMeta!!.displayName).replace("%recipient%", reciever.name)
             sender.sendMessage(message)
-            toGive.add(tier.crystal)
+            toGive.add(tier.crystal.clone())
             if (args.size >= 3) {
                 amount = args[2].toIntOrNull() ?: amount
             }
@@ -157,7 +153,7 @@ object CommandGive : Subcommand(
             message = message.replace("%item%", set.advancementShardItem.itemMeta!!.displayName)
                 .replace("%recipient%", reciever.name)
             sender.sendMessage(message)
-            toGive.add(set.advancementShardItem)
+            toGive.add(set.advancementShardItem.clone())
             if (args.size >= 3) {
                 amount = args[2].toIntOrNull() ?: amount
             }

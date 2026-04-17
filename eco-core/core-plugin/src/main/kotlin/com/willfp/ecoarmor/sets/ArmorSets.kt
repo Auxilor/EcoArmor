@@ -13,6 +13,8 @@ object ArmorSets : ConfigCategory("set", "sets") {
      */
     private val registry = Registry<ArmorSet>()
 
+    private var cachedValues: List<ArmorSet> = emptyList()
+
     override val legacyLocation = LegacyLocation(
         "ecoarmor.yml",
         "sets"
@@ -25,7 +27,7 @@ object ArmorSets : ConfigCategory("set", "sets") {
      */
     @JvmStatic
     fun values(): List<ArmorSet> {
-        return ImmutableList.copyOf(registry.values())
+        return cachedValues
     }
 
     /**
@@ -41,9 +43,14 @@ object ArmorSets : ConfigCategory("set", "sets") {
 
     override fun clear(plugin: LibreforgePlugin) {
         registry.clear()
+        cachedValues = emptyList()
     }
 
     override fun acceptConfig(plugin: LibreforgePlugin, id: String, config: Config) {
         registry.register(ArmorSet(id, config))
+    }
+
+    override fun afterReload(plugin: LibreforgePlugin) {
+        cachedValues = ImmutableList.copyOf(registry.values())
     }
 }

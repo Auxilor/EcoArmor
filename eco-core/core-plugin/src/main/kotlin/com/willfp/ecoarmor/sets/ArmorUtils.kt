@@ -10,10 +10,12 @@ import com.willfp.libreforge.Holder
 import com.willfp.libreforge.ItemProvidedHolder
 import com.willfp.libreforge.ProvidedHolder
 import com.willfp.libreforge.SimpleProvidedHolder
+import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
@@ -21,10 +23,28 @@ import java.util.*
 
 object ArmorUtils {
 
+    private data class CachedSetState(val set: ArmorSet?, val advanced: Boolean)
+
     /**
      * Cache of sets on players.
      */
-    private val setCache = mutableMapOf<Player, ArmorSet?>()
+    private val setCache = WeakHashMap<Player, CachedSetState>()
+
+    /**
+     * Remove a player from the set cache. Called on quit.
+     */
+    @JvmStatic
+    fun removeFromCache(player: Player) {
+        setCache.remove(player)
+    }
+
+    /**
+     * Clear the player set cache. Called on reload/disable.
+     */
+    @JvmStatic
+    fun clearCache() {
+        setCache.clear()
+    }
 
     /**
      * Get armor set on an item.
@@ -83,16 +103,25 @@ object ArmorUtils {
     fun getActiveHolders(entity: LivingEntity): Collection<ProvidedHolder> {
         val holders = mutableListOf<ProvidedHolder>()
 
-        val set = getActiveSet(entity)
+        val equipment = entity.equipment?.armorContents?.toList() ?: emptyList()
+
+        // Pre-compute set lookups once for all items to avoid repeated PDC reads
+        val itemSets = equipment.map { item -> item?.let { getSetOnItem(it) } }
+
+        val fullSet = getSetOn(equipment, itemSets)
+        val advanced = isWearingAdvanced(equipment, fullSet, itemSets)
+
+        val set = if (fullSet != null) {
+            if (advanced) fullSet.advancedHolder else fullSet.regularHolder
+        } else {
+            null
+        }
 
         if (set != null) {
             holders.add(SimpleProvidedHolder(set))
         }
 
-        val equipment = entity.equipment?.armorContents?.toList() ?: emptyList()
-        val fullSet = getSetOn(equipment)
-        
-        val partialSetsWorn = getPartialSetsOn(equipment)
+        val partialSetsWorn = getPartialSetsOn(itemSets)
         for ((partialSet, count) in partialSetsWorn) {
             val suppressedByFull = fullSet != null && partialSet == fullSet && partialSet.fullSetDisablesPartialSet
             if (suppressedByFull) continue
@@ -115,31 +144,35 @@ object ArmorUtils {
             }
         }
 
-        holders.addAll(getSlotHolders(entity))
+        holders.addAll(getSlotHolders(equipment, itemSets))
 
-        val oldSet = setCache[entity]
+        if (entity is Player) {
+            val oldState = setCache[entity]
+            val newSet = set?.armorSet
+            val newState = CachedSetState(newSet, advanced)
 
-        if (oldSet != set?.armorSet) {
-            if (oldSet != null) {
-                plugin.server.pluginManager.callEvent(
-                    PlayerArmorSetUnequipEvent(
-                        entity as Player,
-                        oldSet,
-                        isWearingAdvanced(entity)
-                    )
-                )
-            }
-            set?.armorSet?.let {
-                    plugin.server.pluginManager.callEvent(
-                        PlayerArmorSetEquipEvent(
-                            entity as Player,
-                            it,
-                            isWearingAdvanced(entity)
+            if (oldState?.set != newSet || oldState?.advanced != advanced) {
+                // Update cache immediately so subsequent calls see correct state
+                setCache[entity] = newState
+
+                // Defer event firing to next tick to avoid re-entrancy from listeners
+                val player = entity
+                val oldAdvanced = oldState?.advanced ?: false
+                plugin.scheduler.run {
+                    if (!player.isOnline) return@run
+
+                    if (oldState?.set != null) {
+                        plugin.server.pluginManager.callEvent(
+                            PlayerArmorSetUnequipEvent(player, oldState.set, oldAdvanced)
                         )
-                    )
+                    }
+                    if (newSet != null) {
+                        plugin.server.pluginManager.callEvent(
+                            PlayerArmorSetEquipEvent(player, newSet, advanced)
+                        )
+                    }
+                }
             }
-
-            setCache[entity as Player] = set?.armorSet
         }
 
         return holders
@@ -147,30 +180,23 @@ object ArmorUtils {
 
 
     /**
-     * Get active holder for an entity.
-     *
-     * @param entity The entity to check.
-     * @return The holder, or null if not found.
+     * Get slot holders from pre-computed item sets.
      */
-    private fun getSlotHolders(entity: LivingEntity): Collection<ItemProvidedHolder> {
+    private fun getSlotHolders(
+        equipment: List<ItemStack?>,
+        itemSets: List<ArmorSet?>
+    ): Collection<ItemProvidedHolder> {
         val holders = mutableListOf<ItemProvidedHolder>()
 
-        val equipment = entity.equipment?.armorContents ?: return holders
-
-        for (itemStack in equipment) {
-            if (itemStack == null) {
-                continue
-            }
-
-            val set = getSetOnItem(itemStack) ?: continue
+        for (i in equipment.indices) {
+            val itemStack = equipment[i] ?: continue
+            val set = itemSets[i] ?: continue
             val holder = set.getSpecificHolder(itemStack) ?: continue
-
             holders.add(holder)
         }
 
         return holders
     }
-
 
     /**
      * Get armor set that entity is wearing.
@@ -200,6 +226,18 @@ object ArmorUtils {
             val set = getSetOnItem(itemStack) ?: continue
             found.add(set)
         }
+        return findFullSet(found)
+    }
+
+    /**
+     * Get armor set from pre-computed per-item set lookups.
+     */
+    private fun getSetOn(items: List<ItemStack?>, itemSets: List<ArmorSet?>): ArmorSet? {
+        val found = itemSets.filterNotNull()
+        return findFullSet(found)
+    }
+
+    private fun findFullSet(found: List<ArmorSet>): ArmorSet? {
         if (found.isEmpty()) return null
         val grouped = found.groupingBy { it }.eachCount()
         for ((set, count) in grouped) {
@@ -224,6 +262,15 @@ object ArmorUtils {
             val set = getSetOnItem(itemStack) ?: continue
             found.add(set)
         }
+        if (found.isEmpty()) return emptyMap()
+        return found.groupingBy { it }.eachCount()
+    }
+
+    /**
+     * Get partial sets from pre-computed per-item set lookups.
+     */
+    private fun getPartialSetsOn(itemSets: List<ArmorSet?>): Map<ArmorSet, Int> {
+        val found = itemSets.filterNotNull()
         if (found.isEmpty()) return emptyMap()
         return found.groupingBy { it }.eachCount()
     }
@@ -344,22 +391,32 @@ object ArmorUtils {
         meta.removeAttributeModifier(Attribute.ENTITY_INTERACTION_RANGE)
         meta.removeAttributeModifier(Attribute.BLOCK_INTERACTION_RANGE)
 
-        @Suppress("DEPRECATION")
+        val slotGroup = when (slot.slot) {
+            org.bukkit.inventory.EquipmentSlot.HEAD -> EquipmentSlotGroup.HEAD
+            org.bukkit.inventory.EquipmentSlot.CHEST -> EquipmentSlotGroup.CHEST
+            org.bukkit.inventory.EquipmentSlot.LEGS -> EquipmentSlotGroup.LEGS
+            org.bukkit.inventory.EquipmentSlot.FEET -> EquipmentSlotGroup.FEET
+            else -> EquipmentSlotGroup.ANY
+        }
+
+        val slotSuffix = slot.name.lowercase(Locale.getDefault())
+
         fun addModifier(
             attr: Attribute,
             value: Int?,
             op: AttributeModifier.Operation,
+            keySuffix: String = "",
             scaler: (Int) -> Double = { it.toDouble() }
         ) {
             value?.takeIf { it != 0 }?.let { v ->
+                val keyName = "${attr.key.key}.${slotSuffix}${keySuffix}"
                 meta.addAttributeModifier(
                     attr,
                     AttributeModifier(
-                        UUID.randomUUID(),
-                        "ecoarmor-${attr.key.key()}-${slot.name.lowercase(Locale.getDefault())}",
+                        NamespacedKey("ecoarmor", keyName),
                         scaler(v),
                         op,
-                        slot.slot
+                        slotGroup
                     )
                 )
             }
@@ -368,26 +425,26 @@ object ArmorUtils {
         addModifier(Attribute.ARMOR, props.armor, AttributeModifier.Operation.ADD_NUMBER)
         addModifier(Attribute.ARMOR_TOUGHNESS, props.toughness, AttributeModifier.Operation.ADD_NUMBER)
         addModifier(Attribute.MAX_HEALTH, props.maxHealth, AttributeModifier.Operation.ADD_NUMBER)
-        addModifier(Attribute.ATTACK_DAMAGE, props.attackDamageFlat, AttributeModifier.Operation.ADD_NUMBER)
-        addModifier(Attribute.ATTACK_SPEED, props.attackSpeedFlat, AttributeModifier.Operation.ADD_NUMBER)
+        addModifier(Attribute.ATTACK_DAMAGE, props.attackDamageFlat, AttributeModifier.Operation.ADD_NUMBER, ".flat")
+        addModifier(Attribute.ATTACK_SPEED, props.attackSpeedFlat, AttributeModifier.Operation.ADD_NUMBER, ".flat")
         addModifier(Attribute.SAFE_FALL_DISTANCE, props.safeFallDistance, AttributeModifier.Operation.ADD_NUMBER)
         addModifier(Attribute.OXYGEN_BONUS, props.oxygenBonus, AttributeModifier.Operation.ADD_NUMBER)
 
         val pctScaler: (Int) -> Double = { it / 100.0 }
-        addModifier(Attribute.MOVEMENT_SPEED, props.speedPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.ATTACK_SPEED, props.attackSpeedPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.ATTACK_DAMAGE, props.attackDamagePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.ATTACK_KNOCKBACK, props.attackKnockbackPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.JUMP_STRENGTH, props.jumpStrength, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.GRAVITY, props.gravityPercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.BURNING_TIME, props.burningTimePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.MOVEMENT_EFFICIENCY, props.movementEfficiency, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.ENTITY_INTERACTION_RANGE, props.entityInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
-        addModifier(Attribute.BLOCK_INTERACTION_RANGE, props.blockInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, pctScaler)
+        addModifier(Attribute.MOVEMENT_SPEED, props.speedPercentage, AttributeModifier.Operation.ADD_SCALAR, ".pct", pctScaler)
+        addModifier(Attribute.ATTACK_SPEED, props.attackSpeedPercentage, AttributeModifier.Operation.ADD_SCALAR, ".pct", pctScaler)
+        addModifier(Attribute.ATTACK_DAMAGE, props.attackDamagePercentage, AttributeModifier.Operation.ADD_SCALAR, ".pct", pctScaler)
+        addModifier(Attribute.ATTACK_KNOCKBACK, props.attackKnockbackPercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier(Attribute.JUMP_STRENGTH, props.jumpStrength, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier(Attribute.GRAVITY, props.gravityPercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier(Attribute.BURNING_TIME, props.burningTimePercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier(Attribute.MOVEMENT_EFFICIENCY, props.movementEfficiency, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier(Attribute.ENTITY_INTERACTION_RANGE, props.entityInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier(Attribute.BLOCK_INTERACTION_RANGE, props.blockInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
 
         val fracScaler: (Int) -> Double = { it / 100.0 }
-        addModifier(Attribute.KNOCKBACK_RESISTANCE, props.knockbackResistance, AttributeModifier.Operation.ADD_NUMBER, fracScaler)
-        addModifier(Attribute.EXPLOSION_KNOCKBACK_RESISTANCE, props.explosionKnockbackResistance, AttributeModifier.Operation.ADD_NUMBER, fracScaler)
+        addModifier(Attribute.KNOCKBACK_RESISTANCE, props.knockbackResistance, AttributeModifier.Operation.ADD_NUMBER, "", fracScaler)
+        addModifier(Attribute.EXPLOSION_KNOCKBACK_RESISTANCE, props.explosionKnockbackResistance, AttributeModifier.Operation.ADD_NUMBER, "", fracScaler)
 
         itemStack.itemMeta = meta
     }
@@ -448,6 +505,18 @@ object ArmorUtils {
             if (!isAdvanced(itemStack)) {
                 return false
             }
+        }
+        return true
+    }
+
+    /**
+     * Check advanced status using pre-computed full set and item list (avoids redundant PDC reads).
+     */
+    private fun isWearingAdvanced(items: List<ItemStack?>, fullSet: ArmorSet?, itemSets: List<ArmorSet?>): Boolean {
+        if (fullSet == null) return false
+        for (itemStack in items) {
+            if (itemStack == null) return false
+            if (!isAdvanced(itemStack)) return false
         }
         return true
     }

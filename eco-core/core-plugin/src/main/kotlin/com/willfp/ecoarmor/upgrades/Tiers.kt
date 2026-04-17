@@ -13,6 +13,8 @@ object Tiers : ConfigCategory("tier", "tiers") {
      */
     private val registry = Registry<Tier>()
 
+    private var cachedValues: List<Tier> = emptyList()
+
     override val supportsSharing = false
 
     override val legacyLocation = LegacyLocation(
@@ -48,11 +50,12 @@ object Tiers : ConfigCategory("tier", "tiers") {
      */
     @JvmStatic
     fun values(): List<Tier> {
-        return ImmutableList.copyOf(registry.values())
+        return cachedValues
     }
 
     override fun clear(plugin: LibreforgePlugin) {
         registry.clear()
+        cachedValues = emptyList()
     }
 
     override fun acceptConfig(plugin: LibreforgePlugin, id: String, config: Config) {
@@ -60,6 +63,7 @@ object Tiers : ConfigCategory("tier", "tiers") {
     }
 
     override fun afterReload(plugin: LibreforgePlugin) {
+        cachedValues = ImmutableList.copyOf(registry.values())
         defaultTier = getByID("default")!!
     }
 }
