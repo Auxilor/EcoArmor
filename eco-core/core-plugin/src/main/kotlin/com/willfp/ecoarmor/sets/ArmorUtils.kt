@@ -121,7 +121,7 @@ object ArmorUtils {
             holders.add(SimpleProvidedHolder(set))
         }
 
-        val partialSetsWorn = getPartialSetsOn(itemSets)
+        val partialSetsWorn = countPartialSets(itemSets)
         for ((partialSet, count) in partialSetsWorn) {
             val suppressedByFull = fullSet != null && partialSet == fullSet && partialSet.fullSetDisablesPartialSet
             if (suppressedByFull) continue
@@ -269,7 +269,7 @@ object ArmorUtils {
     /**
      * Get partial sets from pre-computed per-item set lookups.
      */
-    private fun getPartialSetsOn(itemSets: List<ArmorSet?>): Map<ArmorSet, Int> {
+    private fun countPartialSets(itemSets: List<ArmorSet?>): Map<ArmorSet, Int> {
         val found = itemSets.filterNotNull()
         if (found.isEmpty()) return emptyMap()
         return found.groupingBy { it }.eachCount()
