@@ -7,7 +7,6 @@ import com.willfp.eco.core.items.Items
 import com.willfp.eco.core.items.builder.ItemBuilder
 import com.willfp.eco.core.items.builder.ItemStackBuilder
 import com.willfp.eco.core.recipe.Recipes
-import com.willfp.eco.core.recipe.recipes.CraftingRecipe
 import com.willfp.eco.core.registry.Registrable
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
@@ -293,7 +292,7 @@ class ArmorSet(
             }
         }
 
-        plugin.scheduler.run {
+        plugin.scheduler.runTask {
             Recipes.createAndRegisterRecipe(
                 plugin,
                 "${id}_${slot.name.lowercase(Locale.getDefault())}",
