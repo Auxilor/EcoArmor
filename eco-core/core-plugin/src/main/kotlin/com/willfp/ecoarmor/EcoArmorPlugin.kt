@@ -21,7 +21,6 @@ import com.willfp.libreforge.conditions.Conditions
 import com.willfp.libreforge.loader.LibreforgePlugin
 import com.willfp.libreforge.loader.configs.ConfigCategory
 import com.willfp.libreforge.registerSpecificHolderProvider
-import org.bukkit.Bukkit
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.Listener
 
@@ -43,14 +42,14 @@ class EcoArmorPlugin : LibreforgePlugin() {
             ArmorUtils.getActiveHolders(it)
         }
         // Recipes are registered on a 1-tick delay, so rebuild cache after they exist.
-        scheduler.runTaskLater(2) {
+        scheduler.runLater(2) {
             DiscoverRecipeListener.reloadRecipeCache()
         }
     }
 
     override fun handleReload() {
         ArmorUtils.clearCache()
-        scheduler.runTaskLater(2) {
+        scheduler.runLater(2) {
             DiscoverRecipeListener.reloadRecipeCache()
         }
     }
