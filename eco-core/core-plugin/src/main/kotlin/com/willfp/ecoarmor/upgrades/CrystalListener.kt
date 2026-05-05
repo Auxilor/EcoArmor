@@ -6,6 +6,7 @@ import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockPlaceEvent
+import org.bukkit.event.entity.EntityPlaceEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
@@ -50,6 +51,15 @@ object CrystalListener : Listener {
     @EventHandler
     fun onPlaceCrystal(event: BlockPlaceEvent) {
         val item = event.itemInHand
+        if (ArmorUtils.getCrystalTier(item) != null) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler
+    fun onPlaceCrystalEntity(event: EntityPlaceEvent) {
+        val player = event.player ?: return
+        val item = player.inventory.getItem(event.hand) ?: return
         if (ArmorUtils.getCrystalTier(item) != null) {
             event.isCancelled = true
         }
