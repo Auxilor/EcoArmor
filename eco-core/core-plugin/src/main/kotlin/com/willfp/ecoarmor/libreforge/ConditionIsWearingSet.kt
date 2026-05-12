@@ -23,6 +23,14 @@ object ConditionIsWearingSet : Condition<NoCompileData>("is_wearing_set") {
     ): Boolean {
         val entity = dispatcher.get<LivingEntity>() ?: return false
 
-        return ArmorUtils.getSetOnEntity(entity)?.id == config.getString("set")
+        if (ArmorUtils.getSetOnEntity(entity)?.id != config.getString("set")) {
+            return false
+        }
+
+        if (config.has("advanced") && ArmorUtils.isWearingAdvanced(entity) != config.getBool("advanced")) {
+            return false
+        }
+
+        return true
     }
 }
