@@ -1,8 +1,11 @@
 package com.willfp.ecoarmor.upgrades
 
+import com.willfp.ecoarmor.api.event.ArmorTierEvent
 import com.willfp.ecoarmor.sets.ArmorUtils
+import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Material
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockPlaceEvent
@@ -38,6 +41,13 @@ object CrystalListener : Listener {
         if (!allowed) {
             return
         }
+        val player = event.whoClicked as? Player ?: return
+        val tierEvent = ArmorTierEvent(player, current, crystalTier, previousTier)
+        Bukkit.getPluginManager().callEvent(tierEvent)
+        if (tierEvent.isCancelled) {
+            return
+        }
+
         ArmorUtils.setTier(current, crystalTier)
         if (cursor.amount > 1) {
             cursor.amount -= 1

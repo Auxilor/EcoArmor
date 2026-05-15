@@ -17,8 +17,14 @@ import com.willfp.ecoarmor.upgrades.CrystalListener
 import com.willfp.ecoarmor.upgrades.TierArgParser
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.DiscoverRecipeListener
+import com.willfp.ecoarmor.libreforge.FilterArmorSet
+import com.willfp.ecoarmor.libreforge.FilterArmorTier
+import com.willfp.ecoarmor.libreforge.TriggerAdvanceArmor
+import com.willfp.ecoarmor.libreforge.TriggerUpgradeArmorTier
 import com.willfp.libreforge.conditions.Conditions
+import com.willfp.libreforge.filters.Filters
 import com.willfp.libreforge.loader.LibreforgePlugin
+import com.willfp.libreforge.triggers.Triggers
 import com.willfp.libreforge.loader.configs.ConfigCategory
 import com.willfp.libreforge.registerSpecificHolderProvider
 import org.bukkit.entity.LivingEntity
@@ -35,6 +41,10 @@ class EcoArmorPlugin : LibreforgePlugin() {
 
     override fun handleLoad() {
         Conditions.register(ConditionIsWearingSet)
+        Triggers.register(TriggerAdvanceArmor)
+        Triggers.register(TriggerUpgradeArmorTier)
+        Filters.register(FilterArmorSet)
+        Filters.register(FilterArmorTier)
     }
 
     override fun handleEnable() {

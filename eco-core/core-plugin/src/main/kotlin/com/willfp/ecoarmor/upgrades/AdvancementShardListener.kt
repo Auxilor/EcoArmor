@@ -1,9 +1,12 @@
 package com.willfp.ecoarmor.upgrades
 
+import com.willfp.ecoarmor.api.event.ArmorAdvanceEvent
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorUtils
+import org.bukkit.Bukkit
 import org.bukkit.GameMode
+import org.bukkit.entity.Player
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -39,6 +42,13 @@ object AdvancementShardListener : Listener {
         }
 
         if (ArmorUtils.isAdvanced(current)) {
+            return
+        }
+
+        val player = event.whoClicked as? Player ?: return
+        val advanceEvent = ArmorAdvanceEvent(player, current, set)
+        Bukkit.getPluginManager().callEvent(advanceEvent)
+        if (advanceEvent.isCancelled) {
             return
         }
 
