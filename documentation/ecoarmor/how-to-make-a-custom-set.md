@@ -1,4 +1,4 @@
----
+﻿---
 title: How to make an Armor Set
 sidebar_position: 2
 ---
@@ -266,7 +266,7 @@ boots:
 
 This is the config section for the set effects, which are the effects that apply when the full set is worn.
 
-:::dangerEffects Section
+:::danger Effects Section
 
 The effects section is the core functionality of the armor set. You can configure effects, conditions, filters, mutators and triggers in this section to run whilst the set is active.
 
@@ -445,7 +445,7 @@ We support shaped and shapeless recipes. Check out [Recipes](https://plugins.aux
 
 :::
 
-:::dangerFrequently Asked Questions:
+:::danger Frequently Asked Questions:
 **Why do I get a piece of stone?** <br/>
 - This is because an armor piece is missing, or configured incorrectly. In most cases, users remove the elytra section.
 
