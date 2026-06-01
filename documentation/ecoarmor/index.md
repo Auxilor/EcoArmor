@@ -2,43 +2,26 @@
 title: "EcoArmor"
 ---
 
-## What sets EcoArmor apart from other custom armor plugins?
-Most importantly, EcoArmor isn't built for the sole purpose of PvP. Of course, you can use EcoArmor on a PvP-centric server, it will work perfectly - however it has a more generalized featureset. Perfect for Survival, MMORPG, Skyblock, Towny - anything you want, EcoArmor will work perfectly for. Empower your armor sets with better effects for all situations, make sets only work under certain conditions - bring a whole metagame to your armor.
+## What is EcoArmor?
 
-Also - EcoArmor is completely customizable to anything you want. You can make your own Armor Sets and Upgrades in config, and with a little coding knowledge, create your own effects and conditions too. The sky's the limit!
+EcoArmor lets you build fully configurable custom armor sets that grant effects while worn. A set bonus activates only when a player wears the full set, so missing a single piece, e.g. the leggings, switches the bonus off. Each piece can also carry its own upgradeable stats. It works on any server type: Survival, MMORPG, Skyblock, Towny, or PvP.
 
-## What does EcoArmor do?
+Every piece has two independent upgrade systems:
 
-### Sets
+- **Tiers** are attribute modifiers applied per piece. They stay active even without the full set and change values like armor, protection, and movement speed. You apply them with **Upgrade Crystals**, dragged and dropped onto a piece in the inventory.
+- **Advancement** is an upgrade applied to every piece in a set to unlock its bonus effects, which can be stronger versions of the base effects or entirely new ones. You apply it with **Advancement Shards**, dropped onto a piece the same way.
 
-At the core of EcoArmor are the sets. A player must be wearing a full set of any given armor before the effects activate. For example, if the player is missing a piece, such as leggings, then the effects will not activate.
+## What sets EcoArmor apart?
 
-Armor pieces themselves have 2 distinct upgrades / properties:
+EcoArmor isn't built only for PvP; it works there, but the featureset is general purpose. You can empower sets with effects for any situation, gate sets behind conditions, and build a whole metagame around your armor.
 
-### Tiers
+Everything is configurable. You define your own sets, tiers, and upgrades in config, and with some coding knowledge you can write your own effects and conditions through the [eco framework](https://github.com/Auxilor/eco). The default config ships a sample tier tree (default through manyullyn, with tankier and faster branches, plus special ancient and mythic tiers) purely as an example to build from.
 
-Tiers are attribute modifiers given to each individual piece in the set. These can be different for all armor pieces and will apply to the player even if they're not wearing the full set. This modifies things like the armor value (shown in the hotbar), the armor protection, movement speed, etc.
+<hr/>
 
-Tiers are modified using **Upgrade Crystals**. Of course, you can rename this however you want, but everything will be explained in terms of the default config. Upgrade crystals are dragged and dropped in the inventory, by clicking an upgrade crystal onto a piece of armor.
+## Where to go next
 
-The default tier tree looks like this:
-
-```yaml
-                                            /-> exotic
-default --> iron --> diamond --> netherite --> manyullyn
-         \-> cobalt --> osmium
-
-ancient --> mythic
-```
-
-The main progression goes from default -> manyullyn, with optional branches. Cobalt and osmium are more tanky, in other words you move slower but deal more damage and take less damage, and exotic makes you more vulnerable however you move faster.
-
-Ancient and Mythic aren't craftable by default and exist more as a special tier, perfect for crates or drops from bosses.
-
-You can make your own progression in config, this exists purely as an example.
-
-### Advancement
-
-Advancement is an upgrade that must be applied to all items in the set before the bonus effects kick in. These can be more powerful versions of the base effects, or entirely new effects and potion effects altogether. For example, in the default config, **Reaper Armor** gives 1.25x attack damage, whereas **Advanced Reaper Armor** gives 1.5x attack damage and a 10% incoming damage reduction bonus.
-
-Advancement can be applied with **Advancement Shards**. You can rename this however you want, like everything else in the plugin, but once again I'm using the default config as an example. Just like upgrade crystals, these can be dragged and dropped in the inventory, by clicking an advancement shard onto a piece of armor.
+- **Build a set:** [How to Make an Armor Set](how-to-make-a-custom-set) walks you through a full set config.
+- **Build a tier:** [How to Make a Tier](how-to-make-a-custom-tier) covers per-piece attribute modifiers and crystals.
+- **Plugin settings:** [Plugin Config](plugin-config) lists the global `config.yml` options.
+- **In-game commands:** [Commands and Permissions](commands-and-permissions) for giving sets, crystals, and shards.
