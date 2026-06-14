@@ -8,6 +8,15 @@ import com.willfp.libreforge.triggers.TriggerParameter
 import org.bukkit.event.EventHandler
 
 object TriggerUpgradeArmorTier : Trigger("upgrade_armor_tier") {
+    override val description = "Fires when the player upgrades the tier of an armor piece."
+
+    override val categories = setOf("inventory")
+
+    override val parameterDescriptions = mapOf(
+        TriggerParameter.ITEM to "The armor piece whose tier was upgraded.",
+        TriggerParameter.TEXT to "The ID of the tier that was reached."
+    )
+
     override val parameters = setOf(
         TriggerParameter.PLAYER,
         TriggerParameter.ITEM,

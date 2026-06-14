@@ -2,6 +2,7 @@ package com.willfp.ecoarmor.libreforge
 
 import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.ecoarmor.sets.ArmorUtils
+import com.willfp.libreforge.ArgType
 import com.willfp.libreforge.Dispatcher
 import com.willfp.libreforge.NoCompileData
 import com.willfp.libreforge.ProvidedHolder
@@ -11,8 +12,22 @@ import com.willfp.libreforge.get
 import org.bukkit.entity.LivingEntity
 
 object ConditionIsWearingSet : Condition<NoCompileData>("is_wearing_set") {
+    override val description = "Passes when the entity is wearing the full armor set with the given ID."
+
+    override val categories = setOf("inventory")
+
     override val arguments = arguments {
-        require("set", "You must specify the set name!")
+        require(
+            "set",
+            "You must specify the set name!",
+            description = "The ID of the armor set the entity must be wearing.",
+            type = ArgType.STRING
+        )
+        optional(
+            "advanced",
+            description = "If specified, also requires the worn set to be in its advanced (or non-advanced) form to match this value.",
+            type = ArgType.BOOLEAN
+        )
     }
 
     override fun isMet(

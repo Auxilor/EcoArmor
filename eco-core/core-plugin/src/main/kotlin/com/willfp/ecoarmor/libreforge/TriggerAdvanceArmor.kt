@@ -8,6 +8,14 @@ import com.willfp.libreforge.triggers.TriggerParameter
 import org.bukkit.event.EventHandler
 
 object TriggerAdvanceArmor : Trigger("advance_armor") {
+    override val description = "Fires when the player advances their armor set to its next stage."
+
+    override val categories = setOf("inventory")
+
+    override val parameterDescriptions = mapOf(
+        TriggerParameter.ITEM to "The armor piece that was advanced."
+    )
+
     override val parameters = setOf(
         TriggerParameter.PLAYER,
         TriggerParameter.ITEM,
