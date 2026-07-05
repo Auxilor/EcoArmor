@@ -19,7 +19,7 @@ An **armor set** is a group of pieces that grant **set effects** while the full 
 
 ## Naming and IDs
 
-The file name without `.yml` is the set ID. You use it in commands and in the [Item Lookup System](https://plugins.auxilor.io/the-item-lookup-system) (e.g. `ecoarmor:set_reaper_helmet`).
+The file name without `.yml` is the set ID. You use it in commands and in the [Item Lookup System](https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system) (e.g. `ecoarmor:set_reaper_helmet`).
 
 :::warning ID rules
 IDs may contain lowercase letters, numbers, and underscores only. Anything else will break the set.
@@ -101,14 +101,14 @@ sounds:
 
 # === Advancement shard: the item that advances the set ===
 shard:
-  item: prismarine_shard unbreaking:1 hide_enchants # Shard item, see https://plugins.auxilor.io/the-item-lookup-system
+  item: prismarine_shard unbreaking:1 hide_enchants # Shard item, see https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system
   name: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &cReaper" # In-game name
   lore: # Set to `lore: []` to remove lore
     - "&8Drop this onto &cReaper Armor"
     - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
   craftable: false # Whether the shard is craftable
   crafting-permission: "permission" # Optional; permission required to craft this recipe
-  recipe: # See https://plugins.auxilor.io/the-item-lookup-system/recipes
+  recipe: # See https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes
     - prismarine_shard
     - ecoarmor:set_reaper_helmet
     - prismarine_shard
@@ -122,7 +122,7 @@ shard:
 # === Armor pieces: one block each for helmet, chestplate, leggings, boots, elytra ===
 # All five pieces share the same fields; the helmet is shown here in full.
 helmet:
-  item: leather_helmet color:#303030 hide_dye # Base item, see https://plugins.auxilor.io/the-item-lookup-system
+  item: leather_helmet color:#303030 hide_dye # Base item, see https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system
   name: "&cReaper Helmet" # In-game name
   advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Helmet" # Name shown once advanced
   lore: # Set to `lore: []` to remove lore
@@ -134,7 +134,7 @@ helmet:
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true # Whether this piece is craftable
   crafting-permission: "permission" # Optional; permission required to craft this recipe
-  recipe: # See https://plugins.auxilor.io/the-item-lookup-system/recipes
+  recipe: # See https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes
     - ecoitems:armor_core ? air
     - nether_star
     - ecoitems:armor_core ? air
@@ -170,8 +170,8 @@ amount_for_set: 4 # How many pieces must be worn for the set effects to activate
 :::danger Effects are their own system
 Effects, conditions, filters, mutators, triggers, and chains are a shared eco system, not specific to EcoArmor, with hundreds of options. They are **not** documented here, so see the dedicated guides:
 
-- [Configuring an Effect](https://plugins.auxilor.io/effects/configuring-an-effect) is the full effect, trigger, and condition reference.
-- [Configuring an Effect Chain](https://plugins.auxilor.io/effects/configuring-a-chain) strings multiple effects under one trigger for advanced sets.
+- [Configuring an Effect](https://hub.auxilor.io/wiki/libreforge/configuring-an-effect) is the full effect, trigger, and condition reference.
+- [Configuring an Effect Chain](https://hub.auxilor.io/wiki/libreforge/configuring-a-chain) strings multiple effects under one trigger for advanced sets.
 :::
 
 ### Partial effects
@@ -242,14 +242,14 @@ The shard is the in-game item players drop onto a piece to advance it.
 
 ```yaml
 shard:
-  item: prismarine_shard unbreaking:1 hide_enchants # Shard item, see https://plugins.auxilor.io/the-item-lookup-system
+  item: prismarine_shard unbreaking:1 hide_enchants # Shard item, see https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system
   name: "<GRADIENT:f12711>Advancement Shard:</GRADIENT:f5af19> &cReaper" # In-game name
   lore: # Set to `lore: []` to remove lore
     - "&8Drop this onto &cReaper Armor"
     - "&8to make it <GRADIENT:f12711>Advanced</GRADIENT:f5af19>."
   craftable: false # Whether the shard is craftable
   crafting-permission: "permission" # Optional; permission required to craft this recipe
-  recipe: # See https://plugins.auxilor.io/the-item-lookup-system/recipes
+  recipe: # See https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes
     - prismarine_shard
     - ecoarmor:set_reaper_helmet
     - prismarine_shard
@@ -262,7 +262,7 @@ shard:
 ```
 
 :::tip
-We support both shaped and shapeless recipes. See [Recipes](https://plugins.auxilor.io/the-item-lookup-system/recipes) for how to configure them.
+We support both shaped and shapeless recipes. See [Recipes](https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes) for how to configure them.
 :::
 
 ### Armor pieces
@@ -271,7 +271,7 @@ Each piece (`helmet`, `chestplate`, `leggings`, `boots`, `elytra`) has its own b
 
 ```yaml
 helmet:
-  item: leather_helmet color:#303030 hide_dye # Base item, see https://plugins.auxilor.io/the-item-lookup-system
+  item: leather_helmet color:#303030 hide_dye # Base item, see https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system
   name: "&cReaper Helmet" # In-game name
   advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Helmet" # Name shown once advanced
   lore: # Set to `lore: []` to remove lore
@@ -283,7 +283,7 @@ helmet:
     - "&8&oUpgrade with an Upgrade Crystal"
   craftable: true # Whether this piece is craftable
   crafting-permission: "permission" # Optional; permission required to craft this recipe
-  recipe: # See https://plugins.auxilor.io/the-item-lookup-system/recipes
+  recipe: # See https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes
     - ecoitems:armor_core ? air
     - nether_star
     - ecoitems:armor_core ? air
@@ -324,6 +324,6 @@ These placeholders are provided by EcoArmor and can be used in piece lore:
 ## Where to go next
 
 - **Tiers:** [How to Make a Tier](how-to-make-a-custom-tier) for the per-piece attribute modifiers and upgrade crystals.
-- **Effects:** [Configuring an Effect](https://plugins.auxilor.io/effects/configuring-an-effect) for everything in the `effects` sections.
+- **Effects:** [Configuring an Effect](https://hub.auxilor.io/wiki/libreforge/configuring-an-effect) for everything in the `effects` sections.
 - **Default sets:** the shipped configs live [on GitHub](https://github.com/Auxilor/EcoArmor/tree/master/eco-core/core-plugin/src/main/resources/sets).
 - **Community configs:** browse and share more on [lrcdb](https://lrcdb.auxilor.io/).
