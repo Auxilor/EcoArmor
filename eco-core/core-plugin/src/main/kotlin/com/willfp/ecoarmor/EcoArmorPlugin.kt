@@ -2,6 +2,8 @@ package com.willfp.ecoarmor
 
 import com.willfp.eco.core.command.impl.PluginCommand
 import com.willfp.eco.core.display.DisplayModule
+import com.willfp.eco.core.dragdrop.DragAndDropHandlers
+import com.willfp.eco.core.dragdrop.DragAndDropSettings
 import com.willfp.eco.core.items.Items
 import com.willfp.ecoarmor.commands.CommandEcoArmor
 import com.willfp.ecoarmor.display.ArmorDisplay
@@ -51,6 +53,16 @@ class EcoArmorPlugin : LibreforgePlugin() {
         registerSpecificHolderProvider<LivingEntity> {
             ArmorUtils.getActiveHolders(it)
         }
+
+        DragAndDropHandlers.register(
+            CrystalListener,
+            DragAndDropSettings(allowCraftingTableNonResultSlot = true)
+        )
+        DragAndDropHandlers.register(
+            AdvancementShardListener,
+            DragAndDropSettings(allowCraftingTableNonResultSlot = true)
+        )
+
         // Recipes are registered on a 1-tick delay, so rebuild cache after they exist.
         scheduler.runLater(2) {
             DiscoverRecipeListener.reloadRecipeCache()
@@ -62,6 +74,10 @@ class EcoArmorPlugin : LibreforgePlugin() {
         scheduler.runLater(2) {
             DiscoverRecipeListener.reloadRecipeCache()
         }
+    }
+
+    override fun handleDisable() {
+        DragAndDropHandlers.unregisterAll("ecoarmor")
     }
 
     override fun loadConfigCategories(): List<ConfigCategory> {
@@ -80,7 +96,6 @@ class EcoArmorPlugin : LibreforgePlugin() {
     override fun loadListeners(): List<Listener> {
         return listOf(
             CrystalListener,
-            AdvancementShardListener,
             EffectiveDurabilityListener,
             DiscoverRecipeListener,
             PreventSkullPlaceListener,
