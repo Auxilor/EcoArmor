@@ -19,7 +19,7 @@ A **tier** is a set of **attribute modifiers** applied to a single armor piece, 
 
 ## Naming and IDs
 
-The file name without `.yml` is the tier ID. You use it in commands and in the `defaultTier` field of a set config. Crystal items resolve through the [Item Lookup System](https://plugins.auxilor.io/the-item-lookup-system) as `ecoarmor:upgrade_crystal_<id>`.
+The file name without `.yml` is the tier ID. You use it in commands and in the `defaultTier` field of a set config. Crystal items resolve through the [Item Lookup System](https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system) as `ecoarmor:upgrade_crystal_<id>`.
 
 :::warning ID rules
 IDs may contain lowercase letters, numbers, and underscores only. Anything else will break the tier.
@@ -45,7 +45,7 @@ requiresTiers: # Tiers a piece must already have before this one can be applied
 
 # === Upgrade crystal: the item that applies this tier ===
 crystal:
-  item: end_crystal # Crystal item, see https://plugins.auxilor.io/the-item-lookup-system
+  item: end_crystal # Crystal item, see https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system
   name: "&cNetherite Upgrade Crystal" # In-game name
   lore: # Set to `lore: []` to remove lore
     - "&8Drop this onto an armor piece"
@@ -54,7 +54,7 @@ crystal:
     - ''
     - "&8&oRequires the armor to already have Diamond tier"
   craftable: true # Whether the crystal is craftable
-  recipe: # See https://plugins.auxilor.io/the-item-lookup-system/recipes
+  recipe: # See https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes
     - air
     - netherite_ingot
     - air
@@ -116,7 +116,7 @@ The crystal is the in-game item players drop onto a piece to apply this tier.
 
 ```yaml
 crystal:
-  item: end_crystal # Crystal item, see https://plugins.auxilor.io/the-item-lookup-system
+  item: end_crystal # Crystal item, see https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system
   name: "&cNetherite Upgrade Crystal" # In-game name
   lore: # Set to `lore: []` to remove lore
     - "&8Drop this onto an armor piece"
@@ -125,7 +125,7 @@ crystal:
     - ''
     - "&8&oRequires the armor to already have Diamond tier"
   craftable: true # Whether the crystal is craftable
-  recipe: # See https://plugins.auxilor.io/the-item-lookup-system/recipes
+  recipe: # See https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes
     - air
     - netherite_ingot
     - air
@@ -139,7 +139,7 @@ crystal:
 ```
 
 :::tip
-We support both shaped and shapeless recipes. See [Recipes](https://plugins.auxilor.io/the-item-lookup-system/recipes) for how to configure them.
+We support both shaped and shapeless recipes. See [Recipes](https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes) for how to configure them.
 :::
 
 ### Properties
