@@ -69,6 +69,10 @@ class ArmorSet(
         else if (config.has("fullSetDisablesPartialSet")) config.getBool("fullSetDisablesPartialSet")
         else true
 
+    /** Whether this set has an elytra piece. Defaults to true to keep existing sets working. */
+    val elytraEnabled: Boolean =
+        if (config.has("elytra.enabled")) config.getBool("elytra.enabled") else true
+
     val partialHolders = notNullMutableMapOf<Int, Holder>()
 
     /** Create a new Armor Set. */
@@ -112,7 +116,9 @@ class ArmorSet(
             val slotConfig = config.getSubsection(slot.name.lowercase(Locale.ENGLISH))
             val item = construct(slot, slotConfig, false)
             items[slot] = item
-            constructRecipe(slot, slotConfig, item)
+            if (slot != ArmorSlot.ELYTRA || elytraEnabled) {
+                constructRecipe(slot, slotConfig, item)
+            }
             val advancedItem = construct(slot, slotConfig, true)
             advancedItems[slot] = advancedItem
 
