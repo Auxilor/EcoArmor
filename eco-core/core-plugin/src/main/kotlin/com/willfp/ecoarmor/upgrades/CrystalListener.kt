@@ -16,9 +16,7 @@ object CrystalListener : Listener, DragAndDropHandler {
     override val id = "ecoarmor:crystal"
 
     override fun matches(cursor: ItemStack, current: ItemStack): Boolean {
-        if (ArmorUtils.getCrystalTier(cursor) == null) return false
-        if (ArmorUtils.getSetOnItem(current) == null) return false
-        return true
+        return ArmorUtils.getCrystalTier(cursor) != null && ArmorUtils.getSetOnItem(current) != null
     }
 
     override fun apply(player: Player, cursor: ItemStack, current: ItemStack): DragAndDropResult {

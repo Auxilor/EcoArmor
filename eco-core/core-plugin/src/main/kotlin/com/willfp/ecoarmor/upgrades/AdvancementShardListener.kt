@@ -15,17 +15,14 @@ object AdvancementShardListener : DragAndDropHandler {
     override val id = "ecoarmor:shard"
 
     override fun matches(cursor: ItemStack, current: ItemStack): Boolean {
-        val cursorMeta = cursor.itemMeta ?: return false
-        val shardSet = cursorMeta.persistentDataContainer.get(
+        val shardSet = cursor.itemMeta?.persistentDataContainer?.get(
             plugin.namespacedKeyFactory.create("advancement-shard"),
             PersistentDataType.STRING
         ) ?: return false
 
         val set = ArmorUtils.getSetOnItem(current) ?: return false
-        if (ArmorSets.getByID(shardSet)?.id != set.id) return false
-        if (ArmorUtils.isAdvanced(current)) return false
 
-        return true
+        return ArmorSets.getByID(shardSet)?.id == set.id && !ArmorUtils.isAdvanced(current)
     }
 
     override fun apply(player: Player, cursor: ItemStack, current: ItemStack): DragAndDropResult {
