@@ -1,66 +1,38 @@
 package com.willfp.ecoarmor.upgrades
 
+import com.willfp.eco.core.dragdrop.DragAndDropHandler
+import com.willfp.eco.core.dragdrop.DragAndDropResult
 import com.willfp.ecoarmor.api.event.ArmorAdvanceEvent
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorUtils
 import org.bukkit.Bukkit
-import org.bukkit.GameMode
 import org.bukkit.entity.Player
-import org.bukkit.Material
-import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
-import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object AdvancementShardListener : Listener {
-    @Suppress("USELESS_ELVIS")
-    @EventHandler
-    fun onDrag(event: InventoryClickEvent) {
-        if (event.whoClicked.gameMode == GameMode.CREATIVE) {
-            return
-        }
-        val current = event.currentItem ?: return
-        val cursor = event.cursor ?: return
+object AdvancementShardListener : DragAndDropHandler {
+    override val id = "ecoarmor:shard"
 
-        val cursorMeta = cursor.itemMeta ?: return
-
-        val shardSet = cursorMeta.persistentDataContainer.get(
+    override fun matches(cursor: ItemStack, current: ItemStack): Boolean {
+        val shardSet = cursor.itemMeta?.persistentDataContainer?.get(
             plugin.namespacedKeyFactory.create("advancement-shard"),
             PersistentDataType.STRING
-        ) ?: return
+        ) ?: return false
 
-        val set = ArmorUtils.getSetOnItem(current) ?: return
+        val set = ArmorUtils.getSetOnItem(current) ?: return false
 
-        if (ArmorSets.getByID(shardSet)?.id != set.id) {
-            return
-        }
+        return ArmorSets.getByID(shardSet)?.id == set.id && !ArmorUtils.isAdvanced(current)
+    }
 
-        if (current.type == Material.AIR) {
-            return
-        }
+    override fun apply(player: Player, cursor: ItemStack, current: ItemStack): DragAndDropResult {
+        val set = ArmorUtils.getSetOnItem(current) ?: return DragAndDropResult.DENIED
 
-        if (ArmorUtils.isAdvanced(current)) {
-            return
-        }
-
-        val player = event.whoClicked as? Player ?: return
         val advanceEvent = ArmorAdvanceEvent(player, current, set)
         Bukkit.getPluginManager().callEvent(advanceEvent)
-        if (advanceEvent.isCancelled) {
-            return
-        }
+        if (advanceEvent.isCancelled) return DragAndDropResult.DENIED
 
         ArmorUtils.setAdvanced(current, true)
-
-        if (cursor.amount > 1) {
-            cursor.amount -= 1
-            event.whoClicked.setItemOnCursor(cursor)
-        } else {
-            event.whoClicked.setItemOnCursor(ItemStack(Material.AIR))
-        }
-
-        event.isCancelled = true
+        return DragAndDropResult.APPLIED
     }
 }

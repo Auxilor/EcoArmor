@@ -1,61 +1,38 @@
 package com.willfp.ecoarmor.upgrades
 
+import com.willfp.eco.core.dragdrop.DragAndDropHandler
+import com.willfp.eco.core.dragdrop.DragAndDropResult
 import com.willfp.ecoarmor.api.event.ArmorTierEvent
 import com.willfp.ecoarmor.sets.ArmorUtils
 import org.bukkit.Bukkit
-import org.bukkit.GameMode
-import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.EntityPlaceEvent
-import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
-object CrystalListener : Listener {
-    @Suppress("USELESS_ELVIS")
-    @EventHandler
-    fun onDrag(event: InventoryClickEvent) {
-        if (event.whoClicked.gameMode == GameMode.CREATIVE) {
-            return
-        }
-        val current = event.currentItem ?: return
-        val cursor = event.cursor ?: return
+object CrystalListener : Listener, DragAndDropHandler {
+    override val id = "ecoarmor:crystal"
 
-        val crystalTier = ArmorUtils.getCrystalTier(cursor) ?: return
+    override fun matches(cursor: ItemStack, current: ItemStack): Boolean {
+        return ArmorUtils.getCrystalTier(cursor) != null && ArmorUtils.getSetOnItem(current) != null
+    }
 
-        if (ArmorUtils.getSetOnItem(current) == null) {
-            return
-        }
-
-        if (current.type == Material.AIR) {
-            return
-        }
+    override fun apply(player: Player, cursor: ItemStack, current: ItemStack): DragAndDropResult {
+        val crystalTier = ArmorUtils.getCrystalTier(cursor) ?: return DragAndDropResult.DENIED
         val previousTier = ArmorUtils.getTier(current)
-        var allowed = false
+
         val requiredTiers = crystalTier.getRequiredTiersForApplication()
-        if (requiredTiers.isEmpty() || requiredTiers.contains(previousTier)) {
-            allowed = true
-        }
-        if (!allowed) {
-            return
-        }
-        val player = event.whoClicked as? Player ?: return
+        val allowed = requiredTiers.isEmpty() || requiredTiers.contains(previousTier)
+        if (!allowed) return DragAndDropResult.DENIED
+
         val tierEvent = ArmorTierEvent(player, current, crystalTier, previousTier)
         Bukkit.getPluginManager().callEvent(tierEvent)
-        if (tierEvent.isCancelled) {
-            return
-        }
+        if (tierEvent.isCancelled) return DragAndDropResult.DENIED
 
         ArmorUtils.setTier(current, crystalTier)
-        if (cursor.amount > 1) {
-            cursor.amount -= 1
-            event.whoClicked.setItemOnCursor(cursor)
-        } else {
-            event.whoClicked.setItemOnCursor(ItemStack(Material.AIR))
-        }
-        event.isCancelled = true
+        return DragAndDropResult.APPLIED
     }
 
     @EventHandler
