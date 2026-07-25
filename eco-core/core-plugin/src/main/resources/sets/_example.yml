@@ -179,6 +179,7 @@ chestplate:
   conditions: []
 
 elytra:
+  enabled: true # If false, this set has no elytra piece: it won't be craftable, and `/ecoarmor give <player> set:<id> full` will skip it.
   item: elytra
   name: "&cReaper Elytra"
   advancedName: "<GRADIENT:f12711>Advanced</GRADIENT:f5af19>&c Reaper Elytra"

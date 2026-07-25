@@ -98,12 +98,16 @@ object CommandGive : Subcommand(
                     }
                 }
                 if (slot == null) {
-                    slots.addAll(ArmorSlot.entries)
+                    slots.addAll(ArmorSlot.entries.filter { it != ArmorSlot.ELYTRA || set.elytraEnabled })
                 } else {
+                    if (slot == ArmorSlot.ELYTRA && !set.elytraEnabled) {
+                        sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
+                        return
+                    }
                     slots.add(slot)
                 }
             } else {
-                slots.addAll(ArmorSlot.entries)
+                slots.addAll(ArmorSlot.entries.filter { it != ArmorSlot.ELYTRA || set.elytraEnabled })
             }
             if (args.size >= 4) {
                 advanced = args[3].toBoolean()
@@ -189,7 +193,13 @@ object CommandGive : Subcommand(
         }
         if (args[1].startsWith("set:")) {
             if (args.size == 3) {
-                StringUtil.copyPartialMatches(args[2], slots, completions)
+                val set = ArmorSets.getByID(args[1].removePrefix("set:"))
+                val availableSlots = if (set != null && !set.elytraEnabled) {
+                    slots.filter { !it.equals("elytra", ignoreCase = true) }
+                } else {
+                    slots
+                }
+                StringUtil.copyPartialMatches(args[2], availableSlots, completions)
                 completions.sort()
                 return completions
             }

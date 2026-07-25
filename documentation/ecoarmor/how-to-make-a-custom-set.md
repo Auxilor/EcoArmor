@@ -300,8 +300,19 @@ helmet:
   conditions: [] # Conditions required for this piece's effects to run
 ```
 
-:::danger The elytra is required
-All five pieces, including the elytra, must be present. Removing the elytra block is the most common cause of a set spawning a block of stone. If you don't want players to use the elytra, leave the block in and give individual pieces with commands instead.
+:::danger The elytra block is required
+All five pieces, including the elytra, must be present. Removing the elytra block is the most common cause of a set spawning a block of stone.
+
+If you don't want a set to have an elytra, **don't delete the block** — instead set `enabled: false` inside it:
+
+```yaml
+elytra:
+  enabled: false # No elytra piece for this set.
+  item: elytra
+  # ...the rest of the block can stay as-is, it's ignored while disabled.
+```
+
+With `enabled: false`, the elytra piece can't be crafted, and `/ecoarmor give <player> set:<id> full` (or giving with no slot at all) skips it automatically.
 :::
 
 ## Internal placeholders
