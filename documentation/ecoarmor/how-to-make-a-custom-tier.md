@@ -1,6 +1,6 @@
 ---
 title: "How to Make a Tier"
-sidebar_position: 3
+sidebar_position: 2
 ---
 
 A **tier** is a set of **attribute modifiers** applied to a single armor piece, e.g. extra armor, toughness, or movement speed. Tiers apply per piece, even without the full set, and players move between them with **Upgrade Crystals**. Each tier is one YAML file in the `/tiers/` folder. This page builds one and explains every part.

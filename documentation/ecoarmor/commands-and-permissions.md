@@ -1,6 +1,6 @@
 ---
 title: "Commands and Permissions"
-sidebar_position: 5
+sidebar_position: 3
 ---
 
 Every EcoArmor command is under `/ecoarmor`. Permissions follow the `ecoarmor.command.<name>` pattern and are granted to operators by default. This page lists each command, what it does, and the permission it needs.

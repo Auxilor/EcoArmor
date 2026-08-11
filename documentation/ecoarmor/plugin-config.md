@@ -1,6 +1,6 @@
 ---
 title: "Plugin Config"
-sidebar_position: 6
+sidebar_position: 4
 ---
 
 The main plugin settings live in `EcoArmor/config.yml`. It controls plugin-wide behavior that isn't tied to a single set or tier, such as recipe discovery and how item names and lore are displayed. Every option below is annotated inline.

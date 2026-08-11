@@ -1,6 +1,6 @@
 ---
 title: "How to Make an Armor Set"
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 An **armor set** is a group of pieces that grant **set effects** while the full set is worn, with optional **partial effects** for wearing only part of it and an **advanced** upgrade that unlocks bonus effects. Each set is one YAML file in the `/sets/` folder. This page builds one from scratch and explains every part of the config.
