@@ -199,6 +199,24 @@ object ArmorUtils {
     }
 
     /**
+     * Get the item an entity is wearing in an armor slot.
+     *
+     * Distinguishes elytras from chestplates, which share an equipment slot.
+     *
+     * @param entity The entity to check.
+     * @param slot The slot to check.
+     * @return The item, or null if the slot is empty or holds a different kind of item.
+     */
+    @JvmStatic
+    fun getItemInSlot(entity: LivingEntity, slot: ArmorSlot): ItemStack? {
+        val item = entity.equipment?.getItem(slot.slot) ?: return null
+        if (item.type.isAir) {
+            return null
+        }
+        return if (getSlot(item) == slot) item else null
+    }
+
+    /**
      * Get armor set that entity is wearing.
      *
      * @param entity The entity to check.

@@ -19,13 +19,22 @@ import com.willfp.ecoarmor.upgrades.CrystalListener
 import com.willfp.ecoarmor.upgrades.TierArgParser
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.DiscoverRecipeListener
+import com.willfp.ecoarmor.libreforge.ConditionArmorIsAdvanced
+import com.willfp.ecoarmor.libreforge.ConditionHasArmorTier
+import com.willfp.ecoarmor.libreforge.EffectSetArmorAdvanced
+import com.willfp.ecoarmor.libreforge.EffectSetArmorTier
 import com.willfp.ecoarmor.libreforge.FilterArmorSet
 import com.willfp.ecoarmor.libreforge.FilterArmorTier
+import com.willfp.ecoarmor.libreforge.MutatorArmorPieceToItem
 import com.willfp.ecoarmor.libreforge.TriggerAdvanceArmor
+import com.willfp.ecoarmor.libreforge.TriggerEquipArmorSet
+import com.willfp.ecoarmor.libreforge.TriggerUnequipArmorSet
 import com.willfp.ecoarmor.libreforge.TriggerUpgradeArmorTier
 import com.willfp.libreforge.conditions.Conditions
+import com.willfp.libreforge.effects.Effects
 import com.willfp.libreforge.filters.Filters
 import com.willfp.libreforge.loader.LibreforgePlugin
+import com.willfp.libreforge.mutators.Mutators
 import com.willfp.libreforge.triggers.Triggers
 import com.willfp.libreforge.loader.configs.ConfigCategory
 import com.willfp.libreforge.registerSpecificHolderProvider
@@ -43,8 +52,15 @@ class EcoArmorPlugin : LibreforgePlugin() {
 
     override fun handleLoad() {
         Conditions.register(ConditionIsWearingSet)
+        Conditions.register(ConditionHasArmorTier)
+        Conditions.register(ConditionArmorIsAdvanced)
         Triggers.register(TriggerAdvanceArmor)
         Triggers.register(TriggerUpgradeArmorTier)
+        Triggers.register(TriggerEquipArmorSet)
+        Triggers.register(TriggerUnequipArmorSet)
+        Effects.register(EffectSetArmorTier)
+        Effects.register(EffectSetArmorAdvanced)
+        Mutators.register(MutatorArmorPieceToItem)
         Filters.register(FilterArmorSet)
         Filters.register(FilterArmorTier)
     }
