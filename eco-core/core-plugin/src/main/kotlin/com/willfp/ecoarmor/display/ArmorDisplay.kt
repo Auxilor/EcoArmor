@@ -58,6 +58,13 @@ object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
         val slotMeta = slotStack.itemMeta ?: return
 
         val tier = ArmorUtils.getTier(meta) ?: return
+        val appliedTiers = ArmorUtils.getAppliedTiers(meta)
+
+        val tierPlaceholder = if (appliedTiers.size > 1) {
+            appliedTiers.joinToString(plugin.configYml.getString("armor-display.tier-list-separator")) { it.displayName }
+        } else {
+            tier.displayName
+        }
 
         val context = placeholderContext(
             player = player,
@@ -65,7 +72,7 @@ object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
         )
 
         val lore = FastItemStack.wrap(slotStack).lore
-            .map { it.replace("%tier%", tier.displayName) }
+            .map { it.replace("%tier%", tierPlaceholder) }
             .formatEco(context)
             .toMutableList()
 
