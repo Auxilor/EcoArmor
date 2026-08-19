@@ -5,6 +5,7 @@ import com.willfp.ecoarmor.api.event.PlayerArmorSetUnequipEvent
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.upgrades.Tier
+import com.willfp.ecoarmor.upgrades.TierProperties
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.libreforge.Holder
 import com.willfp.libreforge.ItemProvidedHolder
@@ -330,6 +331,60 @@ object ArmorUtils {
     }
 
     /**
+     * Get the ids of every tier currently applied to an item, oldest first.
+     *
+     * For an item whose current tier is non-additive, this is a single-element
+     * list matching [getTier]. For an item with additive tiers stacked, this
+     * lists every tier applied so far, in application order (may contain
+     * duplicates if the same additive tier was stacked more than once).
+     *
+     * @param meta The item to check.
+     * @return The applied tier ids.
+     */
+    @JvmStatic
+    fun getAppliedTierIds(meta: ItemMeta): List<String> {
+        val stacked = meta.persistentDataContainer.get(
+            plugin.namespacedKeyFactory.create("tiers"),
+            PersistentDataType.STRING
+        )
+        if (stacked != null) {
+            return stacked.split(",").filter { it.isNotBlank() }
+        }
+        val single = meta.persistentDataContainer.get(
+            plugin.namespacedKeyFactory.create("tier"),
+            PersistentDataType.STRING
+        )
+        return if (single != null) listOf(single) else emptyList()
+    }
+
+    /**
+     * Get every tier currently applied to an item, oldest first.
+     *
+     * @param meta The item to check.
+     * @return The applied tiers.
+     */
+    @JvmStatic
+    fun getAppliedTiers(meta: ItemMeta): List<Tier> {
+        return getAppliedTierIds(meta).mapNotNull { Tiers.getByID(it) }
+    }
+
+    /**
+     * Check whether an additive tier can still be applied to an item without
+     * exceeding its [Tier.stackLimit].
+     *
+     * @param itemStack The item to check.
+     * @param tier The additive tier being applied.
+     * @return True if applying would not exceed the tier's stack limit.
+     */
+    @JvmStatic
+    fun canApplyAdditiveTier(itemStack: ItemStack, tier: Tier): Boolean {
+        val meta = itemStack.itemMeta ?: return false
+        if (tier.stackLimit < 0) return true
+        val applied = getAppliedTierIds(meta).count { it == tier.id }
+        return applied < tier.stackLimit
+    }
+
+    /**
      * Get tier on item.
      *
      * @param itemStack The item to check.
@@ -386,10 +441,29 @@ object ArmorUtils {
         tier: Tier
     ) {
         val meta = itemStack.itemMeta ?: return
-        setTierKey(meta, tier)
         val slot = getSlot(itemStack) ?: return
-
         val props = tier.properties[slot] ?: return
+
+        if (tier.additive) {
+            val existingIds = getAppliedTierIds(meta).toMutableList()
+            val occurrence = existingIds.count { it == tier.id }
+            existingIds.add(tier.id)
+
+            setTierKey(meta, tier)
+            meta.persistentDataContainer.set(
+                plugin.namespacedKeyFactory.create("tiers"),
+                PersistentDataType.STRING,
+                existingIds.joinToString(",")
+            )
+
+            addTierModifiers(meta, slot, props, ".${tier.id}.${occurrence}")
+
+            itemStack.itemMeta = meta
+            return
+        }
+
+        meta.persistentDataContainer.remove(plugin.namespacedKeyFactory.create("tiers"))
+        setTierKey(meta, tier)
 
         meta.removeAttributeModifier(Attribute.ARMOR)
         meta.removeAttributeModifier(Attribute.ARMOR_TOUGHNESS)
@@ -409,6 +483,29 @@ object ArmorUtils {
         meta.removeAttributeModifier(Attribute.ENTITY_INTERACTION_RANGE)
         meta.removeAttributeModifier(Attribute.BLOCK_INTERACTION_RANGE)
 
+        addTierModifiers(meta, slot, props, "")
+
+        itemStack.itemMeta = meta
+    }
+
+    /**
+     * Attach a tier's attribute modifiers to an item's meta.
+     *
+     * @param meta The meta to mutate.
+     * @param slot The armor slot the item occupies.
+     * @param props The tier's stat block for that slot.
+     * @param tierSuffix A key suffix that makes this tier's modifier keys unique
+     *   from any other tier's (and from this tier's own prior applications, via
+     *   an occurrence index). Empty string for non-additive/replace mode, where
+     *   modifier keys are deliberately reused across tiers so re-applying
+     *   overwrites the previous tier's modifiers.
+     */
+    private fun addTierModifiers(
+        meta: ItemMeta,
+        slot: ArmorSlot,
+        props: TierProperties,
+        tierSuffix: String
+    ) {
         val slotGroup = when (slot.slot) {
             org.bukkit.inventory.EquipmentSlot.HEAD -> EquipmentSlotGroup.HEAD
             org.bukkit.inventory.EquipmentSlot.CHEST -> EquipmentSlotGroup.CHEST
@@ -427,7 +524,7 @@ object ArmorUtils {
             scaler: (Int) -> Double = { it.toDouble() }
         ) {
             value?.takeIf { it != 0 }?.let { v ->
-                val keyName = "${attr.key.key}.${slotSuffix}${keySuffix}"
+                val keyName = "${attr.key.key}.${slotSuffix}${tierSuffix}${keySuffix}"
                 meta.addAttributeModifier(
                     attr,
                     AttributeModifier(
@@ -463,8 +560,6 @@ object ArmorUtils {
         val fracScaler: (Int) -> Double = { it / 100.0 }
         addModifier(Attribute.KNOCKBACK_RESISTANCE, props.knockbackResistance, AttributeModifier.Operation.ADD_NUMBER, "", fracScaler)
         addModifier(Attribute.EXPLOSION_KNOCKBACK_RESISTANCE, props.explosionKnockbackResistance, AttributeModifier.Operation.ADD_NUMBER, "", fracScaler)
-
-        itemStack.itemMeta = meta
     }
 
     /**
