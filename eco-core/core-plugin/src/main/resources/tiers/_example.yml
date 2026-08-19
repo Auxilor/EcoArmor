@@ -8,6 +8,8 @@ display: "&c&lNETHERITE" # The display in-game
 requiresTiers: # If this tier requires a prior tier
   - diamond # Tier ID
   - iron
+additive: false # If true, applying this tier's crystal ADDS its modifiers on top of the item's current modifiers instead of replacing them. Also allows the same tier to be stacked multiple times.
+stack-limit: -1 # Only used when additive is true. Max number of times this tier can be stacked onto one item. -1 = unlimited.
 crystal:
   item: end_crystal # The crystal item, read more here: https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system
   name: "&cNetherite Upgrade Crystal" # The name shown in-game.

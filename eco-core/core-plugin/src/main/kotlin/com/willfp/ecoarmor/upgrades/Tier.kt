@@ -38,6 +38,18 @@ class Tier(
     val craftable: Boolean = this.config.getBool("crystal.craftable")
 
     /**
+     * If applying this tier's crystal adds its modifiers on top of the item's
+     * existing modifiers instead of replacing them.
+     */
+    val additive: Boolean = this.config.getBool("additive")
+
+    /**
+     * The max number of times this tier can be stacked onto the same item when
+     * [additive] is true. -1 means unlimited.
+     */
+    val stackLimit: Int = this.config.getIntOrNull("stack-limit") ?: -1
+
+    /**
      * The ItemStack of the crystal.
      */
     val crystal: ItemStack
