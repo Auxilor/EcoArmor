@@ -445,6 +445,8 @@ object ArmorUtils {
         val props = tier.properties[slot] ?: return
 
         if (tier.additive) {
+            if (!canApplyAdditiveTier(itemStack, tier)) return
+
             val existingIds = getAppliedTierIds(meta).toMutableList()
             val occurrence = existingIds.count { it == tier.id }
             existingIds.add(tier.id)
