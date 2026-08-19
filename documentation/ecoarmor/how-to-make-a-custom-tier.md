@@ -116,9 +116,14 @@ ancient --> mythic
 
 #### Additive tiers
 
-By default, applying a tier's crystal **replaces** every modifier currently on the piece with that tier's own modifiers — this is how the progression in the tree above normally works. Setting `additive: true` changes that: the tier's modifiers are **added on top of** whatever is already on the piece, and the crystal can be dropped onto the same piece more than once (or alongside other additive tiers) instead of being blocked by `requiresTiers` progression alone.
+By default, applying a tier's crystal **replaces** every modifier currently on the piece with that tier's own modifiers — this is how the progression in the tree above normally works. Setting `additive: true` changes that: the tier's modifiers are **added on top of** whatever is already on the piece, up to `stack-limit` applications.
+
+`requiresTiers` still gates every application, additive or not — it is checked first, against the piece's *current* tier. After a tier is applied once, the piece's current tier becomes that tier's own id, so **to let a crystal be dropped onto a piece that already has it, `requiresTiers` must either be empty or include the tier's own id**:
 
 ```yaml
+# id: enhancement.yml
+requiresTiers:
+  - enhancement # allows re-applying this same tier onto a piece that already has it
 additive: true
 stack-limit: 3 # This tier can be stacked at most 3 times on one piece; -1 for unlimited
 ```
@@ -192,7 +197,7 @@ properties:
 :::tip Troubleshooting
 - **Crystal won't apply to a piece?** The piece doesn't have the tier listed in `requiresTiers` yet; apply that tier first.
 - **Stats don't change after applying?** Re-equip the piece, and run `/ecoarmor reload` if you edited the tier while the server was running.
-- **Stacked tier stopped applying?** The tier's `stack-limit` was reached — either raise or remove `stack-limit`, or use a different additive tier.
+- **Stacked tier stopped applying?** Either the tier's `stack-limit` was reached (raise or remove `stack-limit`, or use a different additive tier), or its `requiresTiers` doesn't include the tier's own id, so `requiresTiers` is blocking the re-application before `stack-limit` is even checked — see [Additive tiers](#additive-tiers) above.
 - **Crystal recipe missing?** Confirm `craftable: true` and that the `requiresTiers` crystal in the recipe exists.
 :::
 
