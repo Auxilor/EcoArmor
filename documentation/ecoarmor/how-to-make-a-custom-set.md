@@ -321,7 +321,7 @@ These placeholders are provided by EcoArmor and can be used in piece lore:
 
 | Placeholder | Value |
 | --- | --- |
-| `%tier%` | The tier of the armor piece. |
+| `%tier%` | The tier of the armor piece. If the piece has more than one [additive tier](how-to-make-a-custom-tier#additive-tiers) stacked on it, this lists every applied tier's display name joined by `armor-display.tier-list-separator` (see [Plugin Config](plugin-config)) instead of a single name. |
 
 :::tip Troubleshooting
 - **Players get a block of stone instead of armor?** A piece is missing or misconfigured, usually a removed elytra block. Keep all five piece blocks.

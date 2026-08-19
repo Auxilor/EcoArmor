@@ -42,6 +42,8 @@ Here is a complete tier with every part in place:
 display: "&c&lNETHERITE" # In-game tier display name
 requiresTiers: # Tiers a piece must already have before this one can be applied
   - diamond
+additive: false # If true, applying this tier ADDS its modifiers on top of the piece's current ones instead of replacing them, and allows the tier to be stacked more than once
+stack-limit: -1 # Only used when additive is true. Max number of times this tier can be stacked onto one piece. -1 = unlimited
 
 # === Upgrade crystal: the item that applies this tier ===
 crystal:
@@ -98,6 +100,8 @@ The info block names the tier and gates it behind a prior tier.
 display: "&c&lNETHERITE" # In-game tier display name
 requiresTiers: # Tiers a piece must already have before this one can be applied
   - diamond
+additive: false # If true, applying this tier ADDS its modifiers on top of the piece's current ones instead of replacing them, and allows the tier to be stacked more than once
+stack-limit: -1 # Only used when additive is true. Max number of times this tier can be stacked onto one piece. -1 = unlimited
 ```
 
 `requiresTiers` builds a progression: in the example, the Netherite tier can only be applied to a piece that already has the Diamond tier. The default config ships this tier tree as an example:
@@ -109,6 +113,21 @@ default --> iron --> diamond --> netherite --> manyullyn
 
 ancient --> mythic
 ```
+
+#### Additive tiers
+
+By default, applying a tier's crystal **replaces** every modifier currently on the piece with that tier's own modifiers — this is how the progression in the tree above normally works. Setting `additive: true` changes that: the tier's modifiers are **added on top of** whatever is already on the piece, and the crystal can be dropped onto the same piece more than once (or alongside other additive tiers) instead of being blocked by `requiresTiers` progression alone.
+
+```yaml
+additive: true
+stack-limit: 3 # This tier can be stacked at most 3 times on one piece; -1 for unlimited
+```
+
+Use this for crystals meant to layer bonuses (e.g. a repeatable "enhancement" crystal) rather than to move a piece up a fixed tier tree. `stack-limit` counts only applications of *this* tier — stacking three different additive tiers onto one piece is unaffected by any one tier's own limit.
+
+When a piece has more than one tier applied (because one or more were additive), the `%tier%` placeholder in that piece's lore lists every applied tier instead of just one — see [the placeholder table](how-to-make-a-custom-set#internal-placeholders) on the set page, and [`armor-display.tier-list-separator`](plugin-config) to control how they're joined.
+
+Applying a **non-additive** tier to a piece always resets it back to that single tier, clearing any previously stacked additive tiers.
 
 ### Upgrade crystal
 
@@ -173,6 +192,7 @@ properties:
 :::tip Troubleshooting
 - **Crystal won't apply to a piece?** The piece doesn't have the tier listed in `requiresTiers` yet; apply that tier first.
 - **Stats don't change after applying?** Re-equip the piece, and run `/ecoarmor reload` if you edited the tier while the server was running.
+- **Stacked tier stopped applying?** The tier's `stack-limit` was reached — either raise or remove `stack-limit`, or use a different additive tier.
 - **Crystal recipe missing?** Confirm `craftable: true` and that the `requiresTiers` crystal in the recipe exists.
 :::
 

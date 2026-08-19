@@ -14,6 +14,9 @@ discover-recipes: true # Whether all plugin recipes are automatically discovered
 update-item-names: true # Whether item names are refreshed to match config (disable to allow renaming pieces in anvils)
 update-leather-colors: true # Whether leather colors are refreshed to match config
 advanced-lore-only: false # Whether advanced armor shows only the advanced lore, hiding the base lore
+
+armor-display:
+  tier-list-separator: "&7, " # Separator used to join tier display names in the %tier% placeholder when a piece has more than one additive tier stacked on it
 ```
 
 <hr/>
