@@ -27,6 +27,10 @@ object CrystalListener : Listener, DragAndDropHandler {
         val allowed = requiredTiers.isEmpty() || requiredTiers.contains(previousTier)
         if (!allowed) return DragAndDropResult.DENIED
 
+        if (crystalTier.additive && !ArmorUtils.canApplyAdditiveTier(current, crystalTier)) {
+            return DragAndDropResult.DENIED
+        }
+
         val tierEvent = ArmorTierEvent(player, current, crystalTier, previousTier)
         Bukkit.getPluginManager().callEvent(tierEvent)
         if (tierEvent.isCancelled) return DragAndDropResult.DENIED
