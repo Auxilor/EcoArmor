@@ -17,6 +17,7 @@ advanced-lore-only: false # Whether advanced armor shows only the advanced lore,
 
 armor-display:
   tier-list-separator: "&7, " # Separator used to join tier display names in the %tier% placeholder when a piece has more than one additive tier stacked on it
+  tier-stack-format: multiple # How repeated additive tiers are shown in the %tier% placeholder: "none" lists every application separately (ANCIENT, ANCIENT, ANCIENT), "multiple" collapses them (4x ANCIENT), "numeral" collapses them with a roman numeral (ANCIENT IV)
 ```
 
 <hr/>

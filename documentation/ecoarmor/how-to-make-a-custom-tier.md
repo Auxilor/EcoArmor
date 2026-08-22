@@ -130,7 +130,7 @@ stack-limit: 3 # This tier can be stacked at most 3 times on one piece; -1 for u
 
 Use this for crystals meant to layer bonuses (e.g. a repeatable "enhancement" crystal) rather than to move a piece up a fixed tier tree. `stack-limit` counts only applications of *this* tier — stacking three different additive tiers onto one piece is unaffected by any one tier's own limit.
 
-When a piece has more than one tier applied (because one or more were additive), the `%tier%` placeholder in that piece's lore lists every applied tier instead of just one — see [the placeholder table](how-to-make-a-custom-set#internal-placeholders) on the set page, and [`armor-display.tier-list-separator`](plugin-config) to control how they're joined.
+When a piece has more than one tier applied (because one or more were additive), the `%tier%` placeholder in that piece's lore lists every distinct applied tier instead of just one — see [the placeholder table](how-to-make-a-custom-set#internal-placeholders) on the set page, [`armor-display.tier-list-separator`](plugin-config) to control how they're joined, and [`armor-display.tier-stack-format`](plugin-config) to control how a tier stacked more than once is shown (e.g. `4x ANCIENT` or `ANCIENT IV` instead of `ANCIENT, ANCIENT, ANCIENT, ANCIENT`).
 
 Applying a **non-additive** tier to a piece always resets it back to that single tier, clearing any previously stacked additive tiers.
 

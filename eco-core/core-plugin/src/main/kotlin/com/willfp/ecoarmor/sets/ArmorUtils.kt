@@ -448,7 +448,6 @@ object ArmorUtils {
             if (!canApplyAdditiveTier(itemStack, tier)) return
 
             val existingIds = getAppliedTierIds(meta).toMutableList()
-            val occurrence = existingIds.count { it == tier.id }
             existingIds.add(tier.id)
 
             setTierKey(meta, tier)
@@ -458,7 +457,13 @@ object ArmorUtils {
                 existingIds.joinToString(",")
             )
 
-            addTierModifiers(meta, slot, props, ".${tier.id}.${occurrence}")
+            removeAllTierAttributeModifiers(meta)
+
+            val combinedProps = sumProperties(
+                existingIds.mapNotNull { Tiers.getByID(it) }.mapNotNull { it.properties[slot] }
+            )
+
+            addTierModifiers(meta, slot, combinedProps)
 
             itemStack.itemMeta = meta
             return
@@ -467,6 +472,20 @@ object ArmorUtils {
         meta.persistentDataContainer.remove(plugin.namespacedKeyFactory.create("tiers"))
         setTierKey(meta, tier)
 
+        removeAllTierAttributeModifiers(meta)
+
+        addTierModifiers(meta, slot, props)
+
+        itemStack.itemMeta = meta
+    }
+
+    /**
+     * Remove every attribute modifier this plugin may have added for a tier,
+     * so stats can be recalculated from scratch.
+     *
+     * @param meta The meta to mutate.
+     */
+    private fun removeAllTierAttributeModifiers(meta: ItemMeta) {
         meta.removeAttributeModifier(Attribute.ARMOR)
         meta.removeAttributeModifier(Attribute.ARMOR_TOUGHNESS)
         meta.removeAttributeModifier(Attribute.KNOCKBACK_RESISTANCE)
@@ -484,29 +503,58 @@ object ArmorUtils {
         meta.removeAttributeModifier(Attribute.SAFE_FALL_DISTANCE)
         meta.removeAttributeModifier(Attribute.ENTITY_INTERACTION_RANGE)
         meta.removeAttributeModifier(Attribute.BLOCK_INTERACTION_RANGE)
+    }
 
-        addTierModifiers(meta, slot, props, "")
+    /**
+     * Sum a list of tier stat blocks into a single combined stat block, treating
+     * unset fields as 0. Used so stacked additive tiers show one recalculated
+     * attribute modifier per attribute instead of one per application.
+     *
+     * @param propsList The stat blocks to combine.
+     * @return The combined stat block.
+     */
+    private fun sumProperties(propsList: List<TierProperties>): TierProperties {
+        fun sum(selector: (TierProperties) -> Int?) = propsList.sumOf { selector(it) ?: 0 }
 
-        itemStack.itemMeta = meta
+        return TierProperties(
+            armor = sum { it.armor },
+            toughness = sum { it.toughness },
+            knockbackResistance = sum { it.knockbackResistance },
+            speedPercentage = sum { it.speedPercentage },
+            attackSpeedPercentage = sum { it.attackSpeedPercentage },
+            attackDamagePercentage = sum { it.attackDamagePercentage },
+            attackKnockbackPercentage = sum { it.attackKnockbackPercentage },
+            maxHealth = sum { it.maxHealth },
+            attackDamageFlat = sum { it.attackDamageFlat },
+            attackSpeedFlat = sum { it.attackSpeedFlat },
+            jumpStrength = sum { it.jumpStrength },
+            gravityPercentage = sum { it.gravityPercentage },
+            burningTimePercentage = sum { it.burningTimePercentage },
+            explosionKnockbackResistance = sum { it.explosionKnockbackResistance },
+            oxygenBonus = sum { it.oxygenBonus },
+            movementEfficiency = sum { it.movementEfficiency },
+            safeFallDistance = sum { it.safeFallDistance },
+            entityInteractionRangePercentage = sum { it.entityInteractionRangePercentage },
+            blockInteractionRangePercentage = sum { it.blockInteractionRangePercentage }
+        )
     }
 
     /**
      * Attach a tier's attribute modifiers to an item's meta.
      *
+     * Modifier keys are per-attribute-per-slot only (not per-tier), so callers
+     * must pass the already-combined stat block for every tier applied to the
+     * item, and clear any previous modifiers first via
+     * [removeAllTierAttributeModifiers].
+     *
      * @param meta The meta to mutate.
      * @param slot The armor slot the item occupies.
-     * @param props The tier's stat block for that slot.
-     * @param tierSuffix A key suffix that makes this tier's modifier keys unique
-     *   from any other tier's (and from this tier's own prior applications, via
-     *   an occurrence index). Empty string for non-additive/replace mode, where
-     *   modifier keys are deliberately reused across tiers so re-applying
-     *   overwrites the previous tier's modifiers.
+     * @param props The combined stat block for that slot.
      */
     private fun addTierModifiers(
         meta: ItemMeta,
         slot: ArmorSlot,
-        props: TierProperties,
-        tierSuffix: String
+        props: TierProperties
     ) {
         val slotGroup = when (slot.slot) {
             org.bukkit.inventory.EquipmentSlot.HEAD -> EquipmentSlotGroup.HEAD
@@ -526,7 +574,7 @@ object ArmorUtils {
             scaler: (Int) -> Double = { it.toDouble() }
         ) {
             value?.takeIf { it != 0 }?.let { v ->
-                val keyName = "${attr.key.key}.${slotSuffix}${tierSuffix}${keySuffix}"
+                val keyName = "${attr.key.key}.${slotSuffix}${keySuffix}"
                 meta.addAttributeModifier(
                     attr,
                     AttributeModifier(

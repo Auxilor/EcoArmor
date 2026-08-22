@@ -5,6 +5,7 @@ import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.display.DisplayPriority
 import com.willfp.eco.core.fast.FastItemStack
 import com.willfp.eco.core.placeholder.context.placeholderContext
+import com.willfp.eco.util.NumberUtils
 import com.willfp.eco.util.formatEco
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot
@@ -61,7 +62,27 @@ object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
         val appliedTiers = ArmorUtils.getAppliedTiers(meta)
 
         val tierPlaceholder = if (appliedTiers.size > 1) {
-            appliedTiers.joinToString(plugin.configYml.getString("armor-display.tier-list-separator")) { it.displayName }
+            val separator = plugin.configYml.getString("armor-display.tier-list-separator")
+
+            when (plugin.configYml.getString("armor-display.tier-stack-format").lowercase()) {
+                "multiple" -> {
+                    val counts = appliedTiers.groupingBy { it }.eachCount()
+                    appliedTiers.distinct().joinToString(separator) {
+                        val count = counts.getValue(it)
+                        if (count > 1) "${count}x ${it.displayName}" else it.displayName
+                    }
+                }
+
+                "numeral" -> {
+                    val counts = appliedTiers.groupingBy { it }.eachCount()
+                    appliedTiers.distinct().joinToString(separator) {
+                        val count = counts.getValue(it)
+                        if (count > 1) "${it.displayName} ${NumberUtils.toNumeral(count)}" else it.displayName
+                    }
+                }
+
+                else -> appliedTiers.joinToString(separator) { it.displayName }
+            }
         } else {
             tier.displayName
         }
