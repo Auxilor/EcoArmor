@@ -9,7 +9,7 @@ EcoArmor lets you build fully configurable custom armor sets that grant effects 
 Every piece has two independent upgrade systems:
 
 - **Tiers** are attribute modifiers applied per piece. They stay active even without the full set and change values like armor, protection, and movement speed. You apply them with **Upgrade Crystals**, dragged and dropped onto a piece in the inventory.
-- **Advancement** is an upgrade applied to every piece in a set to unlock its bonus effects, which can be stronger versions of the base effects or entirely new ones. You apply it with **Advancement Shards**, dropped onto a piece the same way.
+- **Advancement** is an upgrade applied to every piece in a set to swap its effects for its advanced effects, which can be stronger versions of the base effects or entirely new ones. You apply it with **Advancement Shards**, dropped onto a piece the same way.
 
 ## What sets EcoArmor apart?
 
