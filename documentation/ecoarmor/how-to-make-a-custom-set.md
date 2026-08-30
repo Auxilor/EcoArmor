@@ -3,7 +3,7 @@ title: "How to Make an Armor Set"
 sidebar_position: 1
 ---
 
-An **armor set** is a group of pieces that grant **set effects** while the full set is worn, with optional **partial effects** for wearing only part of it and an **advanced** upgrade that unlocks bonus effects. Each set is one YAML file in the `/sets/` folder. This page builds one from scratch and explains every part of the config.
+An **armor set** is a group of pieces that grant **set effects** while the full set is worn, with optional **partial effects** for wearing only part of it and an **advanced** upgrade that swaps in a separate set of effects. Each set is one YAML file in the `/sets/` folder. This page builds one from scratch and explains every part of the config.
 
 ## Quick start
 
@@ -33,7 +33,7 @@ A set config has six parts:
 | --- | --- |
 | **Set effects** | The bonus that applies when the full set is worn. |
 | **Partial effects** | Weaker bonuses for wearing only part of the set. |
-| **Advanced effects and lore** | Extra effects and lore unlocked once the set is advanced. |
+| **Advanced effects and lore** | Effects that replace the set effects once the set is advanced, plus the lore added alongside them. |
 | **Sounds** | Sounds played on equip, advanced equip, and unequip. |
 | **Advancement shard** | The item players use to advance the set. |
 | **Armor pieces** | Each piece's item, recipe, lore, tier, and per-piece effects. |
@@ -68,8 +68,15 @@ partialEffects:
             - bow_attack
             - trident_attack
 
-# === Advanced effects and lore: unlocked once the set is advanced ===
+# === Advanced effects and lore: replace the set effects once the set is advanced ===
 advancedEffects:
+  - id: damage_multiplier # Repeated from `effects`, otherwise advancing would lose it
+    args:
+      multiplier: 1.25
+    triggers:
+      - melee_attack
+      - bow_attack
+      - trident_attack
   - id: damage_multiplier
     args:
       multiplier: 0.9
@@ -147,7 +154,7 @@ helmet:
   defaultTier: default # Tier this piece starts on
   effectiveDurability: 2048 # Optional; scales how quickly the item wears instead of changing real durability
   effects: [] # Effects that run only while this piece is worn
-  advancedEffects: [] # Per-piece effects unlocked once advanced
+  advancedEffects: [] # Replaces this piece's `effects` once advanced
   conditions: [] # Conditions required for this piece's effects to run
 ```
 
@@ -197,10 +204,17 @@ partialEffects:
 
 ### Advanced effects and lore
 
-Advanced effects apply on top of the set effects once every piece has been advanced with a shard. `advancedLore` is appended to each piece's lore at the same time.
+Advanced effects **replace** the set effects once every piece has been advanced with a shard: `effects` stops running entirely, and only `advancedEffects` applies. Repeat any effect you want to keep. `advancedLore` is appended to each piece's lore at the same time.
 
 ```yaml
 advancedEffects:
+  - id: damage_multiplier # Repeated from `effects`, otherwise advancing would lose it
+    args:
+      multiplier: 1.25
+    triggers:
+      - melee_attack
+      - bow_attack
+      - trident_attack
   - id: damage_multiplier
     args:
       multiplier: 0.9
@@ -296,7 +310,7 @@ helmet:
   defaultTier: default # Tier this piece starts on
   effectiveDurability: 2048 # Optional; scales how quickly the item wears instead of changing real durability
   effects: [] # Effects that run only while this piece is worn
-  advancedEffects: [] # Per-piece effects unlocked once advanced
+  advancedEffects: [] # Replaces this piece's `effects` once advanced
   conditions: [] # Conditions required for this piece's effects to run
 ```
 
@@ -327,6 +341,7 @@ These placeholders are provided by EcoArmor and can be used in piece lore:
 - **Players get a block of stone instead of armor?** A piece is missing or misconfigured, usually a removed elytra block. Keep all five piece blocks.
 - **Set bonus never applies?** Check `amount_for_set` against how many pieces the player is wearing, and that all worn pieces belong to the same set.
 - **Advanced effects don't trigger?** Every piece in the set must be advanced with a shard before `advancedEffects` apply.
+- **Set bonus disappeared after advancing?** `advancedEffects` replaces `effects`, it doesn't stack with it. Copy any base effect you want to keep into `advancedEffects`.
 - **Recipe doesn't show up?** Confirm `craftable: true` and that the player has any `crafting-permission` you set.
 :::
 
