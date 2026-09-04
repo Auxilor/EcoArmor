@@ -138,6 +138,21 @@ helmet:
 
   effectiveDurability: 2048  # Optional, set the durability
 
+  # (Optional) Vanilla item components to apply to the piece.
+  # Any component can be used, with the same format as in vanilla commands:
+  # https://minecraft.wiki/w/Data_component_format
+  # Keys without a namespace are minecraft components.
+  # Don't use the ecoarmor namespace for attribute modifier ids: those are
+  # cleared and rewritten whenever the piece's tier changes.
+  components:
+    equippable:
+      slot: head
+      damage_on_hurt: false
+
+  # (Optional) Components applied only to the advanced piece, on top of components.
+  advancedComponents:
+    enchantment_glint_override: true
+
   # The effects of the item (i.e. the functionality)
   # See here: https://hub.auxilor.io/wiki/libreforge/configuring-an-effect
   effects: []

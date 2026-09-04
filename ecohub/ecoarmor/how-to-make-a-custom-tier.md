@@ -90,6 +90,11 @@ properties:
     safeFallDistance: 0 # Extra safe fall blocks (0 to 20; +3 = vanilla, +10 ≈ 13 blocks)
     entityInteractionRangePercentage: 0 # Entity reach % (0 to 100; +50 = noticeably longer)
     blockInteractionRangePercentage: 0 # Block reach % (0 to 100; creative ≈ +50)
+    components: # Optional; attribute modifiers as vanilla components, the modern replacement for the options above
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
 ```
 
 ### Info
@@ -192,7 +197,67 @@ properties:
     safeFallDistance: 0 # Extra safe fall blocks (0 to 20; +3 = vanilla, +10 ≈ 13 blocks)
     entityInteractionRangePercentage: 0 # Entity reach % (0 to 100; +50 = noticeably longer)
     blockInteractionRangePercentage: 0 # Block reach % (0 to 100; creative ≈ +50)
+    components: # Optional; attribute modifiers as vanilla components, the modern replacement for the options above
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
 ```
+
+#### Components
+
+The stat options above cover a fixed list of attributes with whole-number values. `components` replaces them with vanilla [attribute modifiers](https://minecraft.wiki/w/Data_component_format#attribute_modifiers), which reach **every** attribute the game has, take decimals, and choose their own slot group and operation:
+
+```yaml
+properties:
+  helmet:
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3.5 # Decimals work here; the options above are whole numbers only
+          operation: "add_value"
+        - type: "minecraft:water_movement_efficiency"
+          amount: 0.35 # An attribute the options above can't reach at all
+          operation: "add_value"
+```
+
+| Field | What it does |
+| --- | --- |
+| `type` | The attribute, e.g. `minecraft:armor`. Required. |
+| `amount` | How much the modifier applies. Required. |
+| `operation` | `add_value`, `add_multiplied_base`, or `add_multiplied_total`. Defaults to `add_value`. |
+| `slot` | The slot group the modifier applies in. Defaults to the piece's own slot. |
+| `id` | The modifier's id. Defaults to one derived from the tier, attribute, and piece. |
+
+Only `attribute_modifiers` can be set on a tier. A tier's modifiers are rewritten every time the piece's tier changes, and attribute modifiers are the only components that can be cleanly removed again; anything else belongs on the [piece itself](how-to-make-a-custom-set#components). Modifier ids are always placed under the `ecoarmor` namespace for the same reason, so an `id` you give here has its namespace replaced.
+
+When a tier is `additive`, the modifiers of every applied tier are combined, and two tiers configuring the same `id` collapse into one - the last applied wins.
+
+:::info The stat options are deprecated
+`armor`, `toughness`, `speedPercentage`, and the rest of the options above still work, and existing tiers keep working unchanged. They're deprecated and will be removed in a future version, and a tier that uses them logs a warning on load. Write new tiers with `components`, and move existing ones over when convenient:
+
+```yaml
+# Before
+properties:
+  helmet:
+    armor: 3
+    speedPercentage: 10
+
+# After
+properties:
+  helmet:
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: 0.1 # Percentages become fractions: 10% is 0.1
+          operation: "add_multiplied_base"
+```
+
+The percentage options divide by 100 and apply as `add_multiplied_base`; `knockbackResistance` and `explosionKnockbackResistance` divide by 100 and apply as `add_value`; every other option applies its value as `add_value` unchanged.
+:::
 
 :::tip Troubleshooting
 - **Crystal won't apply to a piece?** The piece doesn't have the tier listed in `requiresTiers` yet; apply that tier first.
