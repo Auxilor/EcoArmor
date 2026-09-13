@@ -1,6 +1,7 @@
 package com.willfp.ecoarmor.sets
 
 import com.willfp.eco.core.config.interfaces.Config
+import com.willfp.eco.core.config.toPlainValues
 import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.items.CustomItem
 import com.willfp.eco.core.items.Items
@@ -228,7 +229,7 @@ class ArmorSet(
             PersistentDataType.INTEGER,
             slotConfig.getInt("effectiveDurability")
         )
-        val itemStack = builder.build()
+        var itemStack = builder.build()
         setAdvanced(itemStack, advanced)
         val defaultTier = Tiers.getByID(slotConfig.getString("defaultTier"))
         if (defaultTier == null) {
@@ -238,6 +239,7 @@ class ArmorSet(
         } else {
             setTier(itemStack, defaultTier)
         }
+        itemStack = itemStack.withComponents(slotConfig, advanced)
         if (advanced) {
             CustomItem(
                 plugin.namespacedKeyFactory.create(
@@ -279,6 +281,45 @@ class ArmorSet(
             ).register()
         }
         return itemStack
+    }
+
+    /**
+     * Apply the components a slot configures to the piece it built.
+     *
+     * Keys without a namespace are minecraft components, which saves quoting
+     * them in config. Advanced pieces apply advancedComponents on top of
+     * components, so a set can share most of its components and override the
+     * few that differ.
+     *
+     * @receiver The armor piece.
+     * @param slotConfig The slot's config.
+     * @param advanced   If the piece is the advanced variant.
+     * @return The piece with its components applied.
+     */
+    private fun ItemStack.withComponents(
+        slotConfig: Config,
+        advanced: Boolean
+    ): ItemStack {
+        val components = slotConfig.getSubsection("components").toPlainValues().toMutableMap()
+
+        if (advanced) {
+            components.putAll(slotConfig.getSubsection("advancedComponents").toPlainValues())
+        }
+
+        if (components.isEmpty()) {
+            return this
+        }
+
+        val result = Items.withComponents(
+            this,
+            components.mapKeys { (key, _) -> if (":" in key) key else "minecraft:$key" }
+        )
+
+        for (error in result.errors) {
+            plugin.logger.warning("Invalid component on armor set $id: $error")
+        }
+
+        return result.item
     }
 
     @Suppress("DEPRECATION")

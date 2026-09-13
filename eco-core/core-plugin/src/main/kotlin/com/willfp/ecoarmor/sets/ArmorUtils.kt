@@ -5,6 +5,7 @@ import com.willfp.ecoarmor.api.event.PlayerArmorSetUnequipEvent
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.upgrades.Tier
+import com.willfp.ecoarmor.upgrades.TierModifier
 import com.willfp.ecoarmor.upgrades.TierProperties
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.libreforge.Holder
@@ -23,6 +24,8 @@ import org.bukkit.persistence.PersistentDataType
 import java.util.*
 
 object ArmorUtils {
+    /** The namespace every attribute modifier this plugin writes lives under. */
+    private const val NAMESPACE = "ecoarmor"
 
     private data class CachedSetState(val set: ArmorSet?, val advanced: Boolean)
 
@@ -480,29 +483,23 @@ object ArmorUtils {
     }
 
     /**
-     * Remove every attribute modifier this plugin may have added for a tier,
-     * so stats can be recalculated from scratch.
+     * Remove every attribute modifier this plugin added for a tier, so stats
+     * can be recalculated from scratch.
+     *
+     * Only modifiers under this plugin's namespace are removed: modifiers the
+     * item was given by its components section, by the base item, or by another
+     * plugin are left alone.
      *
      * @param meta The meta to mutate.
      */
     private fun removeAllTierAttributeModifiers(meta: ItemMeta) {
-        meta.removeAttributeModifier(Attribute.ARMOR)
-        meta.removeAttributeModifier(Attribute.ARMOR_TOUGHNESS)
-        meta.removeAttributeModifier(Attribute.KNOCKBACK_RESISTANCE)
-        meta.removeAttributeModifier(Attribute.MOVEMENT_SPEED)
-        meta.removeAttributeModifier(Attribute.ATTACK_SPEED)
-        meta.removeAttributeModifier(Attribute.ATTACK_DAMAGE)
-        meta.removeAttributeModifier(Attribute.ATTACK_KNOCKBACK)
-        meta.removeAttributeModifier(Attribute.MAX_HEALTH)
-        meta.removeAttributeModifier(Attribute.JUMP_STRENGTH)
-        meta.removeAttributeModifier(Attribute.GRAVITY)
-        meta.removeAttributeModifier(Attribute.BURNING_TIME)
-        meta.removeAttributeModifier(Attribute.EXPLOSION_KNOCKBACK_RESISTANCE)
-        meta.removeAttributeModifier(Attribute.OXYGEN_BONUS)
-        meta.removeAttributeModifier(Attribute.MOVEMENT_EFFICIENCY)
-        meta.removeAttributeModifier(Attribute.SAFE_FALL_DISTANCE)
-        meta.removeAttributeModifier(Attribute.ENTITY_INTERACTION_RANGE)
-        meta.removeAttributeModifier(Attribute.BLOCK_INTERACTION_RANGE)
+        val modifiers = meta.attributeModifiers ?: return
+
+        for ((attribute, modifier) in modifiers.entries()) {
+            if (modifier.key.namespace == NAMESPACE) {
+                meta.removeAttributeModifier(attribute, modifier)
+            }
+        }
     }
 
     /**
@@ -517,6 +514,9 @@ object ArmorUtils {
         fun sum(selector: (TierProperties) -> Int?) = propsList.sumOf { selector(it) ?: 0 }
 
         return TierProperties(
+            // Keyed by modifier, so two tiers configuring the same one don't
+            // both try to add it - Bukkit rejects the duplicate key.
+            modifiers = propsList.flatMap { it.modifiers }.associateBy { it.key }.values.toList(),
             armor = sum { it.armor },
             toughness = sum { it.toughness },
             knockbackResistance = sum { it.knockbackResistance },
@@ -556,13 +556,7 @@ object ArmorUtils {
         slot: ArmorSlot,
         props: TierProperties
     ) {
-        val slotGroup = when (slot.slot) {
-            org.bukkit.inventory.EquipmentSlot.HEAD -> EquipmentSlotGroup.HEAD
-            org.bukkit.inventory.EquipmentSlot.CHEST -> EquipmentSlotGroup.CHEST
-            org.bukkit.inventory.EquipmentSlot.LEGS -> EquipmentSlotGroup.LEGS
-            org.bukkit.inventory.EquipmentSlot.FEET -> EquipmentSlotGroup.FEET
-            else -> EquipmentSlotGroup.ANY
-        }
+        val slotGroup = slot.slotGroup
 
         val slotSuffix = slot.name.lowercase(Locale.getDefault())
 
@@ -578,7 +572,7 @@ object ArmorUtils {
                 meta.addAttributeModifier(
                     attr,
                     AttributeModifier(
-                        NamespacedKey("ecoarmor", keyName),
+                        NamespacedKey(NAMESPACE, keyName),
                         scaler(v),
                         op,
                         slotGroup
@@ -610,7 +604,20 @@ object ArmorUtils {
         val fracScaler: (Int) -> Double = { it / 100.0 }
         addModifier(Attribute.KNOCKBACK_RESISTANCE, props.knockbackResistance, AttributeModifier.Operation.ADD_NUMBER, "", fracScaler)
         addModifier(Attribute.EXPLOSION_KNOCKBACK_RESISTANCE, props.explosionKnockbackResistance, AttributeModifier.Operation.ADD_NUMBER, "", fracScaler)
+
+        for (modifier in props.modifiers) {
+            meta.addAttributeModifier(modifier.attribute, modifier.toBukkit())
+        }
     }
+
+    /**
+     * The Bukkit modifier a tier modifier describes.
+     *
+     * @receiver The tier modifier.
+     * @return The Bukkit modifier.
+     */
+    private fun TierModifier.toBukkit() =
+        AttributeModifier(this.key, this.amount, this.operation, this.slot)
 
     /**
      * Set tier on item.
