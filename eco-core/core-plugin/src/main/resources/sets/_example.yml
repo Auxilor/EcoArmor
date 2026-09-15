@@ -114,7 +114,7 @@ helmet:
     - ''
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
-  advancedLore: [] # (Optional) Lore shown on this piece once advanced, overriding the set-wide advancedLore. Leave empty to use the set-wide advancedLore.
+  advancedLore: [] # (Optional) Extra lore shown on this piece once advanced. Added to or replaces the set-wide advancedLore depending on per-piece-advanced-lore in config.yml.
   craftable: true # If the armor piece is craftable
   crafting-permission: "permission" # (Optional) The permission required to craft this recipe.
   shapeless: false # (Optional) If true, the recipe will be shapeless. Default false.
