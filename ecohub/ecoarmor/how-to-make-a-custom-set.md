@@ -75,7 +75,7 @@ advancedEffects:
       multiplier: 0.9
     triggers:
       - take_damage
-advancedLore: # Lore appended to each piece once it is advanced
+advancedLore: # Lore appended to each piece once it is advanced, unless the piece sets its own
   - ''
   - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
   - "&8» &6Take 10% less damage"
@@ -132,6 +132,7 @@ helmet:
     - ''
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  advancedLore: [] # Optional; lore shown on this piece once advanced, overriding the set-wide advancedLore
   craftable: true # Whether this piece is craftable
   crafting-permission: "permission" # Optional; permission required to craft this recipe
   recipe: # See https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes
@@ -197,7 +198,7 @@ partialEffects:
 
 ### Advanced effects and lore
 
-Advanced effects apply on top of the set effects once every piece has been advanced with a shard. `advancedLore` is appended to each piece's lore at the same time.
+Advanced effects apply on top of the set effects once every piece has been advanced with a shard. `advancedLore` is appended to each piece's lore at the same time. To give a piece its own advanced lore, set `advancedLore` inside that piece's block; it replaces the set-wide `advancedLore` for that piece. Leave it empty (`advancedLore: []`) to use the set-wide lore.
 
 ```yaml
 advancedEffects:
@@ -206,7 +207,7 @@ advancedEffects:
       multiplier: 0.9
     triggers:
       - take_damage
-advancedLore: # Lore appended to each piece once it is advanced
+advancedLore: # Lore appended to each piece once it is advanced, unless the piece sets its own
   - ''
   - "<gradient:f12711>&lADVANCED BONUS</gradient:f5af19>"
   - "&8» &6Take 10% less damage"
@@ -281,6 +282,7 @@ helmet:
     - ''
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  advancedLore: [] # Optional; lore shown on this piece once advanced, overriding the set-wide advancedLore
   craftable: true # Whether this piece is craftable
   crafting-permission: "permission" # Optional; permission required to craft this recipe
   recipe: # See https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes

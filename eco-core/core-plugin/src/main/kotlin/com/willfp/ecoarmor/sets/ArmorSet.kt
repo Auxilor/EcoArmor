@@ -200,9 +200,9 @@ class ArmorSet(
             )
             val defaultLore = slotConfig.getFormattedStrings("lore").stream().map { s: String -> Display.PREFIX + s }
                 .collect(Collectors.toList())
-            val advancedLore = config.getFormattedStrings("advancedLore").stream()
+            val advancedLore = slotConfig.getFormattedStrings("advancedLore")
+                .ifEmpty { config.getFormattedStrings("advancedLore") }
                 .map { s: String -> Display.PREFIX + s }
-                .collect(Collectors.toList())
 
             if (advanced) {
                 if (!plugin.configYml.getBool("advanced-lore-only")) {
