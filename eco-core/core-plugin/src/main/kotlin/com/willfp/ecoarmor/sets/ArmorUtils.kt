@@ -2,7 +2,7 @@ package com.willfp.ecoarmor.sets
 
 import com.willfp.ecoarmor.api.event.PlayerArmorSetEquipEvent
 import com.willfp.ecoarmor.api.event.PlayerArmorSetUnequipEvent
-import com.willfp.ecoarmor.libreforge.EffectSetPiece
+import com.willfp.ecoarmor.libreforge.EffectCountTowardSet
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.upgrades.Tier
@@ -231,7 +231,7 @@ object ArmorUtils {
 
     /**
      * Get the number of pieces of each set an entity counts as wearing,
-     * including pieces given by the set_piece effect.
+     * including pieces given by the count_toward_set effect.
      *
      * @param entity The entity to check.
      * @return A map of sets to their piece count.
@@ -289,11 +289,11 @@ object ArmorUtils {
     }
 
     /**
-     * Count pre-computed per-item set lookups, plus pieces given by the set_piece effect.
+     * Count pre-computed per-item set lookups, plus pieces given by the count_toward_set effect.
      */
     private fun countSets(itemSets: List<ArmorSet?>, entity: LivingEntity): Map<ArmorSet, Int> {
         val setCounts = itemSets.filterNotNull().groupingBy { it }.eachCountTo(mutableMapOf())
-        for ((set, amount) in EffectSetPiece.getExtraPieces(entity)) {
+        for ((set, amount) in EffectCountTowardSet.getExtraPieces(entity)) {
             setCounts.merge(set, amount, Int::plus)
         }
         return setCounts
@@ -680,13 +680,13 @@ object ArmorUtils {
     /**
      * Check advanced status using pre-computed full set and item list (avoids redundant PDC reads).
      *
-     * When the set_piece effect gives pieces of the full set, empty armor slots are allowed,
+     * When the count_toward_set effect gives pieces of the full set, empty armor slots are allowed,
      * and only advanced pieces count towards the set requirement.
      */
     private fun isWearingAdvanced(items: List<ItemStack?>, fullSet: ArmorSet?, entity: LivingEntity): Boolean {
         if (fullSet == null) return false
 
-        if (fullSet !in EffectSetPiece.getExtraPieces(entity)) {
+        if (fullSet !in EffectCountTowardSet.getExtraPieces(entity)) {
             return items.all { it != null && isAdvanced(it) }
         }
 
@@ -694,7 +694,7 @@ object ArmorUtils {
         if (!wornItems.all { isAdvanced(it) }) return false
 
         val advancedPieces = wornItems.count { getSetOnItem(it) == fullSet } +
-                (EffectSetPiece.getExtraPieces(entity, advancedOnly = true)[fullSet] ?: 0)
+                (EffectCountTowardSet.getExtraPieces(entity, advancedOnly = true)[fullSet] ?: 0)
 
         return advancedPieces >= fullSet.setRequirements
     }

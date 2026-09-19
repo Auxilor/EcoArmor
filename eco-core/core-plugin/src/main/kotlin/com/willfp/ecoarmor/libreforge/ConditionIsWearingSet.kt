@@ -20,7 +20,7 @@ object ConditionIsWearingSet : Condition<NoCompileData>("is_wearing_set") {
 
     override val additionalInfo = listOf(
         "Requires the full set unless an amount is specified.",
-        "Pieces given by the set_piece effect count towards the set and the amount."
+        "Pieces given by the count_toward_set effect count towards the set and the amount."
     )
 
     override val arguments = arguments {

@@ -16,7 +16,7 @@ import com.willfp.libreforge.get
 import org.bukkit.entity.LivingEntity
 import java.util.UUID
 
-object EffectSetPiece : Effect<NoCompileData>("set_piece") {
+object EffectCountTowardSet : Effect<NoCompileData>("count_toward_set") {
     override val description = "Counts as pieces of an armor set while active."
 
     override val categories = setOf("inventory")
