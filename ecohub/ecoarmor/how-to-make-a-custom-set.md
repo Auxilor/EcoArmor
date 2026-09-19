@@ -147,6 +147,12 @@ helmet:
     - air
   defaultTier: default # Tier this piece starts on
   effectiveDurability: 2048 # Optional; scales how quickly the item wears instead of changing real durability
+  components: # Optional; vanilla item components: https://minecraft.wiki/w/Data_component_format
+    equippable:
+      slot: head
+      damage_on_hurt: false
+  advancedComponents: # Optional; components applied only to the advanced piece, on top of components
+    enchantment_glint_override: true
   effects: [] # Effects that run only while this piece is worn
   advancedEffects: [] # Per-piece effects unlocked once advanced
   conditions: [] # Conditions required for this piece's effects to run
@@ -297,10 +303,54 @@ helmet:
     - air
   defaultTier: default # Tier this piece starts on
   effectiveDurability: 2048 # Optional; scales how quickly the item wears instead of changing real durability
+  components: # Optional; vanilla item components: https://minecraft.wiki/w/Data_component_format
+    equippable:
+      slot: head
+      damage_on_hurt: false
+  advancedComponents: # Optional; components applied only to the advanced piece, on top of components
+    enchantment_glint_override: true
   effects: [] # Effects that run only while this piece is worn
   advancedEffects: [] # Per-piece effects unlocked once advanced
   conditions: [] # Conditions required for this piece's effects to run
 ```
+
+### Components
+
+`components` lets you set **any vanilla item component** on a piece, using the same structure as vanilla commands - see the [Data component format](https://minecraft.wiki/w/Data_component_format) for every component and its fields. This is how you set equippability, tooltips, custom models, durability behaviour, and anything else the game itself supports:
+
+```yaml
+helmet:
+  components:
+    max_stack_size: 1
+    equippable:
+      slot: head
+      damage_on_hurt: false
+    attribute_modifiers:
+      - type: "minecraft:armor"
+        id: "reaper:helmet_armor"
+        amount: 4
+        operation: "add_value"
+        slot: "head"
+```
+
+Component keys without a namespace are treated as `minecraft:` components, so no quoting is needed; write `"somemod:component"` in quotes for anything namespaced. Invalid components are skipped with a warning in the console telling you what's wrong.
+
+`minecraft:attribute_modifiers` merges with the base item's own modifiers instead of replacing them: a modifier you configure takes over that attribute in that slot, and every attribute you say nothing about keeps the base item's value. So setting armor on a `netherite_helmet` keeps the helmet's toughness.
+
+`advancedComponents` is applied on top of `components`, and only on the advanced piece, so a set can share most of its components and override the few that differ once advanced:
+
+```yaml
+helmet:
+  components:
+    item_model: "myserver:reaper_helmet"
+  advancedComponents:
+    item_model: "myserver:reaper_helmet_advanced"
+    enchantment_glint_override: true
+```
+
+:::warning Don't use the `ecoarmor` namespace for modifier ids
+Attribute modifiers whose id is under the `ecoarmor` namespace are cleared and rewritten every time the piece's tier changes, so a piece's own modifiers must use your own namespace, e.g. `"reaper:helmet_armor"`. To add modifiers that change with the tier, put them on the [tier](how-to-make-a-custom-tier#components) instead.
+:::
 
 :::danger The elytra block is required
 All five pieces, including the elytra, must be present. Removing the elytra block is the most common cause of a set spawning a block of stone.
