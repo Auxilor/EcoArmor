@@ -24,7 +24,7 @@ object EffectSetPiece : Effect<NoCompileData>("set_piece") {
     override val shouldReload = false
 
     override val additionalInfo = listOf(
-        "Counts towards full and partial set effects, but not towards the advanced set.",
+        "Counts towards full and partial set effects, and towards the advanced set only if advanced is true.",
         "Ignored when given by the effects or partial effects of an armor set."
     )
 
@@ -43,9 +43,15 @@ object EffectSetPiece : Effect<NoCompileData>("set_piece") {
             default = "1",
             example = "2"
         )
+        optional(
+            "advanced",
+            description = "If true, also counts as advanced pieces towards the advanced set.",
+            type = ArgType.BOOLEAN,
+            default = "false"
+        )
     }
 
-    private data class SetPiece(val setId: String, val amount: Int)
+    private data class SetPiece(val setId: String, val amount: Int, val advanced: Boolean)
 
     private val pieces = mutableMapOf<UUID, MutableMap<UUID, SetPiece>>()
 
@@ -55,13 +61,18 @@ object EffectSetPiece : Effect<NoCompileData>("set_piece") {
      * Get the extra set pieces an entity counts as having.
      *
      * @param entity The entity.
+     * @param advancedOnly If only pieces that count towards the advanced set should be included.
      * @return The sets mapped to their extra piece count.
      */
-    fun getExtraPieces(entity: LivingEntity): Map<ArmorSet, Int> {
+    fun getExtraPieces(entity: LivingEntity, advancedOnly: Boolean = false): Map<ArmorSet, Int> {
         val entityPieces = pieces[entity.uniqueId] ?: return emptyMap()
         val extraPieces = mutableMapOf<ArmorSet, Int>()
 
         for (piece in entityPieces.values) {
+            if (advancedOnly && !piece.advanced) {
+                continue
+            }
+
             val set = ArmorSets.getByID(piece.setId) ?: continue
             extraPieces.merge(set, piece.amount, Int::plus)
         }
@@ -91,7 +102,7 @@ object EffectSetPiece : Effect<NoCompileData>("set_piece") {
         }
 
         pieces.getOrPut(dispatcher.uuid) { mutableMapOf() }[identifiers.uuid] =
-            SetPiece(config.getString("set"), amount)
+            SetPiece(config.getString("set"), amount, config.getBool("advanced"))
 
         scheduleRefresh(dispatcher)
     }

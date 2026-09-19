@@ -112,7 +112,7 @@ object ArmorUtils {
 
         val setCounts = countSets(itemSets, entity)
         val fullSet = findFullSet(setCounts)
-        val advanced = isWearingAdvanced(equipment, fullSet)
+        val advanced = isWearingAdvanced(equipment, fullSet, entity)
 
         val set = if (fullSet != null) {
             if (advanced) fullSet.advancedHolder else fullSet.regularHolder
@@ -652,7 +652,7 @@ object ArmorUtils {
     @JvmStatic
     fun isWearingAdvanced(entity: LivingEntity): Boolean {
         val equipment = entity.equipment?.armorContents?.toList() ?: return false
-        return isWearingAdvanced(equipment, getSetOnEntity(entity))
+        return isWearingAdvanced(equipment, getSetOnEntity(entity), entity)
     }
 
     /**
@@ -679,14 +679,24 @@ object ArmorUtils {
 
     /**
      * Check advanced status using pre-computed full set and item list (avoids redundant PDC reads).
+     *
+     * When the set_piece effect gives pieces of the full set, empty armor slots are allowed,
+     * and only advanced pieces count towards the set requirement.
      */
-    private fun isWearingAdvanced(items: List<ItemStack?>, fullSet: ArmorSet?): Boolean {
+    private fun isWearingAdvanced(items: List<ItemStack?>, fullSet: ArmorSet?, entity: LivingEntity): Boolean {
         if (fullSet == null) return false
-        for (itemStack in items) {
-            if (itemStack == null) return false
-            if (!isAdvanced(itemStack)) return false
+
+        if (fullSet !in EffectSetPiece.getExtraPieces(entity)) {
+            return items.all { it != null && isAdvanced(it) }
         }
-        return true
+
+        val wornItems = items.filterNotNull().filterNot { it.type.isAir }
+        if (!wornItems.all { isAdvanced(it) }) return false
+
+        val advancedPieces = wornItems.count { getSetOnItem(it) == fullSet } +
+                (EffectSetPiece.getExtraPieces(entity, advancedOnly = true)[fullSet] ?: 0)
+
+        return advancedPieces >= fullSet.setRequirements
     }
 
     /**
