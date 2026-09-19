@@ -2,6 +2,7 @@ package com.willfp.ecoarmor.sets
 
 import com.willfp.ecoarmor.api.event.PlayerArmorSetEquipEvent
 import com.willfp.ecoarmor.api.event.PlayerArmorSetUnequipEvent
+import com.willfp.ecoarmor.libreforge.EffectSetPiece
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.upgrades.Tier
@@ -109,8 +110,9 @@ object ArmorUtils {
         // Pre-compute set lookups once for all items to avoid repeated PDC reads
         val itemSets = equipment.map { item -> item?.let { getSetOnItem(it) } }
 
-        val fullSet = getSetOn(equipment, itemSets)
-        val advanced = isWearingAdvanced(equipment, fullSet, itemSets)
+        val setCounts = countSets(itemSets, entity)
+        val fullSet = findFullSet(setCounts)
+        val advanced = isWearingAdvanced(equipment, fullSet)
 
         val set = if (fullSet != null) {
             if (advanced) fullSet.advancedHolder else fullSet.regularHolder
@@ -122,8 +124,7 @@ object ArmorUtils {
             holders.add(SimpleProvidedHolder(set))
         }
 
-        val partialSetsWorn = countPartialSets(itemSets)
-        for ((partialSet, count) in partialSetsWorn) {
+        for ((partialSet, count) in setCounts) {
             val suppressedByFull = fullSet != null && partialSet == fullSet && partialSet.fullSetDisablesPartialSet
             if (suppressedByFull) continue
 
@@ -225,8 +226,20 @@ object ArmorUtils {
      */
     @JvmStatic
     fun getSetOnEntity(entity: LivingEntity): ArmorSet? {
-        val equipment = entity.equipment?.armorContents?.toList() ?: return null
-        return getSetOn(equipment)
+        return findFullSet(getSetCountsOnEntity(entity))
+    }
+
+    /**
+     * Get the number of pieces of each set an entity counts as wearing,
+     * including pieces given by the set_piece effect.
+     *
+     * @param entity The entity to check.
+     * @return A map of sets to their piece count.
+     */
+    @JvmStatic
+    fun getSetCountsOnEntity(entity: LivingEntity): Map<ArmorSet, Int> {
+        val equipment = entity.equipment?.armorContents?.toList() ?: emptyList()
+        return countSets(equipment.map { item -> item?.let { getSetOnItem(it) } }, entity)
     }
 
     /**
@@ -245,21 +258,11 @@ object ArmorUtils {
             val set = getSetOnItem(itemStack) ?: continue
             found.add(set)
         }
-        return findFullSet(found)
+        return findFullSet(found.groupingBy { it }.eachCount())
     }
 
-    /**
-     * Get armor set from pre-computed per-item set lookups.
-     */
-    private fun getSetOn(items: List<ItemStack?>, itemSets: List<ArmorSet?>): ArmorSet? {
-        val found = itemSets.filterNotNull()
-        return findFullSet(found)
-    }
-
-    private fun findFullSet(found: List<ArmorSet>): ArmorSet? {
-        if (found.isEmpty()) return null
-        val grouped = found.groupingBy { it }.eachCount()
-        for ((set, count) in grouped) {
+    private fun findFullSet(setCounts: Map<ArmorSet, Int>): ArmorSet? {
+        for ((set, count) in setCounts) {
             if (count >= set.setRequirements) {
                 return set
             }
@@ -286,12 +289,14 @@ object ArmorUtils {
     }
 
     /**
-     * Get partial sets from pre-computed per-item set lookups.
+     * Count pre-computed per-item set lookups, plus pieces given by the set_piece effect.
      */
-    private fun countPartialSets(itemSets: List<ArmorSet?>): Map<ArmorSet, Int> {
-        val found = itemSets.filterNotNull()
-        if (found.isEmpty()) return emptyMap()
-        return found.groupingBy { it }.eachCount()
+    private fun countSets(itemSets: List<ArmorSet?>, entity: LivingEntity): Map<ArmorSet, Int> {
+        val setCounts = itemSets.filterNotNull().groupingBy { it }.eachCountTo(mutableMapOf())
+        for ((set, amount) in EffectSetPiece.getExtraPieces(entity)) {
+            setCounts.merge(set, amount, Int::plus)
+        }
+        return setCounts
     }
 
     /**
@@ -647,7 +652,7 @@ object ArmorUtils {
     @JvmStatic
     fun isWearingAdvanced(entity: LivingEntity): Boolean {
         val equipment = entity.equipment?.armorContents?.toList() ?: return false
-        return isWearingAdvanced(equipment)
+        return isWearingAdvanced(equipment, getSetOnEntity(entity))
     }
 
     /**
@@ -675,7 +680,7 @@ object ArmorUtils {
     /**
      * Check advanced status using pre-computed full set and item list (avoids redundant PDC reads).
      */
-    private fun isWearingAdvanced(items: List<ItemStack?>, fullSet: ArmorSet?, itemSets: List<ArmorSet?>): Boolean {
+    private fun isWearingAdvanced(items: List<ItemStack?>, fullSet: ArmorSet?): Boolean {
         if (fullSet == null) return false
         for (itemStack in items) {
             if (itemStack == null) return false

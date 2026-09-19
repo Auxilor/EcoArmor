@@ -1,6 +1,7 @@
 package com.willfp.ecoarmor.libreforge
 
 import com.willfp.eco.core.config.interfaces.Config
+import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorUtils
 import com.willfp.libreforge.ArgType
 import com.willfp.libreforge.Dispatcher
@@ -18,7 +19,8 @@ object ConditionIsWearingSet : Condition<NoCompileData>("is_wearing_set") {
     override val categories = setOf("inventory")
 
     override val additionalInfo = listOf(
-        "Requires the full set unless an amount is specified."
+        "Requires the full set unless an amount is specified.",
+        "Pieces given by the set_piece effect count towards the set and the amount."
     )
 
     override val arguments = arguments {
@@ -63,7 +65,9 @@ object ConditionIsWearingSet : Condition<NoCompileData>("is_wearing_set") {
         val partial = config.has("amount")
 
         if (partial) {
-            if (pieces.size < config.getInt("amount")) {
+            val set = ArmorSets.getByID(setId) ?: return false
+
+            if ((ArmorUtils.getSetCountsOnEntity(entity)[set] ?: 0) < config.getInt("amount")) {
                 return false
             }
         } else {

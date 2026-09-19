@@ -23,6 +23,7 @@ import com.willfp.ecoarmor.libreforge.ConditionArmorIsAdvanced
 import com.willfp.ecoarmor.libreforge.ConditionHasArmorTier
 import com.willfp.ecoarmor.libreforge.EffectSetArmorAdvanced
 import com.willfp.ecoarmor.libreforge.EffectSetArmorTier
+import com.willfp.ecoarmor.libreforge.EffectSetPiece
 import com.willfp.ecoarmor.libreforge.FilterArmorSet
 import com.willfp.ecoarmor.libreforge.FilterArmorTier
 import com.willfp.ecoarmor.libreforge.MutatorArmorPieceToItem
@@ -60,6 +61,7 @@ class EcoArmorPlugin : LibreforgePlugin() {
         Triggers.register(TriggerUnequipArmorSet)
         Effects.register(EffectSetArmorTier)
         Effects.register(EffectSetArmorAdvanced)
+        Effects.register(EffectSetPiece)
         Mutators.register(MutatorArmorPieceToItem)
         Filters.register(FilterArmorSet)
         Filters.register(FilterArmorTier)
