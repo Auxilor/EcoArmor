@@ -168,6 +168,10 @@ effects:
 amount_for_set: 4 # How many pieces must be worn for the set effects to activate
 ```
 
+:::tip Counting other items as set pieces
+The `set_piece` effect makes an item, such as a weapon or talisman, count as pieces of a set while its holder is active. Those pieces count towards `amount_for_set` and partial effects, so `amount_for_set` can be higher than 4. They do not count towards the advanced set, which still needs every armor piece worn and advanced.
+:::
+
 :::danger Effects are their own system
 Effects, conditions, filters, mutators, triggers, and chains are a shared eco system, not specific to EcoArmor, with hundreds of options. They are **not** documented here, so see the dedicated guides:
 
