@@ -58,7 +58,7 @@ class ArmorSet(
     /** Advancement shard item. */
     val advancementShardItem: ItemStack
 
-    val setRequirements = (config.getIntOrNull("amount_for_set") ?: 4).coerceIn(1, 4)
+    val setRequirements = (config.getIntOrNull("amount_for_set") ?: 4).coerceAtLeast(1)
 
     val partialSetEnabled: Boolean = config.getBool("partialEffects.enabled")
 
@@ -346,6 +346,16 @@ class ArmorSet(
         slot ?: return Tiers.defaultTier
         val tier = Tiers.getByID(config.getSubsection(slot.name.lowercase()).getString("defaultTier"))
         return tier ?: Tiers.defaultTier
+    }
+
+    /**
+     * Get if a holder gives the full, advanced or partial set effects of this set.
+     *
+     * @param holder The holder.
+     * @return If the holder belongs to this set.
+     */
+    fun providesSetEffects(holder: Holder): Boolean {
+        return holder == regularHolder || holder == advancedHolder || holder in partialHolders.values
     }
 
     fun getSpecificHolder(itemStack: ItemStack): ItemProvidedHolder? {
