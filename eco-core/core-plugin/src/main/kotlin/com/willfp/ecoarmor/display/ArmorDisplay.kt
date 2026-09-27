@@ -1,48 +1,37 @@
 package com.willfp.ecoarmor.display
 
 import com.willfp.eco.core.display.Display
+import com.willfp.eco.core.display.DisplayContext
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.display.DisplayPriority
-import com.willfp.eco.core.fast.FastItemStack
-import com.willfp.eco.core.placeholder.context.placeholderContext
+import com.willfp.eco.core.fast.fast
 import com.willfp.eco.util.NumberUtils
-import com.willfp.eco.util.formatEco
+import com.willfp.eco.util.formatEcoRich
+import com.willfp.eco.util.toLegacy
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils
 import com.willfp.libreforge.SimpleProvidedHolder
-import org.bukkit.entity.Player
+import net.kyori.adventure.text.Component
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.LeatherArmorMeta
 
 object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
-    override fun display(
-        itemStack: ItemStack,
-        player: Player?,
-        vararg args: Any
-    ) {
+    override fun display(context: DisplayContext) {
+        val itemStack = context.itemStack
         val meta = itemStack.itemMeta ?: return
-
-        val fis = FastItemStack.wrap(itemStack)
-
         val set = ArmorUtils.getSetOnItem(meta)
 
         if (set == null) {
             val crystalTier = ArmorUtils.getCrystalTier(meta)
-
             if (crystalTier != null) {
-                val lore = fis.lore
-                lore.addAll(FastItemStack.wrap(crystalTier.crystal).lore)
-                fis.lore = lore
+                context.lore.append(crystalTier.crystal.storedLore())
             }
 
             val shardSet = ArmorUtils.getShardSet(meta)
-
             if (shardSet != null) {
-                val lore = fis.lore
-                lore.addAll(FastItemStack.wrap(shardSet.advancementShardItem).lore)
+                context.lore.append(shardSet.advancementShardItem.storedLore())
                 itemStack.itemMeta = shardSet.advancementShardItem.itemMeta
-                FastItemStack.wrap(itemStack).lore = lore
             }
 
             return
@@ -57,7 +46,6 @@ object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
         }
 
         val slotMeta = slotStack.itemMeta ?: return
-
         val tier = ArmorUtils.getTier(meta) ?: return
         val appliedTiers = ArmorUtils.getAppliedTiers(meta)
 
@@ -87,45 +75,30 @@ object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
             tier.displayName
         }
 
-        val context = placeholderContext(
-            player = player,
-            item = itemStack
+        context.lore.prepend(
+            slotStack.storedLore()
+                .map { it.toLegacy().replace("%tier%", tierPlaceholder) }
+                .formatEcoRich(context.placeholderContext)
         )
-
-        val lore = FastItemStack.wrap(slotStack).lore
-            .map { it.replace("%tier%", tierPlaceholder) }
-            .formatEco(context)
-            .toMutableList()
 
         meta.addItemFlags(*slotMeta.itemFlags.toTypedArray())
 
-        if (meta.hasLore()) {
-            lore.addAll(fis.lore)
-        }
+        val player = context.player
 
         if (player != null) {
-            val lines = mutableListOf<String>()
+            val lines = mutableListOf<Component>()
 
             lines.addAll(if (ArmorUtils.isAdvanced(meta)) {
-                SimpleProvidedHolder(set.advancedHolder)
-                    .getNotMetLines(player)
-                    .map { Display.PREFIX + it }
+                SimpleProvidedHolder(set.advancedHolder).getNotMetLineComponents(player)
             } else {
-                SimpleProvidedHolder(set.regularHolder)
-                    .getNotMetLines(player)
-                    .map { Display.PREFIX + it }
+                SimpleProvidedHolder(set.regularHolder).getNotMetLineComponents(player)
             })
 
             // Lovely.
-            lines.addAll(
-                set.getSpecificHolder(itemStack)?.getNotMetLines(player)
-                    ?.map { Display.PREFIX + it }
-                    ?: emptyList()
-            )
+            lines.addAll(set.getSpecificHolder(itemStack)?.getNotMetLineComponents(player) ?: emptyList())
 
             if (lines.isNotEmpty()) {
-                lore.add(Display.PREFIX)
-                lore.addAll(lines)
+                context.lore.append(listOf(Component.empty()) + lines)
             }
         }
 
@@ -141,6 +114,8 @@ object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
         }
 
         itemStack.itemMeta = meta
-        FastItemStack.wrap(itemStack).lore = lore
     }
+
+    private fun ItemStack.storedLore(): List<Component> =
+        this.fast().loreComponents.map { Display.stripDisplayMarker(it) }
 }
