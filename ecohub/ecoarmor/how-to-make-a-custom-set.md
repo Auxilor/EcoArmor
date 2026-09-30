@@ -132,6 +132,7 @@ helmet:
     - ''
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  advancedLore: [] # Optional; extra lore shown on this piece once advanced, combined with the set-wide advancedLore
   craftable: true # Whether this piece is craftable
   crafting-permission: "permission" # Optional; permission required to craft this recipe
   recipe: # See https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes
@@ -173,6 +174,10 @@ effects:
 amount_for_set: 4 # How many pieces must be worn for the set effects to activate
 ```
 
+:::tip Counting other items as set pieces
+The `count_toward_set` effect makes an item, such as a weapon or talisman, count as pieces of a set while its holder is active. Those pieces count towards `amount_for_set` and partial effects, so `amount_for_set` can be higher than 4. They only count towards the advanced set when the effect sets `advanced: true`, and every armor piece that is worn must still be advanced.
+:::
+
 :::danger Effects are their own system
 Effects, conditions, filters, mutators, triggers, and chains are a shared eco system, not specific to EcoArmor, with hundreds of options. They are **not** documented here, so see the dedicated guides:
 
@@ -203,7 +208,7 @@ partialEffects:
 
 ### Advanced effects and lore
 
-Advanced effects apply on top of the set effects once every piece has been advanced with a shard. `advancedLore` is appended to each piece's lore at the same time.
+Advanced effects apply on top of the set effects once every piece has been advanced with a shard. `advancedLore` is appended to each piece's lore at the same time. To give a piece its own advanced lore, set `advancedLore` inside that piece's block. By default it is added alongside the set-wide `advancedLore`; `per-piece-advanced-lore` in [config.yml](plugin-config) controls whether it is added or replaces the set-wide lore, and which comes first. Leave it empty (`advancedLore: []`) to use only the set-wide lore.
 
 ```yaml
 advancedEffects:
@@ -287,6 +292,7 @@ helmet:
     - ''
     - "&fTier: %tier%"
     - "&8&oUpgrade with an Upgrade Crystal"
+  advancedLore: [] # Optional; extra lore shown on this piece once advanced, combined with the set-wide advancedLore
   craftable: true # Whether this piece is craftable
   crafting-permission: "permission" # Optional; permission required to craft this recipe
   recipe: # See https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes

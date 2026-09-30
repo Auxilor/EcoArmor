@@ -8,6 +8,10 @@ update-item-names: true # If item names should be updated to match config (disab
 update-leather-colors: true # If leather colors should be updated to match config
 advanced-lore-only: false # If advanced armor should only show the advanced lore
 
+per-piece-advanced-lore:
+  mode: add # How a piece's own advancedLore combines with the set-wide advancedLore: "add" shows both, "replace" shows only the piece's lore
+  order: set-first # Which lore comes first when mode is "add": "set-first" or "piece-first"
+
 armor-display:
   tier-list-separator: "&7, " # Separator used to join tier display names in the %tier% placeholder when an item has more than one additive tier stacked on it.
   tier-stack-format: multiple # How repeated additive tiers are shown in the %tier% placeholder: "none" lists every application separately (e.g. ANCIENT, ANCIENT, ANCIENT), "multiple" collapses them (e.g. 4x ANCIENT), "numeral" collapses them with a roman numeral (e.g. ANCIENT IV)
