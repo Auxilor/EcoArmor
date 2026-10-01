@@ -1,6 +1,7 @@
 package com.willfp.ecoarmor.sets
 
 import org.bukkit.inventory.EquipmentSlot
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 
 enum class ArmorSlot(
@@ -11,6 +12,15 @@ enum class ArmorSlot(
     ELYTRA(EquipmentSlot.CHEST),
     LEGGINGS(EquipmentSlot.LEGS),
     BOOTS(EquipmentSlot.FEET);
+
+    /** The slot group attribute modifiers for this slot apply in. */
+    val slotGroup: EquipmentSlotGroup = when (slot) {
+        EquipmentSlot.HEAD -> EquipmentSlotGroup.HEAD
+        EquipmentSlot.CHEST -> EquipmentSlotGroup.CHEST
+        EquipmentSlot.LEGS -> EquipmentSlotGroup.LEGS
+        EquipmentSlot.FEET -> EquipmentSlotGroup.FEET
+        else -> EquipmentSlotGroup.ANY
+    }
 
     companion object {
         @JvmStatic
