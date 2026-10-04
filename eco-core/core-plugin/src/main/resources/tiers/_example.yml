@@ -34,6 +34,9 @@ crystal:
     - air
   giveAmount: 1 # Optional, set the amount of items to give in the recipe
 properties:
+  # The stat options below are deprecated and will be removed in a future
+  # version. Use a components section with attribute_modifiers instead: it
+  # reaches every attribute, takes decimals, and picks its own slot group.
   helmet:
     armor: 3 # Armor points (≈8 = netherite; >20 per piece has heavy diminishing returns)
     toughness: 3 # Armor toughness (≈3 = netherite; >12–15 per piece has little benefit)
@@ -54,6 +57,17 @@ properties:
     safeFallDistance: 0 # Extra safe fall blocks (0–20; +3 = vanilla, +10 ≈ 13 blocks)
     entityInteractionRangePercentage: 0 # Entity reach % (0–100; +50 = noticeably longer)
     blockInteractionRangePercentage: 0 # Block reach % (0–100; creative ≈ +50)
+
+    # (Optional) Attribute modifiers as vanilla components, the modern
+    # replacement for the options above. Only attribute_modifiers can be set on
+    # a tier; every other component belongs on the armor piece.
+    # operation is add_value, add_multiplied_base, or add_multiplied_total,
+    # and defaults to add_value. slot defaults to the piece's own slot.
+    components:
+      attribute_modifiers:
+        - type: "minecraft:water_movement_efficiency"
+          amount: 0.35
+          operation: "add_value"
   chestplate:
     armor: 8
     toughness: 3
