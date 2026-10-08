@@ -15,6 +15,7 @@ import com.willfp.libreforge.forceRefreshHolders
 import com.willfp.libreforge.get
 import org.bukkit.entity.LivingEntity
 import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
 
 object EffectCountTowardSet : Effect<NoCompileData>("count_toward_set") {
     override val description = "Counts as pieces of an armor set while active."
@@ -53,9 +54,9 @@ object EffectCountTowardSet : Effect<NoCompileData>("count_toward_set") {
 
     private data class SetPiece(val setId: String, val amount: Int, val advanced: Boolean)
 
-    private val pieces = mutableMapOf<UUID, MutableMap<UUID, SetPiece>>()
+    private val pieces = ConcurrentHashMap<UUID, MutableMap<UUID, SetPiece>>()
 
-    private val pendingRefreshes = mutableSetOf<UUID>()
+    private val pendingRefreshes: MutableSet<UUID> = ConcurrentHashMap.newKeySet()
 
     /**
      * Get the extra set pieces an entity counts as having.
@@ -101,7 +102,7 @@ object EffectCountTowardSet : Effect<NoCompileData>("count_toward_set") {
             return
         }
 
-        pieces.getOrPut(dispatcher.uuid) { mutableMapOf() }[identifiers.uuid] =
+        pieces.computeIfAbsent(dispatcher.uuid) { ConcurrentHashMap() }[identifiers.uuid] =
             SetPiece(config.getString("set"), amount, config.getBool("advanced"))
 
         scheduleRefresh(dispatcher)
@@ -122,16 +123,20 @@ object EffectCountTowardSet : Effect<NoCompileData>("count_toward_set") {
     }
 
     private fun scheduleRefresh(dispatcher: Dispatcher<*>) {
+        val entity = dispatcher.get<LivingEntity>() ?: return
+
         if (!pendingRefreshes.add(dispatcher.uuid)) {
             return
         }
 
-        plugin.scheduler.run {
-            pendingRefreshes.remove(dispatcher.uuid)
+        plugin.scheduler.on(entity)
+            .onRetired { pendingRefreshes.remove(dispatcher.uuid) }
+            .run {
+                pendingRefreshes.remove(dispatcher.uuid)
 
-            if (dispatcher.get<LivingEntity>()?.isValid == true) {
-                dispatcher.forceRefreshHolders()
+                if (entity.isValid) {
+                    dispatcher.forceRefreshHolders()
+                }
             }
-        }
     }
 }

@@ -13,6 +13,7 @@ object ArmorSets : ConfigCategory("set", "sets") {
      */
     private val registry = Registry<ArmorSet>()
 
+    @Volatile
     private var cachedValues: List<ArmorSet> = emptyList()
 
     override val legacyLocation = LegacyLocation(

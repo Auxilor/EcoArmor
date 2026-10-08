@@ -33,7 +33,7 @@ object ArmorUtils {
     /**
      * Cache of sets on players.
      */
-    private val setCache = WeakHashMap<Player, CachedSetState>()
+    private val setCache: MutableMap<Player, CachedSetState> = Collections.synchronizedMap(WeakHashMap())
 
     /**
      * Remove a player from the set cache. Called on quit.
@@ -163,7 +163,7 @@ object ArmorUtils {
                 // Defer event firing to next tick to avoid re-entrancy from listeners
                 val player = entity
                 val oldAdvanced = oldState?.advanced ?: false
-                plugin.scheduler.run {
+                plugin.scheduler.on(player).run {
                     if (!player.isOnline) return@run
 
                     if (oldState?.set != null) {
