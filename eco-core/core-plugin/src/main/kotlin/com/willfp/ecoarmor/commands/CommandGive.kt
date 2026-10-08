@@ -2,6 +2,7 @@ package com.willfp.ecoarmor.commands
 
 import com.willfp.eco.core.command.impl.Subcommand
 import com.willfp.ecoarmor.plugin
+import com.willfp.ecoarmor.runOwned
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
@@ -166,9 +167,12 @@ object CommandGive : Subcommand(
             sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
             return
         }
-        for (item in toGive) {
-            item.amount = amount
-            reciever.inventory.addItem(item)
+        // The console runs off the player's region on Folia.
+        reciever.runOwned {
+            for (item in toGive) {
+                item.amount = amount
+                reciever.inventory.addItem(item)
+            }
         }
     }
 

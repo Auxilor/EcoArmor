@@ -9,6 +9,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 
 object DiscoverRecipeListener : Listener {
+    @Volatile
     private var cachedRecipeKeys = emptyList<NamespacedKey>()
 
     fun reloadRecipeCache() {

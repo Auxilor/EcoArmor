@@ -345,7 +345,7 @@ class ArmorSet(
             }
         }
 
-        plugin.scheduler.run {
+        plugin.scheduler.global().run {
             Recipes.createAndRegisterRecipe(
                 plugin,
                 "${id}_${slot.name.lowercase(Locale.getDefault())}",

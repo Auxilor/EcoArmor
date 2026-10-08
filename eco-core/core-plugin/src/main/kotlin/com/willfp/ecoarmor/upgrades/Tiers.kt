@@ -13,6 +13,7 @@ object Tiers : ConfigCategory("tier", "tiers") {
      */
     private val registry = Registry<Tier>()
 
+    @Volatile
     private var cachedValues: List<Tier> = emptyList()
 
     override val supportsSharing = false
@@ -26,6 +27,7 @@ object Tiers : ConfigCategory("tier", "tiers") {
      * Default tier.
      */
     @JvmStatic
+    @Volatile
     lateinit var defaultTier: Tier
 
     /**

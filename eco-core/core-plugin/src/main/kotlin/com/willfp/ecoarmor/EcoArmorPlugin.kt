@@ -82,14 +82,14 @@ class EcoArmorPlugin : LibreforgePlugin() {
         )
 
         // Recipes are registered on a 1-tick delay, so rebuild cache after they exist.
-        scheduler.runLater(2) {
+        scheduler.global().runLater(2) {
             DiscoverRecipeListener.reloadRecipeCache()
         }
     }
 
     override fun handleReload() {
         ArmorUtils.clearCache()
-        scheduler.runLater(2) {
+        scheduler.global().runLater(2) {
             DiscoverRecipeListener.reloadRecipeCache()
         }
     }
