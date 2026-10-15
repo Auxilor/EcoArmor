@@ -670,18 +670,9 @@ object ArmorUtils {
      */
     @JvmStatic
     fun isWearingAdvanced(items: List<ItemStack?>): Boolean {
-        if (getSetOn(items) == null) {
-            return false
-        }
-        for (itemStack in items) {
-            if (itemStack == null) {
-                return false
-            }
-            if (!isAdvanced(itemStack)) {
-                return false
-            }
-        }
-        return true
+        val fullSet = getSetOn(items) ?: return false
+        val advancedPieces = items.countAdvancedPieces(fullSet) ?: return false
+        return advancedPieces >= fullSet.setRequirements
     }
 
     /**
@@ -693,17 +684,23 @@ object ArmorUtils {
     private fun isWearingAdvanced(items: List<ItemStack?>, fullSet: ArmorSet?, entity: LivingEntity): Boolean {
         if (fullSet == null) return false
 
-        if (fullSet !in EffectCountTowardSet.getExtraPieces(entity)) {
-            return items.all { it != null && isAdvanced(it) }
+        val wornPieces = items.countAdvancedPieces(fullSet) ?: return false
+        val extraPieces = if (fullSet in EffectCountTowardSet.getExtraPieces(entity)) {
+            EffectCountTowardSet.getExtraPieces(entity, advancedOnly = true)[fullSet] ?: 0
+        } else {
+            0
         }
 
-        val wornItems = items.filterNotNull().filterNot { it.type.isAir }
-        if (!wornItems.all { isAdvanced(it) }) return false
+        return wornPieces + extraPieces >= fullSet.setRequirements
+    }
 
-        val advancedPieces = wornItems.count { getSetOnItem(it) == fullSet } +
-                (EffectCountTowardSet.getExtraPieces(entity, advancedOnly = true)[fullSet] ?: 0)
-
-        return advancedPieces >= fullSet.setRequirements
+    /**
+     * Count the worn pieces of a set, or null if any of them is not advanced.
+     * Empty slots and pieces of other sets are ignored.
+     */
+    private fun List<ItemStack?>.countAdvancedPieces(set: ArmorSet): Int? {
+        val setPieces = filterNotNull().filter { getSetOnItem(it) == set }
+        return if (setPieces.all { isAdvanced(it) }) setPieces.size else null
     }
 
     /**
