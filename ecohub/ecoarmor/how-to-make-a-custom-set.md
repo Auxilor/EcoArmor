@@ -3,7 +3,7 @@ title: "How to Make an Armor Set"
 sidebar_position: 1
 ---
 
-An **armor set** is a group of pieces that grant **set effects** while the full set is worn, with optional **partial effects** for wearing only part of it and an **advanced** upgrade that unlocks bonus effects. Each set is one YAML file in the `/sets/` folder. This page builds one from scratch and explains every part of the config.
+An **armor set** is a group of pieces that grant **set effects** while the full set is worn, with optional **partial effects** for wearing only part of it and an **advanced** upgrade that swaps in a separate set of effects. Each set is one YAML file in the `/sets/` folder. This page builds one from scratch and explains every part of the config.
 
 ## Quick start
 
@@ -33,7 +33,7 @@ A set config has six parts:
 | --- | --- |
 | **Set effects** | The bonus that applies when the full set is worn. |
 | **Partial effects** | Weaker bonuses for wearing only part of the set. |
-| **Advanced effects and lore** | Extra effects and lore unlocked once the set is advanced. |
+| **Advanced effects and lore** | Effects that replace (or, with `advancedEffectsMode: additive`, add to) the set effects once the set is advanced, plus the lore added alongside them. |
 | **Sounds** | Sounds played on equip, advanced equip, and unequip. |
 | **Advancement shard** | The item players use to advance the set. |
 | **Armor pieces** | Each piece's item, recipe, lore, tier, and per-piece effects. |
@@ -68,7 +68,8 @@ partialEffects:
             - bow_attack
             - trident_attack
 
-# === Advanced effects and lore: unlocked once the set is advanced ===
+# === Advanced effects and lore: replace the set effects once the set is advanced ===
+advancedEffectsMode: replace # replace or additive; additive keeps the set effects running alongside these
 advancedEffects:
   - id: damage_multiplier
     args:
@@ -154,7 +155,7 @@ helmet:
   advancedComponents: # Optional; components applied only to the advanced piece, on top of components
     enchantment_glint_override: true
   effects: [] # Effects that run only while this piece is worn
-  advancedEffects: [] # Per-piece effects unlocked once advanced
+  advancedEffects: [] # Per-piece effects that replace effects once advanced
   conditions: [] # Conditions required for this piece's effects to run
 ```
 
@@ -208,7 +209,7 @@ partialEffects:
 
 ### Advanced effects and lore
 
-Advanced effects apply on top of the set effects once every piece has been advanced with a shard. `advancedLore` is appended to each piece's lore at the same time. To give a piece its own advanced lore, set `advancedLore` inside that piece's block. By default it is added alongside the set-wide `advancedLore`; `per-piece-advanced-lore` in [config.yml](plugin-config) controls whether it is added or replaces the set-wide lore, and which comes first. Leave it empty (`advancedLore: []`) to use only the set-wide lore.
+Once every piece has been advanced with a shard, `advancedEffects` replace the set `effects` by default. To keep a set effect on the advanced set, list it in `advancedEffects` too, or set `advancedEffectsMode: additive` so `effects` and `advancedEffects` run together. Per-piece `advancedEffects` follow the same mode. `advancedLore` is appended to each piece's lore at the same time. To give a piece its own advanced lore, set `advancedLore` inside that piece's block. By default it is added alongside the set-wide `advancedLore`; `per-piece-advanced-lore` in [config.yml](plugin-config) controls whether it is added or replaces the set-wide lore, and which comes first. Leave it empty (`advancedLore: []`) to use only the set-wide lore.
 
 ```yaml
 advancedEffects:
@@ -314,7 +315,7 @@ helmet:
   advancedComponents: # Optional; components applied only to the advanced piece, on top of components
     enchantment_glint_override: true
   effects: [] # Effects that run only while this piece is worn
-  advancedEffects: [] # Per-piece effects unlocked once advanced
+  advancedEffects: [] # Per-piece effects that replace effects once advanced
   conditions: [] # Conditions required for this piece's effects to run
 ```
 

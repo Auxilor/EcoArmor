@@ -70,6 +70,9 @@ class ArmorSet(
         else if (config.has("fullSetDisablesPartialSet")) config.getBool("fullSetDisablesPartialSet")
         else true
 
+    /** Whether advanced effects are added to the regular effects instead of replacing them. */
+    val advancedEffectsAdditive: Boolean = config.getString("advancedEffectsMode").equals("additive", ignoreCase = true)
+
     /** Whether this set has an elytra piece. Defaults to true to keep existing sets working. */
     val elytraEnabled: Boolean =
         if (config.has("elytra.enabled")) config.getBool("elytra.enabled") else true
@@ -408,6 +411,19 @@ class ArmorSet(
         } else {
             ItemProvidedHolder(slotHolders[slot], itemStack)
         }
+    }
+
+    fun getSpecificHolders(itemStack: ItemStack): List<ItemProvidedHolder> {
+        val slot = getSlot(itemStack) ?: return emptyList()
+        val regularHolder = ItemProvidedHolder(slotHolders[slot], itemStack)
+
+        if (!isAdvanced(itemStack)) {
+            return listOf(regularHolder)
+        }
+
+        val advancedHolder = ItemProvidedHolder(advancedSlotHolders[slot], itemStack)
+
+        return if (advancedEffectsAdditive) listOf(regularHolder, advancedHolder) else listOf(advancedHolder)
     }
 
     override fun getID(): String {
