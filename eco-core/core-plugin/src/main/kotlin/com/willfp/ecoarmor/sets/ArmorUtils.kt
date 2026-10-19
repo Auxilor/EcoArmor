@@ -127,6 +127,10 @@ object ArmorUtils {
             holders.add(SimpleProvidedHolder(set))
         }
 
+        if (fullSet != null && advanced && fullSet.advancedEffectsAdditive) {
+            holders.add(SimpleProvidedHolder(fullSet.regularHolder))
+        }
+
         for ((partialSet, count) in setCounts) {
             val suppressedByFull = fullSet != null && partialSet == fullSet && partialSet.fullSetDisablesPartialSet
             if (suppressedByFull) continue
@@ -196,8 +200,7 @@ object ArmorUtils {
         for (i in equipment.indices) {
             val itemStack = equipment[i] ?: continue
             val set = itemSets[i] ?: continue
-            val holder = set.getSpecificHolder(itemStack) ?: continue
-            holders.add(holder)
+            holders.addAll(set.getSpecificHolders(itemStack))
         }
 
         return holders

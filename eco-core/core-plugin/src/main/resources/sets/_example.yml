@@ -15,6 +15,11 @@ effects:
       - bow_attack
       - trident_attack
       
+# How advancedEffects apply once the set is advanced:
+# replace (default) uses only advancedEffects, additive runs effects and advancedEffects together.
+# Per-piece advancedEffects follow the same mode.
+advancedEffectsMode: replace
+
         # The effects of the set (i.e. the functionality)
       # See here: https://hub.auxilor.io/wiki/libreforge/configuring-an-effect
 advancedEffects:
