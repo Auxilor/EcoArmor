@@ -67,5 +67,14 @@ object Tiers : ConfigCategory("tier", "tiers") {
     override fun afterReload(plugin: LibreforgePlugin) {
         cachedValues = ImmutableList.copyOf(registry.values())
         defaultTier = getByID("default")!!
+
+        val legacyTierIds = cachedValues.mapNotNull { tier -> tier.id.takeIf { tier.usesLegacyStats } }.sorted()
+        if (legacyTierIds.isNotEmpty()) {
+            plugin.logger.warning(
+                "Tiers using deprecated stat options: ${legacyTierIds.joinToString()}. " +
+                        "They still work but will be removed in a future version; " +
+                        "move them to components with attribute_modifiers."
+            )
+        }
     }
 }

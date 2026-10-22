@@ -70,6 +70,12 @@ class Tier(
     val properties = notNullMutableMapOf<ArmorSlot, TierProperties>()
 
     /**
+     * If any slot uses the deprecated stat options.
+     */
+    val usesLegacyStats: Boolean
+        get() = properties.values.any { it.hasLegacyStats }
+
+    /**
      * Create a new Tier.
      */
     init {
@@ -88,11 +94,9 @@ class Tier(
         out.amount = 1 // who knows
         crystal = out
         val context = ViolationContext(plugin, "Tier $id")
-        val legacySlots = mutableListOf<String>()
 
         for (slot in ArmorSlot.entries) {
-            val slotName = slot.name.lowercase(Locale.getDefault())
-            val path = "properties.$slotName"
+            val path = "properties.${slot.name.lowercase(Locale.getDefault())}"
 
             properties[slot] = TierProperties(
                 modifiers = readModifiers(slot, "$path.components", context),
@@ -119,21 +123,6 @@ class Tier(
                     ?: config.getIntOrNull("$path.entityInteractionRangePercentage"),
                 blockInteractionRangePercentage = config.getIntOrNull("$path.blockReachPercentage")
                     ?: config.getIntOrNull("$path.blockInteractionRangePercentage")
-            )
-
-            if (properties[slot]?.hasLegacyStats == true) {
-                legacySlots += slotName
-            }
-        }
-
-        if (legacySlots.isNotEmpty()) {
-            context.log(
-                ConfigWarning(
-                    "properties",
-                    "The stat options on ${legacySlots.joinToString()} are deprecated and will be " +
-                            "removed in a future version. Use a components section with " +
-                            "attribute_modifiers instead."
-                )
             )
         }
 
