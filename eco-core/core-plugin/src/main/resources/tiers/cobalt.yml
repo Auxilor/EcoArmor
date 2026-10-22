@@ -102,7 +102,7 @@ properties:
           amount: -0.1
           operation: "add_multiplied_base"
         - type: "minecraft:attack_speed"
-          amount: -0.01
+          amount: -0.1
           operation: "add_multiplied_base"
         - type: "minecraft:attack_knockback"
           amount: 0.1
