@@ -34,117 +34,66 @@ crystal:
     - air
   giveAmount: 1 # Optional, set the amount of items to give in the recipe
 properties:
-  # The stat options below are deprecated and will be removed in a future
-  # version. Use a components section with attribute_modifiers instead: it
-  # reaches every attribute, takes decimals, and picks its own slot group.
+  # Each piece takes vanilla attribute modifiers under components. Only attribute_modifiers can be set on a tier.
+  # operation is add_value, add_multiplied_base or add_multiplied_total, and defaults to add_value.
+  # slot defaults to the piece's own slot. The old stat options (armor, toughness, speedPercentage and the rest) are deprecated.
   helmet:
-    armor: 3 # Armor points (≈8 = netherite; >20 per piece has heavy diminishing returns)
-    toughness: 3 # Armor toughness (≈3 = netherite; >12–15 per piece has little benefit)
-    knockbackResistance: 1 # Knockback resist 0–100 (100 = immune; 40–60 ≈ netherite)
-    speedPercentage: 0 # Move speed % (-50 to +50 recommended)
-    attackSpeedPercentage: 0 # Attack speed % (-50 to +100; very high values can feel broken). Stacks with attackSpeedFlat: flat is added first, then percentage scales the total.
-    attackDamagePercentage: 0 # Damage % (-50 to +100; high values trivialize combat). Stacks with attackDamageFlat: flat is added first, then percentage scales the total.
-    attackKnockbackPercentage: 0 # Knockback dealt % (-100 to +100; negative = less knockback)
-    maxHealth: 0 # Extra max health (0–40 total across set; +20 = +10 hearts)
-    attackDamageFlat: 0 # Flat damage bonus (0–6; +6 ≈ Sharp V extra). Stacks with attackDamagePercentage: flat is added first, then percentage scales the total.
-    attackSpeedFlat: 0 # Flat attack speed (0–4; base is 4.0, +4 = double speed). Stacks with attackSpeedPercentage: flat is added first, then percentage scales the total.
-    jumpStrength: 0 # Jump strength % (0–100; +100 ≈ double jump height)
-    gravityPercentage: 0 # Gravity % (-80 to +100; negative = floatier, positive = heavier)
-    burningTimePercentage: 0 # Fire duration % (-100 to +100; -100 = fire immune)
-    explosionKnockbackResistance: 0 # Explosion knockback resist 0–100
-    oxygenBonus: 0 # Extra oxygen ticks (0–600; +300 ≈ +15s underwater)
-    movementEfficiency: 0 # Slowdown resistance 0–100 (100 = ignore soul sand/webs)
-    safeFallDistance: 0 # Extra safe fall blocks (0–20; +3 = vanilla, +10 ≈ 13 blocks)
-    entityInteractionRangePercentage: 0 # Entity reach % (0–100; +50 = noticeably longer)
-    blockInteractionRangePercentage: 0 # Block reach % (0–100; creative ≈ +50)
-
-    # (Optional) Attribute modifiers as vanilla components, the modern
-    # replacement for the options above. Only attribute_modifiers can be set on
-    # a tier; every other component belongs on the armor piece.
-    # operation is add_value, add_multiplied_base, or add_multiplied_total,
-    # and defaults to add_value. slot defaults to the piece's own slot.
     components:
       attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.01
+          operation: "add_value"
         - type: "minecraft:water_movement_efficiency"
           amount: 0.35
           operation: "add_value"
   chestplate:
-    armor: 8
-    toughness: 3
-    knockbackResistance: 1
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
-    maxHealth: 0
-    attackDamageFlat: 0
-    attackSpeedFlat: 0
-    jumpStrength: 0
-    gravityPercentage: 0
-    burningTimePercentage: 0
-    explosionKnockbackResistance: 0
-    oxygenBonus: 0
-    movementEfficiency: 0
-    safeFallDistance: 0
-    entityInteractionRangePercentage: 0
-    blockInteractionRangePercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 8
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.01
+          operation: "add_value"
   elytra:
-    armor: 3
-    toughness: 0
-    knockbackResistance: 1
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
-    maxHealth: 0
-    attackDamageFlat: 0
-    attackSpeedFlat: 0
-    jumpStrength: 0
-    gravityPercentage: 0
-    burningTimePercentage: 0
-    explosionKnockbackResistance: 0
-    oxygenBonus: 0
-    movementEfficiency: 0
-    safeFallDistance: 0
-    entityInteractionRangePercentage: 0
-    blockInteractionRangePercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.01
+          operation: "add_value"
   leggings:
-    armor: 6
-    toughness: 3
-    knockbackResistance: 1
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
-    maxHealth: 0
-    attackDamageFlat: 0
-    attackSpeedFlat: 0
-    jumpStrength: 0
-    gravityPercentage: 0
-    burningTimePercentage: 0
-    explosionKnockbackResistance: 0
-    oxygenBonus: 0
-    movementEfficiency: 0
-    safeFallDistance: 0
-    entityInteractionRangePercentage: 0
-    blockInteractionRangePercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 6
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.01
+          operation: "add_value"
   boots:
-    armor: 3
-    toughness: 3
-    knockbackResistance: 1
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
-    maxHealth: 0
-    attackDamageFlat: 0
-    attackSpeedFlat: 0
-    jumpStrength: 0
-    gravityPercentage: 0
-    burningTimePercentage: 0
-    explosionKnockbackResistance: 0
-    oxygenBonus: 0
-    movementEfficiency: 0
-    safeFallDistance: 0
-    entityInteractionRangePercentage: 0
-    blockInteractionRangePercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.01
+          operation: "add_value"
