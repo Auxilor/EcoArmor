@@ -9,7 +9,7 @@ A **tier** is a set of **attribute modifiers** applied to a single armor piece, 
 
 1. Create a file in `plugins/EcoArmor/tiers/`, e.g. `netherite.yml` (copy `_example.yml` as a starting point). The file name becomes the tier ID.
 2. Set the `display` name and any `requiresTiers` prerequisites.
-3. Fill in the `properties` for each piece with the attribute values you want.
+3. Add `attribute_modifiers` under each piece's `components` with the stats you want.
 4. Run `/ecoarmor reload`.
 5. Give yourself a crystal with `/ecoarmor give <you> crystal:netherite`, drop it onto a piece, and check the piece's stats change.
 
@@ -71,29 +71,16 @@ crystal:
 # === Properties: per-piece attribute modifiers (helmet shown; repeat per piece) ===
 properties:
   helmet:
-    armor: 3 # Armor points (≈8 = netherite; >20 per piece has heavy diminishing returns)
-    toughness: 3 # Armor toughness (≈3 = netherite; >12 to 15 per piece has little benefit)
-    knockbackResistance: 1 # Knockback resist 0 to 100 (100 = immune; 40 to 60 ≈ netherite)
-    speedPercentage: 0 # Move speed % (-50 to +50 recommended)
-    attackSpeedPercentage: 0 # Attack speed % (-50 to +100; very high values can feel broken)
-    attackDamagePercentage: 0 # Damage % (-50 to +100; high values trivialize combat)
-    attackKnockbackPercentage: 0 # Knockback dealt % (-100 to +100; negative = less knockback)
-    maxHealth: 0 # Extra max health (0 to 40 total across set; +20 = +10 hearts)
-    attackDamageFlat: 0 # Flat damage bonus (0 to 6; +6 ≈ Sharp V extra)
-    attackSpeedFlat: 0 # Flat attack speed (0 to 4; base is 4.0, +4 = double speed)
-    jumpStrength: 0 # Jump strength % (0 to 100; +100 ≈ double jump height)
-    gravityPercentage: 0 # Gravity % (-80 to +100; negative = floatier, positive = heavier)
-    burningTimePercentage: 0 # Fire duration % (-100 to +100; -100 = fire immune)
-    explosionKnockbackResistance: 0 # Explosion knockback resist 0 to 100
-    oxygenBonus: 0 # Extra oxygen ticks (0 to 600; +300 ≈ +15s underwater)
-    movementEfficiency: 0 # Slowdown resistance 0 to 100 (100 = ignore soul sand/webs)
-    safeFallDistance: 0 # Extra safe fall blocks (0 to 20; +3 = vanilla, +10 ≈ 13 blocks)
-    entityInteractionRangePercentage: 0 # Entity reach % (0 to 100; +50 = noticeably longer)
-    blockInteractionRangePercentage: 0 # Block reach % (0 to 100; creative ≈ +50)
-    components: # Optional; attribute modifiers as vanilla components, the modern replacement for the options above
+    components:
       attribute_modifiers:
-        - type: "minecraft:armor"
+        - type: "minecraft:armor" # The attribute
+          amount: 3 # How much it applies; decimals work
+          operation: "add_value" # add_value, add_multiplied_base, or add_multiplied_total
+        - type: "minecraft:armor_toughness"
           amount: 3
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.01
           operation: "add_value"
 ```
 
@@ -178,35 +165,22 @@ Each piece gets its own attribute block under `properties`. The helmet is shown 
 ```yaml
 properties:
   helmet:
-    armor: 3 # Armor points (≈8 = netherite; >20 per piece has heavy diminishing returns)
-    toughness: 3 # Armor toughness (≈3 = netherite; >12 to 15 per piece has little benefit)
-    knockbackResistance: 1 # Knockback resist 0 to 100 (100 = immune; 40 to 60 ≈ netherite)
-    speedPercentage: 0 # Move speed % (-50 to +50 recommended)
-    attackSpeedPercentage: 0 # Attack speed % (-50 to +100; very high values can feel broken)
-    attackDamagePercentage: 0 # Damage % (-50 to +100; high values trivialize combat)
-    attackKnockbackPercentage: 0 # Knockback dealt % (-100 to +100; negative = less knockback)
-    maxHealth: 0 # Extra max health (0 to 40 total across set; +20 = +10 hearts)
-    attackDamageFlat: 0 # Flat damage bonus (0 to 6; +6 ≈ Sharp V extra)
-    attackSpeedFlat: 0 # Flat attack speed (0 to 4; base is 4.0, +4 = double speed)
-    jumpStrength: 0 # Jump strength % (0 to 100; +100 ≈ double jump height)
-    gravityPercentage: 0 # Gravity % (-80 to +100; negative = floatier, positive = heavier)
-    burningTimePercentage: 0 # Fire duration % (-100 to +100; -100 = fire immune)
-    explosionKnockbackResistance: 0 # Explosion knockback resist 0 to 100
-    oxygenBonus: 0 # Extra oxygen ticks (0 to 600; +300 ≈ +15s underwater)
-    movementEfficiency: 0 # Slowdown resistance 0 to 100 (100 = ignore soul sand/webs)
-    safeFallDistance: 0 # Extra safe fall blocks (0 to 20; +3 = vanilla, +10 ≈ 13 blocks)
-    entityInteractionRangePercentage: 0 # Entity reach % (0 to 100; +50 = noticeably longer)
-    blockInteractionRangePercentage: 0 # Block reach % (0 to 100; creative ≈ +50)
-    components: # Optional; attribute modifiers as vanilla components, the modern replacement for the options above
+    components:
       attribute_modifiers:
-        - type: "minecraft:armor"
+        - type: "minecraft:armor" # The attribute
+          amount: 3 # How much it applies; decimals work
+          operation: "add_value" # add_value, add_multiplied_base, or add_multiplied_total
+        - type: "minecraft:armor_toughness"
           amount: 3
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.01
           operation: "add_value"
 ```
 
 #### Components
 
-The stat options above cover a fixed list of attributes with whole-number values. `components` replaces them with vanilla [attribute modifiers](https://minecraft.wiki/w/Data_component_format#attribute_modifiers), which reach **every** attribute the game has, take decimals, and choose their own slot group and operation:
+Each entry under `attribute_modifiers` is a vanilla [attribute modifier](https://minecraft.wiki/w/Data_component_format#attribute_modifiers), so a tier can reach **every** attribute the game has, take decimals, and choose its own slot group and operation:
 
 ```yaml
 properties:
@@ -214,10 +188,10 @@ properties:
     components:
       attribute_modifiers:
         - type: "minecraft:armor"
-          amount: 3.5 # Decimals work here; the options above are whole numbers only
+          amount: 3.5 # Decimals work
           operation: "add_value"
         - type: "minecraft:water_movement_efficiency"
-          amount: 0.35 # An attribute the options above can't reach at all
+          amount: 0.35 # Any attribute works
           operation: "add_value"
 ```
 
@@ -234,7 +208,7 @@ Only `attribute_modifiers` can be set on a tier. A tier's modifiers are rewritte
 When a tier is `additive`, the modifiers of every applied tier are combined, and two tiers configuring the same `id` collapse into one - the last applied wins.
 
 :::info The stat options are deprecated
-`armor`, `toughness`, `speedPercentage`, and the rest of the options above still work, and existing tiers keep working unchanged. They're deprecated and will be removed in a future version, and a tier that uses them logs a warning on load. Write new tiers with `components`, and move existing ones over when convenient:
+The older per-piece stat options (`armor`, `toughness`, `speedPercentage`, and the rest) still work, and existing tiers keep working unchanged. They're deprecated and will be removed in a future version, and tiers that use them are listed in a warning on load. Write new tiers with `components`, and move existing ones over when convenient:
 
 ```yaml
 # Before
