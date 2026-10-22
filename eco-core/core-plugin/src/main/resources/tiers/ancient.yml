@@ -21,42 +21,77 @@ crystal:
     - "&6&k!!&r <GRADIENT:ffb347>&lANCIENT</GRADIENT:ffcc33>&r &6&k!!&r"
 properties:
   helmet:
-    armor: 3
-    toughness: 5
-    knockbackResistance: 0
-    speedPercentage: 5
-    attackSpeedPercentage: 5
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 5
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: 0.05
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: 0.05
+          operation: "add_multiplied_base"
   chestplate:
-    armor: 8
-    toughness: 5
-    knockbackResistance: 0
-    speedPercentage: 5
-    attackSpeedPercentage: 5
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 8
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 5
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: 0.05
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: 0.05
+          operation: "add_multiplied_base"
   elytra:
-    armor: 3
-    toughness: 5
-    knockbackResistance: 0
-    speedPercentage: 5
-    attackSpeedPercentage: 5
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 5
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: 0.05
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: 0.05
+          operation: "add_multiplied_base"
   leggings:
-    armor: 6
-    toughness: 6
-    knockbackResistance: 0
-    speedPercentage: 5
-    attackSpeedPercentage: 5
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 6
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 6
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: 0.05
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: 0.05
+          operation: "add_multiplied_base"
   boots:
-    armor: 3
-    toughness: 6
-    knockbackResistance: 0
-    speedPercentage: 5
-    attackSpeedPercentage: 5
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 6
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: 0.05
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: 0.05
+          operation: "add_multiplied_base"

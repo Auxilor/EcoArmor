@@ -24,42 +24,59 @@ crystal:
     - "&8&oRequires the armor to already have Netherite tier"
 properties:
   helmet:
-    armor: 3
-    toughness: 5
-    knockbackResistance: 2
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 5
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.02
+          operation: "add_value"
   chestplate:
-    armor: 8
-    toughness: 5
-    knockbackResistance: 2
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 8
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 5
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.02
+          operation: "add_value"
   elytra:
-    armor: 3
-    toughness: 0
-    knockbackResistance: 2
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.02
+          operation: "add_value"
   leggings:
-    armor: 6
-    toughness: 5
-    knockbackResistance: 2
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 6
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 5
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.02
+          operation: "add_value"
   boots:
-    armor: 3
-    toughness: 5
-    knockbackResistance: 2
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 5
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.02
+          operation: "add_value"

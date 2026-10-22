@@ -21,42 +21,107 @@ crystal:
     - "&1&k!!&r <GRADIENT:00c6ff>&lMYTHIC</GRADIENT:0072ff>&r &1&k!!&r"
 properties:
   helmet:
-    armor: 3
-    toughness: 7
-    knockbackResistance: 0
-    speedPercentage: 7
-    attackSpeedPercentage: 8
-    attackDamagePercentage: 2
-    attackKnockbackPercentage: 2
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 7
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: 0.07
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: 0.08
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_damage"
+          amount: 0.02
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_knockback"
+          amount: 0.02
+          operation: "add_multiplied_base"
   chestplate:
-    armor: 8
-    toughness: 7
-    knockbackResistance: 0
-    speedPercentage: 7
-    attackSpeedPercentage: 8
-    attackDamagePercentage: 2
-    attackKnockbackPercentage: 2
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 8
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 7
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: 0.07
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: 0.08
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_damage"
+          amount: 0.02
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_knockback"
+          amount: 0.02
+          operation: "add_multiplied_base"
   elytra:
-    armor: 3
-    toughness: 7
-    knockbackResistance: 0
-    speedPercentage: 7
-    attackSpeedPercentage: 8
-    attackDamagePercentage: 2
-    attackKnockbackPercentage: 2
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 7
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: 0.07
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: 0.08
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_damage"
+          amount: 0.02
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_knockback"
+          amount: 0.02
+          operation: "add_multiplied_base"
   leggings:
-    armor: 6
-    toughness: 7
-    knockbackResistance: 0
-    speedPercentage: 7
-    attackSpeedPercentage: 8
-    attackDamagePercentage: 2
-    attackKnockbackPercentage: 2
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 6
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 7
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: 0.07
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: 0.08
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_damage"
+          amount: 0.02
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_knockback"
+          amount: 0.02
+          operation: "add_multiplied_base"
   boots:
-    armor: 3
-    toughness: 7
-    knockbackResistance: 0
-    speedPercentage: 7
-    attackSpeedPercentage: 8
-    attackDamagePercentage: 2
-    attackKnockbackPercentage: 2
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 7
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: 0.07
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: 0.08
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_damage"
+          amount: 0.02
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_knockback"
+          amount: 0.02
+          operation: "add_multiplied_base"

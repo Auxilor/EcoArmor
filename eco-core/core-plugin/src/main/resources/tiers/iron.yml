@@ -24,42 +24,32 @@ crystal:
     - "&8&oRequires the armor to already have default tier"
 properties:
   helmet:
-    armor: 2
-    toughness: 0
-    knockbackResistance: 0
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 2
+          operation: "add_value"
   chestplate:
-    armor: 6
-    toughness: 0
-    knockbackResistance: 0
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 6
+          operation: "add_value"
   elytra:
-    armor: 2
-    toughness: 0
-    knockbackResistance: 0
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 2
+          operation: "add_value"
   leggings:
-    armor: 5
-    toughness: 0
-    knockbackResistance: 0
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 5
+          operation: "add_value"
   boots:
-    armor: 2
-    toughness: 0
-    knockbackResistance: 0
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 2
+          operation: "add_value"
