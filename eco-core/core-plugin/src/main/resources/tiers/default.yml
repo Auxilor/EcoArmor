@@ -21,42 +21,26 @@ crystal:
     - "&8&lDEFAULT"
 properties:
   helmet:
-    armor: 1
-    toughness: 0
-    knockbackResistance: 0
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 1
+          operation: "add_value"
   chestplate:
-    armor: 3
-    toughness: 0
-    knockbackResistance: 0
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
-  elytra:
-    armor: 0
-    toughness: 0
-    knockbackResistance: 0
-    speedPercentage: 0
-    attackSpeedpercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
   leggings:
-    armor: 2
-    toughness: 0
-    knockbackResistance: 0
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 2
+          operation: "add_value"
   boots:
-    armor: 1
-    toughness: 0
-    knockbackResistance: 0
-    speedPercentage: 0
-    attackSpeedPercentage: 0
-    attackDamagePercentage: 0
-    attackKnockbackPercentage: 0
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 1
+          operation: "add_value"

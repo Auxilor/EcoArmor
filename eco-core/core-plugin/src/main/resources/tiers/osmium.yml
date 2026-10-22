@@ -24,42 +24,122 @@ crystal:
     - "&8&oRequires the armor to already have Cobalt tier"
 properties:
   helmet:
-    armor: 3
-    toughness: 6
-    knockbackResistance: 3
-    speedPercentage: -15
-    attackSpeedPercentage: -15
-    attackDamagePercentage: 5
-    attackKnockbackPercentage: 25
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 6
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.03
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: -0.15
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: -0.15
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_damage"
+          amount: 0.05
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_knockback"
+          amount: 0.25
+          operation: "add_multiplied_base"
   chestplate:
-    armor: 8
-    toughness: 6
-    knockbackResistance: 3
-    speedPercentage: -15
-    attackSpeedPercentage: -15
-    attackDamagePercentage: 5
-    attackKnockbackPercentage: 25
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 8
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 6
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.03
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: -0.15
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: -0.15
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_damage"
+          amount: 0.05
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_knockback"
+          amount: 0.25
+          operation: "add_multiplied_base"
   elytra:
-    armor: 8
-    toughness: 6
-    knockbackResistance: 3
-    speedPercentage: -15
-    attackSpeedPercentage: -15
-    attackDamagePercentage: 5
-    attackKnockbackPercentage: 25
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 8
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 6
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.03
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: -0.15
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: -0.15
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_damage"
+          amount: 0.05
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_knockback"
+          amount: 0.25
+          operation: "add_multiplied_base"
   leggings:
-    armor: 6
-    toughness: 6
-    knockbackResistance: 3
-    speedPercentage: -15
-    attackSpeedPercentage: -15
-    attackDamagePercentage: 5
-    attackKnockbackPercentage: 25
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 6
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 6
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.03
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: -0.15
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: -0.15
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_damage"
+          amount: 0.05
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_knockback"
+          amount: 0.25
+          operation: "add_multiplied_base"
   boots:
-    armor: 3
-    toughness: 6
-    knockbackResistance: 3
-    speedPercentage: -15
-    attackSpeedPercentage: -15
-    attackDamagePercentage: 5
-    attackKnockbackPercentage: 25
+    components:
+      attribute_modifiers:
+        - type: "minecraft:armor"
+          amount: 3
+          operation: "add_value"
+        - type: "minecraft:armor_toughness"
+          amount: 6
+          operation: "add_value"
+        - type: "minecraft:knockback_resistance"
+          amount: 0.03
+          operation: "add_value"
+        - type: "minecraft:movement_speed"
+          amount: -0.15
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_speed"
+          amount: -0.15
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_damage"
+          amount: 0.05
+          operation: "add_multiplied_base"
+        - type: "minecraft:attack_knockback"
+          amount: 0.25
+          operation: "add_multiplied_base"
