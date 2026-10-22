@@ -68,7 +68,7 @@ object Tiers : ConfigCategory("tier", "tiers") {
         cachedValues = ImmutableList.copyOf(registry.values())
         defaultTier = getByID("default")!!
 
-        val legacyTierIds = cachedValues.filter { it.usesLegacyStats }.map { it.id }.sorted()
+        val legacyTierIds = cachedValues.mapNotNull { tier -> tier.id.takeIf { tier.usesLegacyStats } }.sorted()
         if (legacyTierIds.isNotEmpty()) {
             plugin.logger.warning(
                 "Tiers using deprecated stat options: ${legacyTierIds.joinToString()}. " +
