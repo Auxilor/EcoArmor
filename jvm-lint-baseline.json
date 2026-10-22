@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "findings": [
+    {
+      "code": "U003",
+      "path": "eco-core/core-plugin/src/main/kotlin/com/willfp/ecoarmor/api/event/ArmorTierEvent.kt",
+      "message": "Unused property `previousTier`"
+    }
+  ]
+}

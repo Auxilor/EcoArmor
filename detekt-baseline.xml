@@ -1,0 +1,218 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>BracesOnIfStatements:ArmorSet.kt:ArmorSet$else</ID>
+    <ID>BracesOnIfStatements:ArmorSet.kt:ArmorSet$if</ID>
+    <ID>BracesOnIfStatements:ArmorUtils.kt:ArmorUtils$else</ID>
+    <ID>BracesOnWhenStatements:ArmorDisplay.kt:ArmorDisplay$when</ID>
+    <ID>CX016:ArmorUtils.kt:com.willfp.ecoarmor.sets.ArmorUtils.kt</ID>
+    <ID>CanBeNonNullable:ArmorUtils.kt:ArmorUtils$value: Int?</ID>
+    <ID>CognitiveComplexMethod:ArmorDisplay.kt:ArmorDisplay$override fun display</ID>
+    <ID>CognitiveComplexMethod:ArmorSet.kt:ArmorSet$private fun construct: ItemStack</ID>
+    <ID>CognitiveComplexMethod:ArmorUtils.kt:ArmorUtils$fun getActiveHolders: Collection&lt;ProvidedHolder&gt;</ID>
+    <ID>CognitiveComplexMethod:CommandGive.kt:CommandGive$override fun onExecute</ID>
+    <ID>CognitiveComplexMethod:CommandGive.kt:CommandGive$override fun tabComplete: List&lt;String&gt;</ID>
+    <ID>CognitiveComplexMethod:ConditionIsWearingSet.kt:ConditionIsWearingSet$override fun isMet: Boolean</ID>
+    <ID>CollapsibleIfStatements:CommandGive.kt:CommandGive$if (slot == null) { if (!args[2].equals("full", ignoreCase = true)) { sender.sendMessage(plugin.langYml.getMessage("invalid-item")) return } }</ID>
+    <ID>CyclomaticComplexMethod:ArmorDisplay.kt:ArmorDisplay$override fun display</ID>
+    <ID>CyclomaticComplexMethod:ArmorSet.kt:ArmorSet$private fun construct: ItemStack</ID>
+    <ID>CyclomaticComplexMethod:ArmorUtils.kt:ArmorUtils$fun getActiveHolders: Collection&lt;ProvidedHolder&gt;</ID>
+    <ID>CyclomaticComplexMethod:CommandGive.kt:CommandGive$override fun onExecute</ID>
+    <ID>CyclomaticComplexMethod:ConditionIsWearingSet.kt:ConditionIsWearingSet$override fun isMet: Boolean</ID>
+    <ID>DocumentationOverPrivateFunction:ArmorSet.kt:ArmorSet$private fun ItemStack.withComponents: ItemStack</ID>
+    <ID>DocumentationOverPrivateFunction:ArmorUtils.kt:ArmorUtils$private fun List&lt;ItemStack?&gt;.countAdvancedPieces: Int?</ID>
+    <ID>DocumentationOverPrivateFunction:ArmorUtils.kt:ArmorUtils$private fun TierModifier.toBukkit</ID>
+    <ID>DocumentationOverPrivateFunction:ArmorUtils.kt:ArmorUtils$private fun addTierModifiers</ID>
+    <ID>DocumentationOverPrivateFunction:ArmorUtils.kt:ArmorUtils$private fun countSets: Map&lt;ArmorSet, Int&gt;</ID>
+    <ID>DocumentationOverPrivateFunction:ArmorUtils.kt:ArmorUtils$private fun getSlotHolders: Collection&lt;ItemProvidedHolder&gt;</ID>
+    <ID>DocumentationOverPrivateFunction:ArmorUtils.kt:ArmorUtils$private fun isWearingAdvanced: Boolean</ID>
+    <ID>DocumentationOverPrivateFunction:ArmorUtils.kt:ArmorUtils$private fun removeAllTierAttributeModifiers</ID>
+    <ID>DocumentationOverPrivateFunction:ArmorUtils.kt:ArmorUtils$private fun sumProperties: TierProperties</ID>
+    <ID>DocumentationOverPrivateFunction:Tier.kt:Tier$private fun readModifiers: List&lt;TierModifier&gt;</ID>
+    <ID>DocumentationOverPrivateProperty:ArmorSet.kt:ArmorSet$/** Holders in advanced set. */ private val advancedSlotHolders = notNullMutableMapOf&lt;ArmorSlot, Holder&gt;()</ID>
+    <ID>DocumentationOverPrivateProperty:ArmorSet.kt:ArmorSet$/** Holders in set. */ private val slotHolders = notNullMutableMapOf&lt;ArmorSlot, Holder&gt;()</ID>
+    <ID>DocumentationOverPrivateProperty:ArmorSet.kt:ArmorSet$/** Items in advanced set. */ private val advancedItems = notNullMutableMapOf&lt;ArmorSlot, ItemStack&gt;()</ID>
+    <ID>DocumentationOverPrivateProperty:ArmorSet.kt:ArmorSet$/** Items in set. */ private val items = notNullMutableMapOf&lt;ArmorSlot, ItemStack&gt;()</ID>
+    <ID>DocumentationOverPrivateProperty:ArmorSets.kt:ArmorSets$/** * Registered armor sets. */ private val registry = Registry&lt;ArmorSet&gt;()</ID>
+    <ID>DocumentationOverPrivateProperty:ArmorUtils.kt:ArmorUtils$/** * Cache of sets on players. */ private val setCache: MutableMap&lt;Player, CachedSetState&gt; = Collections.synchronizedMap(WeakHashMap())</ID>
+    <ID>DocumentationOverPrivateProperty:ArmorUtils.kt:ArmorUtils$/** The namespace every attribute modifier this plugin writes lives under. */ private const val NAMESPACE = "ecoarmor"</ID>
+    <ID>DocumentationOverPrivateProperty:Tier.kt:Tier$/** * The names of the tiers required for application. */ private val requiredTiersForApplication: List&lt;String&gt; = this.config.getStrings("requiresTiers")</ID>
+    <ID>DocumentationOverPrivateProperty:Tiers.kt:Tiers$/** * Registered tiers. */ private val registry = Registry&lt;Tier&gt;()</ID>
+    <ID>ElseCaseInsteadOfExhaustiveWhen:ArmorSlot.kt:ArmorSlot$when (slot) { EquipmentSlot.HEAD -&gt; EquipmentSlotGroup.HEAD EquipmentSlot.CHEST -&gt; EquipmentSlotGroup.CHEST EquipmentSlot.LEGS -&gt; EquipmentSlotGroup.LEGS EquipmentSlot.FEET -&gt; EquipmentSlotGroup.FEET else -&gt; EquipmentSlotGroup.ANY }</ID>
+    <ID>ExpressionBodySyntax:ArmorAdvanceEvent.kt:ArmorAdvanceEvent$return handlerList</ID>
+    <ID>ExpressionBodySyntax:ArmorSet.kt:ArmorSet$return Objects.hash(id)</ID>
+    <ID>ExpressionBodySyntax:ArmorSet.kt:ArmorSet$return advancedItems[slot]</ID>
+    <ID>ExpressionBodySyntax:ArmorSet.kt:ArmorSet$return holder == regularHolder || holder == advancedHolder || holder in partialHolders.values</ID>
+    <ID>ExpressionBodySyntax:ArmorSet.kt:ArmorSet$return items[slot]</ID>
+    <ID>ExpressionBodySyntax:ArmorSet.kt:ArmorSet$return this.id</ID>
+    <ID>ExpressionBodySyntax:ArmorSets.kt:ArmorSets$return cachedValues</ID>
+    <ID>ExpressionBodySyntax:ArmorSets.kt:ArmorSets$return registry[name]</ID>
+    <ID>ExpressionBodySyntax:ArmorTierEvent.kt:ArmorTierEvent$return handlerList</ID>
+    <ID>ExpressionBodySyntax:ArmorUtils.kt:ArmorUtils$return findFullSet(getSetCountsOnEntity(entity))</ID>
+    <ID>ExpressionBodySyntax:ArmorUtils.kt:ArmorUtils$return getAppliedTierIds(meta).mapNotNull { Tiers.getByID(it) }</ID>
+    <ID>ExpressionBodySyntax:CrystalListener.kt:CrystalListener$return ArmorUtils.getCrystalTier(cursor) != null &amp;&amp; ArmorUtils.getSetOnItem(current) != null</ID>
+    <ID>ExpressionBodySyntax:EcoArmorPlugin.kt:EcoArmorPlugin$return ArmorDisplay</ID>
+    <ID>ExpressionBodySyntax:FilterArmorSet.kt:FilterArmorSet$return config.getStrings(key)</ID>
+    <ID>ExpressionBodySyntax:FilterArmorTier.kt:FilterArmorTier$return config.getStrings(key)</ID>
+    <ID>ExpressionBodySyntax:PlayerArmorSetEquipEvent.kt:PlayerArmorSetEquipEvent$return handlerList</ID>
+    <ID>ExpressionBodySyntax:PlayerArmorSetEquipEvent.kt:PlayerArmorSetEquipEvent.Companion$return handlerList</ID>
+    <ID>ExpressionBodySyntax:PlayerArmorSetUnequipEvent.kt:PlayerArmorSetUnequipEvent$return handlerList</ID>
+    <ID>ExpressionBodySyntax:PlayerArmorSetUnequipEvent.kt:PlayerArmorSetUnequipEvent.Companion$return handlerList</ID>
+    <ID>ExpressionBodySyntax:Tier.kt:Tier$return Objects.hash(this.id)</ID>
+    <ID>ExpressionBodySyntax:Tier.kt:Tier$return requiredTiersForApplication.mapNotNull { Tiers.getByID(it) }</ID>
+    <ID>ExpressionBodySyntax:Tier.kt:Tier$return this.id</ID>
+    <ID>ExpressionBodySyntax:Tiers.kt:Tiers$return cachedValues</ID>
+    <ID>FunctionNameMaxLength:ArmorUtils.kt:ArmorUtils$private fun removeAllTierAttributeModifiers</ID>
+    <ID>IC001:Tier.kt:Tier$// who knows</ID>
+    <ID>IC001:Tier.kt:TierProperties$// % jump height boost (e.g. 20 = +20%)</ID>
+    <ID>IC001:Tier.kt:TierProperties$// 0-100 for %</ID>
+    <ID>IC001:Tier.kt:TierProperties$// 0-100 for % less slow in soul sand/honey/etc.</ID>
+    <ID>IC001:Tier.kt:TierProperties$// e.g. -30 = 30% less gravity (floatier), +50 = heavier</ID>
+    <ID>IC001:Tier.kt:TierProperties$// e.g. -50 = 50% less burn time, +100 = double burn</ID>
+    <ID>IC001:Tier.kt:TierProperties$// e.g. 10 = +10% speed</ID>
+    <ID>IC001:Tier.kt:TierProperties$// e.g. 15 = +15% attack speed</ID>
+    <ID>IC001:Tier.kt:TierProperties$// e.g. 15 = +15% block reach</ID>
+    <ID>IC001:Tier.kt:TierProperties$// e.g. 20 = +20% damage</ID>
+    <ID>IC001:Tier.kt:TierProperties$// e.g. 20 = +20% reach for attacking/interacting entities</ID>
+    <ID>IC001:Tier.kt:TierProperties$// e.g. 30 = +30% knockback</ID>
+    <ID>IC001:Tier.kt:TierProperties$// extra ticks of breath (e.g. 300 = +15 seconds)</ID>
+    <ID>IC001:Tier.kt:TierProperties$// flat armor points (e.g. 3)</ID>
+    <ID>IC001:Tier.kt:TierProperties$// flat attack speed bonus</ID>
+    <ID>IC001:Tier.kt:TierProperties$// flat extra blocks safe to fall (e.g. 5 = safe from 8 blocks total)</ID>
+    <ID>IC001:Tier.kt:TierProperties$// flat extra damage (e.g. 2 = +1 heart per hit)</ID>
+    <ID>IC001:Tier.kt:TierProperties$// flat extra hearts × 2 (e.g. 4 = +2 hearts)</ID>
+    <ID>IC001:Tier.kt:TierProperties$// flat toughness (e.g. 2)</ID>
+    <ID>IC002:ArmorArguments.kt:// Read from the meta rather than the item, as reading from the item writes</ID>
+    <ID>IC002:ArmorDisplay.kt:ArmorDisplay$// Lovely.</ID>
+    <ID>IC002:ArmorUtils.kt:ArmorUtils$// Defer event firing to next tick to avoid re-entrancy from listeners</ID>
+    <ID>IC002:ArmorUtils.kt:ArmorUtils$// Keyed by modifier, so two tiers configuring the same one don't</ID>
+    <ID>IC002:ArmorUtils.kt:ArmorUtils$// Pre-compute set lookups once for all items to avoid repeated PDC reads</ID>
+    <ID>IC002:ArmorUtils.kt:ArmorUtils$// Update cache immediately so subsequent calls see correct state</ID>
+    <ID>IC002:CommandGive.kt:CommandGive$// Currently, this case is not ever reached</ID>
+    <ID>IC002:CommandGive.kt:CommandGive$// The console runs off the player's region on Folia.</ID>
+    <ID>IC002:CommandReload.kt:CommandReload$// Reloading rebuilds shared registries, so it belongs on the global region.</ID>
+    <ID>IC002:ConditionArmorIsAdvanced.kt:ConditionArmorIsAdvanced$// Effects attached to a single armor piece are provided that piece.</ID>
+    <ID>IC002:ConditionHasArmorTier.kt:ConditionHasArmorTier$// Effects attached to a single armor piece are provided that piece.</ID>
+    <ID>IC002:EcoArmorPlugin.kt:EcoArmorPlugin$// Recipes are registered on a 1-tick delay, so rebuild cache after they exist.</ID>
+    <ID>IC002:Tier.kt:Tier$// Tier modifiers are cleared and rewritten whenever the tier changes,</ID>
+    <ID>IC003:Tier.kt:TierProperties$// flat armor points (e.g. 3)</ID>
+    <ID>IC003:Tier.kt:TierProperties$// flat toughness (e.g. 2)</ID>
+    <ID>LabeledExpression:ArmorSet.kt:ArmorSet$@CustomItem</ID>
+    <ID>LabeledExpression:ArmorSet.kt:ArmorSet$@let</ID>
+    <ID>LabeledExpression:ArmorUtils.kt:ArmorUtils$@run</ID>
+    <ID>LabeledExpression:Tier.kt:Tier$@let</ID>
+    <ID>LabeledExpression:Tier.kt:Tier$@mapNotNull</ID>
+    <ID>LabeledExpression:TierArgParser.kt:TierArgParser$@Predicate</ID>
+    <ID>LongMethod:ArmorDisplay.kt:ArmorDisplay$override fun display</ID>
+    <ID>LongMethod:ArmorSet.kt:ArmorSet$private fun construct: ItemStack</ID>
+    <ID>LongMethod:ArmorUtils.kt:ArmorUtils$fun getActiveHolders: Collection&lt;ProvidedHolder&gt;</ID>
+    <ID>LongMethod:CommandGive.kt:CommandGive$override fun onExecute</ID>
+    <ID>LoopWithTooManyJumpStatements:ArmorUtils.kt:ArmorUtils$for</ID>
+    <ID>LoopWithTooManyJumpStatements:EffectCountTowardSet.kt:EffectCountTowardSet$for</ID>
+    <ID>LoopWithTooManyJumpStatements:TierArgParser.kt:TierArgParser$for</ID>
+    <ID>MagicNumber:CommandGive.kt:CommandGive$3</ID>
+    <ID>MagicNumber:CommandGive.kt:CommandGive$4</ID>
+    <ID>MagicNumber:CommandGive.kt:CommandGive$5</ID>
+    <ID>MagicNumber:CommandGive.kt:CommandGive$6</ID>
+    <ID>MaxLineLength:ArmorSet.kt:ArmorSet$.</ID>
+    <ID>MaxLineLength:ArmorSet.kt:ArmorSet$partialHolders[amount] = SimpleHolder(plugin.namespacedKeyFactory.create("${id}_partial_set_$amount"), partialEffects, conditions)</ID>
+    <ID>MaxLineLength:ArmorSet.kt:ArmorSet$plugin.configYml.getString("per-piece-advanced-lore.mode").equals("replace", ignoreCase = true) -&gt; pieceAdvancedLore</ID>
+    <ID>MaxLineLength:ArmorSet.kt:ArmorSet$plugin.configYml.getString("per-piece-advanced-lore.order").equals("piece-first", ignoreCase = true) -&gt; pieceAdvancedLore + setAdvancedLore</ID>
+    <ID>MaxLineLength:ArmorUtils.kt:ArmorUtils$addModifier(Attribute.ATTACK_DAMAGE, props.attackDamagePercentage, AttributeModifier.Operation.ADD_SCALAR, ".pct", pctScaler)</ID>
+    <ID>MaxLineLength:ArmorUtils.kt:ArmorUtils$addModifier(Attribute.ATTACK_KNOCKBACK, props.attackKnockbackPercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)</ID>
+    <ID>MaxLineLength:ArmorUtils.kt:ArmorUtils$addModifier(Attribute.ATTACK_SPEED, props.attackSpeedPercentage, AttributeModifier.Operation.ADD_SCALAR, ".pct", pctScaler)</ID>
+    <ID>MaxLineLength:ArmorUtils.kt:ArmorUtils$addModifier(Attribute.BLOCK_INTERACTION_RANGE, props.blockInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)</ID>
+    <ID>MaxLineLength:ArmorUtils.kt:ArmorUtils$addModifier(Attribute.BURNING_TIME, props.burningTimePercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)</ID>
+    <ID>MaxLineLength:ArmorUtils.kt:ArmorUtils$addModifier(Attribute.ENTITY_INTERACTION_RANGE, props.entityInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)</ID>
+    <ID>MaxLineLength:ArmorUtils.kt:ArmorUtils$addModifier(Attribute.EXPLOSION_KNOCKBACK_RESISTANCE, props.explosionKnockbackResistance, AttributeModifier.Operation.ADD_NUMBER, "", fracScaler)</ID>
+    <ID>MaxLineLength:ArmorUtils.kt:ArmorUtils$addModifier(Attribute.KNOCKBACK_RESISTANCE, props.knockbackResistance, AttributeModifier.Operation.ADD_NUMBER, "", fracScaler)</ID>
+    <ID>MaxLineLength:ArmorUtils.kt:ArmorUtils$addModifier(Attribute.MOVEMENT_EFFICIENCY, props.movementEfficiency, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)</ID>
+    <ID>MaxLineLength:ArmorUtils.kt:ArmorUtils$addModifier(Attribute.MOVEMENT_SPEED, props.speedPercentage, AttributeModifier.Operation.ADD_SCALAR, ".pct", pctScaler)</ID>
+    <ID>MaxLineLength:ConditionIsWearingSet.kt:ConditionIsWearingSet$description = "If specified, also requires the worn set to be in its advanced (or non-advanced) form to match this value."</ID>
+    <ID>MaxLineLength:Tier.kt:TierProperties$val</ID>
+    <ID>MultilineLambdaItParameter:ArmorDisplay.kt:ArmorDisplay${ val count = counts.getValue(it) if (count &gt; 1) "${count}x ${it.displayName}" else it.displayName }</ID>
+    <ID>MultilineLambdaItParameter:ArmorDisplay.kt:ArmorDisplay${ val count = counts.getValue(it) if (count &gt; 1) "${it.displayName} ${NumberUtils.toNumeral(count)}" else it.displayName }</ID>
+    <ID>NestedBlockDepth:ArmorUtils.kt:ArmorUtils$fun getActiveHolders: Collection&lt;ProvidedHolder&gt;</ID>
+    <ID>NestedScopeFunctions:ArmorSet.kt:ArmorSet$apply { val metaLore = lore ?: emptyList() lore = metaLore.map { it.replace("%tier%", Tiers.defaultTier.displayName) } }</ID>
+    <ID>NewLineAtEndOfFile:ArmorAdvanceEvent.kt:com.willfp.ecoarmor.api.event.ArmorAdvanceEvent.kt</ID>
+    <ID>NewLineAtEndOfFile:ArmorSetEquipSoundListeners.kt:com.willfp.ecoarmor.sets.ArmorSetEquipSoundListeners.kt</ID>
+    <ID>NewLineAtEndOfFile:ArmorSlot.kt:com.willfp.ecoarmor.sets.ArmorSlot.kt</ID>
+    <ID>NewLineAtEndOfFile:ArmorTierEvent.kt:com.willfp.ecoarmor.api.event.ArmorTierEvent.kt</ID>
+    <ID>NewLineAtEndOfFile:CommandGive.kt:com.willfp.ecoarmor.commands.CommandGive.kt</ID>
+    <ID>NewLineAtEndOfFile:CommandReload.kt:com.willfp.ecoarmor.commands.CommandReload.kt</ID>
+    <ID>NewLineAtEndOfFile:DiscoverRecipeListener.kt:com.willfp.ecoarmor.util.DiscoverRecipeListener.kt</ID>
+    <ID>NewLineAtEndOfFile:EffectiveDurabilityListener.kt:com.willfp.ecoarmor.sets.EffectiveDurabilityListener.kt</ID>
+    <ID>NewLineAtEndOfFile:FilterArmorSet.kt:com.willfp.ecoarmor.libreforge.FilterArmorSet.kt</ID>
+    <ID>NewLineAtEndOfFile:FilterArmorTier.kt:com.willfp.ecoarmor.libreforge.FilterArmorTier.kt</ID>
+    <ID>NewLineAtEndOfFile:PlayerArmorSetEquipEvent.kt:com.willfp.ecoarmor.api.event.PlayerArmorSetEquipEvent.kt</ID>
+    <ID>NewLineAtEndOfFile:PreventSkullPlaceListener.kt:com.willfp.ecoarmor.sets.PreventSkullPlaceListener.kt</ID>
+    <ID>NewLineAtEndOfFile:TriggerAdvanceArmor.kt:com.willfp.ecoarmor.libreforge.TriggerAdvanceArmor.kt</ID>
+    <ID>NewLineAtEndOfFile:TriggerUpgradeArmorTier.kt:com.willfp.ecoarmor.libreforge.TriggerUpgradeArmorTier.kt</ID>
+    <ID>NullableBooleanCheck:ArmorUtils.kt:ArmorUtils$oldState?.advanced ?: false</ID>
+    <ID>OutdatedDocumentation:Tier.kt:TierModifier</ID>
+    <ID>ReplaceSafeCallChainWithRun:AdvancementShardListener.kt:AdvancementShardListener$cursor.itemMeta?.persistentDataContainer?.get( plugin.namespacedKeyFactory.create("advancement-shard"), PersistentDataType.STRING )</ID>
+    <ID>ReplaceSafeCallChainWithRun:ArmorUtils.kt:ArmorUtils$entity.equipment?.armorContents?.toList()</ID>
+    <ID>ReplaceSafeCallChainWithRun:ConditionHasArmorTier.kt:ConditionHasArmorTier$entity.equipment?.armorContents?.toList()</ID>
+    <ID>ReplaceSafeCallChainWithRun:ConditionIsWearingSet.kt:ConditionIsWearingSet$entity.equipment?.armorContents?.toList()</ID>
+    <ID>ReplaceSafeCallChainWithRun:Tier.kt:Tier$modifier["id"]?.toString()?.substringAfter(':')</ID>
+    <ID>ReplaceSafeCallChainWithRun:Tier.kt:Tier$modifier["slot"]?.toString()?.let { EquipmentSlotGroup.getByName(it) }</ID>
+    <ID>ReturnCount:AdvancementShardListener.kt:AdvancementShardListener$override fun apply: DragAndDropResult</ID>
+    <ID>ReturnCount:AdvancementShardListener.kt:AdvancementShardListener$override fun matches: Boolean</ID>
+    <ID>ReturnCount:ArmorArguments.kt:internal fun ItemStack.isOnTier: Boolean</ID>
+    <ID>ReturnCount:ArmorDisplay.kt:ArmorDisplay$override fun display</ID>
+    <ID>ReturnCount:ArmorSet.kt:ArmorSet$fun getSpecificHolders: List&lt;ItemProvidedHolder&gt;</ID>
+    <ID>ReturnCount:ArmorUtils.kt:ArmorUtils$@JvmStatic fun canApplyAdditiveTier: Boolean</ID>
+    <ID>ReturnCount:ArmorUtils.kt:ArmorUtils$@JvmStatic fun getItemInSlot: ItemStack?</ID>
+    <ID>ReturnCount:ArmorUtils.kt:ArmorUtils$@JvmStatic fun isWearingAdvanced: Boolean</ID>
+    <ID>ReturnCount:ArmorUtils.kt:ArmorUtils$@JvmStatic fun setTier</ID>
+    <ID>ReturnCount:ArmorUtils.kt:ArmorUtils$private fun isWearingAdvanced: Boolean</ID>
+    <ID>ReturnCount:CommandGive.kt:CommandGive$override fun onExecute</ID>
+    <ID>ReturnCount:CommandGive.kt:CommandGive$override fun tabComplete: List&lt;String&gt;</ID>
+    <ID>ReturnCount:ConditionArmorIsAdvanced.kt:ConditionArmorIsAdvanced$override fun isMet: Boolean</ID>
+    <ID>ReturnCount:ConditionHasArmorTier.kt:ConditionHasArmorTier$override fun isMet: Boolean</ID>
+    <ID>ReturnCount:ConditionIsWearingSet.kt:ConditionIsWearingSet$override fun isMet: Boolean</ID>
+    <ID>ReturnCount:CrystalListener.kt:CrystalListener$override fun apply: DragAndDropResult</ID>
+    <ID>ReturnCount:EffectCountTowardSet.kt:EffectCountTowardSet$override fun onEnable</ID>
+    <ID>ReturnCount:EffectSetArmorAdvanced.kt:EffectSetArmorAdvanced$override fun onTrigger: Boolean</ID>
+    <ID>ReturnCount:EffectSetArmorTier.kt:EffectSetArmorTier$override fun onTrigger: Boolean</ID>
+    <ID>ReturnCount:EffectiveDurabilityListener.kt:EffectiveDurabilityListener$@EventHandler fun listener</ID>
+    <ID>ReturnCount:FilterArmorSet.kt:FilterArmorSet$override fun isMet: Boolean</ID>
+    <ID>ReturnCount:MutatorArmorPieceToItem.kt:MutatorArmorPieceToItem$override fun mutate: TriggerData</ID>
+    <ID>ReturnCount:Tier.kt:Tier$private fun readModifier: TierModifier?</ID>
+    <ID>ReturnCount:Tier.kt:Tier$private fun readModifiers: List&lt;TierModifier&gt;</ID>
+    <ID>SpreadOperator:ArmorDisplay.kt:ArmorDisplay$(*slotMeta.itemFlags.toTypedArray())</ID>
+    <ID>TooManyFunctions:ArmorSet.kt:ArmorSet : Registrable</ID>
+    <ID>TooManyFunctions:ArmorUtils.kt:ArmorUtils</ID>
+    <ID>TrailingWhitespace:ArmorSet.kt:com.willfp.ecoarmor.sets.ArmorSet.kt</ID>
+    <ID>UnconditionalJumpStatementInLoop:TierArgParser.kt:TierArgParser$for (arg in args) { val split = arg.split(":").toTypedArray() if (split.size == 1 || !split[0].equals("tier", ignoreCase = true)) { continue } val match = Tiers.getByID(split[1].lowercase()) ?: continue tier = match break }</ID>
+    <ID>UnnamedParameterUse:ArmorDisplay.kt:ArmorDisplay$replace</ID>
+    <ID>UnnamedParameterUse:ArmorSet.kt:ArmorSet$replace</ID>
+    <ID>UnnamedParameterUse:ArmorSets.kt:ArmorSets$LegacyLocation</ID>
+    <ID>UnnamedParameterUse:CommandGive.kt:CommandGive$replace</ID>
+    <ID>UnnamedParameterUse:CommandReload.kt:CommandReload$replace</ID>
+    <ID>UnnamedParameterUse:ConditionHasArmorTier.kt:ConditionHasArmorTier$getStrings</ID>
+    <ID>UnnamedParameterUse:ConditionIsWearingSet.kt:ConditionIsWearingSet$getStrings</ID>
+    <ID>UnnamedParameterUse:ConditionIsWearingSet.kt:ConditionIsWearingSet$require</ID>
+    <ID>UnnamedParameterUse:EffectCountTowardSet.kt:EffectCountTowardSet$require</ID>
+    <ID>UnnamedParameterUse:EffectSetArmorTier.kt:EffectSetArmorTier$require</ID>
+    <ID>UnnamedParameterUse:MutatorArmorPieceToItem.kt:MutatorArmorPieceToItem$require</ID>
+    <ID>UnnamedParameterUse:Tier.kt:Tier$ConfigWarning</ID>
+    <ID>UnnamedParameterUse:Tiers.kt:Tiers$LegacyLocation</ID>
+    <ID>UnnecessaryLet:ArmorSet.kt:ArmorSet$let { val recipeStrings = config.getStrings("shard.recipe") if (recipeStrings.isEmpty()) return@let null Recipes.createAndRegisterRecipe( plugin, "${id}_shard", shard, recipeStrings, config.getStringOrNull("shard.crafting-permission"), config.getBool("shard.shapeless") ) }</ID>
+    <ID>UnnecessaryParentheses:ConditionIsWearingSet.kt:ConditionIsWearingSet$(ArmorUtils.getSetCountsOnEntity(entity)[set] ?: 0)</ID>
+    <ID>UnnecessarySafeCall:Tier.kt:Tier$properties[slot]?.hasLegacyStats</ID>
+    <ID>UnreachableCode:ArmorUtils.kt:ArmorUtils$tier.properties[slot] ?: return</ID>
+    <ID>UnreachableCode:CrystalListener.kt:CrystalListener$player.inventory.getItem(event.hand) ?: return</ID>
+    <ID>UnsafeCallOnNullableType:Tiers.kt:Tiers$getByID("default")!!</ID>
+    <ID>UnusedImport:ArmorSet.kt:import com.willfp.eco.core.recipe.recipes.CraftingRecipe</ID>
+    <ID>UnusedImport:ArmorUtils.kt:import org.bukkit.inventory.EquipmentSlotGroup</ID>
+    <ID>UnusedVariable:Tier.kt:Tier$val recipe: CraftingRecipe? = this.craftable .takeIf { it } ?.let { val recipeStrings = config.getStrings("crystal.recipe") if (recipeStrings.isEmpty()) return@let null val recipeOut = out.clone().apply { amount = config.getInt("crystal.giveAmount") } Recipes.createAndRegisterRecipe( plugin, "upgrade_crystal_$id", recipeOut, recipeStrings, config.getStringOrNull("crystal.crafting-permission"), config.getBool("crystal.shapeless") ) }</ID>
+    <ID>UseLet:ArmorUtils.kt:ArmorUtils$if (armorSet != null) { if (advanced) armorSet.advancedHolder else armorSet.regularHolder } else { null }</ID>
+    <ID>UseLet:ArmorUtils.kt:ArmorUtils$if (fullSet != null) { if (advanced) fullSet.advancedHolder else fullSet.regularHolder } else { null }</ID>
+    <ID>UseOrEmpty:ArmorDisplay.kt:ArmorDisplay$set.getSpecificHolder(itemStack)?.getNotMetLineComponents(player) ?: emptyList()</ID>
+    <ID>UseOrEmpty:ArmorSet.kt:ArmorSet$lore ?: emptyList()</ID>
+    <ID>UseOrEmpty:ArmorUtils.kt:ArmorUtils$entity.equipment?.armorContents?.toList() ?: emptyList()</ID>
+    <ID>WildcardImport:ArmorUtils.kt:import java.util.*</ID>
+  </CurrentIssues>
+</SmellBaseline>
