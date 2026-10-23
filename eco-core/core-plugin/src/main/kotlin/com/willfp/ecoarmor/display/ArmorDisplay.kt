@@ -46,7 +46,7 @@ object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
         }
 
         val slotMeta = slotStack.itemMeta ?: return
-        val tier = ArmorUtils.getTier(meta) ?: return
+        val tier = ArmorUtils.getTier(meta) ?: set.getDefaultTier(slot)
         val appliedTiers = ArmorUtils.getAppliedTiers(meta)
 
         val tierPlaceholder = if (appliedTiers.size > 1) {
