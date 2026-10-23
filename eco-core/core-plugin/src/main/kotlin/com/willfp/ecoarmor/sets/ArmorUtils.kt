@@ -451,7 +451,8 @@ object ArmorUtils {
         tier: Tier
     ) {
         val meta = itemStack.itemMeta ?: return
-        if (!meta.persistentDataContainer.has(plugin.namespacedKeyFactory.create("set"), PersistentDataType.STRING)) return
+        val setKey = plugin.namespacedKeyFactory.create("set")
+        if (!meta.persistentDataContainer.has(setKey, PersistentDataType.STRING)) return
         val slot = getSlot(itemStack) ?: return
         val props = tier.properties[slot] ?: return
 
