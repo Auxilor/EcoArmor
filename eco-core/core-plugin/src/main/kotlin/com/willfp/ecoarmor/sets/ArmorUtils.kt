@@ -406,7 +406,6 @@ object ArmorUtils {
         val meta = itemStack.itemMeta ?: return null
         val tier = getTier(meta)
         return if (getSetOnItem(meta) != null && tier == null) {
-            setTier(itemStack, Tiers.defaultTier)
             Tiers.defaultTier
         } else {
             tier
@@ -452,6 +451,8 @@ object ArmorUtils {
         tier: Tier
     ) {
         val meta = itemStack.itemMeta ?: return
+        val setKey = plugin.namespacedKeyFactory.create("set")
+        if (!meta.persistentDataContainer.has(setKey, PersistentDataType.STRING)) return
         val slot = getSlot(itemStack) ?: return
         val props = tier.properties[slot] ?: return
 
