@@ -16,6 +16,7 @@ object EffectiveDurabilityListener : Listener {
         val effectiveDurability =
             container.get(plugin.namespacedKeyFactory.create("effective-durability"), PersistentDataType.INTEGER)
                 ?: return
+        if (effectiveDurability <= 0) return
         val maxDurability = itemStack.type.maxDurability.toInt()
         if (maxDurability <= 0) return
         val ratio = effectiveDurability.toDouble() / maxDurability
