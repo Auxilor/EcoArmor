@@ -406,7 +406,6 @@ object ArmorUtils {
         val meta = itemStack.itemMeta ?: return null
         val tier = getTier(meta)
         return if (getSetOnItem(meta) != null && tier == null) {
-            setTier(itemStack, Tiers.defaultTier)
             Tiers.defaultTier
         } else {
             tier
