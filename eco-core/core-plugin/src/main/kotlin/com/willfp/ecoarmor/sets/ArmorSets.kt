@@ -2,6 +2,7 @@ package com.willfp.ecoarmor.sets
 
 import com.google.common.collect.ImmutableList
 import com.willfp.eco.core.config.interfaces.Config
+import com.willfp.eco.core.recipe.Recipes
 import com.willfp.eco.core.registry.Registry
 import com.willfp.libreforge.loader.LibreforgePlugin
 import com.willfp.libreforge.loader.configs.ConfigCategory
@@ -43,6 +44,12 @@ object ArmorSets : ConfigCategory("set", "sets") {
     }
 
     override fun clear(plugin: LibreforgePlugin) {
+        for (set in registry.values()) {
+            Recipes.unregister(plugin.createNamespacedKey("${set.id}_shard"))
+            for (slot in ArmorSlot.entries) {
+                Recipes.unregister(plugin.createNamespacedKey("${set.id}_${slot.name.lowercase()}"))
+            }
+        }
         registry.clear()
         cachedValues = emptyList()
     }

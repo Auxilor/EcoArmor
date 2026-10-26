@@ -2,6 +2,7 @@ package com.willfp.ecoarmor.upgrades
 
 import com.google.common.collect.ImmutableList
 import com.willfp.eco.core.config.interfaces.Config
+import com.willfp.eco.core.recipe.Recipes
 import com.willfp.eco.core.registry.Registry
 import com.willfp.libreforge.loader.LibreforgePlugin
 import com.willfp.libreforge.loader.configs.ConfigCategory
@@ -56,6 +57,9 @@ object Tiers : ConfigCategory("tier", "tiers") {
     }
 
     override fun clear(plugin: LibreforgePlugin) {
+        for (tier in registry.values()) {
+            Recipes.unregister(plugin.createNamespacedKey("upgrade_crystal_${tier.id.lowercase()}"))
+        }
         registry.clear()
         cachedValues = emptyList()
     }
