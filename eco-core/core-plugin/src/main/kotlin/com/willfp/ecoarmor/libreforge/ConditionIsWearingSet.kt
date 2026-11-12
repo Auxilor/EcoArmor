@@ -1,17 +1,17 @@
 package com.willfp.ecoarmor.libreforge
 
-import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorUtils
-import com.willfp.libreforge.ArgType
-import com.willfp.libreforge.Dispatcher
-import com.willfp.libreforge.NoCompileData
-import com.willfp.libreforge.ProvidedHolder
-import com.willfp.libreforge.arguments
-import com.willfp.libreforge.conditions.Condition
-import com.willfp.libreforge.get
-import com.willfp.libreforge.getStrings
 import org.bukkit.entity.LivingEntity
+import wiki.ecohub.config.ArgType
+import wiki.ecohub.config.Config
+import wiki.ecohub.config.arguments
+import wiki.ecohub.config.section.getStrings
+import wiki.ecohub.core.registry.NoCompileData
+import wiki.ecohub.rules.condition.Condition
+import wiki.ecohub.rules.holder.Dispatcher
+import wiki.ecohub.rules.holder.ProvidedHolder
+import wiki.ecohub.rules.holder.get
 
 object ConditionIsWearingSet : Condition<NoCompileData>("is_wearing_set") {
     override val description = "Passes when the entity is wearing the armor set with the given ID."

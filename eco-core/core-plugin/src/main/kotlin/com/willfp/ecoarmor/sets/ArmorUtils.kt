@@ -9,10 +9,6 @@ import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.TierModifier
 import com.willfp.ecoarmor.upgrades.TierProperties
 import com.willfp.ecoarmor.upgrades.Tiers
-import com.willfp.libreforge.Holder
-import com.willfp.libreforge.ItemProvidedHolder
-import com.willfp.libreforge.ProvidedHolder
-import com.willfp.libreforge.SimpleProvidedHolder
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
@@ -22,6 +18,10 @@ import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
+import wiki.ecohub.rules.holder.Holder
+import wiki.ecohub.rules.holder.ItemProvidedHolder
+import wiki.ecohub.rules.holder.ProvidedHolder
+import wiki.ecohub.rules.holder.SimpleProvidedHolder
 import java.util.*
 
 object ArmorUtils {

@@ -1,9 +1,9 @@
 package com.willfp.ecoarmor.upgrades
 
-import com.willfp.eco.core.items.args.LookupArgParser
 import com.willfp.ecoarmor.sets.ArmorUtils
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
+import wiki.ecohub.game.item.lookup.LookupArgParser
 import java.util.function.Predicate
 
 class TierArgParser : LookupArgParser {

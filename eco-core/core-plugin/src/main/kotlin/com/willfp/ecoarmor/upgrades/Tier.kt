@@ -1,20 +1,9 @@
 package com.willfp.ecoarmor.upgrades
 
-import com.willfp.eco.core.config.interfaces.Config
-import com.willfp.eco.core.config.toPlainValues
-import com.willfp.eco.core.display.Display
-import com.willfp.eco.core.items.CustomItem
-import com.willfp.eco.core.items.Items
-import com.willfp.eco.core.recipe.Recipes
-import com.willfp.eco.core.recipe.recipes.CraftingRecipe
-import com.willfp.eco.core.registry.Registrable
-import com.willfp.eco.util.StringUtils
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getCrystalTier
-import com.willfp.libreforge.ConfigWarning
-import com.willfp.libreforge.ViolationContext
-import com.willfp.libreforge.notNullMutableMapOf
+import com.willfp.ecoarmor.util.notNullMutableMapOf
 import org.bukkit.NamespacedKey
 import org.bukkit.Registry
 import org.bukkit.attribute.Attribute
@@ -22,6 +11,17 @@ import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
+import wiki.ecohub.config.Config
+import wiki.ecohub.config.ConfigWarning
+import wiki.ecohub.config.ViolationContext
+import wiki.ecohub.config.toPlainValues
+import wiki.ecohub.core.registry.Registrable
+import wiki.ecohub.game.item.CustomItem
+import wiki.ecohub.game.item.Items
+import wiki.ecohub.modules.recipe.Recipes
+import wiki.ecohub.modules.recipe.crafting.CraftingRecipe
+import wiki.ecohub.ui.display.Display
+import wiki.ecohub.ui.text.StringUtils
 import java.util.Locale
 import java.util.Objects
 
