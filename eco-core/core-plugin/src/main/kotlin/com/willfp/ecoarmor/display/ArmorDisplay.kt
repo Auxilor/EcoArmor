@@ -18,19 +18,19 @@ import wiki.ecohub.ui.text.toLegacy
 
 object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
     override fun display(context: DisplayContext) {
-        val itemStack = context.itemStack
+        val itemStack = context.getItemStack()
         val meta = itemStack.itemMeta ?: return
         val set = ArmorUtils.getSetOnItem(meta)
 
         if (set == null) {
             val crystalTier = ArmorUtils.getCrystalTier(meta)
             if (crystalTier != null) {
-                context.lore.append(crystalTier.crystal.storedLore())
+                context.getLore().append(crystalTier.crystal.storedLore())
             }
 
             val shardSet = ArmorUtils.getShardSet(meta)
             if (shardSet != null) {
-                context.lore.append(shardSet.advancementShardItem.storedLore())
+                context.getLore().append(shardSet.advancementShardItem.storedLore())
                 itemStack.itemMeta = shardSet.advancementShardItem.itemMeta
             }
 
@@ -75,15 +75,15 @@ object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
             tier.displayName
         }
 
-        context.lore.prepend(
+        context.getLore().prepend(
             slotStack.storedLore()
                 .map { it.toLegacy().replace("%tier%", tierPlaceholder) }
-                .map { StringUtils.formatToRichComponent(it, context.placeholderContext) }
+                .map { StringUtils.formatToRichComponent(it, context.getPlaceholderContext()) }
         )
 
         meta.addItemFlags(*slotMeta.itemFlags.toTypedArray())
 
-        val player = context.player
+        val player = context.getPlayer()
 
         if (player != null) {
             val lines = mutableListOf<Component>()
@@ -98,17 +98,17 @@ object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
             lines.addAll(set.getSpecificHolder(itemStack)?.getNotMetLineComponents(player) ?: emptyList())
 
             if (lines.isNotEmpty()) {
-                context.lore.append(listOf(Component.empty()) + lines)
+                context.getLore().append(listOf(Component.empty()) + lines)
             }
         }
 
-        if (this.plugin.configYml.getBool("update-item-names")) {
+        if (plugin.configYml.getBool("update-item-names")) {
             @Suppress("DEPRECATION")
             meta.setDisplayName(slotMeta.displayName)
         }
 
         if (meta is LeatherArmorMeta && slotMeta is LeatherArmorMeta
-            && this.plugin.configYml.getBool("update-leather-colors")
+            && plugin.configYml.getBool("update-leather-colors")
         ) {
             meta.setColor(slotMeta.color)
         }
@@ -117,5 +117,5 @@ object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
     }
 
     private fun ItemStack.storedLore(): List<Component> =
-        this.fast().loreComponents.map { Display.stripDisplayMarker(it) }
+        this.fast().getLoreComponents().map { Display.stripDisplayMarker(it) }
 }

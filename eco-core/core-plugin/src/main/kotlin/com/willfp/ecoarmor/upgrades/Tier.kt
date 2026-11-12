@@ -80,14 +80,14 @@ class Tier(
      */
     init {
         val key = plugin.namespacedKeyFactory.create("upgrade_crystal")
-        val out = Items.lookup(this.config.getString("crystal.item")).item
+        val out = Items.lookup(this.config.getString("crystal.item")).getItem()
         val outMeta = out.itemMeta!!
         val container = outMeta.persistentDataContainer
         container.set(key, PersistentDataType.STRING, id)
         outMeta.setDisplayName(this.config.getFormattedString("crystal.name"))
         val lore: MutableList<String> = ArrayList()
         for (loreLine in this.config.getStrings("crystal.lore")) {
-            lore.add(Display.PREFIX + StringUtils.format(loreLine!!))
+            lore.add(Display.PREFIX + StringUtils.format(loreLine))
         }
         outMeta.lore = lore
         out.itemMeta = outMeta

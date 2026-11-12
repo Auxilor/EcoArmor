@@ -19,10 +19,10 @@ import wiki.ecohub.config.toPlainValues
 import wiki.ecohub.core.registry.Registrable
 import wiki.ecohub.game.item.CustomItem
 import wiki.ecohub.game.item.Items
+import wiki.ecohub.game.item.withComponents
 import wiki.ecohub.game.item.builder.ItemBuilder
 import wiki.ecohub.game.item.builder.ItemStackBuilder
 import wiki.ecohub.modules.recipe.Recipes
-import wiki.ecohub.modules.recipe.crafting.CraftingRecipe
 import wiki.ecohub.rules.condition.Conditions
 import wiki.ecohub.rules.effect.Effects
 import wiki.ecohub.rules.holder.Holder
@@ -159,8 +159,7 @@ class ArmorSet(
     }
 
     private fun constructShard(): ItemStack {
-        val shardLore = config.getStrings("shard.lore")
-        shardLore.replaceAll { Display.PREFIX + it }
+        val shardLore = config.getStrings("shard.lore").map { Display.PREFIX + it }
         val shard = ItemStackBuilder(
             Items.lookup(config.getString("shard.item"))
         )
@@ -196,7 +195,7 @@ class ArmorSet(
         slotConfig: Config,
         advanced: Boolean
     ): ItemStack {
-        val builder: ItemBuilder = ItemStackBuilder(Items.lookup(slotConfig.getString("item")).item).apply {
+        val builder: ItemBuilder = ItemStackBuilder(Items.lookup(slotConfig.getString("item")).getItem()).apply {
             setDisplayName(
                 if (advanced) slotConfig.getFormattedString("advancedName") else slotConfig.getFormattedString(
                     "name"
@@ -318,8 +317,7 @@ class ArmorSet(
             return this
         }
 
-        val result = Items.withComponents(
-            this,
+        val result = this.withComponents(
             components.mapKeys { (key, _) -> if (":" in key) key else "minecraft:$key" }
         )
 
