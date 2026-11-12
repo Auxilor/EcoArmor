@@ -8,7 +8,7 @@ import wiki.ecohub.core.plugin.EcoPlugin
 import wiki.ecohub.core.registry.Registry
 import wiki.ecohub.modules.recipe.Recipes
 
-object ArmorSets : ConfigCategory("set", "sets") {
+object ArmorSets : NativeConfigCategory("sets", "set") {
     /**
      * Registered armor sets.
      */
@@ -43,7 +43,7 @@ object ArmorSets : ConfigCategory("set", "sets") {
         return registry[name]
     }
 
-    override fun clear(plugin: LibreforgePlugin) {
+    override fun clear(plugin: EcoPlugin) {
         for (set in registry.values()) {
             Recipes.unregister(plugin.createNamespacedKey("${set.id}_shard"))
             for (slot in ArmorSlot.entries) {
@@ -54,11 +54,11 @@ object ArmorSets : ConfigCategory("set", "sets") {
         cachedValues = emptyList()
     }
 
-    override fun acceptConfig(plugin: LibreforgePlugin, id: String, config: Config) {
+    override fun acceptConfig(plugin: EcoPlugin, id: String, config: Config) {
         registry.register(ArmorSet(id, config))
     }
 
-    override fun afterReload(plugin: LibreforgePlugin) {
+    override fun afterReload(plugin: EcoPlugin) {
         cachedValues = ImmutableList.copyOf(registry.values())
     }
 }

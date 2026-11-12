@@ -8,7 +8,7 @@ import wiki.ecohub.core.plugin.EcoPlugin
 import wiki.ecohub.core.registry.Registry
 import wiki.ecohub.modules.recipe.Recipes
 
-object Tiers : ConfigCategory("tier", "tiers") {
+object Tiers : NativeConfigCategory("tiers", "tier") {
     /**
      * Registered tiers.
      */
@@ -56,7 +56,7 @@ object Tiers : ConfigCategory("tier", "tiers") {
         return cachedValues
     }
 
-    override fun clear(plugin: LibreforgePlugin) {
+    override fun clear(plugin: EcoPlugin) {
         for (tier in registry.values()) {
             Recipes.unregister(plugin.createNamespacedKey("upgrade_crystal_${tier.id.lowercase()}"))
         }
@@ -64,11 +64,11 @@ object Tiers : ConfigCategory("tier", "tiers") {
         cachedValues = emptyList()
     }
 
-    override fun acceptConfig(plugin: LibreforgePlugin, id: String, config: Config) {
+    override fun acceptConfig(plugin: EcoPlugin, id: String, config: Config) {
         registry.register(Tier(id, config))
     }
 
-    override fun afterReload(plugin: LibreforgePlugin) {
+    override fun afterReload(plugin: EcoPlugin) {
         cachedValues = ImmutableList.copyOf(registry.values())
         defaultTier = getByID("default")!!
 

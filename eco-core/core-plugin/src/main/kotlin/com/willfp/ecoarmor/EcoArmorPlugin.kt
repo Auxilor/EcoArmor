@@ -1,7 +1,6 @@
 package com.willfp.ecoarmor
 
-import com.willfp.eco.core.command.impl.PluginCommand
-import com.willfp.ecoarmor.commands.CommandEcoArmor
+import com.willfp.ecoarmor.commands.ecoArmorCommand
 import com.willfp.ecoarmor.display.ArmorDisplay
 import com.willfp.ecoarmor.libreforge.ConditionArmorIsAdvanced
 import com.willfp.ecoarmor.libreforge.ConditionHasArmorTier
@@ -30,6 +29,7 @@ import com.willfp.ecoarmor.util.DiscoverRecipeListener
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.Listener
 import wiki.ecohub.config.category.NativeConfigCategory
+import wiki.ecohub.core.command.EcoCommand
 import wiki.ecohub.core.plugin.EcoPlugin
 import wiki.ecohub.game.item.Items
 import wiki.ecohub.modules.menus.drag.DragAndDropHandlers
@@ -45,7 +45,7 @@ import wiki.ecohub.ui.display.DisplayModule
 internal lateinit var plugin: EcoArmorPlugin
     private set
 
-class EcoArmorPlugin : LibreforgePlugin() {
+class EcoArmorPlugin : EcoPlugin() {
     init {
         plugin = this
         Items.registerArgParser(TierArgParser())
@@ -98,16 +98,16 @@ class EcoArmorPlugin : LibreforgePlugin() {
         DragAndDropHandlers.unregisterAll("ecoarmor")
     }
 
-    override fun loadConfigCategories(): List<ConfigCategory> {
+    override fun loadConfigCategories(): List<NativeConfigCategory> {
         return listOf(
             Tiers,
             ArmorSets
         )
     }
 
-    override fun loadPluginCommands(): List<PluginCommand> {
+    override fun loadPluginCommands(): List<EcoCommand> {
         return listOf(
-            CommandEcoArmor
+            ecoArmorCommand()
         )
     }
 
