@@ -2,6 +2,8 @@ package com.willfp.ecoarmor.upgrades
 
 import com.willfp.ecoarmor.sets.ArmorUtils
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.ItemMeta
+import wiki.ecohub.game.item.editItemMeta
 import wiki.ecohub.game.item.lookup.LookupArgParser
 import java.util.function.Predicate
 
@@ -24,7 +26,7 @@ class TierArgParser : LookupArgParser {
 
         tier ?: return null
 
-        item.editMeta { ArmorUtils.setTierKey(it, tier) }
+        item.editItemMeta<ItemMeta> { ArmorUtils.setTierKey(it, tier) }
 
         return Predicate { test ->
             val testMeta = test.itemMeta ?: return@Predicate false
