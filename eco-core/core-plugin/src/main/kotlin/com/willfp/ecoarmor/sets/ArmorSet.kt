@@ -1,15 +1,5 @@
 package com.willfp.ecoarmor.sets
 
-import com.willfp.eco.core.config.interfaces.Config
-import com.willfp.eco.core.config.toPlainValues
-import com.willfp.eco.core.display.Display
-import com.willfp.eco.core.items.CustomItem
-import com.willfp.eco.core.items.Items
-import com.willfp.eco.core.items.builder.ItemBuilder
-import com.willfp.eco.core.items.builder.ItemStackBuilder
-import com.willfp.eco.core.recipe.Recipes
-import com.willfp.eco.core.recipe.recipes.CraftingRecipe
-import com.willfp.eco.core.registry.Registrable
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getSetOnItem
@@ -19,16 +9,26 @@ import com.willfp.ecoarmor.sets.ArmorUtils.setAdvanced
 import com.willfp.ecoarmor.sets.ArmorUtils.setTier
 import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
-import com.willfp.libreforge.Holder
-import com.willfp.libreforge.ItemProvidedHolder
-import com.willfp.libreforge.SimpleHolder
-import com.willfp.libreforge.ViolationContext
-import com.willfp.libreforge.conditions.Conditions
-import com.willfp.libreforge.effects.Effects
-import com.willfp.libreforge.notNullMutableMapOf
+import com.willfp.ecoarmor.util.notNullMutableMapOf
 import org.bukkit.Bukkit
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
+import wiki.ecohub.config.Config
+import wiki.ecohub.config.ViolationContext
+import wiki.ecohub.config.toPlainValues
+import wiki.ecohub.core.registry.Registrable
+import wiki.ecohub.game.item.CustomItem
+import wiki.ecohub.game.item.Items
+import wiki.ecohub.game.item.withComponents
+import wiki.ecohub.game.item.builder.ItemBuilder
+import wiki.ecohub.game.item.builder.ItemStackBuilder
+import wiki.ecohub.modules.recipe.Recipes
+import wiki.ecohub.rules.condition.Conditions
+import wiki.ecohub.rules.effect.Effects
+import wiki.ecohub.rules.holder.Holder
+import wiki.ecohub.rules.holder.ItemProvidedHolder
+import wiki.ecohub.rules.holder.SimpleHolder
+import wiki.ecohub.ui.display.Display
 import java.util.Locale
 import java.util.Objects
 import java.util.stream.Collectors
@@ -159,8 +159,7 @@ class ArmorSet(
     }
 
     private fun constructShard(): ItemStack {
-        val shardLore = config.getStrings("shard.lore")
-        shardLore.replaceAll { Display.PREFIX + it }
+        val shardLore = config.getStrings("shard.lore").map { Display.PREFIX + it }
         val shard = ItemStackBuilder(
             Items.lookup(config.getString("shard.item"))
         )
@@ -196,7 +195,7 @@ class ArmorSet(
         slotConfig: Config,
         advanced: Boolean
     ): ItemStack {
-        val builder: ItemBuilder = ItemStackBuilder(Items.lookup(slotConfig.getString("item")).item).apply {
+        val builder: ItemBuilder = ItemStackBuilder(Items.lookup(slotConfig.getString("item")).getItem()).apply {
             setDisplayName(
                 if (advanced) slotConfig.getFormattedString("advancedName") else slotConfig.getFormattedString(
                     "name"
@@ -318,8 +317,7 @@ class ArmorSet(
             return this
         }
 
-        val result = Items.withComponents(
-            this,
+        val result = this.withComponents(
             components.mapKeys { (key, _) -> if (":" in key) key else "minecraft:$key" }
         )
 

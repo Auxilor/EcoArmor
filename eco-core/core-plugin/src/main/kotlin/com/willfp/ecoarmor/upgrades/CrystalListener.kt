@@ -1,7 +1,5 @@
 package com.willfp.ecoarmor.upgrades
 
-import com.willfp.eco.core.dragdrop.DragAndDropHandler
-import com.willfp.eco.core.dragdrop.DragAndDropResult
 import com.willfp.ecoarmor.api.event.ArmorTierEvent
 import com.willfp.ecoarmor.sets.ArmorUtils
 import org.bukkit.Bukkit
@@ -11,6 +9,8 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.EntityPlaceEvent
 import org.bukkit.inventory.ItemStack
+import wiki.ecohub.modules.menus.drag.DragAndDropHandler
+import wiki.ecohub.modules.menus.drag.DragAndDropResult
 
 object CrystalListener : Listener, DragAndDropHandler {
     override val id = "ecoarmor:crystal"

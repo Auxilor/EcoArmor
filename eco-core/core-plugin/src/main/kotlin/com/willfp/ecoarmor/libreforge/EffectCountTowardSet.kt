@@ -1,19 +1,19 @@
 package com.willfp.ecoarmor.libreforge
 
-import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSet
 import com.willfp.ecoarmor.sets.ArmorSets
-import com.willfp.libreforge.ArgType
-import com.willfp.libreforge.Dispatcher
-import com.willfp.libreforge.NoCompileData
-import com.willfp.libreforge.ProvidedHolder
-import com.willfp.libreforge.arguments
-import com.willfp.libreforge.effects.Effect
-import com.willfp.libreforge.effects.Identifiers
-import com.willfp.libreforge.forceRefreshHolders
-import com.willfp.libreforge.get
 import org.bukkit.entity.LivingEntity
+import wiki.ecohub.config.ArgType
+import wiki.ecohub.config.Config
+import wiki.ecohub.config.arguments
+import wiki.ecohub.core.registry.NoCompileData
+import wiki.ecohub.rules.effect.Effect
+import wiki.ecohub.rules.effect.Identifiers
+import wiki.ecohub.rules.holder.Dispatcher
+import wiki.ecohub.rules.holder.HolderStates
+import wiki.ecohub.rules.holder.ProvidedHolder
+import wiki.ecohub.rules.holder.get
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 
@@ -135,7 +135,7 @@ object EffectCountTowardSet : Effect<NoCompileData>("count_toward_set") {
                 pendingRefreshes.remove(dispatcher.uuid)
 
                 if (entity.isValid) {
-                    dispatcher.forceRefreshHolders()
+                    HolderStates.forceMarkAllProviders(dispatcher)
                 }
             }
     }

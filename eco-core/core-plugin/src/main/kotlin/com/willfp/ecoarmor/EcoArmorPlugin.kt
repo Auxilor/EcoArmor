@@ -1,13 +1,20 @@
 package com.willfp.ecoarmor
 
-import com.willfp.eco.core.command.impl.PluginCommand
-import com.willfp.eco.core.display.DisplayModule
-import com.willfp.eco.core.dragdrop.DragAndDropHandlers
-import com.willfp.eco.core.dragdrop.DragAndDropSettings
-import com.willfp.eco.core.items.Items
-import com.willfp.ecoarmor.commands.CommandEcoArmor
+import com.willfp.ecoarmor.commands.ecoArmorCommand
 import com.willfp.ecoarmor.display.ArmorDisplay
+import com.willfp.ecoarmor.libreforge.ConditionArmorIsAdvanced
+import com.willfp.ecoarmor.libreforge.ConditionHasArmorTier
 import com.willfp.ecoarmor.libreforge.ConditionIsWearingSet
+import com.willfp.ecoarmor.libreforge.EffectCountTowardSet
+import com.willfp.ecoarmor.libreforge.EffectSetArmorAdvanced
+import com.willfp.ecoarmor.libreforge.EffectSetArmorTier
+import com.willfp.ecoarmor.libreforge.FilterArmorSet
+import com.willfp.ecoarmor.libreforge.FilterArmorTier
+import com.willfp.ecoarmor.libreforge.MutatorArmorPieceToItem
+import com.willfp.ecoarmor.libreforge.TriggerAdvanceArmor
+import com.willfp.ecoarmor.libreforge.TriggerEquipArmorSet
+import com.willfp.ecoarmor.libreforge.TriggerUnequipArmorSet
+import com.willfp.ecoarmor.libreforge.TriggerUpgradeArmorTier
 import com.willfp.ecoarmor.sets.ArmorSetEquipSoundListeners
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorUtils
@@ -19,33 +26,26 @@ import com.willfp.ecoarmor.upgrades.CrystalListener
 import com.willfp.ecoarmor.upgrades.TierArgParser
 import com.willfp.ecoarmor.upgrades.Tiers
 import com.willfp.ecoarmor.util.DiscoverRecipeListener
-import com.willfp.ecoarmor.libreforge.ConditionArmorIsAdvanced
-import com.willfp.ecoarmor.libreforge.ConditionHasArmorTier
-import com.willfp.ecoarmor.libreforge.EffectCountTowardSet
-import com.willfp.ecoarmor.libreforge.EffectSetArmorAdvanced
-import com.willfp.ecoarmor.libreforge.EffectSetArmorTier
-import com.willfp.ecoarmor.libreforge.FilterArmorSet
-import com.willfp.ecoarmor.libreforge.FilterArmorTier
-import com.willfp.ecoarmor.libreforge.MutatorArmorPieceToItem
-import com.willfp.ecoarmor.libreforge.TriggerAdvanceArmor
-import com.willfp.ecoarmor.libreforge.TriggerEquipArmorSet
-import com.willfp.ecoarmor.libreforge.TriggerUnequipArmorSet
-import com.willfp.ecoarmor.libreforge.TriggerUpgradeArmorTier
-import com.willfp.libreforge.conditions.Conditions
-import com.willfp.libreforge.effects.Effects
-import com.willfp.libreforge.filters.Filters
-import com.willfp.libreforge.loader.LibreforgePlugin
-import com.willfp.libreforge.mutators.Mutators
-import com.willfp.libreforge.triggers.Triggers
-import com.willfp.libreforge.loader.configs.ConfigCategory
-import com.willfp.libreforge.registerSpecificHolderProvider
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.Listener
+import wiki.ecohub.config.category.NativeConfigCategory
+import wiki.ecohub.core.command.EcoCommand
+import wiki.ecohub.core.plugin.EcoPlugin
+import wiki.ecohub.game.item.Items
+import wiki.ecohub.modules.menus.drag.DragAndDropHandlers
+import wiki.ecohub.modules.menus.drag.DragAndDropSettings
+import wiki.ecohub.rules.condition.Conditions
+import wiki.ecohub.rules.effect.Effects
+import wiki.ecohub.rules.filter.Filters
+import wiki.ecohub.rules.holder.registerSpecificHolderProvider
+import wiki.ecohub.rules.mutator.Mutators
+import wiki.ecohub.rules.trigger.Triggers
+import wiki.ecohub.ui.display.DisplayModule
 
 internal lateinit var plugin: EcoArmorPlugin
     private set
 
-class EcoArmorPlugin : LibreforgePlugin() {
+class EcoArmorPlugin : EcoPlugin() {
     init {
         plugin = this
         Items.registerArgParser(TierArgParser())
@@ -98,16 +98,16 @@ class EcoArmorPlugin : LibreforgePlugin() {
         DragAndDropHandlers.unregisterAll("ecoarmor")
     }
 
-    override fun loadConfigCategories(): List<ConfigCategory> {
+    override fun loadConfigCategories(): List<NativeConfigCategory> {
         return listOf(
             Tiers,
             ArmorSets
         )
     }
 
-    override fun loadPluginCommands(): List<PluginCommand> {
+    override fun loadPluginCommands(): List<EcoCommand> {
         return listOf(
-            CommandEcoArmor
+            ecoArmorCommand()
         )
     }
 

@@ -1,11 +1,11 @@
 package com.willfp.ecoarmor.libreforge
 
 import com.willfp.ecoarmor.api.event.ArmorAdvanceEvent
-import com.willfp.libreforge.toDispatcher
-import com.willfp.libreforge.triggers.Trigger
-import com.willfp.libreforge.triggers.TriggerData
-import com.willfp.libreforge.triggers.TriggerParameter
 import org.bukkit.event.EventHandler
+import wiki.ecohub.game.entity.toDispatcher
+import wiki.ecohub.rules.trigger.Trigger
+import wiki.ecohub.rules.trigger.TriggerData
+import wiki.ecohub.rules.trigger.TriggerParameter
 
 object TriggerAdvanceArmor : Trigger("advance_armor") {
     override val description = "Fires when the player advances their armor set to its next stage."

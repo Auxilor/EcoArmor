@@ -1,10 +1,10 @@
 package com.willfp.ecoarmor.sets
 
-import com.willfp.eco.core.sound.PlayableSound
 import com.willfp.ecoarmor.api.event.PlayerArmorSetEquipEvent
 import com.willfp.ecoarmor.api.event.PlayerArmorSetUnequipEvent
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import wiki.ecohub.game.sound.PlayableSound
 
 object ArmorSetEquipSoundListeners: Listener {
     @EventHandler

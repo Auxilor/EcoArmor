@@ -1,27 +1,27 @@
 package com.willfp.ecoarmor.upgrades
 
-import com.willfp.eco.core.config.interfaces.Config
-import com.willfp.eco.core.config.toPlainValues
-import com.willfp.eco.core.display.Display
-import com.willfp.eco.core.items.CustomItem
-import com.willfp.eco.core.items.Items
-import com.willfp.eco.core.recipe.Recipes
-import com.willfp.eco.core.recipe.recipes.CraftingRecipe
-import com.willfp.eco.core.registry.Registrable
-import com.willfp.eco.util.StringUtils
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getCrystalTier
-import com.willfp.libreforge.ConfigWarning
-import com.willfp.libreforge.ViolationContext
-import com.willfp.libreforge.notNullMutableMapOf
+import com.willfp.ecoarmor.util.notNullMutableMapOf
 import org.bukkit.NamespacedKey
-import org.bukkit.Registry
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
+import wiki.ecohub.config.Config
+import wiki.ecohub.config.ConfigWarning
+import wiki.ecohub.config.ViolationContext
+import wiki.ecohub.config.toPlainValues
+import wiki.ecohub.core.registry.Registrable
+import wiki.ecohub.game.entity.attributeOf
+import wiki.ecohub.game.item.CustomItem
+import wiki.ecohub.game.item.Items
+import wiki.ecohub.modules.recipe.Recipes
+import wiki.ecohub.modules.recipe.crafting.CraftingRecipe
+import wiki.ecohub.ui.display.Display
+import wiki.ecohub.ui.text.StringUtils
 import java.util.Locale
 import java.util.Objects
 
@@ -80,14 +80,14 @@ class Tier(
      */
     init {
         val key = plugin.namespacedKeyFactory.create("upgrade_crystal")
-        val out = Items.lookup(this.config.getString("crystal.item")).item
+        val out = Items.lookup(this.config.getString("crystal.item")).getItem()
         val outMeta = out.itemMeta!!
         val container = outMeta.persistentDataContainer
         container.set(key, PersistentDataType.STRING, id)
         outMeta.setDisplayName(this.config.getFormattedString("crystal.name"))
         val lore: MutableList<String> = ArrayList()
         for (loreLine in this.config.getStrings("crystal.lore")) {
-            lore.add(Display.PREFIX + StringUtils.format(loreLine!!))
+            lore.add(Display.PREFIX + StringUtils.format(loreLine))
         }
         outMeta.lore = lore
         out.itemMeta = outMeta
@@ -209,7 +209,10 @@ class Tier(
         val type = modifier["type"]?.toString()
             ?: return warn(context, path, "a modifier is missing its type")
 
-        val attribute = namespacedKey(type)?.let { Registry.ATTRIBUTE.get(it) }
+        val attributeKey = namespacedKey(type)
+            ?: return warn(context, path, "$type is not an attribute")
+
+        val attribute = attributeOf(attributeKey.toString())
             ?: return warn(context, path, "$type is not an attribute")
 
         val amount = (modifier["amount"] as? Number)?.toDouble()
@@ -227,7 +230,7 @@ class Tier(
         val key = NamespacedKey(
             "ecoarmor",
             modifier["id"]?.toString()?.substringAfter(':')
-                ?: "$id.${attribute.key.key}.${slot.name.lowercase(Locale.getDefault())}"
+                ?: "$id.${attributeKey.key}.${slot.name.lowercase(Locale.getDefault())}"
         )
 
         return TierModifier(attribute, key, amount, operation, slotGroup)

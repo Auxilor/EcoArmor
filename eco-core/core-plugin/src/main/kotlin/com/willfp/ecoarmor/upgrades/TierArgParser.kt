@@ -1,15 +1,16 @@
 package com.willfp.ecoarmor.upgrades
 
-import com.willfp.eco.core.items.args.LookupArgParser
 import com.willfp.ecoarmor.sets.ArmorUtils
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
+import wiki.ecohub.game.item.editItemMeta
+import wiki.ecohub.game.item.lookup.LookupArgParser
 import java.util.function.Predicate
 
 class TierArgParser : LookupArgParser {
     override fun parseArguments(
-        args: Array<String>,
-        meta: ItemMeta
+        args: Array<out String>,
+        item: ItemStack
     ): Predicate<ItemStack>? {
         var tier: Tier? = null
 
@@ -25,7 +26,7 @@ class TierArgParser : LookupArgParser {
 
         tier ?: return null
 
-        ArmorUtils.setTierKey(meta, tier)
+        item.editItemMeta<ItemMeta> { ArmorUtils.setTierKey(it, tier) }
 
         return Predicate { test ->
             val testMeta = test.itemMeta ?: return@Predicate false
@@ -33,8 +34,8 @@ class TierArgParser : LookupArgParser {
         }
     }
 
-    override fun serializeBack(meta: ItemMeta): String? {
-        val tier = ArmorUtils.getTier(meta) ?: return null
+    override fun serializeBack(item: ItemStack): String? {
+        val tier = item.itemMeta?.let { ArmorUtils.getTier(it) } ?: return null
 
         return "tier:${tier.id}"
     }

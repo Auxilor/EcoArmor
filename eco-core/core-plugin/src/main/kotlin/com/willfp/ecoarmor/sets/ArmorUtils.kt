@@ -9,12 +9,7 @@ import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.TierModifier
 import com.willfp.ecoarmor.upgrades.TierProperties
 import com.willfp.ecoarmor.upgrades.Tiers
-import com.willfp.libreforge.Holder
-import com.willfp.libreforge.ItemProvidedHolder
-import com.willfp.libreforge.ProvidedHolder
-import com.willfp.libreforge.SimpleProvidedHolder
 import org.bukkit.NamespacedKey
-import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
@@ -22,6 +17,11 @@ import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
+import wiki.ecohub.game.entity.attributeOf
+import wiki.ecohub.rules.holder.Holder
+import wiki.ecohub.rules.holder.ItemProvidedHolder
+import wiki.ecohub.rules.holder.ProvidedHolder
+import wiki.ecohub.rules.holder.SimpleProvidedHolder
 import java.util.*
 
 object ArmorUtils {
@@ -570,16 +570,16 @@ object ArmorUtils {
         val slotSuffix = slot.name.lowercase(Locale.getDefault())
 
         fun addModifier(
-            attr: Attribute,
+            attribute: String,
             value: Int?,
             op: AttributeModifier.Operation,
             keySuffix: String = "",
             scaler: (Int) -> Double = { it.toDouble() }
         ) {
             value?.takeIf { it != 0 }?.let { v ->
-                val keyName = "${attr.key.key}.${slotSuffix}${keySuffix}"
+                val keyName = "${attribute}.${slotSuffix}${keySuffix}"
                 meta.addAttributeModifier(
-                    attr,
+                    attributeOf("minecraft:$attribute") ?: return,
                     AttributeModifier(
                         NamespacedKey(NAMESPACE, keyName),
                         scaler(v),
@@ -590,29 +590,29 @@ object ArmorUtils {
             }
         }
 
-        addModifier(Attribute.ARMOR, props.armor, AttributeModifier.Operation.ADD_NUMBER)
-        addModifier(Attribute.ARMOR_TOUGHNESS, props.toughness, AttributeModifier.Operation.ADD_NUMBER)
-        addModifier(Attribute.MAX_HEALTH, props.maxHealth, AttributeModifier.Operation.ADD_NUMBER)
-        addModifier(Attribute.ATTACK_DAMAGE, props.attackDamageFlat, AttributeModifier.Operation.ADD_NUMBER, ".flat")
-        addModifier(Attribute.ATTACK_SPEED, props.attackSpeedFlat, AttributeModifier.Operation.ADD_NUMBER, ".flat")
-        addModifier(Attribute.SAFE_FALL_DISTANCE, props.safeFallDistance, AttributeModifier.Operation.ADD_NUMBER)
-        addModifier(Attribute.OXYGEN_BONUS, props.oxygenBonus, AttributeModifier.Operation.ADD_NUMBER)
+        addModifier("armor", props.armor, AttributeModifier.Operation.ADD_NUMBER)
+        addModifier("armor_toughness", props.toughness, AttributeModifier.Operation.ADD_NUMBER)
+        addModifier("max_health", props.maxHealth, AttributeModifier.Operation.ADD_NUMBER)
+        addModifier("attack_damage", props.attackDamageFlat, AttributeModifier.Operation.ADD_NUMBER, ".flat")
+        addModifier("attack_speed", props.attackSpeedFlat, AttributeModifier.Operation.ADD_NUMBER, ".flat")
+        addModifier("safe_fall_distance", props.safeFallDistance, AttributeModifier.Operation.ADD_NUMBER)
+        addModifier("oxygen_bonus", props.oxygenBonus, AttributeModifier.Operation.ADD_NUMBER)
 
         val pctScaler: (Int) -> Double = { it / 100.0 }
-        addModifier(Attribute.MOVEMENT_SPEED, props.speedPercentage, AttributeModifier.Operation.ADD_SCALAR, ".pct", pctScaler)
-        addModifier(Attribute.ATTACK_SPEED, props.attackSpeedPercentage, AttributeModifier.Operation.ADD_SCALAR, ".pct", pctScaler)
-        addModifier(Attribute.ATTACK_DAMAGE, props.attackDamagePercentage, AttributeModifier.Operation.ADD_SCALAR, ".pct", pctScaler)
-        addModifier(Attribute.ATTACK_KNOCKBACK, props.attackKnockbackPercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
-        addModifier(Attribute.JUMP_STRENGTH, props.jumpStrength, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
-        addModifier(Attribute.GRAVITY, props.gravityPercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
-        addModifier(Attribute.BURNING_TIME, props.burningTimePercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
-        addModifier(Attribute.MOVEMENT_EFFICIENCY, props.movementEfficiency, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
-        addModifier(Attribute.ENTITY_INTERACTION_RANGE, props.entityInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
-        addModifier(Attribute.BLOCK_INTERACTION_RANGE, props.blockInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier("movement_speed", props.speedPercentage, AttributeModifier.Operation.ADD_SCALAR, ".pct", pctScaler)
+        addModifier("attack_speed", props.attackSpeedPercentage, AttributeModifier.Operation.ADD_SCALAR, ".pct", pctScaler)
+        addModifier("attack_damage", props.attackDamagePercentage, AttributeModifier.Operation.ADD_SCALAR, ".pct", pctScaler)
+        addModifier("attack_knockback", props.attackKnockbackPercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier("jump_strength", props.jumpStrength, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier("gravity", props.gravityPercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier("burning_time", props.burningTimePercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier("movement_efficiency", props.movementEfficiency, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier("entity_interaction_range", props.entityInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
+        addModifier("block_interaction_range", props.blockInteractionRangePercentage, AttributeModifier.Operation.ADD_SCALAR, "", pctScaler)
 
         val fracScaler: (Int) -> Double = { it / 100.0 }
-        addModifier(Attribute.KNOCKBACK_RESISTANCE, props.knockbackResistance, AttributeModifier.Operation.ADD_NUMBER, "", fracScaler)
-        addModifier(Attribute.EXPLOSION_KNOCKBACK_RESISTANCE, props.explosionKnockbackResistance, AttributeModifier.Operation.ADD_NUMBER, "", fracScaler)
+        addModifier("knockback_resistance", props.knockbackResistance, AttributeModifier.Operation.ADD_NUMBER, "", fracScaler)
+        addModifier("explosion_knockback_resistance", props.explosionKnockbackResistance, AttributeModifier.Operation.ADD_NUMBER, "", fracScaler)
 
         for (modifier in props.modifiers) {
             meta.addAttributeModifier(modifier.attribute, modifier.toBukkit())

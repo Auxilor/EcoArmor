@@ -1,14 +1,14 @@
 package com.willfp.ecoarmor.libreforge
 
-import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.ecoarmor.sets.ArmorUtils
-import com.willfp.libreforge.ArgType
-import com.willfp.libreforge.NoCompileData
-import com.willfp.libreforge.arguments
-import com.willfp.libreforge.mutators.Mutator
-import com.willfp.libreforge.mutators.parameterTransformers
-import com.willfp.libreforge.triggers.TriggerData
-import com.willfp.libreforge.triggers.TriggerParameter
+import wiki.ecohub.config.ArgType
+import wiki.ecohub.config.Config
+import wiki.ecohub.config.arguments
+import wiki.ecohub.core.registry.NoCompileData
+import wiki.ecohub.rules.mutator.Mutator
+import wiki.ecohub.rules.mutator.parameterTransformers
+import wiki.ecohub.rules.trigger.TriggerData
+import wiki.ecohub.rules.trigger.TriggerParameter
 
 object MutatorArmorPieceToItem : Mutator<NoCompileData>("armor_piece_to_item") {
     override val description = "Sets the item to the armor piece worn in a given slot."

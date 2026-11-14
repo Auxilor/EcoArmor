@@ -1,7 +1,5 @@
 package com.willfp.ecoarmor.upgrades
 
-import com.willfp.eco.core.dragdrop.DragAndDropHandler
-import com.willfp.eco.core.dragdrop.DragAndDropResult
 import com.willfp.ecoarmor.api.event.ArmorAdvanceEvent
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSets
@@ -10,6 +8,8 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
+import wiki.ecohub.modules.menus.drag.DragAndDropHandler
+import wiki.ecohub.modules.menus.drag.DragAndDropResult
 
 object AdvancementShardListener : DragAndDropHandler {
     override val id = "ecoarmor:shard"

@@ -1,11 +1,11 @@
 package com.willfp.ecoarmor.libreforge
 
 import com.willfp.ecoarmor.api.event.ArmorTierEvent
-import com.willfp.libreforge.toDispatcher
-import com.willfp.libreforge.triggers.Trigger
-import com.willfp.libreforge.triggers.TriggerData
-import com.willfp.libreforge.triggers.TriggerParameter
 import org.bukkit.event.EventHandler
+import wiki.ecohub.game.entity.toDispatcher
+import wiki.ecohub.rules.trigger.Trigger
+import wiki.ecohub.rules.trigger.TriggerData
+import wiki.ecohub.rules.trigger.TriggerParameter
 
 object TriggerUpgradeArmorTier : Trigger("upgrade_armor_tier") {
     override val description = "Fires when the player upgrades the tier of an armor piece."

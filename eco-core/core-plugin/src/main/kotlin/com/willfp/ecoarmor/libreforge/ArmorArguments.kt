@@ -1,10 +1,10 @@
 package com.willfp.ecoarmor.libreforge
 
-import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils
 import com.willfp.ecoarmor.upgrades.Tiers
 import org.bukkit.inventory.ItemStack
+import wiki.ecohub.config.Config
 
 /**
  * The slots accepted by the slot argument, for documentation.

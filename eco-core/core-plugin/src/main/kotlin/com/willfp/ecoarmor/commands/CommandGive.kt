@@ -1,232 +1,139 @@
 package com.willfp.ecoarmor.commands
 
-import com.willfp.eco.core.command.impl.Subcommand
-import com.willfp.ecoarmor.plugin
-import com.willfp.ecoarmor.runOwned
+import com.willfp.ecoarmor.sets.ArmorSet
 import com.willfp.ecoarmor.sets.ArmorSets
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.sets.ArmorUtils
-import com.willfp.ecoarmor.upgrades.Tier
 import com.willfp.ecoarmor.upgrades.Tiers
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.inventory.ItemStack
-import org.bukkit.util.StringUtil
+import wiki.ecohub.core.command.CommandBuilder
+import wiki.ecohub.core.command.CommandContext
+import wiki.ecohub.game.entity.runOwned
 
-object CommandGive : Subcommand(
-    plugin,
-    "give",
-    "ecoarmor.command.give",
-    false
+private val amountCompletions = listOf("1", "2", "3", "4", "5", "10", "32", "64")
+
+private val booleanCompletions = listOf("true", "false")
+
+private const val SLOT_INDEX = 2
+private const val ADVANCED_INDEX = 3
+private const val TIER_INDEX = 4
+private const val SET_AMOUNT_INDEX = 5
+
+private class Gift(val name: String, val items: List<ItemStack>, val amount: Int)
+
+/**
+ * `give <player> set:<id> [slot|full] [advanced] [tier] [amount]`, or `crystal:<tier>` /
+ * `shard:<set>` with an optional amount. Gives on the receiver's region, as the console runs off
+ * it on Folia.
+ */
+internal fun CommandBuilder<CommandSender>.giveCommand() = subcommand(
+    name = "give",
+    permission = "ecoarmor.command.give"
 ) {
-    private val items: Collection<String>
-        get() = ArmorSets.values().map { "set:${it.id}" } union ArmorSets.values()
-            .map { "shard:${it.id}" } union Tiers.values().map { "crystal:${it.id}" }
+    executes {
+        val receiverName = argument(0, "needs-player")
+        val itemArg = argument(1, "needs-item")
+        val receiver = Bukkit.getPlayer(receiverName) ?: fail("invalid-player")
 
-    private val slots: Collection<String>
-        get() = ArmorSlot.entries.map { it.name.lowercase() }.toMutableList().apply { add("full") }
-
-    private val tiers: Collection<String>
-        get() = Tiers.values().map { it.id }
-
-    private val numbers = listOf(
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "10",
-        "32",
-        "64"
-    )
-
-    override fun onExecute(sender: CommandSender, args: List<String>) {
-        if (args.isEmpty()) {
-            sender.sendMessage(plugin.langYml.getMessage("needs-player"))
-            return
+        val split = itemArg.split(":").takeIf { it.size > 1 } ?: fail("invalid-item")
+        val gift = when (split[0].lowercase()) {
+            "set" -> setGift(split[1])
+            "crystal" -> crystalGift(split[1])
+            "shard" -> shardGift(split[1])
+            else -> fail("invalid-item")
         }
 
-        if (args.size == 1) {
-            sender.sendMessage(plugin.langYml.getMessage("needs-item"))
-            return
-        }
+        reply("give-success", "item" to gift.name, "recipient" to receiver.name)
 
-        val recieverName = args[0]
-        val reciever = Bukkit.getPlayer(recieverName)
-
-        if (reciever == null) {
-            sender.sendMessage(plugin.langYml.getMessage("invalid-player"))
-            return
-        }
-
-        val fullItemKey = args[1]
-
-        if (!fullItemKey.contains(":")) {
-            sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
-            return
-        }
-
-        val fullItemSplit = fullItemKey.split(":").toTypedArray()
-
-        if (fullItemSplit.size == 1) {
-            sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
-            return
-        }
-
-        val itemNamespace = fullItemSplit[0]
-        val itemKey = fullItemSplit[1]
-        val toGive = mutableListOf<ItemStack>()
-        var amount = 1
-
-        if (itemNamespace.equals("set", ignoreCase = true)) {
-            val set = ArmorSets.getByID(itemKey)
-
-            if (set == null) {
-                sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
-                return
-            }
-
-            var advanced = false
-            var tier: Tier? = null
-            val slots = mutableListOf<ArmorSlot>()
-            if (args.size >= 3) {
-                val slot = getSlot(args[2])
-                if (slot == null) {
-                    if (!args[2].equals("full", ignoreCase = true)) {
-                        sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
-                        return
-                    }
-                }
-                if (slot == null) {
-                    slots.addAll(ArmorSlot.entries.filter { it != ArmorSlot.ELYTRA || set.elytraEnabled })
-                } else {
-                    if (slot == ArmorSlot.ELYTRA && !set.elytraEnabled) {
-                        sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
-                        return
-                    }
-                    slots.add(slot)
-                }
-            } else {
-                slots.addAll(ArmorSlot.entries.filter { it != ArmorSlot.ELYTRA || set.elytraEnabled })
-            }
-            if (args.size >= 4) {
-                advanced = args[3].toBoolean()
-            }
-            if (args.size >= 5) {
-                tier = Tiers.getByID(args[4])
-            }
-            if (args.size >= 6) {
-                amount = args[5].toIntOrNull() ?: amount
-            }
-            for (slot in slots) {
-                val item = (if (advanced) set.getAdvancedItemStack(slot) else set.getItemStack(slot)).clone()
-                val currTier = tier ?: set.getDefaultTier(getSlot(item))
-                ArmorUtils.setTier(item, currTier)
-                toGive.add(item)
-            }
-
-            val message = plugin.langYml.getMessage("give-success")
-                .replace("%item%", set.id + " Set")
-                .replace("%recipient%", reciever.name)
-            sender.sendMessage(message)
-        }
-        if (itemNamespace.equals("crystal", ignoreCase = true)) {
-            val tier = Tiers.getByID(itemKey)
-            if (tier == null) {
-                sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
-                return
-            }
-            var message = plugin.langYml.getMessage("give-success")
-            @Suppress("DEPRECATION")
-            message =
-                message.replace("%item%", tier.crystal.itemMeta!!.displayName).replace("%recipient%", reciever.name)
-            sender.sendMessage(message)
-            toGive.add(tier.crystal.clone())
-            if (args.size >= 3) {
-                amount = args[2].toIntOrNull() ?: amount
-            }
-        }
-        if (itemNamespace.equals("shard", ignoreCase = true)) {
-            val set = ArmorSets.getByID(itemKey)
-            if (set == null) {
-                sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
-                return
-            }
-            var message = plugin.langYml.getMessage("give-success")
-            @Suppress("DEPRECATION")
-            message = message.replace("%item%", set.advancementShardItem.itemMeta!!.displayName)
-                .replace("%recipient%", reciever.name)
-            sender.sendMessage(message)
-            toGive.add(set.advancementShardItem.clone())
-            if (args.size >= 3) {
-                amount = args[2].toIntOrNull() ?: amount
-            }
-        }
-        if (toGive.isEmpty()) {
-            sender.sendMessage(plugin.langYml.getMessage("invalid-item"))
-            return
-        }
-        // The console runs off the player's region on Folia.
-        reciever.runOwned {
-            for (item in toGive) {
-                item.amount = amount
-                reciever.inventory.addItem(item)
+        receiver.runOwned {
+            for (item in gift.items) {
+                item.amount = gift.amount
+                receiver.inventory.addItem(item)
             }
         }
     }
 
-    override fun tabComplete(sender: CommandSender, args: List<String>): List<String> {
-        val completions = mutableListOf<String>()
-        if (args.isEmpty()) {
-            // Currently, this case is not ever reached
-            return items.toList()
+    completes {
+        when {
+            args.size == 1 -> playerNames()
+            args.size == 2 -> itemCompletions()
+            args[1].startsWith("set:") -> setCompletions(args.size, args[1].removePrefix("set:"))
+            args.size == SLOT_INDEX + 1 -> amountCompletions
+            else -> emptyList()
         }
-        if (args.size == 1) {
-            StringUtil.copyPartialMatches(
-                args[0],
-                Bukkit.getOnlinePlayers().map { it.name },
-                completions
-            )
-            return completions
-        }
-        if (args.size == 2) {
-            StringUtil.copyPartialMatches(args[1], items, completions)
-            completions.sort()
-            return completions
-        }
-        if (args[1].startsWith("set:")) {
-            if (args.size == 3) {
-                val set = ArmorSets.getByID(args[1].removePrefix("set:"))
-                val availableSlots = if (set != null && !set.elytraEnabled) {
-                    slots.filter { !it.equals("elytra", ignoreCase = true) }
-                } else {
-                    slots
-                }
-                StringUtil.copyPartialMatches(args[2], availableSlots, completions)
-                completions.sort()
-                return completions
-            }
-            if (args.size == 4) {
-                StringUtil.copyPartialMatches(args[3], listOf("true", "false"), completions)
-                completions.sort()
-                return completions
-            }
-            if (args.size == 5) {
-                StringUtil.copyPartialMatches(args[4], tiers, completions)
-                completions.sort()
-                return completions
-            }
-            if (args.size == 6) {
-                StringUtil.copyPartialMatches(args[5], numbers, completions)
-                return completions
-            }
-        } else {
-            if (args.size == 3) {
-                StringUtil.copyPartialMatches(args[2], numbers, completions)
-                return completions
-            }
-        }
-        return emptyList()
     }
 }
+
+private fun itemCompletions(): List<String> =
+    ArmorSets.values().map { "set:${it.id}" } +
+        ArmorSets.values().map { "shard:${it.id}" } +
+        Tiers.values().map { "crystal:${it.id}" }
+
+private fun setCompletions(size: Int, setId: String): List<String> = when (size) {
+    SLOT_INDEX + 1 -> {
+        val set = ArmorSets.getByID(setId)
+        ArmorSlot.entries
+            .filter { it != ArmorSlot.ELYTRA || set == null || set.elytraEnabled }
+            .map { it.name.lowercase() } + "full"
+    }
+
+    ADVANCED_INDEX + 1 -> {
+        booleanCompletions
+    }
+
+    TIER_INDEX + 1 -> {
+        Tiers.values().map { it.id }
+    }
+
+    SET_AMOUNT_INDEX + 1 -> {
+        amountCompletions
+    }
+
+    else -> {
+        emptyList()
+    }
+}
+
+private fun ArmorSet.slotsFor(arg: String?, fail: () -> Nothing): List<ArmorSlot> {
+    val all = ArmorSlot.entries.filter { it != ArmorSlot.ELYTRA || elytraEnabled }
+    val slot = arg?.let { getSlot(it) }
+
+    return when {
+        arg == null || slot == null && arg.equals("full", ignoreCase = true) -> all
+        slot == null || slot == ArmorSlot.ELYTRA && !elytraEnabled -> fail()
+        else -> listOf(slot)
+    }
+}
+
+private fun CommandContext<CommandSender>.setGift(id: String): Gift {
+    val set = ArmorSets.getByID(id) ?: fail("invalid-item")
+    val slots = set.slotsFor(args.getOrNull(SLOT_INDEX)) { fail("invalid-item") }
+    val advanced = args.getOrNull(ADVANCED_INDEX).toBoolean()
+    val tier = args.getOrNull(TIER_INDEX)?.let { Tiers.getByID(it) }
+
+    val items = slots.map { slot ->
+        val item = (if (advanced) set.getAdvancedItemStack(slot) else set.getItemStack(slot)).clone()
+        ArmorUtils.setTier(item, tier ?: set.getDefaultTier(getSlot(item)))
+        item
+    }
+
+    return Gift("${set.id} Set", items, args.getOrNull(SET_AMOUNT_INDEX)?.toIntOrNull() ?: 1)
+}
+
+@Suppress("DEPRECATION")
+private fun CommandContext<CommandSender>.crystalGift(id: String): Gift {
+    val tier = Tiers.getByID(id) ?: fail("invalid-item")
+    return Gift(tier.crystal.itemMeta!!.displayName, listOf(tier.crystal.clone()), amountAt(SLOT_INDEX))
+}
+
+@Suppress("DEPRECATION")
+private fun CommandContext<CommandSender>.shardGift(id: String): Gift {
+    val set = ArmorSets.getByID(id) ?: fail("invalid-item")
+    val shard = set.advancementShardItem
+    return Gift(shard.itemMeta!!.displayName, listOf(shard.clone()), amountAt(SLOT_INDEX))
+}
+
+private fun CommandContext<CommandSender>.amountAt(index: Int): Int = args.getOrNull(index)?.toIntOrNull() ?: 1
