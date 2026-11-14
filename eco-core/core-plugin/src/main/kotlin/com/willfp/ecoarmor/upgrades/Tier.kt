@@ -5,7 +5,6 @@ import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getCrystalTier
 import com.willfp.ecoarmor.util.notNullMutableMapOf
 import org.bukkit.NamespacedKey
-import org.bukkit.Registry
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.EquipmentSlotGroup
@@ -16,6 +15,7 @@ import wiki.ecohub.config.ConfigWarning
 import wiki.ecohub.config.ViolationContext
 import wiki.ecohub.config.toPlainValues
 import wiki.ecohub.core.registry.Registrable
+import wiki.ecohub.game.entity.attributeOf
 import wiki.ecohub.game.item.CustomItem
 import wiki.ecohub.game.item.Items
 import wiki.ecohub.modules.recipe.Recipes
@@ -209,7 +209,10 @@ class Tier(
         val type = modifier["type"]?.toString()
             ?: return warn(context, path, "a modifier is missing its type")
 
-        val attribute = namespacedKey(type)?.let { Registry.ATTRIBUTE.get(it) }
+        val attributeKey = namespacedKey(type)
+            ?: return warn(context, path, "$type is not an attribute")
+
+        val attribute = attributeOf(attributeKey.toString())
             ?: return warn(context, path, "$type is not an attribute")
 
         val amount = (modifier["amount"] as? Number)?.toDouble()
@@ -227,7 +230,7 @@ class Tier(
         val key = NamespacedKey(
             "ecoarmor",
             modifier["id"]?.toString()?.substringAfter(':')
-                ?: "$id.${attribute.key.key}.${slot.name.lowercase(Locale.getDefault())}"
+                ?: "$id.${attributeKey.key}.${slot.name.lowercase(Locale.getDefault())}"
         )
 
         return TierModifier(attribute, key, amount, operation, slotGroup)
