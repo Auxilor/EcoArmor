@@ -7,7 +7,6 @@ import com.willfp.eco.core.display.DisplayPriority
 import com.willfp.eco.core.fast.fast
 import com.willfp.eco.util.NumberUtils
 import com.willfp.eco.util.formatEcoRich
-import com.willfp.eco.util.toLegacy
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot
 import com.willfp.ecoarmor.sets.ArmorUtils
@@ -76,8 +75,8 @@ object ArmorDisplay : DisplayModule(plugin, DisplayPriority.LOWEST) {
         }
 
         context.lore.prepend(
-            slotStack.storedLore()
-                .map { it.toLegacy().replace("%tier%", tierPlaceholder) }
+            set.getLore(slot, ArmorUtils.isAdvanced(meta))
+                .map { it.replace("%tier%", tierPlaceholder) }
                 .formatEcoRich(context.placeholderContext)
         )
 
