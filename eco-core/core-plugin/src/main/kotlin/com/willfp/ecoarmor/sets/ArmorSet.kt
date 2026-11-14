@@ -3,6 +3,7 @@ package com.willfp.ecoarmor.sets
 import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.eco.core.config.toPlainValues
 import com.willfp.eco.core.display.Display
+import com.willfp.eco.core.fast.fast
 import com.willfp.eco.core.items.CustomItem
 import com.willfp.eco.core.items.Items
 import com.willfp.eco.core.items.builder.ItemBuilder
@@ -10,6 +11,7 @@ import com.willfp.eco.core.items.builder.ItemStackBuilder
 import com.willfp.eco.core.recipe.Recipes
 import com.willfp.eco.core.recipe.recipes.CraftingRecipe
 import com.willfp.eco.core.registry.Registrable
+import com.willfp.eco.util.toLegacy
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getSetOnItem
@@ -128,8 +130,8 @@ class ArmorSet(
             }
             val advancedItem = construct(slot, slotConfig, true)
             advancedItems[slot] = advancedItem
-            unformattedLore[slot] = pieceLore(slotConfig, advanced = false, formatted = false)
-            unformattedAdvancedLore[slot] = pieceLore(slotConfig, advanced = true, formatted = false)
+            unformattedLore[slot] = displayLore(slotConfig, item, advanced = false)
+            unformattedAdvancedLore[slot] = displayLore(slotConfig, advancedItem, advanced = true)
 
             slotHolders[slot] = SimpleHolder(
                 plugin.createNamespacedKey("${id}_${slot.name.lowercase()}"),
@@ -303,6 +305,21 @@ class ArmorSet(
 
     private fun Config.loreStrings(path: String, formatted: Boolean): List<String> =
         if (formatted) getFormattedStrings(path) else getStrings(path)
+
+    private fun displayLore(
+        slotConfig: Config,
+        piece: ItemStack,
+        advanced: Boolean
+    ): List<String> {
+        val componentKeys = slotConfig.getSubsection("components").getKeys(false) +
+            if (advanced) slotConfig.getSubsection("advancedComponents").getKeys(false) else emptyList()
+
+        return if (componentKeys.any { it == "lore" || it == "minecraft:lore" }) {
+            piece.fast().loreComponents.map { Display.stripDisplayMarker(it).toLegacy() }
+        } else {
+            pieceLore(slotConfig, advanced = advanced, formatted = false)
+        }
+    }
 
     /**
      * Apply the components a slot configures to the piece it built.
