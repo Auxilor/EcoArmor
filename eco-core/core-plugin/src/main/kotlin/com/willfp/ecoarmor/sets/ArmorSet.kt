@@ -31,7 +31,6 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.Locale
 import java.util.Objects
-import java.util.stream.Collectors
 
 @Suppress("DEPRECATION")
 class ArmorSet(
@@ -55,6 +54,10 @@ class ArmorSet(
 
     /** Holders in advanced set. */
     private val advancedSlotHolders = notNullMutableMapOf<ArmorSlot, Holder>()
+
+    private val unformattedLore = notNullMutableMapOf<ArmorSlot, List<String>>()
+
+    private val unformattedAdvancedLore = notNullMutableMapOf<ArmorSlot, List<String>>()
 
     /** Advancement shard item. */
     val advancementShardItem: ItemStack
@@ -125,6 +128,8 @@ class ArmorSet(
             }
             val advancedItem = construct(slot, slotConfig, true)
             advancedItems[slot] = advancedItem
+            unformattedLore[slot] = pieceLore(slotConfig, advanced = false, formatted = false)
+            unformattedAdvancedLore[slot] = pieceLore(slotConfig, advanced = true, formatted = false)
 
             slotHolders[slot] = SimpleHolder(
                 plugin.createNamespacedKey("${id}_${slot.name.lowercase()}"),
@@ -202,25 +207,7 @@ class ArmorSet(
                     "name"
                 )
             )
-            val defaultLore = slotConfig.getFormattedStrings("lore").stream().map { s: String -> Display.PREFIX + s }
-                .collect(Collectors.toList())
-            val setAdvancedLore = config.getFormattedStrings("advancedLore")
-            val pieceAdvancedLore = slotConfig.getFormattedStrings("advancedLore")
-            val advancedLore = when {
-                pieceAdvancedLore.isEmpty() -> setAdvancedLore
-                plugin.configYml.getString("per-piece-advanced-lore.mode").equals("replace", ignoreCase = true) -> pieceAdvancedLore
-                plugin.configYml.getString("per-piece-advanced-lore.order").equals("piece-first", ignoreCase = true) -> pieceAdvancedLore + setAdvancedLore
-                else -> setAdvancedLore + pieceAdvancedLore
-            }.map { s: String -> Display.PREFIX + s }
-
-            if (advanced) {
-                if (!plugin.configYml.getBool("advanced-lore-only")) {
-                    addLoreLines(defaultLore)
-                }
-                addLoreLines(advancedLore)
-            } else {
-                addLoreLines(defaultLore)
-            }
+            addLoreLines(pieceLore(slotConfig, advanced = advanced, formatted = true).map { Display.PREFIX + it })
 
             setDisplayName {
                 if (advanced) slotConfig.getFormattedString("advancedName") else slotConfig.getFormattedString(
@@ -290,6 +277,32 @@ class ArmorSet(
         }
         return itemStack
     }
+
+    private fun pieceLore(
+        slotConfig: Config,
+        advanced: Boolean,
+        formatted: Boolean
+    ): List<String> {
+        val defaultLore = slotConfig.loreStrings("lore", formatted)
+
+        if (!advanced) {
+            return defaultLore
+        }
+
+        val setAdvancedLore = config.loreStrings("advancedLore", formatted)
+        val pieceAdvancedLore = slotConfig.loreStrings("advancedLore", formatted)
+        val advancedLore = when {
+            pieceAdvancedLore.isEmpty() -> setAdvancedLore
+            plugin.configYml.getString("per-piece-advanced-lore.mode").equals("replace", ignoreCase = true) -> pieceAdvancedLore
+            plugin.configYml.getString("per-piece-advanced-lore.order").equals("piece-first", ignoreCase = true) -> pieceAdvancedLore + setAdvancedLore
+            else -> setAdvancedLore + pieceAdvancedLore
+        }
+
+        return if (plugin.configYml.getBool("advanced-lore-only")) advancedLore else defaultLore + advancedLore
+    }
+
+    private fun Config.loreStrings(path: String, formatted: Boolean): List<String> =
+        if (formatted) getFormattedStrings(path) else getStrings(path)
 
     /**
      * Apply the components a slot configures to the piece it built.
@@ -379,6 +392,16 @@ class ArmorSet(
     fun getAdvancedItemStack(slot: ArmorSlot): ItemStack {
         return advancedItems[slot]
     }
+
+    /**
+     * Get the unformatted lore for slot.
+     *
+     * @param slot     The slot.
+     * @param advanced If the piece is advanced.
+     * @return The lore.
+     */
+    fun getLore(slot: ArmorSlot, advanced: Boolean): List<String> =
+        if (advanced) unformattedAdvancedLore[slot] else unformattedLore[slot]
 
     /**
      * Get default tier for slot.
