@@ -3,7 +3,6 @@ package com.willfp.ecoarmor.sets
 import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.eco.core.config.toPlainValues
 import com.willfp.eco.core.display.Display
-import com.willfp.eco.core.fast.fast
 import com.willfp.eco.core.items.CustomItem
 import com.willfp.eco.core.items.Items
 import com.willfp.eco.core.items.builder.ItemBuilder
@@ -11,7 +10,6 @@ import com.willfp.eco.core.items.builder.ItemStackBuilder
 import com.willfp.eco.core.recipe.Recipes
 import com.willfp.eco.core.recipe.recipes.CraftingRecipe
 import com.willfp.eco.core.registry.Registrable
-import com.willfp.eco.util.toLegacy
 import com.willfp.ecoarmor.plugin
 import com.willfp.ecoarmor.sets.ArmorSlot.Companion.getSlot
 import com.willfp.ecoarmor.sets.ArmorUtils.getSetOnItem
@@ -130,8 +128,8 @@ class ArmorSet(
             }
             val advancedItem = construct(slot, slotConfig, true)
             advancedItems[slot] = advancedItem
-            unformattedLore[slot] = displayLore(slotConfig, item, advanced = false)
-            unformattedAdvancedLore[slot] = displayLore(slotConfig, advancedItem, advanced = true)
+            unformattedLore[slot] = displayLore(slotConfig, advanced = false)
+            unformattedAdvancedLore[slot] = displayLore(slotConfig, advanced = true)
 
             slotHolders[slot] = SimpleHolder(
                 plugin.createNamespacedKey("${id}_${slot.name.lowercase()}"),
@@ -308,14 +306,13 @@ class ArmorSet(
 
     private fun displayLore(
         slotConfig: Config,
-        piece: ItemStack,
         advanced: Boolean
     ): List<String> {
         val componentKeys = slotConfig.getSubsection("components").getKeys(false) +
             if (advanced) slotConfig.getSubsection("advancedComponents").getKeys(false) else emptyList()
 
         return if (componentKeys.any { it == "lore" || it == "minecraft:lore" }) {
-            piece.fast().loreComponents.map { Display.stripDisplayMarker(it).toLegacy() }
+            emptyList()
         } else {
             pieceLore(slotConfig, advanced = advanced, formatted = false)
         }
